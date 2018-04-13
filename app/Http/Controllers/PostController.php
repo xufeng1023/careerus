@@ -19,7 +19,7 @@ class PostController extends Controller
     }
 
     public function show(Post $post)
-    {;
+    {
         $post->load('catagory');
 
         return view('post', compact('post'));
@@ -27,7 +27,8 @@ class PostController extends Controller
 
     public function allAdmin()
     {
-        $posts = Post::with('creator')->get();
+        if(request('id')) $posts[] = Post::find(request('id'));
+        else $posts = Post::with('creator')->get();
         
         return view('admin.posts', compact('posts'));
     }
