@@ -31,6 +31,6 @@ class Post extends Model
 
     public function setTitleAttribute($value)
     {
-        $this->attributes['title'] = trim(preg_replace("/[^A-Za-z0-9 ]+/", ' ', $value));
+        $this->attributes['title'] = ucwords(trim(preg_replace("/[^A-Za-z0-9 ]+/", ' ', $value)));
     }
 }

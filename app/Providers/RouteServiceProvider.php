@@ -24,8 +24,8 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         Route::bind('postSlug', function ($value) {
-            $title = implode(' ', explode('-', $value));
-           
+            $title = ucwords(implode(' ', explode('-', $value)));
+
             return \App\Post::where('title', $title)->where('identity', request('i'))->first() ?? abort(404);
         });
 
