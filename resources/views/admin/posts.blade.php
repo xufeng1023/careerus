@@ -97,11 +97,11 @@
 
             <div class="form-group">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="is_fulltime" id="radio-fulltime" value="1" {{ request('id') && ($posts[0]->is_fulltime == 1)? 'checked' : '' }}>
+                    <input class="form-check-input" type="radio" name="is_fulltime" id="radio-fulltime" value="1" {{ request('id') && ($posts[0]->is_fulltime == 1)? 'checked' : '' }} required>
                     <label class="form-check-label" for="radio-fulltime">Full Time</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="is_fulltime" id="radio-parttime" value="0" {{ request('id') && ($posts[0]->is_fulltime == 0)? 'checked' : '' }}>
+                    <input class="form-check-input" type="radio" name="is_fulltime" id="radio-parttime" value="0" {{ request('id') && ($posts[0]->is_fulltime == 0)? 'checked' : '' }} required>
                     <label class="form-check-label" for="radio-parttime">Part Time</label>
                 </div>
             </div>

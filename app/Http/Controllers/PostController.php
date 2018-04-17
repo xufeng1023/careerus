@@ -8,7 +8,7 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'admin'])->except(['all']);
+        $this->middleware(['auth', 'admin'])->except(['all', 'show']);
     }
 
     public function all()

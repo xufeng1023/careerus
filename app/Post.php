@@ -22,4 +22,15 @@ class Post extends Model
     {
         return $this->belongsTo(Catagory::class);
     }
+
+    public function findPost()
+    {
+        $postTitle = implode(' ', explode('-', request('title')));
+        return $this->where('title', $postTitle)->where('identity', request('identity'))->firstOrFail();
+    }
+
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = trim(preg_replace("/[^A-Za-z0-9 ]+/", ' ', $value));
+    }
 }

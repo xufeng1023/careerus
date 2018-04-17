@@ -10,17 +10,10 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password', 'role'
+        'name', 'email', 'phone', 'resume', 'password'
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    protected $with = ['profile'];
-
-    public function profile()
-    {
-        return $this->hasOne(Profile::class);
-    }
 }

@@ -66,9 +66,11 @@ class ExampleTest extends TestCase
             $admin = create('User', ['role' => 'admin'])
         );
 
-        $post = raw('Post', ['user_id' => $admin->id]);
+        $post = raw('Post', ['user_id' => $admin->id, 'title' => 'a--bb']);
 
         $this->post('/admin/post/add', $post);
+
+        $post['title'] =  'a bb';
 
         $this->assertDatabaseHas('posts', $post);
     }
@@ -131,15 +133,13 @@ class ExampleTest extends TestCase
         $this->assertDatabaseHas('companies', ['name' => 'Apple']);
     }
 
-    public function test_admin_can_see_all_users_with_respective_profile()
+    public function test_admin_can_see_all_users()
     {
         $this->login(
             $admin = create('User', ['role' => 'admin'])
         );
 
-        $profile = create('Profile', ['user_id' => $admin->id]);
-
-        $this->get('/admin/user')->assertSee($admin->name)->assertSee($profile->phone);
+        $this->get('/admin/user')->assertSee($admin->name);
     }
 
     public function test_admin_can_add_an_user()
