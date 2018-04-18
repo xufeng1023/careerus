@@ -37,7 +37,10 @@ class PostController extends Controller
     {
         $data = request()->all();
         $data['user_id'] = auth()->id();
-        $data['identity'] = str_random(50).md5(time());
+
+        if(app()->environment() !== 'testing') {
+            $data['identity'] = str_random(50).md5(time());
+        }
 
         Post::create($data);
 

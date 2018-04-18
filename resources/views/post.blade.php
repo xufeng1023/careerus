@@ -34,7 +34,8 @@
 
                         <div class="modal-body">
                             @auth
-                                <form action="POST">
+                                <form method="post" action="/apply">
+                                    @csrf
                                     <div class="form-group">
                                         <label class="col-form-label">{{ __('front.name') }}</label>
                                         <div>
@@ -61,7 +62,7 @@
                                         <div class="form-group">
                                             <label class="col-form-label">{{ __('front.resume') }}</label>
                                             <div>
-                                                <input type="text" readonly class="form-control  form-control-sm" value="{{ auth()->user()->resume }}">
+                                                <input type="text" readonly class="form-control  form-control-sm" value="{{ substr(auth()->user()->resume, 8) }}">
                                             </div>
                                         </div>
                                     @endif
@@ -75,6 +76,8 @@
 
                                     <hr>
 
+                                    <input type="hidden" name="job" value="{{ $post->title }}">
+                                    <input type="hidden" name="identity" value="{{ $post->identity }}">
                                     <div>
                                         <button type="submit" class="btn btn-primary">
                                             {{ __('front.confirm') }}
@@ -85,7 +88,7 @@
                                     </div>
                                 </form>
                             @else
-                                <form method="POST" action="">
+                                <form method="POST" action="/applyRegister" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group alert alert-primary" role="alert">
                                         {{ __('front.free alert') }}
@@ -121,7 +124,6 @@
 
                                     <div class="form-group">
                                         <label for="password-confirm" class="col-form-label">{{ __('front.Confirm Password') }}</label>
-
                                         <div>
                                             <input id="password-confirm" type="password" class="form-control  form-control-sm" name="password_confirmation" required>
                                         </div>
@@ -130,12 +132,13 @@
                                     <div class="form-group">
                                         <label for="resume" class="col-form-label">{{ __('front.resume') }}</label>
                                         <div>
-                                            <input type="file" id="resume">
+                                            <input type="file" id="resume" name="resume">
                                         </div>
                                     </div>
 
                                     <hr>
-                                    
+                                    <input type="hidden" name="job" value="{{ $post->title }}">
+                                    <input type="hidden" name="identity" value="{{ $post->identity }}">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('front.apply and register') }}
                                     </button>

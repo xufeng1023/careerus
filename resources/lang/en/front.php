@@ -13,6 +13,7 @@ return [
     'job apply' => '工作申请',
     'login' => '登入',
     'name' => '名字',
+    'no points' => '点数不够，请充值',
     'Password' => '密码',
     'points' => '现有点数',
     'register' => '注册',

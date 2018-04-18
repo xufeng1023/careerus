@@ -23,10 +23,11 @@ class Post extends Model
         return $this->belongsTo(Catagory::class);
     }
 
-    public function findPost()
+    public function findPost($title, $identity)
     {
-        $postTitle = implode(' ', explode('-', request('title')));
-        return $this->where('title', $postTitle)->where('identity', request('identity'))->firstOrFail();
+        $postTitle = ucwords(implode(' ', explode('-', $title)));
+
+        return $this->where('title', $postTitle)->where('identity', $identity)->firstOrFail();
     }
 
     public function setTitleAttribute($value)

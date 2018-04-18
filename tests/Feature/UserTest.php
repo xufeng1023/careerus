@@ -70,7 +70,7 @@ class ExampleTest extends TestCase
 
         $this->post('/admin/post/add', $post);
 
-        $post['title'] =  'a bb';
+        $post['title'] = ucwords('a bb');
 
         $this->assertDatabaseHas('posts', $post);
     }

@@ -9,8 +9,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('/jobs', 'PostController@all');
 Route::get('/job/{postSlug}', 'PostController@show');
-Route::get('/apply', 'ApplyController@form');
-//Route::post('/apply', 'ApplyController@save');
+Route::post('/apply', 'ApplyController@save');
+Route::post('/applyRegister', '\App\Http\Controllers\Auth\RegisterController@register');
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', 'PostController@allAdmin');
