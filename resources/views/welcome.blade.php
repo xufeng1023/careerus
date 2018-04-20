@@ -7,6 +7,7 @@
                 font-weight: 100;
                 height: 100vh;
                 margin: 0;
+                overflow: hidden;
             }
 
             .full-height {
@@ -53,14 +54,38 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <div id="app" class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/jobs') }}">Jobs</a>
+                        <a id="homeDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="homeDropdown">
+                            <a class="dropdown-item" href="{{ url('dashboard/applies') }}">
+                                {{ __('front.dashboard') }}
+                            </a>
+
+                            @role('admin')
+                                <a class="dropdown-item" href="{{ url('admin/applies') }}">
+                                    {{ __('admin.admin') }}
+                                </a>
+                            @endrole
+
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                {{ __('front.logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
                     @else
-                        <a href="{{ route('login') }}">{{ __('front.login') }}</a>
                         <a href="{{ route('register') }}">{{ __('front.register') }}</a>
+                        <a href="{{ route('login') }}">{{ __('front.login') }}</a>
                     @endauth
                 </div>
             @endif
@@ -70,5 +95,12 @@
                 @include('_search')
             </div>
         </div>
+        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/autocomplete.js') }}"></script>
+        <script>
+            new Vue({
+                el: '#app'
+            });
+        </script>
     </body>
 </html>

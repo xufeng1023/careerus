@@ -10,6 +10,5 @@
     
     <title>@yield('title'){{ config('app.name', 'CareerUsa') }}</title>
 
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">

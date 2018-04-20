@@ -42,7 +42,7 @@
                         <tr>
                             <td><a href="?id={{ $user->id }}">{{ $user->name }}</a></td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->profile? $user->profile->phone : '' }}</td>
+                            <td>{{ $user->phone }}</td>
                             <td>{{ $user->role }}</td>
                         </tr>
                     @endforeach

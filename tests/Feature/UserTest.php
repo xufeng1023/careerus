@@ -3,9 +3,11 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ExampleTest extends TestCase
+class UserTest extends TestCase
 {
     
     use RefreshDatabase;
@@ -38,7 +40,7 @@ class ExampleTest extends TestCase
             'Illuminate\Auth\AuthenticationException'
         );
 
-        $this->get('/admin');
+        $this->get('/admin/applies');
     }
 
     public function test_students_cannot_access_admin_pages()
@@ -52,12 +54,6 @@ class ExampleTest extends TestCase
         );
 
         $this->get('/admin');
-    }
-
-    public function test_guests_and_students_can_see_all_the_posts()
-    {
-        $post = create('Post', ['identity' => 'aaa']);
-        $this->get('/jobs')->assertSee($post->title);
     }
 
     public function test_admin_can_add_a_post()
@@ -165,11 +161,74 @@ class ExampleTest extends TestCase
         $this->assertDatabaseHas('users', ['name' => 'not admin']);
     }
 
-    // public function test_user_can_search_jobs_by_job_title_andOr_location()
-    // {
-    //     $post1 = create('Post', ['title' => 'job1']);
-    //     $post2 = create('Post', ['title' => 'job2']);
+    public function test_guests_can_not_see_dashboard()
+    {
+        $this->expectException(
+            'Illuminate\Auth\AuthenticationException'
+        );
 
-    //     $this->get('/jobs')->assertSee($post1->title)->assertDontSee($post2->title);
-    // }
+        $this->get('/dashboard/applies');
+    }
+
+    public function test_students_can_update_their_account_info()
+    {
+        $data1 = ['name' => 'name A', 'email'=> 'email1@email.com', 'phone' => '8888888888'];
+        $data2 = ['name' => 'name B', 'email'=> 'email2@email.com', 'phone' => '7777777777'];
+
+        $this->login(
+            $student = create('User', $data1)
+        );
+
+        $this->post('/dashboard/account', $data2);
+
+        $this->assertDatabaseHas('users', $data2)
+            ->assertDatabaseMissing('users', $data1);
+    }
+
+    public function test_students_can_update_their_password()
+    {
+        $pass1 = '123123';
+        $pass2 = '12341234';
+        $data = ['oldPass' => $pass1, 'password' => $pass2, 'password_confirmation' => $pass2];
+
+        $this->login(
+            $student = create('User', ['password' => $pass1 = bcrypt($pass1)])
+        );
+
+        $this->post('/dashboard/password', $data);
+
+        $this->assertDatabaseMissing('users', ['password' => $pass1]);
+    }
+
+    public function test_students_can_update_their_resume()
+    {
+        Storage::fake();
+
+        $this->login(
+            $student = create('User', ['resume' => 'resume.pdf'])
+        );
+
+        $file = UploadedFile::fake()->image('new-resume.pdf');
+
+        $this->post('/dashboard/resume', ['resume' => $file]);
+
+        $this->assertDatabaseMissing('users', ['resume' => 'resume.pdf']);
+        $this->assertDatabaseHas('users', ['resume' => 'resumes/'.$file->hashName()]);
+        Storage::disk('local')->assertExists('resumes/' . $file->hashName());
+    }
+
+    public function test_admin_can_notify_students_after_applying()
+    {
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $apply = create('Apply');
+
+        $this->assertDatabaseHas('applies', ['id' => $apply->id, 'is_applied' => 0]);
+
+        $this->post('/admin/applied/notify/'.$apply->id);
+
+        $this->assertDatabaseHas('applies', ['id' => $apply->id, 'is_applied' => 1]);
+    }
 }

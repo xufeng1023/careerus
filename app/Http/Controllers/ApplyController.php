@@ -11,13 +11,20 @@ class ApplyController extends Controller
         $this->middleware('auth');
     }
 
+    public function all()
+    {
+        $applies = Apply::with(['post', 'user'])->latest()->get();
+
+        return view('admin.applies', compact('applies'));
+    }
+
     public function save()
     {
         $user = auth()->user();
         $couponUsed = $user->applies()->count();
 
         if(($couponUsed >= 5) && ($user->points < 20)) {
-            return trans('front.no points');
+            return response(['errors' => ['points' => trans('front.no points')]], 422);
         }
         
         $post = (new Post)->findPost(request('job'), request('identity'));
@@ -27,5 +34,18 @@ class ApplyController extends Controller
         if($couponUsed >= 5) {
             $user->decrement('points', 20);
         }
+
+        return redirect('/dashboard/applies');
+    }
+
+    public function notify(Apply $apply)
+    {
+        $apply->is_applied = 1;
+        $apply->save();
+        // todo: email student
+        return [
+            'msg' => trans('admin.notified'),
+            'status' => trans('admin.applied')
+        ];
     }
 }

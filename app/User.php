@@ -21,4 +21,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Apply::class);
     }
+
+    public function maskResumeName()
+    {
+        return substr($this->resume, 30, 25);
+    }
 }

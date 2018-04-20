@@ -63,7 +63,7 @@ class ApplyTest extends TestCase
             $this->post('/apply', $data);
         }
 
-        $this->post('/apply', $data)->assertSee(trans('front.no points'));
+        $this->post('/apply', $data)->assertStatus(422);
 
         $this->assertEquals(5, \App\Apply::count());
     }
@@ -87,5 +87,20 @@ class ApplyTest extends TestCase
 
         $this->assertEquals(6, \App\Apply::count());
         $this->assertEquals(80, auth()->user()->points);
+    }
+
+    public function test_students_can_see_their_applies_on_dashboard()
+    {
+        $this->login(
+            $student = create('User', ['points' => 100])
+        );
+        
+        $post = create('Post');
+
+        $data['identity'] = $post->identity;
+        $data['job'] = $post->title;
+
+        $this->post('/apply', $data);
+        $this->get('/dashboard/applies')->assertSee($post->title);
     }
 }

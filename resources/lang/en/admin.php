@@ -3,6 +3,9 @@
 return [
 
     'admin' => '管理员',
+    'applies' => '申请',
+    'applied' => '已通知申请',
+    'applied date' => '申请时间',
     'catagory' => '领域',
     'catagory name' => '名称',
     'company' => '公司',
@@ -17,6 +20,9 @@ return [
     'job desc' => '简介',
     'job location' => '工作地点',
     'job add' => '添加',
+    'notify student'=> '通知学生已申请',
+    'notified' => '已发送通知',
+    'not applied' => '等待申请',
     'password' => '密码',
     'phone' => '电话',
     'role' => '类型',

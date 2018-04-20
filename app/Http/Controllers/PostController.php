@@ -13,7 +13,26 @@ class PostController extends Controller
 
     public function all()
     {
-        $posts = Post::with('company')->get();
+        if(!request('s') && !request('l')) {
+            return back();
+        }
+
+        $query = Post::with('company');
+
+        if(request('s') && request('l')) {
+            $query = $query->where('title', 'LIKE', '%'.request('s').'%')
+                            ->where('location', 'LIKE', '%'.request('l').'%');
+        }
+
+        if(request('s') && !request('l')) {
+            $query = $query->where('title', 'LIKE', '%'.request('s').'%');
+        }
+
+        if(!request('s') && request('l')) {
+            $query = $query->where('location', 'LIKE', '%'.request('l').'%');
+        }
+
+        $posts = $query->get();
 
         return view('posts', compact('posts'));
     }

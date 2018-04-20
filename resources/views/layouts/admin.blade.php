@@ -35,28 +35,35 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="/admin">
+                <a class="nav-link {{ str_contains(url()->current(), 'applies')? 'active' : '' }}" href="/admin/applies">
+                  <span data-feather="flag"></span>
+                  {{ __('admin.applies') }}
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link {{ str_contains(url()->current(), 'jobs')? 'active' : '' }}" href="/admin/jobs">
                   <span data-feather="list"></span>
                   {{ __('admin.job list') }}
                 </a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="/admin/catagory">
-                  <span data-feather="list"></span>
+                <a class="nav-link {{ str_contains(url()->current(), 'catagory')? 'active' : '' }}" href="/admin/catagory">
+                  <span data-feather="grid"></span>
                   {{ __('admin.catagory') }}
                 </a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="/admin/company">
+                <a class="nav-link {{ str_contains(url()->current(), 'company')? 'active' : '' }}" href="/admin/company">
                   <span data-feather="home"></span>
                   {{ __('admin.company') }}
                 </a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="/admin/user">
+                <a class="nav-link {{ str_contains(url()->current(), 'user')? 'active' : '' }}" href="/admin/user">
                   <span data-feather="users"></span>
                   {{ __('admin.users') }}
                 </a>
@@ -72,10 +79,8 @@
         </main>
       </div>
     </div>
-
     <script src="{{ asset('js/feather.min.js') }}"></script>
-    <script>
-      feather.replace()
-    </script>
+    <script>feather.replace()</script>
+    @yield('script')
   </body>
 </html>

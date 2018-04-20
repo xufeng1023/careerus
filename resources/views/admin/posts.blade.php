@@ -6,7 +6,7 @@
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         @if(request('id'))
             <li class="nav-item">
-                <a class="nav-link active" href="/admin">
+                <a class="nav-link active" href="/admin/jobs">
                     {{ __('admin.return') }}
                 </a>
             </li>

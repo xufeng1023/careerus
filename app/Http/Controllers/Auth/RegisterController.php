@@ -13,7 +13,7 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     public function __construct()
     {
@@ -29,9 +29,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'name' => 'required|regex:/^[a-zA-Z]{1}[a-zA-Z ]*$/|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required|regex:/[1-9][0-9]{9}/|unique:users',
+            'phone' => 'required|regex:/^[1-9]{1}[0-9]{9}$/|unique:users',
             'resume' => 'required|file|mimes:doc,docx,txt,pdf,rtf',
             'password' => 'required|string|min:6|confirmed',
         ]);

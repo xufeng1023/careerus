@@ -62,7 +62,11 @@
                         <div class="form-group row">
                             <label for="resume" class="col-md-4 col-form-label text-md-right">{{ __('front.resume') }}</label>
                             <div class="col-md-6">
-                                <input type="file" id="resume" name="resume" required>
+                                <div class="custom-file">
+                                    <input type="file" name="resume" class="custom-file-input" id="resume" required>
+                                    <label class="custom-file-label" for="resume"></label>
+                                    <div v-if="errors.resume" class="invalid-feedback"></div>
+                                </div>
                             </div>
                         </div>
 
@@ -79,4 +83,18 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    $('[type=file]').change(function(e) {
+        let label = $(this).siblings('label');
+        let file = e.target.files[0];
+        if(file) {
+            label.text(file.name);
+        } else {
+            label.text('');
+        }
+    });
+</script>
 @endsection

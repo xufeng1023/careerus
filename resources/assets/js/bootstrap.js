@@ -1,10 +1,14 @@
-
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
 
-
 try {
     window.$ = window.jQuery = require('jquery');
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     require('bootstrap');
 } catch (e) {}

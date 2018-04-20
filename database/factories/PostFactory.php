@@ -10,7 +10,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'user_id' => 1,
         'catagory_id' => factory(App\Catagory::class)->create(),
         'company_id' => factory(App\Company::class)->create(),
-        'location' => 'New York, NY',
+        'location' => 'New York,NY',
         'identity' => str_random(50).md5(time())
     ];
 });

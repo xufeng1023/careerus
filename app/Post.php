@@ -23,6 +23,11 @@ class Post extends Model
         return $this->belongsTo(Catagory::class);
     }
 
+    public function jobType()
+    {
+        return $this->is_fulltime? 'Full-time' : 'Part-time';
+    }
+
     public function findPost($title, $identity)
     {
         $postTitle = ucwords(implode(' ', explode('-', $title)));
@@ -33,5 +38,10 @@ class Post extends Model
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = ucwords(trim(preg_replace("/[^A-Za-z0-9 ]+/", ' ', $value)));
+    }
+
+    public function setLocationAttribute($value)
+    {
+        $this->attributes['location'] = preg_replace("/, /", ',', $value);
     }
 }
