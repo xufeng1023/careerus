@@ -10422,3 +10422,7 @@ a.text-dark:focus {
   z-index: 9;
 }
 
+.del {
+  text-decoration: line-through;
+}
+

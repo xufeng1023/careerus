@@ -42,6 +42,11 @@ class UserController extends Controller
         return view('dashboard.account');
     }
 
+    public function payment()
+    {
+        return view('dashboard.payment');
+    }
+
     public function accountUpdate()
     {
         request()->validate([

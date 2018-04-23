@@ -33,6 +33,7 @@ return [
     'password reset' => '重置密码',
     'password forgot' => '忘记密码？',
     'points' => '现有点数',
+    'payment' => '付费管理',
     'register' => '上传简历',
     'resume' => '简历',
     'resume update' => '更新简历',

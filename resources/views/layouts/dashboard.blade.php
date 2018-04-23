@@ -8,6 +8,7 @@
 <div class="nav-scroller bg-white box-shadow container p-0">
     <nav class="nav nav-underline">
         <a class="nav-link active" href="/dashboard/applies">{{ __('front.applies') }}</a>
+        <a class="nav-link" href="/dashboard/payment">{{ __('front.payment') }}</a>
         <a class="nav-link" href="/dashboard/account">{{ __('front.account') }}</a>
     </nav>
 </div>

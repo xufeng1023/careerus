@@ -14,6 +14,7 @@ return [
     'company hr' => '公司联系人',
     'company email' => 'HR Email',
     'email' => '邮箱',
+    'free apply times' => '免费申请次数',
     'good news' => '好消息',
     'has been applied' => '你申请的:job已经被内推了。',
     'is fulltime' => 'Full Time',
@@ -32,9 +33,11 @@ return [
     'return' => '返回',
     'save' => '保存',
     'student' => '学生',
+    'settings' => '设置',
     'users' => '用户',
     'user name' => '用户名',
     'update' => '更新',
     'updated' => '更新成功!',
+    'view'=> '查看',
     
 ];

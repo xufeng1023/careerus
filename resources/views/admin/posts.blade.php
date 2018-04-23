@@ -6,6 +6,11 @@
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         @if(request('id'))
             <li class="nav-item">
+                <a class="nav-link" target="_blank" href="/job/{{ $posts[0]->title }}?i={{ $posts[0]->identity }}">
+                    {{ __('admin.view') }}
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link active" href="/admin/jobs">
                     {{ __('admin.return') }}
                 </a>

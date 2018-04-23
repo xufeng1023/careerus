@@ -83,7 +83,7 @@
                                         <button type="submit" class="btn btn-primary">
                                             {{ __('front.confirm') }}
                                         </button>
-                                        <small id="passwordHelpInline" class="text-muted">
+                                        <small id="passwordHelpInline" class="text-muted {{ (auth()->user()->apply_count < 5)? 'del':'' }}">
                                             {{ __('front.consume points', ['points' => 20]) }}
                                         </small>
                                     </div>

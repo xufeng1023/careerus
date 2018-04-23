@@ -17,6 +17,7 @@ Route::post('/applyRegister', '\App\Http\Controllers\Auth\RegisterController@reg
 Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::get('/applies', 'UserController@applies');
     Route::get('/account', 'UserController@account');
+    Route::get('/payment', 'UserController@payment');
 
     Route::post('/account', 'UserController@accountUpdate');
     Route::post('/password', 'UserController@passwordUpdate');
@@ -29,6 +30,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/user', 'UserController@all');
     Route::get('/catagory', 'CatagoryController@allAdmin');
     Route::get('/company', 'CompanyController@all');
+    Route::get('/settings', 'SettingsController@index');
 
     Route::post('/post/add', 'PostController@save');
     Route::post('/post/update/{post}', 'PostController@update');
@@ -38,4 +40,5 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/company/add', 'CompanyController@save');
     Route::post('/company/update/{company}', 'CompanyController@update');
     Route::post('/applied/notify/{apply}', 'ApplyController@notify');
+    Route::post('/settings', 'SettingsController@update');
 });

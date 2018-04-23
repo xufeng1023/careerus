@@ -7,8 +7,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="robots" content="noindex">
 
-    <script src="{{ asset('js/admin.js') }}" defer></script>
-
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
     @yield('style')
   </head>
@@ -68,6 +66,13 @@
                   {{ __('admin.users') }}
                 </a>
               </li>
+
+              <!-- <li class="nav-item">
+                <a class="nav-link {{ str_contains(url()->current(), 'settings')? 'active' : '' }}" href="/admin/settings">
+                  <span data-feather="settings"></span>
+                  {{ __('admin.settings') }}
+                </a>
+              </li> -->
             </ul>
           </div>
         </nav>
@@ -79,6 +84,7 @@
         </main>
       </div>
     </div>
+    <script src="{{ asset('js/admin.js') }}"></script>
     <script src="{{ asset('js/feather.min.js') }}"></script>
     <script>feather.replace()</script>
     @yield('script')

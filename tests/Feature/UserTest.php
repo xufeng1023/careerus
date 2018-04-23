@@ -236,4 +236,26 @@ class UserTest extends TestCase
 
         $this->assertDatabaseHas('applies', ['id' => $apply->id, 'is_applied' => 1]);
     }
+
+    public function test_guests_can_not_access_settings_page()
+    {
+        $this->expectException(
+            'Illuminate\Auth\AuthenticationException'
+        );
+
+        $this->get('/admin/settings');
+    }
+
+    public function test_users_can_not_access_settings_page()
+    {
+        $this->expectException(
+            'Symfony\Component\HttpKernel\Exception\NotFoundHttpException'
+        );
+
+        $this->login(
+            $student = create('User', ['role' => 'student'])
+        );
+
+        $this->get('/admin/settings');
+    }
 }
