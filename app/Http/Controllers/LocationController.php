@@ -14,7 +14,7 @@ class LocationController extends Controller
             $cities = City::where('name', 'LIKE', $s.'%')->take(5)->get();
 
             $cities->load('state');
-
+            
             return $cities;
         }
     }

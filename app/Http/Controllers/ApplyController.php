@@ -42,7 +42,9 @@ class ApplyController extends Controller
     {
         $apply->is_applied = 1;
         $apply->save();
-        // todo: email student
+
+        event(new \App\Events\jobIsAppliedForStudent($apply));
+        
         return [
             'msg' => trans('admin.notified'),
             'status' => trans('admin.applied')

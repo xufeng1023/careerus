@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 
 class UserTest extends TestCase
 {
@@ -217,7 +218,7 @@ class UserTest extends TestCase
         Storage::disk('local')->assertExists('resumes/' . $file->hashName());
     }
 
-    public function test_admin_can_notify_students_after_applying()
+    public function test_admin_can_email_students_after_applying()
     {
         $this->login(
             $admin = create('User', ['role' => 'admin'])
@@ -228,6 +229,10 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('applies', ['id' => $apply->id, 'is_applied' => 0]);
 
         $this->post('/admin/applied/notify/'.$apply->id);
+
+        Mail::fake();
+        event(new \App\Events\jobIsAppliedForStudent($apply));
+        Mail::assertSent(\App\Mail\YourJobIsApplied::class);
 
         $this->assertDatabaseHas('applies', ['id' => $apply->id, 'is_applied' => 1]);
     }
