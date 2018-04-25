@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\{User, Plan, Invoice};
 
 class UserController extends Controller
 {
@@ -30,7 +30,7 @@ class UserController extends Controller
 
     public function applies()
     {
-        $applies = auth()->user()->applies()->orderBy('created_at','desc')->get();
+        $applies = auth()->user()->applies()->orderBy('created_at','desc')->paginate(15);
 
         $applies->load('post');
 
@@ -44,7 +44,8 @@ class UserController extends Controller
 
     public function payment()
     {
-        return view('dashboard.payment');
+        $plans = Plan::all();
+        return view('dashboard.payment', compact('plans'));
     }
 
     public function accountUpdate()
@@ -78,6 +79,15 @@ class UserController extends Controller
         return [trans('front.updated ok')];
     }
 
+    public function resumeDownload()
+    {
+        try {
+            return \Storage::download(request('r'));
+        } catch(\Exception $e) {
+            return back();
+        }
+    }
+
     public function resumeUpdate()
     {
         request()->validate([
@@ -87,5 +97,69 @@ class UserController extends Controller
         auth()->user()->update(['resume' => request('resume')->store('resumes')]);
 
         return [trans('front.updated ok')];
+    }
+
+    public function updateCardInfo()
+    {
+        $user = auth()->user();
+
+        try{
+            if($user->stripe_id) $user->updateCard(request('token'));
+
+            else $user->createAsStripeCustomer(request('token'));
+        } catch(\Exception $e) {
+            return response(trans('front.cc invalid'), 402);
+        }
+
+        return [
+            'cardLabel' => $user->cardLabel(),
+            'msg' => trans('front.updated ok')
+        ];
+    }
+
+    public function buy()
+    {
+        $user = auth()->user();
+
+        if(!$user->stripe_id) return response(trans('front.no card'), 402);
+
+        try{
+            $plan = Plan::findOrFail(request('plan'));
+        } catch(\Exception $e) {
+            return response(trans('front.plan invalid'), 402);
+        }
+
+        try {
+            $result = $user->invoiceFor($plan->name, $plan->price*100);
+            $invoice = new Invoice;
+            $invoice->user_id = auth()->id();
+            $invoice->plan = $plan->name;
+            $invoice->price = $plan->price;
+            $invoice->invoice_id = $result->id;
+            $invoice->save();
+        } catch(\Exception $e) {
+            return response(trans('front.payment failed'), 402);
+        }
+        
+        $user->increment('points', $plan->points);
+
+        return [
+            'points' => $user->points,
+            'invoice' => $invoice,
+            'msg' => trans('front.bought ok')
+        ];
+    }
+
+    public function invoices()
+    {
+        return auth()->user()->invoices()->orderBy('created_at', 'desc')->get();
+    }
+
+    public function invoice(Invoice $invoice)
+    {
+        return auth()->user()->downloadInvoice($invoice->invoice_id, [
+            'vendor'  => config('app.name'),
+            'product' => $invoice->plan,
+        ]);
     }
 }

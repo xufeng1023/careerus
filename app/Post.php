@@ -23,6 +23,11 @@ class Post extends Model
         return $this->belongsTo(Catagory::class);
     }
 
+    public function link()
+    {
+        return '/job/'.$this->title.'?i='.$this->identity;
+    }
+
     public function jobType()
     {
         return $this->is_fulltime? 'Full-time' : 'Part-time';

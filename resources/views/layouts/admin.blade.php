@@ -67,6 +67,13 @@
                 </a>
               </li>
 
+              <li class="nav-item">
+                <a class="nav-link {{ str_contains(url()->current(), 'plan')? 'active' : '' }}" href="/admin/plan">
+                  <span data-feather="award"></span>
+                  {{ __('admin.plans') }}
+                </a>
+              </li>
+
               <!-- <li class="nav-item">
                 <a class="nav-link {{ str_contains(url()->current(), 'settings')? 'active' : '' }}" href="/admin/settings">
                   <span data-feather="settings"></span>
@@ -85,8 +92,6 @@
       </div>
     </div>
     <script src="{{ asset('js/admin.js') }}"></script>
-    <script src="{{ asset('js/feather.min.js') }}"></script>
-    <script>feather.replace()</script>
     @yield('script')
   </body>
 </html>

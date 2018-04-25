@@ -2,15 +2,16 @@
 
 namespace App;
 
+use Laravel\Cashier\Billable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Billable;
 
     protected $fillable = [
-        'name', 'email', 'phone', 'resume', 'password'
+        'name', 'email', 'phone', 'resume', 'password', 'role'
     ];
 
     protected $hidden = [
@@ -22,6 +23,21 @@ class User extends Authenticatable
     public function applies()
     {
         return $this->hasMany(Apply::class);
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    public function isApplied($post_id)
+    {
+        return $this->applies()->where('post_id', $post_id)->first();
+    }
+
+    public function cardLabel()
+    {
+        return $this->stripe_id? $this->card_brand.'-'.$this->card_last_four : trans('front.no card');
     }
 
     public function getApplyCountAttribute()

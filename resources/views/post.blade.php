@@ -18,9 +18,15 @@
             <hr>
             <p>{!! $post->description !!}</p>
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyModal">
-                {{ __('front.apply') }}
-            </button>
+            <div class="mb-1">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyModal">
+                    {{ __('front.apply') }}
+                </button>
+            </div>
+
+            @if($apply = auth()->user()->isApplied($post->id))
+                <div class="text-muted">*{{ __('front.applied already', ['time' => $apply->created_at->format('Y-m-d')]) }}</div>
+            @endif
 
             <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="applyModal" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -34,6 +40,9 @@
 
                         <div class="modal-body">
                             @auth
+                                @if(auth()->user()->apply_counts < 5)
+                                    <div class="alert alert-success">{{ __('front.free times left', ['times' => 5]) }}</div>
+                                @endif
                                 <form method="post" action="/apply" @submit="onSubmit">
                                     @csrf
                                     <div class="form-group">
@@ -49,23 +58,20 @@
                                             <input type="text" readonly class="form-control  form-control-sm" value="{{ auth()->user()->email }}">
                                         </div>
                                     </div>
-                                    @if(auth()->user()->phone)
-                                        <div class="form-group">
-                                            <label class="col-form-label">{{ __('admin.phone') }}</label>
-                                            <div>
-                                                <input type="text" readonly class="form-control  form-control-sm" value="{{ auth()->user()->phone }}">
-                                            </div>
-                                        </div>
-                                    @endif
 
-                                    @if(auth()->user()->resume)
-                                        <div class="form-group">
-                                            <label class="col-form-label">{{ __('front.resume') }}</label>
-                                            <div>
-                                                <input type="text" readonly class="form-control  form-control-sm" value="{{ auth()->user()->maskResumeName() }}">
-                                            </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">{{ __('admin.phone') }}</label>
+                                        <div>
+                                            <input type="text" readonly class="form-control  form-control-sm" value="{{ auth()->user()->phone }}">
                                         </div>
-                                    @endif
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-form-label">{{ __('front.resume') }}</label>
+                                        <div>
+                                            <input type="text" readonly class="form-control  form-control-sm" value="{{ auth()->user()->maskResumeName() }}">
+                                        </div>
+                                    </div>
 
                                     <div class="form-group">
                                         <label class="col-form-label">{{ __('front.points') }}</label>
@@ -92,7 +98,7 @@
                                 <form method="POST" action="/applyRegister" enctype="multipart/form-data" @submit="onSubmit">
                                     @csrf
                                     <div class="form-group alert alert-primary" role="alert">
-                                        {{ __('front.free alert') }}
+                                    {{ __('front.free alert', ['times' => 5]) }}
                                     </div>
 
                                     <div class="form-group">
@@ -181,8 +187,8 @@
                     error(data) {
                         this.errors = JSON.parse(data.responseText).errors;
                     },
-                    success() {
-                        location.reload();
+                    success(data) {
+                        location.assign(data);
                     }
                 });
             },

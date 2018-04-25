@@ -17,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
+        \Carbon\Carbon::setLocale(app()->getLocale());
+
         Blade::if('role', function ($role) {
             return auth()->user()->role === $role;
         });

@@ -35,6 +35,7 @@
                         <th>{{ __('admin.email') }}</th>
                         <th>{{ __('admin.phone') }}</th>
                         <th>{{ __('admin.role') }}</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,6 +45,13 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone }}</td>
                             <td>{{ $user->role }}</td>
+                            <td>
+                                @if($user->resume)
+                                    <a href="/dashboard/resume/download?r={{ $user->resume }}">
+                                        {{ __('front.resume download') }}
+                                    </a>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -77,15 +85,26 @@
                 <input type="password" class="form-control" name="password">
             </div>
             @endunless
-            <div class="form-group">
-                <label class="col-form-label">{{ __('admin.role') }}</label>
 
-                <select class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" name="role">
-                    <option value="student" {{ request('id') && ($users[0]->role == 'student')? 'selected' : '' }}>{{ __('admin.student') }}</option>
-                    <option value="admin" {{ request('id') && ($users[0]->role == 'admin')? 'selected' : '' }}>{{ __('admin.admin') }}</option>
-                </select>
-            </div>
-            
+            @unless(auth()->id() === $users[0]->id && $users[0]->role === 'admin')
+                <div class="form-group">
+                    <label class="col-form-label">{{ __('admin.role') }}</label>
+
+                    <select class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" name="role">
+                        <option value="student" {{ request('id') && ($users[0]->role == 'student')? 'selected' : '' }}>{{ __('admin.student') }}</option>
+                        <option value="admin" {{ request('id') && ($users[0]->role == 'admin')? 'selected' : '' }}>{{ __('admin.admin') }}</option>
+                    </select>
+                </div>
+            @endunless
+
+            @if(request('id') && $users[0]->resume)
+                <div class="form-group">
+                    <a href="/dashboard/resume/download?r={{ $users[0]->resume }}">
+                        {{ __('front.resume download') }}
+                    </a>
+                </div>
+            @endif
+
             <button type="submit" class="btn btn-primary">{{ request('id')? __('admin.update') : __('admin.save') }}</button>
         </form>
     </div>

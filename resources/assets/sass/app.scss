@@ -1,6 +1,13 @@
 @import "variables";
 @import '~bootstrap/scss/bootstrap';
+@import '~toastr/toastr';
 
+caption {
+  caption-side: top;
+}
+.nav-underline .active {
+  color: $primary !important;
+}
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -9,13 +16,6 @@
   width: 16px;
   height: 16px;
   vertical-align: text-bottom;
-}
-.feather {
-  margin-right: 4px;
-  color: #999;
-}
-.feather {
-  color: inherit;
 }
 .modal-body {
   padding: 1rem 2rem;

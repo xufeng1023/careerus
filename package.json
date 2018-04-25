@@ -20,6 +20,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
+        "feather-icons": "^4.7.0",
         "toastr": "^2.1.4",
         "trix": "^0.11.2"
     }

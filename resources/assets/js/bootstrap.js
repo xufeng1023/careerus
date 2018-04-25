@@ -1,6 +1,9 @@
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
 
+window.toastr = require('toastr');
+require('feather-icons').replace();
+
 try {
     window.$ = window.jQuery = require('jquery');
 
@@ -14,14 +17,14 @@ try {
 } catch (e) {}
 
 
-window.axios = require('axios');
+// window.axios = require('axios');
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 
 let token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    //window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
     token.remove();
 }

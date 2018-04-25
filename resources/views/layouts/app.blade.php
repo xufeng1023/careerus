@@ -56,10 +56,8 @@
         </main>
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/feather.min.js') }}"></script>
-    <script src="{{ asset('js/toastr.js') }}"></script>
-    <script src="{{ asset('js/autocomplete.js') }}"></script>
-    <script>feather.replace()</script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>window.stripe = Stripe('pk_test_SJpv8Y537mDjHvJY5ri7YRir')</script>
     @yield('script')
 </body>
 </html>

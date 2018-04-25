@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use Stripe\{Stripe, Token};
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -253,9 +254,135 @@ class UserTest extends TestCase
         );
 
         $this->login(
-            $student = create('User', ['role' => 'student'])
+            $student = create('User')
         );
 
         $this->get('/admin/settings');
+    }
+
+    public function test_admin_can_add_and_update_plans()
+    {
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $plan = raw('Plan', ['name' => 'plan1']);
+
+        $this->post('/admin/plan/add', $plan);
+
+        $this->assertDatabaseHas('plans', $plan);
+
+        $plan = \App\Plan::latest()->first();
+
+        $this->post('/admin/plan/update/'.$plan->id, ['name' => 'plan2']);
+
+        $this->assertDatabaseMissing('plans', ['name' => 'plan1']);
+        $this->assertDatabaseHas('plans', ['name' => 'plan2']);
+    }
+
+    public function test_user_must_have_a_card_to_buy()
+    {
+        $this->login(
+            $user = create('User')
+        );
+
+        $this->post('/dashboard/buy')->assertStatus(402)->assertSee(trans('front.no card'));
+    }
+
+    public function test_invalid_credit_card_can_not_be_added()
+    {
+        $this->login(
+            $user = create('User')
+        );
+
+        $token = $this->createStripeToken(false, true);
+
+        $this->post('/dashboard/card', ['token' => $token])->assertStatus(402)->assertSee(trans('front.cc invalid'));
+
+        $this->assertNull($user->fresh()->card_brand); // but a stripe customer has been created, $user->stripe_id is not NULL
+    }
+
+    public function test_user_can_add_credit_card()
+    {
+        $this->login(
+            $user = create('User')
+        );
+
+        $token = $this->createStripeToken();
+
+        $this->post('/dashboard/card', ['token' => $token])->assertStatus(200);
+
+        $this->assertNotNull($user->fresh()->card_brand);
+    }
+
+    public function test_a_plan_is_required_for_payment()
+    {
+        $this->login(
+            $user = create('User')
+        );
+
+        $user->createAsStripeCustomer(
+            $this->createStripeToken()
+        );
+
+        $this->post('/dashboard/buy')->assertStatus(402)->assertSee(trans('front.plan invalid'));
+    }
+
+    public function test_dont_give_points_if_payment_fails()
+    {
+        $this->login(
+            $user = create('User')
+        );
+
+        $plan = create('Plan');
+
+        $user->createAsStripeCustomer(
+            $this->createStripeToken(true)
+        );
+
+        $this->post('/dashboard/buy', ['plan' => $plan->id])->assertStatus(402)->assertSee(trans('front.payment failed'));
+
+        $this->assertEquals(0, $user->points);
+
+        $this->assertCount(0, \App\Invoice::all());
+    }
+
+    public function test_user_can_buy_points()
+    {
+        $this->login(
+            $user = create('User')
+        );
+
+        $plan = create('Plan');
+
+        $user->createAsStripeCustomer(
+            $this->createStripeToken()
+        );
+
+        $this->post('/dashboard/buy', ['plan' => $plan->id])->assertStatus(200);
+
+        $this->assertEquals($plan->points, $user->points);
+
+        $this->assertCount(1, \App\Invoice::all());
+    }
+
+    private function createStripeToken($paymentFail = false, $badCard = false)
+    {
+        Stripe::setApiKey('pk_test_SJpv8Y537mDjHvJY5ri7YRir');
+
+        $number = "4242424242424242";
+
+        if($paymentFail) $number = "4000000000000341";
+
+        if($badCard) $number = "4000000000000069";
+
+        return Token::create([
+            "card" => [
+                "number" => $number,
+                "exp_month" => 4,
+                "exp_year" => 2019,
+                "cvc" => "314"
+            ]
+        ])->id;
     }
 }

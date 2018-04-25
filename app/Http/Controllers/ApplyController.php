@@ -35,7 +35,7 @@ class ApplyController extends Controller
             $user->decrement('points', 20);
         }
 
-        return redirect('/dashboard/applies');
+        return '/dashboard/applies';
     }
 
     public function notify(Apply $apply)

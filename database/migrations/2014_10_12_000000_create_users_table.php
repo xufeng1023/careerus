@@ -17,10 +17,14 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone')->unique();
-            $table->string('resume');
+            $table->string('phone')->unique()->nullable();
+            $table->string('resume')->unique()->nullable();
             $table->unsignedInteger('points')->default(0);
             $table->enum('role', ['student', 'admin'])->default('student');
+            $table->string('stripe_id')->nullable();
+            $table->string('card_brand')->nullable();
+            $table->string('card_last_four')->nullable();
+            $table->timestamp('trial_ends_at')->nullable();
             $table->rememberToken();
             $table->string('password');
             $table->timestamps();

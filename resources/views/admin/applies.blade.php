@@ -17,6 +17,7 @@
                         <th>{{ __('admin.applied date') }}</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,7 +31,9 @@
                                 <div class="text-muted small">{{ $apply->post->company->hr }} ({{ $apply->post->company->email }})</div>
                             </td>
                             <td>
-                                <div>{{ $apply->post->title }}</div>
+                                <div>
+                                    <a target="_blank" href="{{ $apply->post->link() }}">{{ $apply->post->title }}</a>
+                                </div>
                                 <div class="text-muted small">{{ $apply->post->jobType() }} ({{ $apply->post->location }})</div>
                             </td>
                             <td>{{ $apply->created_at }}</td>
@@ -40,6 +43,11 @@
                                 @else
                                     {{ __('admin.not applied') }}
                                 @endif
+                            </td>
+                            <td>
+                            <a title="{{ __('front.resume download') }}" href="/dashboard/resume/download?r={{ $apply->user->resume }}">
+                                <span data-feather="download"></span>
+                            </a>
                             </td>
                             <td>
                                 @if(!$apply->is_applied)

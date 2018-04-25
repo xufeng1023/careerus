@@ -7,7 +7,7 @@
             <div class="my-3 p-3 bg-white rounded box-shadow">
         
                 <h6 class="border-bottom border-gray pb-2 mb-4 d-flex justify-content-between">
-                    <div><span data-feather="user"></span>{{ __('front.account info') }}</div>
+                    <div><span data-feather="user"></span> {{ __('front.account info') }}</div>
                     <button type="submit" class="btn btn-primary btn-sm" form="accountForm">
                         {{ __('front.update') }}
                     </button>
@@ -46,7 +46,7 @@
             <div class="my-3 p-3 bg-white rounded box-shadow">
         
                 <h6 class="border-bottom border-gray pb-2 mb-4 d-flex justify-content-between">
-                    <div><span data-feather="lock"></span>{{ __('front.password update') }}</div>
+                    <div><span data-feather="lock"></span> {{ __('front.password update') }}</div>
                     <button type="submit" class="btn btn-primary btn-sm" form="passForm">
                         {{ __('front.update') }}
                     </button>
@@ -82,8 +82,11 @@
             <div class="my-3 p-3 bg-white rounded box-shadow">
         
                 <h6 class="border-bottom border-gray pb-2 mb-4 d-flex justify-content-between">
-                    <div><span data-feather="file"></span>{{ __('front.resume update') }}</div>
+                    <div><span data-feather="file"></span> {{ __('front.resume update') }}</div>
                     <button id="resumeFormBtn" type="submit" class="invisible" form="resumeForm">{{ __('front.update') }}</button>
+                    <a title="{{ __('front.resume download') }}" href="/dashboard/resume/download?r={{ auth()->user()->resume }}">
+                        <span data-feather="download"></span>
+                    </a>
                 </h6>
 
                 <form id="resumeForm" method="POST" class="px-4" action="/dashboard/resume" enctype="multipart/form-data" @submit="onSubmit">
@@ -114,6 +117,7 @@
                 e.preventDefault();
                 let uri = e.target.getAttribute('action');
                 let fd = new FormData(e.target);
+                window.helper.toggle(e.target);
                 $.ajax(uri, {
                     type: 'post',
                     context: this,
@@ -130,6 +134,9 @@
                         if(e.target.getAttribute('id') === 'passForm') {
                             e.target.reset();
                         }
+                    },
+                    complete: function() {
+                        window.helper.toggle(e.target, false);
                     }
                 });
             },
