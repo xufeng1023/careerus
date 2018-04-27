@@ -48466,7 +48466,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var s = e.target.value;
             this.input = s;
             if (s.trim()) {
-                $.ajax('/search?s=' + s, {
+                $.ajax('/searchLocation?s=' + s, {
                     dataType: 'json',
                     context: this,
                     success: function success(data) {
