@@ -24,3 +24,7 @@
     {{ $applies->links() }}
 </div>
 @endsection
+
+@section('script')
+<script>new Vue({el:'#app'})</script>
+@endsection

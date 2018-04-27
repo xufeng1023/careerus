@@ -4,10 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="mb-4">@include('_search')</div>
-            
             <ul class="list-group list-group-flush">
-                @foreach($posts as $post)
+                @forelse($posts as $post)
                     <li class="list-group-item">
                         <h2 class="h5 m-0 font-weight-bold">
                             <a href="/job/{{ str_slug($post->title) }}?i={{ $post->identity }}">{{ $post->title }}</a>
@@ -16,7 +14,11 @@
                         <div class="text-muted">{{ str_limit(strip_tags($post->description), 150) }}</div>
                         <div class="small text-muted">{{ $post->created_at->diffforhumans() }}</div>
                     </li> 
-                @endforeach
+                @empty
+                    <div class="alert alert-light" role="alert">
+                        {{ __('front.no job found', ['location' => request('l'), 'title' => request('s')]) }}
+                    </div>
+                @endforelse
             </ul>
         </div>
     </div>

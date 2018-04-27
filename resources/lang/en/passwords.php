@@ -1,22 +1,9 @@
 <?php
 
 return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reset Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are the default lines which match reasons
-    | that are given by the password broker for a password update attempt
-    | has failed, such as for an invalid token or invalid new password.
-    |
-    */
-
-    'password' => 'Passwords must be at least six characters and match the confirmation.',
-    'reset' => 'Your password has been reset!',
-    'sent' => 'We have e-mailed your password reset link!',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that e-mail address.",
-
+    'password' => '密码至少要6位，而且两次要一致',
+    'reset' => '您的密码以及重置了',
+    'sent' => '密码重置连接以及发送到邮箱',
+    'token' => '链接已无效，请重新申请',
+    'user' => "未找到此邮箱的记录",
 ];

@@ -32,6 +32,7 @@ return [
     'name' => '名字',
     'no points' => '点数不够，请充值',
     'no card' => '还未添加信用卡',
+    'no job found' => '没有找到在:location地区:title的工作',
     'old pass bad' => '旧密码无效',
     'plan invalid' => '请选择一个有效点数计划',
     'price' => '价格',

@@ -11,9 +11,14 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
+                
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    @if(str_contains(url()->current(), ['job', 'dashboard']))
+                        @include('_search')
+                    @endif
+
                     <ul class="navbar-nav ml-auto">
+                        
                         @guest
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('front.register') }}</a></li>
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('front.login') }}</a></li>
@@ -50,10 +55,16 @@
                 </div>
             </div>
         </nav>
+
         @yield('submenu')
-        <main class="py-4">
-            @yield('content')
-        </main>
+
+        <main class="py-4">@yield('content')</main>
+
+        <footer class="footer">
+            <div class="container">
+                <span class="text-muted">{{ '@'.date('Y').' '.config('app.name') }} </span>
+            </div>
+        </footer>
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://js.stripe.com/v3/"></script>

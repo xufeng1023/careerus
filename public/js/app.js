@@ -48453,10 +48453,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['placeholder', 'value'],
+    props: ['placeholder', 'value', 'default'],
     data: function data() {
         return {
-            input: '',
+            input: this.default,
             cities: ''
         };
     },
@@ -48465,7 +48465,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         search: _.debounce(function (e) {
             var s = e.target.value;
             this.input = s;
-            if (s.trim() && s.length >= 3) {
+            if (s.trim()) {
                 $.ajax('/search?s=' + s, {
                     dataType: 'json',
                     context: this,
@@ -48503,7 +48503,7 @@ var render = function() {
     _vm._v(" "),
     _vm.cities
       ? _c(
-          "ul",
+          "div",
           {
             staticClass:
               "list-group position-absolute list-group-flush box-shadow z9 w-100"
@@ -48513,19 +48513,11 @@ var render = function() {
               "button",
               {
                 key: city.key,
-                staticClass: "list-group-item",
+                staticClass: "list-group-item list-group-item-action",
                 attrs: { type: "button" },
                 on: { click: _vm.onClick }
               },
-              [
-                _vm._v(
-                  "\n            " +
-                    _vm._s(city.name) +
-                    "," +
-                    _vm._s(city.state.initial) +
-                    "\n        "
-                )
-              ]
+              [_vm._v("\n            " + _vm._s(city) + "\n        ")]
             )
           })
         )

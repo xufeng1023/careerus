@@ -6,8 +6,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
-Route::get('/search', 'LocationController@search');
+Route::get('/search', 'PostController@searchLocation');
 Route::get('/jobs', 'PostController@all');
 Route::get('/job/{postSlug}', 'PostController@show');
 
