@@ -73,7 +73,7 @@ class PostController extends Controller
         return back()->with('updated', trans('admin.updated'));
     }
 
-    public function searchLocation()
+    public function search()
     {
         $posts = Post::where('location', 'LIKE', '%'.request('s').'%')->take(5)->get();
         

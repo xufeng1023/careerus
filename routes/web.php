@@ -6,7 +6,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/searchLocation', 'PostController@searchLocation');
+Route::get('/searchLocation', function(){
+$posts = App\Post::where('location', 'LIKE', '%'.request('s').'%')->take(5)->get();
+        
+        return $posts->pluck('location');
+});
 Route::get('/jobs', 'PostController@all');
 Route::get('/job/{postSlug}', 'PostController@show');
 
