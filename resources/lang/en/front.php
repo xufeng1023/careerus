@@ -1,10 +1,12 @@
 <?php
 
 return [
+    '3 letters' => '*输入至少3个字符',
     'account' => '账号管理',
     'account info' => '账户信息',
     'apply' => '马上申请',
     'applies' => '申请记录',
+    'applies none' => '您还没有任何申请的工作',
     'applied already' => '您已经于:time申请过该工作',
     'applied on' => ':time',
     'apply and register' => '申请并注册',

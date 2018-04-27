@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <table v-if="invoices" class="table table-sm">
+    <table v-if="invoices.length" class="table table-sm">
         <caption><span data-feather="list"></span> {{ __('front.payment list') }}</caption>
         <thead class="thead-light">
             <tr><th>{{ __('front.points') }}</th><th>{{ __('front.price') }}</th><th>{{ __('front.date') }}</th><th></th></tr>

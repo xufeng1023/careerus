@@ -25,7 +25,7 @@
             </div>
 
             @if($apply = auth()->user()->isApplied($post->id))
-                <div class="text-muted">*{{ __('front.applied already', ['time' => $apply->created_at->format('Y-m-d')]) }}</div>
+                <div class="text-muted">*{{ __('front.applied already', ['time' => $apply->created_at->diffForHumans()]) }}</div>
             @endif
 
             <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="applyModal" aria-hidden="true">

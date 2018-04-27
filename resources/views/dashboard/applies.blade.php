@@ -18,7 +18,7 @@
                 </p>
             </div>
         @empty
-            fefewf
+        {{ __('front.applies none') }}
         @endforelse
     </div>
     {{ $applies->links() }}

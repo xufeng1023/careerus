@@ -48463,9 +48463,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         search: _.debounce(function (e) {
-            var s = e.target.value.trim();
+            var s = e.target.value;
             this.input = s;
-            if (s && s.length >= 3) {
+            if (s.trim() && s.length >= 3) {
                 $.ajax('/search?s=' + s, {
                     dataType: 'json',
                     context: this,

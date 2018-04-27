@@ -96,7 +96,6 @@
             </div>
         </div>
         <script src="{{ asset('js/app.js') }}"></script>
-        <script src="{{ asset('js/autocomplete.js') }}"></script>
         <script>
             new Vue({
                 el: '#app'
