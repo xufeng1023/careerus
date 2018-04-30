@@ -27,6 +27,7 @@ return [
     'free alert' => '新注册用户可以获得:times次免费内推机会',
     'free times left' => '您还有:times次免费申请机会',
     'job apply' => '工作申请',
+    'jobs this year' => '今年提供visa职位:number个',
     'login' => '登入',
     'logout' => '退出',
     'name' => '名字',

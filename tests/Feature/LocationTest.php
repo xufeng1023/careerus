@@ -11,12 +11,12 @@ class LocationTest extends TestCase
 
     public function test_location_can_be_searched()
     {
-        create('City', ['name' => 'New York']);
-        create('City', ['name' => 'Los Angel']);
+        create('Post', ['location' => 'New York']);
+        create('Post', ['location' => 'Los Angel']);
 
-        $response = $this->getJson('/search?s=new');
+        $response = $this->getJson('/searchLocation?s=new');
 
-        $response->assertJsonFragment(['name' => 'New York'])
-                ->assertJsonMissing(['name' => 'Los Angel']);
+        $response->assertJsonFragment(['New York'])
+                ->assertJsonMissing(['Los Angel']);
     }
 }

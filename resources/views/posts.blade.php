@@ -10,7 +10,12 @@
                         <h2 class="h5 m-0 font-weight-bold">
                             <a href="/job/{{ str_slug($post->title) }}?i={{ $post->identity }}">{{ $post->title }}</a>
                         </h2>
-                        <div>{{ $post->company->name }} - {{ $post->location }}</div>
+                        <div>
+                            <span>{{ $post->company->name }} - {{ $post->location }}</span>
+                            <span class="badge badge-pill badge-secondary">
+                                {{ __('front.jobs this year', ['number' => 444]) }}
+                            </span>
+                        </div>
                         <div class="text-muted">{{ str_limit(strip_tags($post->description), 150) }}</div>
                         <div class="small text-muted">{{ $post->created_at->diffforhumans() }}</div>
                     </li> 

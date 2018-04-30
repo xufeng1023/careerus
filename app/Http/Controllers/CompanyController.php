@@ -13,8 +13,8 @@ class CompanyController extends Controller
 
     public function all()
     {
-        if(request('id')) $users[] = $companies[] = Company::find(request('id'));
-        else $companies = Company::all();
+        if(request('id')) $companies[] = Company::find(request('id'))->load('visaJobs');
+        else $companies = Company::latest()->get();
 
         return view('admin.company', compact('companies'));
     }
@@ -31,5 +31,16 @@ class CompanyController extends Controller
         $company->update(request()->all());
 
         return back()->with('updated', trans('admin.updated'));
+    }
+
+    public function addVisa(Company $company)
+    {
+        try {
+            $company->visaJobs()->create(request()->all());
+        } catch(\Exception $e) {
+            return response(trans('admin.visa may duplicate'), 422);
+        }
+        
+        return response(trans('admin.updated'));
     }
 }

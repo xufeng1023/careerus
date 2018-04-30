@@ -60,15 +60,15 @@
 
         <main class="py-4">@yield('content')</main>
 
-        <footer class="footer">
+        <!-- <footer class="footer">
             <div class="container">
                 <span class="text-muted">{{ '@'.date('Y').' '.config('app.name') }} </span>
             </div>
-        </footer>
+        </footer> -->
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://js.stripe.com/v3/"></script>
-    <script>window.stripe = Stripe('pk_test_SJpv8Y537mDjHvJY5ri7YRir')</script>
+    <!-- <script src="https://js.stripe.com/v3/"></script>
+    <script>window.stripe = Stripe('pk_test_SJpv8Y537mDjHvJY5ri7YRir')</script> -->
     @yield('script')
 </body>
 </html>

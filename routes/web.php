@@ -49,6 +49,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/plan/update/{plan}', 'PlanController@update');
     Route::post('/catagory/add', 'CatagoryController@save');
     Route::post('/company/add', 'CompanyController@save');
+    Route::post('/company/{company}/visajob', 'CompanyController@addVisa');
     Route::post('/company/update/{company}', 'CompanyController@update');
     Route::post('/applied/notify/{apply}', 'ApplyController@notify');
     Route::post('/settings', 'SettingsController@update');

@@ -12997,7 +12997,6 @@ Popper.Defaults = Defaults;
 window._ = __webpack_require__(4);
 window.Popper = __webpack_require__(2).default;
 
-window.toastr = __webpack_require__(6);
 __webpack_require__(8).replace();
 
 try {
@@ -13015,7 +13014,7 @@ try {
 // window.axios = require('axios');
 
 // window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
+window.toastr = __webpack_require__(6);
 
 var token = document.head.querySelector('meta[name="csrf-token"]');
 

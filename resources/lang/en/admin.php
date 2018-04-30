@@ -12,7 +12,10 @@ return [
     'company' => '公司',
     'company name' => '公司名称',
     'company hr' => '公司联系人',
+    'company jobs' => 'Sponsor的工作',
     'company email' => 'HR Email',
+    'company visa history' => '公司VISA记录',
+    'company numberOfVisa' => '发行VISA数量',
     'email' => '邮箱',
     'free apply times' => '免费申请次数',
     'good news' => '好消息',
@@ -43,5 +46,7 @@ return [
     'update' => '更新',
     'updated' => '更新成功!',
     'view'=> '查看',
+    'visa may duplicate' => '请检查公司每年的数据是否唯一',
+    'year' => '年份'
     
 ];

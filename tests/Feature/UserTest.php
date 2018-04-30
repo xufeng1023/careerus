@@ -289,82 +289,82 @@ class UserTest extends TestCase
         $this->post('/dashboard/buy')->assertStatus(402)->assertSee(trans('front.no card'));
     }
 
-    public function test_invalid_credit_card_can_not_be_added()
-    {
-        $this->login(
-            $user = create('User')
-        );
+    // public function test_invalid_credit_card_can_not_be_added()
+    // {
+    //     $this->login(
+    //         $user = create('User')
+    //     );
 
-        $token = $this->createStripeToken(false, true);
+    //     $token = $this->createStripeToken(false, true);
 
-        $this->post('/dashboard/card', ['token' => $token])->assertStatus(402)->assertSee(trans('front.cc invalid'));
+    //     $this->post('/dashboard/card', ['token' => $token])->assertStatus(402)->assertSee(trans('front.cc invalid'));
 
-        $this->assertNull($user->fresh()->card_brand); // but a stripe customer has been created, $user->stripe_id is not NULL
-    }
+    //     $this->assertNull($user->fresh()->card_brand); // but a stripe customer has been created, $user->stripe_id is not NULL
+    // }
 
-    public function test_user_can_add_credit_card()
-    {
-        $this->login(
-            $user = create('User')
-        );
+    // public function test_user_can_add_credit_card()
+    // {
+    //     $this->login(
+    //         $user = create('User')
+    //     );
 
-        $token = $this->createStripeToken();
+    //     $token = $this->createStripeToken();
 
-        $this->post('/dashboard/card', ['token' => $token])->assertStatus(200);
+    //     $this->post('/dashboard/card', ['token' => $token])->assertStatus(200);
 
-        $this->assertNotNull($user->fresh()->card_brand);
-    }
+    //     $this->assertNotNull($user->fresh()->card_brand);
+    // }
 
-    public function test_a_plan_is_required_for_payment()
-    {
-        $this->login(
-            $user = create('User')
-        );
+    // public function test_a_plan_is_required_for_payment()
+    // {
+    //     $this->login(
+    //         $user = create('User')
+    //     );
 
-        $user->createAsStripeCustomer(
-            $this->createStripeToken()
-        );
+    //     $user->createAsStripeCustomer(
+    //         $this->createStripeToken()
+    //     );
 
-        $this->post('/dashboard/buy')->assertStatus(402)->assertSee(trans('front.plan invalid'));
-    }
+    //     $this->post('/dashboard/buy')->assertStatus(402)->assertSee(trans('front.plan invalid'));
+    // }
 
-    public function test_dont_give_points_if_payment_fails()
-    {
-        $this->login(
-            $user = create('User')
-        );
+    // public function test_dont_give_points_if_payment_fails()
+    // {
+    //     $this->login(
+    //         $user = create('User')
+    //     );
 
-        $plan = create('Plan');
+    //     $plan = create('Plan');
 
-        $user->createAsStripeCustomer(
-            $this->createStripeToken(true)
-        );
+    //     $user->createAsStripeCustomer(
+    //         $this->createStripeToken(true)
+    //     );
 
-        $this->post('/dashboard/buy', ['plan' => $plan->id])->assertStatus(402)->assertSee(trans('front.payment failed'));
+    //     $this->post('/dashboard/buy', ['plan' => $plan->id])->assertStatus(402)->assertSee(trans('front.payment failed'));
 
-        $this->assertEquals(0, $user->points);
+    //     $this->assertEquals(0, $user->points);
 
-        $this->assertCount(0, \App\Invoice::all());
-    }
+    //     $this->assertCount(0, \App\Invoice::all());
+    // }
 
-    public function test_user_can_buy_points()
-    {
-        $this->login(
-            $user = create('User')
-        );
+    // public function test_user_can_buy_points()
+    // {
+    //     $this->login(
+    //         $user = create('User')
+    //     );
 
-        $plan = create('Plan');
+    //     $plan = create('Plan');
 
-        $user->createAsStripeCustomer(
-            $this->createStripeToken()
-        );
+    //     $user->createAsStripeCustomer(
+    //         $this->createStripeToken()
+    //     );
 
-        $this->post('/dashboard/buy', ['plan' => $plan->id])->assertStatus(200);
+    //     $this->post('/dashboard/buy', ['plan' => $plan->id])->assertStatus(200);
 
-        $this->assertEquals($plan->points, $user->points);
+    //     $this->assertEquals($plan->points, $user->points);
 
-        $this->assertCount(1, \App\Invoice::all());
-    }
+    //     $this->assertCount(1, \App\Invoice::all());
+    // }
 
     private function createStripeToken($paymentFail = false, $badCard = false)
     {

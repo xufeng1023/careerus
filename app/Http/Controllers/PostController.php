@@ -39,7 +39,7 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        $post->load('catagory');
+        $post->load('catagory', 'company.visaJobs');
 
         return view('post', compact('post'));
     }

@@ -53,7 +53,7 @@
         @if(session('updated'))
             <div class="alert alert-success" role="alert">{{ session('updated') }}</div>
         @endif
-        <form method="POST" action="/admin/company/{{ request('id')? 'update/'.request('id') : 'add' }}">
+        <form method="POST" class="mb-3" action="/admin/company/{{ request('id')? 'update/'.request('id') : 'add' }}">
             @csrf
 
             <div class="form-group">
@@ -76,6 +76,95 @@
 
             <button type="submit" class="btn btn-primary">{{ request('id')? __('admin.update') : __('admin.save') }}</button>
         </form>
+
+        @if(request('id'))
+            <div class="card text-white bg-dark">
+                <div class="card-header">{{ __('admin.company visa history') }}</div>
+                <div class="card-body">
+                    <form class="row" method="post" action="/admin/company/{{ request('id') }}/visajob" onsubmit="onSubmit(event)">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">{{ __('admin.year') }}</label>
+
+                                <select v-model="form.year" class="form-control" name="year" value="{{ request('id')? $companies[0]->email: '' }}">
+                                    <option value=""></option>
+                                    @for($i = date('Y'); $i > date('Y') - 10; $i--)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">{{ __('admin.company numberOfVisa') }}</label>
+
+                                <input v-model="form.numberOfVisa" type="number" class="form-control" name="number_of_visa">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">{{ __('admin.company jobs') }}</label>
+
+                                <textarea v-model="form.jobs" class="form-control" name="jobs" rows="5" placeholder="eg: Application Developer(1100),"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default">{{ __('admin.job add') }}</button>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-8">
+                            <table class="table">
+                                <tr v-if="visas" v-cloak>
+                                    <td v-text="visas.year"></td>
+                                    <td v-text="visas.numberOfVisa"></td>
+                                    <td v-text="visas.jobs"></td>
+                                </tr>
+                                @foreach($companies[0]->visaJobs as $visa)
+                                    <tr>
+                                        <td>{{ $visa->year }}</td>
+                                        <td>{{ $visa->number_of_visa }}</td>
+                                        <td>{{ $visa->jobs }}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        @endif
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    // const table = document.querySelector('#visaTable');
+    const app = new Vue({
+        el: '#app',
+        data: {
+            visas: '',
+            form: {
+                year: '',
+                numberOfVisa: '',
+                jobs: ''
+            }
+        }
+    });
+
+    function onSubmit(e) {
+        e.preventDefault();
+        $.ajax(e.target.getAttribute('action'), {
+            type: 'post',
+            data: $(e.target).serialize(),
+            error: function(data) {
+                window.toastr.error(data.responseText);
+            },
+            success(data) {
+                window.toastr.success(data);
+                app.visas = app.form;
+                app.form = '';
+                e.target.reset();
+            }
+        });
+    }
+</script>
 @endsection
