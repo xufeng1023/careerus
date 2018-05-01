@@ -280,14 +280,14 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('plans', ['name' => 'plan2']);
     }
 
-    public function test_user_must_have_a_card_to_buy()
-    {
-        $this->login(
-            $user = create('User')
-        );
+    // public function test_user_must_have_a_card_to_buy()
+    // {
+    //     $this->login(
+    //         $user = create('User')
+    //     );
 
-        $this->post('/dashboard/buy')->assertStatus(402)->assertSee(trans('front.no card'));
-    }
+    //     $this->post('/dashboard/buy')->assertStatus(402)->assertSee(trans('front.no card'));
+    // }
 
     // public function test_invalid_credit_card_can_not_be_added()
     // {
