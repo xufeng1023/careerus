@@ -74,6 +74,12 @@
                 <input type="email" class="form-control" name="email" value="{{ request('id')? $companies[0]->email: '' }}">
             </div>
 
+            <div class="form-group">
+                <label class="col-form-label">{{ __('admin.company website') }}</label>
+
+                <input type="text" class="form-control" name="website" value="{{ request('id')? $companies[0]->website: '' }}">
+            </div>
+
             <button type="submit" class="btn btn-primary">{{ request('id')? __('admin.update') : __('admin.save') }}</button>
         </form>
 
@@ -103,7 +109,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">{{ __('admin.company jobs') }}</label>
 
-                                <textarea v-model="form.jobs" class="form-control" name="jobs" rows="5" placeholder="eg: Application Developer(1100),"></textarea>
+                                <textarea v-model="form.jobs" class="form-control" name="jobs" rows="5" placeholder="eg: Application Developer(1100)"></textarea>
                             </div>
 
                             <div class="form-group">
@@ -137,7 +143,6 @@
 
 @section('script')
 <script>
-    // const table = document.querySelector('#visaTable');
     const app = new Vue({
         el: '#app',
         data: {

@@ -11,14 +11,6 @@ class CompanyTableSeeder extends Seeder
      */
     public function run()
     {
-        $companies = ['DreamGo', 'FreeH-1B'];
-
-        foreach($companies as $company) {
-            factory(App\Company::class)->create([
-                'email' => $company.'@'.$company.'.com',
-                'name' => $company,
-                'hr' => 'Mr.'.$company
-            ]);
-        }
+        factory(App\Company::class, 10)->create();
     }
 }

@@ -17,7 +17,7 @@ class PostController extends Controller
             return back();
         }
 
-        $query = Post::with('company');
+        $query = Post::with('company.visaJobs');
 
         if(request('s') && request('l')) {
             $query = $query->where('title', 'LIKE', '%'.request('s').'%')

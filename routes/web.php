@@ -21,15 +21,15 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::get('/applies', 'UserController@applies');
     Route::get('/account', 'UserController@account');
     Route::get('/resume/download', 'UserController@resumeDownload');
-    Route::get('/payment', 'UserController@payment');
-    Route::get('/payment/invoices', 'UserController@invoices');
-    Route::get('/payment/invoice/{invoice}', 'UserController@invoice');
+    //Route::get('/payment', 'UserController@payment');
+    //Route::get('/payment/invoices', 'UserController@invoices');
+    //Route::get('/payment/invoice/{invoice}', 'UserController@invoice');
 
     Route::post('/account', 'UserController@accountUpdate');
     Route::post('/password', 'UserController@passwordUpdate');
     Route::post('/resume', 'UserController@resumeUpdate');
-    Route::post('/card', 'UserController@updateCardInfo');
-    Route::post('/buy', 'UserController@buy');
+   // Route::post('/card', 'UserController@updateCardInfo');
+   // Route::post('/buy', 'UserController@buy');
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {

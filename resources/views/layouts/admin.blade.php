@@ -67,12 +67,12 @@
                 </a>
               </li>
 
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link {{ str_contains(url()->current(), 'plan')? 'active' : '' }}" href="/admin/plan">
                   <span data-feather="award"></span>
                   {{ __('admin.plans') }}
                 </a>
-              </li>
+              </li> -->
 
               <!-- <li class="nav-item">
                 <a class="nav-link {{ str_contains(url()->current(), 'settings')? 'active' : '' }}" href="/admin/settings">

@@ -39,6 +39,7 @@
                         <th>标题</th>
                         <th>管理员</th>
                         <th>添加日期</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,6 +48,9 @@
                             <td><a href="?id={{ $post->id }}">{{ $post->title }}</a></td>
                             <td>{{ $post->creator->name }}</td>
                             <td>{{ $post->created_at->format('Y-m-d') }}</td>
+                            <td>
+                                <a target="_blank" href="/job/{{ str_slug($post->title) }}?i={{ $post->identity }}"><span data-feather="eye"></span></a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -75,43 +79,50 @@
                 <trix-editor input="description"></trix-editor>
             </div>
 
-            <div class="form-group">
-                <label class="col-form-label">{{ __('admin.company') }}</label>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label class="col-form-label">{{ __('admin.company') }}</label>
 
-                <select class="form-control" name="company_id">
-                    @foreach($companies as $company)
-                        <option value="{{ $company->id }}" {{ request('id') && ($posts[0]->company_id == $company->id)? 'selected' : '' }}>{{ $company->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>{{ __('admin.catagory') }}</label>
-                <select class="form-control" name="catagory_id">
-                    @foreach($catagories as $catagory)
-                        <option value="{{ $catagory->id }}" {{ request('id') && ($posts[0]->catagory_id == $catagory->id)? 'selected' : '' }}>{{ $catagory->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="col-form-label">{{ __('admin.job location') }}</label>
-
-                <input type="text" class="form-control{{ $errors->has('location') ? ' is-invalid' : '' }}" name="location" value="{{ old('location') ?: 'New York, NY' }}">
-            </div>
-
-            <div class="form-group">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="is_fulltime" id="radio-fulltime" value="1" {{ request('id') && ($posts[0]->is_fulltime == 1)? 'checked' : '' }} required>
-                    <label class="form-check-label" for="radio-fulltime">Full Time</label>
+                    <select class="form-control" name="company_id">
+                        @foreach($companies as $company)
+                            <option value="{{ $company->id }}" {{ request('id') && ($posts[0]->company_id == $company->id)? 'selected' : '' }}>{{ $company->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="is_fulltime" id="radio-parttime" value="0" {{ request('id') && ($posts[0]->is_fulltime == 0)? 'checked' : '' }} required>
-                    <label class="form-check-label" for="radio-parttime">Part Time</label>
+
+                <div class="col-sm-6">
+                    <label>{{ __('admin.catagory') }}</label>
+                    <select class="form-control" name="catagory_id">
+                        @foreach($catagories as $catagory)
+                            <option value="{{ $catagory->id }}" {{ request('id') && ($posts[0]->catagory_id == $catagory->id)? 'selected' : '' }}>{{ $catagory->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">{{ request('id')? __('admin.update') : __('admin.save') }}</button>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label class="col-form-label">{{ __('admin.job location') }}</label>
+
+                    <input type="text" class="form-control{{ $errors->has('location') ? ' is-invalid' : '' }}" name="location" value="{{ old('location') ?: 'New York, NY' }}">
+                </div>
+
+                <div class="col-sm-6">
+                    <div><label class="col-form-label mb-2">{{ __('admin.job type') }}</label></div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="is_fulltime" id="radio-fulltime" value="1" {{ request('id') && ($posts[0]->is_fulltime == 1)? 'checked' : '' }} required>
+                        <label class="form-check-label" for="radio-fulltime">Full Time</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="is_fulltime" id="radio-parttime" value="0" {{ request('id') && ($posts[0]->is_fulltime == 0)? 'checked' : '' }} required>
+                        <label class="form-check-label" for="radio-parttime">Part Time</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">{{ request('id')? __('admin.update') : __('admin.save') }}</button>
+            </div>
         </form>
     </div>
 </div>

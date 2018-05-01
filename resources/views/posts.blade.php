@@ -12,9 +12,11 @@
                         </h2>
                         <div>
                             <span>{{ $post->company->name }} - {{ $post->location }}</span>
-                            <span class="badge badge-pill badge-secondary">
-                                {{ __('front.jobs this year', ['number' => 444]) }}
-                            </span>
+                            @if($thisyear = $post->company->thisYearVisa())
+                                <span class="badge badge-pill badge-secondary">
+                                    {{ __('front.jobs this year', ['number' => $thisyear]) }}
+                                </span>
+                            @endif
                         </div>
                         <div class="text-muted">{{ str_limit(strip_tags($post->description), 150) }}</div>
                         <div class="small text-muted">{{ $post->created_at->diffforhumans() }}</div>

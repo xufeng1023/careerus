@@ -18,6 +18,7 @@ class CreateCompanyTable extends Migration
             $table->string('name');
             $table->string('hr');
             $table->string('email');
+            $table->string('website');
             $table->timestamps();
         });
     }

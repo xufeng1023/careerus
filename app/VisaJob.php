@@ -9,4 +9,9 @@ class VisaJob extends Model
     protected $fillable = ['company_id', 'year', 'number_of_visa', 'jobs'];
 
     protected $visible = ['jobs', 'number_of_visa', 'year'];
+
+    public function setJobsAttribute($value)
+    {
+        $this->attributes['jobs'] = str_replace(")", '),', $value);
+    }
 }

@@ -15,17 +15,20 @@ class PostTest extends TestCase
             $admin = create('User', ['role' => 'admin'])
         );
 
-        $post1 = raw('Post', ['title' => 'post']);
+        $title = 'Development Coordinator';
+
+        $post1 = raw('Post', ['title' => $title]);
         $this->post('/admin/post/add', $post1);
 
-        $post2 = raw('Post', ['title' => 'post']);
+        $post2 = raw('Post', ['title' => $title]);
         $this->post('/admin/post/add', $post2);
 
         $post1 = \App\Post::first();
 
-        $this->get("/job/post?i={$post1->identity}")
-            ->assertSee($post1['description'])
-            ->assertDontSee($post2['description']);
+
+        $this->get("/job/development-coordinator?i={$post1->identity}")
+        ->assertSee($post1['description'])
+        ->assertDontSee($post2['description']);
     }
 
     public function test_posts_can_be_searched_by_title_and_location()
