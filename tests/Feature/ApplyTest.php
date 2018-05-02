@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 
 class ApplyTest extends TestCase
 {
@@ -32,7 +33,7 @@ class ApplyTest extends TestCase
         Storage::disk('local')->assertExists('resumes/' . $file->hashName());
     }
 
-    public function test_before_finish_5_times_coupon_students_can_apply_free()
+    public function test_students_can_apply()
     {
         $this->login(
             $student = create('User')
@@ -44,50 +45,54 @@ class ApplyTest extends TestCase
         $data['job'] = $post->title;
 
         $this->post('/apply', $data);
+
+        Mail::fake();
+        event(new \App\Events\StudentAppliedEvent($post));
+        Mail::assertSent(\App\Mail\NotifyHREmail::class);
 
         $this->assertDatabaseHas('applies', ['user_id' => $student->id, 'post_id' => $post->id]);
     }
 
-    public function test_after_5_times_coupon_students_can_not_apply_if_not_enough_points()
-    {
-        $this->login(
-            $student = create('User')
-        );
+    // public function test_after_5_times_coupon_students_can_not_apply_if_not_enough_points()
+    // {
+    //     $this->login(
+    //         $student = create('User')
+    //     );
         
-        $post = create('Post');
+    //     $post = create('Post');
 
-        $data['identity'] = $post->identity;
-        $data['job'] = $post->title;
+    //     $data['identity'] = $post->identity;
+    //     $data['job'] = $post->title;
 
-        for($i = 1; $i < 6; $i++) {
-            $this->post('/apply', $data);
-        }
+    //     for($i = 1; $i < 6; $i++) {
+    //         $this->post('/apply', $data);
+    //     }
 
-        $this->post('/apply', $data)->assertStatus(422);
+    //     $this->post('/apply', $data)->assertStatus(422);
 
-        $this->assertEquals(5, \App\Apply::count());
-    }
+    //     $this->assertEquals(5, \App\Apply::count());
+    // }
 
-    public function test_after_5_times_coupon_a_successful_apply_will_cost_points()
-    {
-        $this->login(
-            $student = create('User', ['points' => 100])
-        );
+    // public function test_after_5_times_coupon_a_successful_apply_will_cost_points()
+    // {
+    //     $this->login(
+    //         $student = create('User', ['points' => 100])
+    //     );
         
-        $post = create('Post');
+    //     $post = create('Post');
 
-        $data['identity'] = $post->identity;
-        $data['job'] = $post->title;
+    //     $data['identity'] = $post->identity;
+    //     $data['job'] = $post->title;
 
-        for($i = 1; $i < 6; $i++) {
-            $this->post('/apply', $data);
-        }
+    //     for($i = 1; $i < 6; $i++) {
+    //         $this->post('/apply', $data);
+    //     }
 
-        $this->post('/apply', $data);
+    //     $this->post('/apply', $data);
 
-        $this->assertEquals(6, \App\Apply::count());
-        $this->assertEquals(80, auth()->user()->points);
-    }
+    //     $this->assertEquals(6, \App\Apply::count());
+    //     $this->assertEquals(80, auth()->user()->points);
+    // }
 
     public function test_students_can_see_their_applies_on_dashboard()
     {

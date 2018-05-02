@@ -18,22 +18,33 @@ class ApplyController extends Controller
         return view('admin.applies', compact('applies'));
     }
 
+    // public function save()
+    // {
+    //     $user = auth()->user();
+    //     $couponUsed = $user->applies()->count();
+
+    //     if(($couponUsed >= 5) && ($user->points < 20)) {
+    //         return response(['errors' => ['points' => trans('front.no points')]], 422);
+    //     }
+        
+    //     $post = (new Post)->findPost(request('job'), request('identity'));
+
+    //     (new Apply)->apply($post); 
+
+    //     if($couponUsed >= 5) {
+    //         $user->decrement('points', 20);
+    //     }
+
+    //     return '/dashboard/applies';
+    // }
+    
     public function save()
     {
-        $user = auth()->user();
-        $couponUsed = $user->applies()->count();
-
-        if(($couponUsed >= 5) && ($user->points < 20)) {
-            return response(['errors' => ['points' => trans('front.no points')]], 422);
-        }
-        
         $post = (new Post)->findPost(request('job'), request('identity'));
 
-        (new Apply)->apply($post); 
-
-        if($couponUsed >= 5) {
-            $user->decrement('points', 20);
-        }
+        (new Apply)->apply($post);
+        
+        event(new \App\Events\StudentAppliedEvent($post));
 
         return '/dashboard/applies';
     }

@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\jobIsAppliedForStudent' => [
             'App\Listeners\NotifyStudent',
         ],
+        'App\Events\StudentAppliedEvent' => [
+            'App\Listeners\NotifyHR',
+        ],
     ];
 
     /**

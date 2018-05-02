@@ -19,6 +19,8 @@ class CreateApplyTable extends Migration
             $table->unsignedInteger('post_id');
             $table->boolean('is_applied')->default(false);
             $table->timestamps();
+
+            $table->unique(['user_id', 'post_id']);
         });
     }
 

@@ -26,15 +26,17 @@
                     {{ __('front.jump to apply') }}
                 </a>
 
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyModal">
-                    {{ __('front.apply') }}
-                </button>
+                @auth
+                    @if($apply = auth()->user()->isApplied($post->id))
+                        <div class="text-muted">*{{ __('front.applied already', ['time' => $apply->created_at->diffForHumans()]) }}</div>
+                    @else
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyModal">
+                            {{ __('front.apply') }}
+                        </button>
+                    @endif
+                @endauth
             </div>
-            @auth
-                @if($apply = auth()->user()->isApplied($post->id))
-                    <div class="text-muted">*{{ __('front.applied already', ['time' => $apply->created_at->diffForHumans()]) }}</div>
-                @endif
-            @endauth
+            
             <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="applyModal" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -201,7 +203,7 @@
             });
             
             let sum = self.bars.visa.reduce(function(total, num) {
-                return total + num;
+                return Number(total) + Number(num);
             });
 
             self.bars.visa.forEach(function(val) {
