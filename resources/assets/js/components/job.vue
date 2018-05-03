@@ -24,7 +24,7 @@
                     var s = e.target.value;
                     this.input = s;
                     if(s.trim()) {
-                        $.ajax('/searchLocation?s='+s, {
+                        $.ajax('/searchJob?s='+s, {
                             dataType: 'json',
                             context: this,
                             success(data) {
