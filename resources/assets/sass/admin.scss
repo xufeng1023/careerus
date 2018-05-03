@@ -118,6 +118,9 @@ body {
     min-height: 17em;
     background-color: #fff;
   }
+  .z999 {
+    z-index: 999;
+  }
   .z-9999 {
     z-index: -9999;
     position: absolute;

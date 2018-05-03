@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 159);
+/******/ 	return __webpack_require__(__webpack_require__.s = 160);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -148,33 +148,33 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ 159:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(160);
-
-
-/***/ }),
-
 /***/ 160:
 /***/ (function(module, exports, __webpack_require__) {
 
-Vue.component('location', __webpack_require__(161));
-Vue.component('job', __webpack_require__(164));
+module.exports = __webpack_require__(161);
 
-new Vue({ el: '#searchForm' });
 
 /***/ }),
 
 /***/ 161:
 /***/ (function(module, exports, __webpack_require__) {
 
+Vue.component('location', __webpack_require__(162));
+Vue.component('job', __webpack_require__(165));
+
+new Vue({ el: '#searchForm' });
+
+/***/ }),
+
+/***/ 162:
+/***/ (function(module, exports, __webpack_require__) {
+
 var disposed = false
 var normalizeComponent = __webpack_require__(22)
 /* script */
-var __vue_script__ = __webpack_require__(162)
+var __vue_script__ = __webpack_require__(163)
 /* template */
-var __vue_template__ = __webpack_require__(163)
+var __vue_template__ = __webpack_require__(164)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -214,7 +214,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 162:
+/***/ 163:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -266,7 +266,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 163:
+/***/ 164:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -316,19 +316,19 @@ if (false) {
 
 /***/ }),
 
-/***/ 164:
+/***/ 165:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(165)
+  __webpack_require__(166)
 }
 var normalizeComponent = __webpack_require__(22)
 /* script */
-var __vue_script__ = __webpack_require__(169)
+var __vue_script__ = __webpack_require__(170)
 /* template */
-var __vue_template__ = __webpack_require__(170)
+var __vue_template__ = __webpack_require__(171)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -368,17 +368,17 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 165:
+/***/ 166:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(166);
+var content = __webpack_require__(167);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(167)("0eaa1ef1", content, false, {});
+var update = __webpack_require__(168)("0eaa1ef1", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -395,7 +395,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 166:
+/***/ 167:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(153)(false);
@@ -410,7 +410,7 @@ exports.push([module.i, "\n.form-control {\r\n    border-radius: 0;\n}\r\n", ""]
 
 /***/ }),
 
-/***/ 167:
+/***/ 168:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -429,7 +429,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(168)
+var listToStyles = __webpack_require__(169)
 
 /*
 type StyleObject = {
@@ -639,7 +639,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 168:
+/***/ 169:
 /***/ (function(module, exports) {
 
 /**
@@ -673,7 +673,7 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 169:
+/***/ 170:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -725,7 +725,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 170:
+/***/ 171:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {

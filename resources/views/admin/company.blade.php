@@ -92,7 +92,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">{{ __('admin.year') }}</label>
 
-                                <select v-model="form.year" class="form-control" name="year" value="{{ request('id')? $companies[0]->email: '' }}">
+                                <select class="form-control" name="year" value="{{ request('id')? $companies[0]->email: '' }}">
                                     <option value=""></option>
                                     @for($i = date('Y'); $i > date('Y') - 10; $i--)
                                         <option value="{{ $i }}">{{ $i }}</option>
@@ -103,13 +103,13 @@
                             <div class="form-group">
                                 <label class="col-form-label">{{ __('admin.company numberOfVisa') }}</label>
 
-                                <input v-model="form.numberOfVisa" type="number" class="form-control" name="number_of_visa">
+                                <input type="number" class="form-control" name="number_of_visa">
                             </div>
 
                             <div class="form-group">
                                 <label class="col-form-label">{{ __('admin.company jobs') }}</label>
 
-                                <textarea v-model="form.jobs" class="form-control" name="jobs" rows="5" placeholder="eg: Application Developer(1100)"></textarea>
+                                <textarea class="form-control" name="jobs" rows="5" placeholder="eg: Application Developer(1100)"></textarea>
                             </div>
 
                             <div class="form-group">
@@ -119,10 +119,10 @@
 
                         <div class="col-sm-8">
                             <table class="table">
-                                <tr v-if="visas" v-cloak>
-                                    <td v-text="visas.year"></td>
-                                    <td v-text="visas.numberOfVisa"></td>
-                                    <td v-text="visas.jobs"></td>
+                                <tr v-if="visas.length" v-for="visa in visas" v-cloak>
+                                    <td v-text="visa.year"></td>
+                                    <td v-text="visa.number_of_visa"></td>
+                                    <td v-text="visa.jobs"></td>
                                 </tr>
                                 @foreach($companies[0]->visaJobs as $visa)
                                     <tr>
@@ -146,12 +146,7 @@
     const app = new Vue({
         el: '#app',
         data: {
-            visas: '',
-            form: {
-                year: '',
-                numberOfVisa: '',
-                jobs: ''
-            }
+            visas: [],
         }
     });
 
@@ -164,9 +159,8 @@
                 window.toastr.error(data.responseText);
             },
             success(data) {
-                window.toastr.success(data);
-                app.visas = app.form;
-                app.form = '';
+                window.toastr.success(data.msg);
+                app.visas.push(data.data);
                 e.target.reset();
             }
         });

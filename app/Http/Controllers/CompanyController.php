@@ -36,11 +36,11 @@ class CompanyController extends Controller
     public function addVisa(Company $company)
     {
         try {
-            $company->visaJobs()->create(request()->all());
+            $visa = $company->visaJobs()->create(request()->all());
         } catch(\Exception $e) {
             return response(trans('admin.visa may duplicate'), 422);
         }
-        
-        return response(trans('admin.updated'));
+
+        return response(['msg' => trans('admin.updated'), 'data' => $visa]);
     }
 }

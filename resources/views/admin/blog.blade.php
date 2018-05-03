@@ -1,12 +1,16 @@
 @extends('layouts.admin')
 
+@section('style')
+<link href="{{ asset('css/editor.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h1 class="h2">{{ __('admin.cover letter') }}</h1>
+    <h1 class="h2">{{ __('admin.blog') }}</h1>
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         @if(request('id'))
             <li class="nav-item">
-                <a class="nav-link active" href="/admin/cover-letter">
+                <a class="nav-link active" href="/admin/blog">
                     {{ __('admin.return') }}
                 </a>
             </li>
@@ -30,9 +34,9 @@
         <div class="table-responsive">
             <table class="table table-striped table-sm">
                 <tbody>
-                    @foreach($templates as $template)
+                    @foreach($blogs as $blog)
                         <tr>
-                            <td><a href="?id={{ $template->id }}">{{ str_limit(strip_tags($template->content), 60) }}</a></td>
+                            <td><a href="?id={{ $blog->id }}">{{ str_limit(strip_tags($blog->title), 60) }}</a></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -44,20 +48,48 @@
         @if(session('updated'))
             <div class="alert alert-success" role="alert">{{ session('updated') }}</div>
         @endif
-        <form method="POST" class="mb-3" action="/admin/cover-letter/{{ request('id')? 'update/'.request('id') : 'add' }}">
+        <form method="POST" onsubmit="onSubmit(event)" class="mb-3" action="/admin/blog/{{ request('id')? 'update/'.request('id') : 'add' }}">
             @csrf
+
+            <div class="form-group">
+                <label class="col-form-label">{{ __('admin.blog title') }}</label>
+
+                <input type="text" class="form-control" name="title" value="{{ request('id')? $blogs[0]->title: '' }}">
+            </div>
 
             <div class="form-group">
                 <label class="col-form-label">{{ __('admin.content') }}</label>
 
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/0.11.2/trix.css">
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/0.11.2/trix.js"></script>
-                <input id="content" type="hidden" name="content" value="{{ request('id')? $templates[0]->content: '' }}">
-                <trix-editor input="content"></trix-editor>
+                <div id="editor" data-content="{{ request('id')? $blogs[0]->content : '' }}"></div>
             </div>
 
             <button type="submit" class="btn btn-primary">{{ request('id')? __('admin.update') : __('admin.save') }}</button>
         </form>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script src="{{ asset('js/editor.js') }}"></script>
+<script>
+    var oldContent = document.querySelector('#editor').dataset.content;
+    if(oldContent) {
+        window.Quill.setContents(JSON.parse(oldContent));
+    }
+
+    function onSubmit(e) {
+        e.preventDefault();
+        var change = new Delta();
+        var content = window.Quill.getContents();
+
+        $.ajax(e.target.getAttribute('action'), {
+            type: 'post',
+            data: $(e.target).serialize() + '&content=' + JSON.stringify(content),
+            success: function(data) {
+                if(data) location.assign(data);
+                else toastr.success('更新成功!');
+            }
+        });
+    }
+</script>
 @endsection

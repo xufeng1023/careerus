@@ -7,5 +7,7 @@
     "/css/stripe.css": "/css/stripe.css",
     "/js/admin.js": "/js/admin.js",
     "/js/search.js": "/js/search.js",
-    "/js/account.js": "/js/account.js"
+    "/js/editor.js": "/js/editor.js",
+    "/js/account.js": "/js/account.js",
+    "/css/editor.css": "/css/editor.css"
 }

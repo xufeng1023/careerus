@@ -306,6 +306,32 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('cover_letters', ['content'=> $data->content.'1231231']);
     }
 
+    public function test_admin_can_add_blog()
+    {
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $data = raw('Blog', ['user_id' => $admin->id]);
+        
+        $this->post('/admin/blog/add', $data);
+
+        $this->assertDatabaseHas('blogs', $data);
+    }
+
+    public function test_admin_can_update_blog()
+    {
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $data = create('Blog', ['user_id' => $admin->id]);
+        
+        $this->post('/admin/blog/update/'.$data->id, ['content' => $data->content.'22']);
+
+        $this->assertDatabaseHas('blogs', ['content' => $data->content.'22']);
+    }
+
     // public function test_user_must_have_a_card_to_buy()
     // {
     //     $this->login(

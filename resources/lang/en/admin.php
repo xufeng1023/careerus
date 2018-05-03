@@ -8,6 +8,7 @@ return [
     'applied date' => '申请时间',
     'applied email subject' => '工作内推通知',
     'blog' => '博客',
+    'blog title' => '标题',
     'catagory' => '领域',
     'catagory name' => '名称',
     'company' => '公司',
