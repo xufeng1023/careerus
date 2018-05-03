@@ -67,6 +67,13 @@
                 </a>
               </li>
 
+              <li class="nav-item">
+                <a class="nav-link {{ str_contains(url()->current(), 'cover-letter')? 'active' : '' }}" href="/admin/cover-letter">
+                  <span data-feather="mail"></span>
+                  {{ __('admin.cover letter') }}
+                </a>
+              </li>
+
               <!-- <li class="nav-item">
                 <a class="nav-link {{ str_contains(url()->current(), 'plan')? 'active' : '' }}" href="/admin/plan">
                   <span data-feather="award"></span>

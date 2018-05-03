@@ -17,7 +17,6 @@
                         <th>{{ __('admin.applied date') }}</th>
                         <th></th>
                         <th></th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,7 +48,7 @@
                                 <span data-feather="download"></span>
                             </a>
                             </td>
-                            <td>
+                            <!-- <td>
                                 @if(!$apply->is_applied)
                                 <form method="post" action="/admin/applied/notify/{{ $apply->id }}" onsubmit="onSubmit(event)">
                                     <button type="submit" class="btn btn-light btn-sm" title="{{ __('admin.notify student') }}">
@@ -57,7 +56,7 @@
                                     </button>
                                 </form>
                                 @endif
-                            </td>
+                            </td> -->
                         </tr>
                     @endforeach
                 </tbody>

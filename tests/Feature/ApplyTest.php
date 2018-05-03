@@ -26,6 +26,8 @@ class ApplyTest extends TestCase
 
         $this->post('/applyRegister', $data);
 
+        $this->assert_hr_gets_email_when_student_apply($post);
+
         $user = \App\User::latest()->first();
 
         $this->assertDatabaseHas('applies', ['user_id' => $user->id, 'post_id' => $post->id]);
@@ -46,9 +48,7 @@ class ApplyTest extends TestCase
 
         $this->post('/apply', $data);
 
-        Mail::fake();
-        event(new \App\Events\StudentAppliedEvent($post));
-        Mail::assertSent(\App\Mail\NotifyHREmail::class);
+        $this->assert_hr_gets_email_when_student_apply($post);
 
         $this->assertDatabaseHas('applies', ['user_id' => $student->id, 'post_id' => $post->id]);
     }
@@ -107,5 +107,12 @@ class ApplyTest extends TestCase
 
         $this->post('/apply', $data);
         $this->get('/dashboard/applies')->assertSee($post->title);
+    }
+
+    private function assert_hr_gets_email_when_student_apply($post)
+    {
+        Mail::fake();
+        event(new \App\Events\StudentAppliedEvent($post));
+        Mail::assertSent(\App\Mail\NotifyHREmail::class);
     }
 }

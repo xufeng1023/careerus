@@ -34,6 +34,10 @@
                             {{ __('front.apply') }}
                         </button>
                     @endif
+                @else
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyModal">
+                        {{ __('front.apply') }}
+                    </button>
                 @endauth
             </div>
             

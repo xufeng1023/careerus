@@ -20,12 +20,6 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -51,9 +45,11 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         if($request->job && $request->identity) {
-            (new Apply)->apply(
-                (new Post)->findPost($request->job, $request->identity)
-            );
+            $post = (new Post)->findPost($request->job, $request->identity);
+
+            (new Apply)->apply($post);
+
+            event(new \App\Events\StudentAppliedEvent($post));
         }
     }
 }

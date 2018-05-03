@@ -17,6 +17,8 @@ return [
     'company website' => '公司网站',
     'company visa history' => '公司VISA记录',
     'company numberOfVisa' => '发行VISA数量',
+    'cover letter' => 'HR邮件Cover Letter',
+    'content' => '内容',
     'email' => '邮箱',
     'free apply times' => '免费申请次数',
     'good news' => '好消息',

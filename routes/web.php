@@ -38,7 +38,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/catagory', 'CatagoryController@allAdmin');
     Route::get('/company', 'CompanyController@all');
     Route::get('/plan', 'PlanController@index');
-    Route::get('/settings', 'SettingsController@index');
+    Route::get('/cover-letter', 'CoverLetterController@all');
+    // Route::get('/settings', 'SettingsController@index');
 
     Route::post('/post/add', 'PostController@save');
     Route::post('/post/update/{post}', 'PostController@update');
@@ -51,5 +52,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/company/{company}/visajob', 'CompanyController@addVisa');
     Route::post('/company/update/{company}', 'CompanyController@update');
     Route::post('/applied/notify/{apply}', 'ApplyController@notify');
-    Route::post('/settings', 'SettingsController@update');
+    Route::post('/cover-letter/add', 'CoverLetterController@save');
+    Route::post('/cover-letter/update/{coverLetter}', 'CoverLetterController@update');
+    // Route::post('/settings', 'SettingsController@update');
 });

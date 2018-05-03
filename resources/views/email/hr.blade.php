@@ -1,7 +1,6 @@
 @component('mail::message')
-# {{ __('admin.good news') }}
 
-test
+{!! $coverLetter? $coverLetter->content : '' !!}
 
 Thanks,<br>
 {{ config('app.name') }}
