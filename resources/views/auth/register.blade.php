@@ -84,17 +84,3 @@
     </div>
 </div>
 @endsection
-
-@section('script')
-<script>
-    $('[type=file]').change(function(e) {
-        let label = $(this).siblings('label');
-        let file = e.target.files[0];
-        if(file) {
-            label.text(file.name);
-        } else {
-            label.text('');
-        }
-    });
-</script>
-@endsection

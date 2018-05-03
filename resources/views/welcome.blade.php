@@ -96,10 +96,6 @@
             </div>
         </div>
         <script src="{{ asset('js/app.js') }}"></script>
-        <script>
-            new Vue({
-                el: '#app'
-            });
-        </script>
+        <script src="{{ asset('js/search.js') }}"></script>
     </body>
 </html>

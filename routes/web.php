@@ -10,6 +10,12 @@ Route::get('/searchLocation', function(){
     $posts = App\Post::where('location', 'LIKE', '%'.request('s').'%')->take(5)->get()->unique('location');
     return $posts->pluck('location');
 });
+
+Route::get('/searchJob', function(){
+    $posts = App\Post::where('title', 'LIKE', '%'.request('s').'%')->take(5)->get()->unique('title');
+    return $posts->pluck('title');
+});
+
 Route::get('/jobs', 'PostController@all');
 Route::get('/job/{postSlug}', 'PostController@show');
 

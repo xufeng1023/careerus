@@ -1,8 +1,11 @@
 {
+    "/js/chart.js": "/js/chart.js",
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/admin.css": "/css/admin.css",
     "/css/dashboard.css": "/css/dashboard.css",
     "/css/stripe.css": "/css/stripe.css",
-    "/js/admin.js": "/js/admin.js"
+    "/js/admin.js": "/js/admin.js",
+    "/js/search.js": "/js/search.js",
+    "/js/account.js": "/js/account.js"
 }

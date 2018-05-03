@@ -2,7 +2,15 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-Vue.component('location', require('./components/location.vue'));
+$('[type=file]').change(function(e) {
+    let label = $(this).siblings('label');
+    let file = e.target.files[0];
+    if(file) {
+        label.text(file.name);
+    } else {
+        label.text('');
+    }
+});
 
 window.helper = {
     toggle(form, val = true) {
@@ -16,7 +24,3 @@ window.helper = {
         document.getElementById(buttonId).disabled = false;
     }
 }
-
-// const app = new Vue({
-//     el: '#app'
-// });

@@ -26,5 +26,5 @@
 @endsection
 
 @section('script')
-<script>new Vue({el:'#app'})</script>
+<script src="{{ asset('js/search.js') }}"></script>
 @endsection
