@@ -48,7 +48,7 @@
                             <td>
                                 @if($user->resume)
                                     <a href="/dashboard/resume/download?r={{ $user->resume }}">
-                                        {{ __('front.resume download') }}
+                                        <span data-feather="download" title="{{ __('front.resume download') }}"></span>
                                     </a>
                                 @endif
                             </td>

@@ -29,7 +29,7 @@ return [
     'free times left' => '您还有:times次免费申请机会',
     'job apply' => '工作申请',
     'jobs this year' => '今年提供visa职位:number个',
-    'jump to apply' => '到公司网站',
+    'jump to apply' => '公司网站',
     'login' => '登入',
     'logout' => '退出',
     'name' => '名字',

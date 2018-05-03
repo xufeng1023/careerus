@@ -93,7 +93,7 @@
                     @csrf
                     <div class="form-group">
                         <div class="custom-file">
-                            <input @change="onChange" type="file" name="resume" class="custom-file-input" :class="{'is-invalid': errors.resume}" id="resumeFileUpload" required>
+                            <input lang="zh" @change="onChange" type="file" name="resume" class="custom-file-input" :class="{'is-invalid': errors.resume}" id="resumeFileUpload" required>
                             <label class="custom-file-label" for="resumeFileUpload">{{ auth()->user()->maskResumeName() }}</label>
                             <div v-if="errors.resume" class="invalid-feedback" v-text="errors.resume[0]"></div>
                         </div>

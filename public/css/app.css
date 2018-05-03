@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /*!
  * Bootstrap v4.1.0 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
@@ -10617,6 +10619,10 @@ button.toast-close-button {
     padding: 15px 15px 15px 50px;
     width: 25em;
   }
+}
+
+.custom-file-label:after {
+  content: "\6D4F\89C8";
 }
 
 [v-cloak] {

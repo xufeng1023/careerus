@@ -15,7 +15,7 @@
                         <th>{{ __('admin.company') }}</th>
                         <th>{{ __('admin.job list') }}</th>
                         <th>{{ __('admin.applied date') }}</th>
-                        <th></th>
+                        <!-- <th></th> -->
                         <th></th>
                     </tr>
                 </thead>
@@ -36,13 +36,13 @@
                                 <div class="text-muted small">{{ $apply->post->jobType() }} ({{ $apply->post->location }})</div>
                             </td>
                             <td>{{ $apply->created_at }}</td>
-                            <td class="status">
+                            <!-- <td class="status">
                                 @if($apply->is_applied)
                                     <span class="badge badge-pill badge-success">{{ __('admin.applied') }}</span>
                                 @else
                                     {{ __('admin.not applied') }}
                                 @endif
-                            </td>
+                            </td> -->
                             <td>
                             <a title="{{ __('front.resume download') }}" href="/dashboard/resume/download?r={{ $apply->user->resume }}">
                                 <span data-feather="download"></span>
