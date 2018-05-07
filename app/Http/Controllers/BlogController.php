@@ -6,6 +6,13 @@ use App\Blog;
 
 class BlogController extends Controller
 {
+    public function all()
+    {
+        $blogs = Blog::latest()->get();
+
+        return view('blogs', compact('blogs'));
+    }
+
     public function allAdmin()
     {
         $blogs = Blog::latest()->get();

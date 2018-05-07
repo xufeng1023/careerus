@@ -47,7 +47,7 @@
 </script>
 
 <style>
-.form-control {
+#searchForm .form-control {
     border-radius: 0;
 }
 </style>

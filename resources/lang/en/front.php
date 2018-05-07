@@ -58,6 +58,7 @@ return [
     'resume' => '简历',
     'resume download' => '下载简历',
     'resume update' => '更新简历',
+    'resume invalid' => '无效的简历',
     'remember me' => '记住我',
     'search' => '搜索',
     'search job title' => '搜索职位',

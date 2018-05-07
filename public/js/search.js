@@ -403,7 +403,7 @@ exports = module.exports = __webpack_require__(153)(false);
 
 
 // module
-exports.push([module.i, "\n.form-control {\r\n    border-radius: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n#searchForm .form-control {\r\n    border-radius: 0;\n}\r\n", ""]);
 
 // exports
 

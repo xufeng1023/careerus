@@ -18,6 +18,23 @@ class ApplyController extends Controller
         return view('admin.applies', compact('applies'));
     }
 
+    public function save()
+    {
+        if(app()->environment() !== 'testing') {
+            if(! \Storage::exists(auth()->user()->resume)) {
+                return response(['errors' => ['resume' => trans('front.resume invalid')]], 422);
+            }
+        }
+
+        $post = (new Post)->findPost(request('job'), request('identity'));
+
+        (new Apply)->apply($post);
+
+        event(new \App\Events\StudentAppliedEvent($post));
+
+        return '/dashboard/applies';
+    }
+
     // public function save()
     // {
     //     $user = auth()->user();
@@ -37,28 +54,17 @@ class ApplyController extends Controller
 
     //     return '/dashboard/applies';
     // }
-    
-    public function save()
-    {
-        $post = (new Post)->findPost(request('job'), request('identity'));
 
-        (new Apply)->apply($post);
+    // public function notify(Apply $apply)
+    // {
+    //     $apply->is_applied = 1;
+    //     $apply->save();
+
+    //     event(new \App\Events\jobIsAppliedForStudent($apply));
         
-        event(new \App\Events\StudentAppliedEvent($post));
-
-        return '/dashboard/applies';
-    }
-
-    public function notify(Apply $apply)
-    {
-        $apply->is_applied = 1;
-        $apply->save();
-
-        event(new \App\Events\jobIsAppliedForStudent($apply));
-        
-        return [
-            'msg' => trans('admin.notified'),
-            'status' => trans('admin.applied')
-        ];
-    }
+    //     return [
+    //         'msg' => trans('admin.notified'),
+    //         'status' => trans('admin.applied')
+    //     ];
+    // }
 }

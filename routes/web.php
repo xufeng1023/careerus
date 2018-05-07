@@ -18,6 +18,7 @@ Route::get('/searchJob', function(){
 
 Route::get('/jobs', 'PostController@all');
 Route::get('/job/{postSlug}', 'PostController@show');
+Route::get('/blog', 'BlogController@all');
 
 Route::post('/apply', 'ApplyController@save');
 Route::post('/applyRegister', '\App\Http\Controllers\Auth\RegisterController@register');

@@ -37,8 +37,12 @@ class ApplyTest extends TestCase
 
     public function test_students_can_apply()
     {
+        Storage::fake();
+
+        $file = UploadedFile::fake()->image('resume.pdf');
+
         $this->login(
-            $student = create('User')
+            $student = create('User', ['resume' => 'resumes/' . $file->hashName()])
         );
         
         $post = create('Post');

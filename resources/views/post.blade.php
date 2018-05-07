@@ -82,7 +82,8 @@
                                     <div class="form-group">
                                         <label class="col-form-label">{{ __('front.resume') }}</label>
                                         <div>
-                                            <input type="text" readonly class="form-control" value="{{ auth()->user()->maskResumeName() }}">
+                                            <input type="text" readonly class="form-control" :class="{'is-invalid': errors.resume}" value="{{ auth()->user()->maskResumeName() }}">
+                                            <span v-if="errors.resume" v-text="errors.resume" class="invalid-feedback"></span>
                                         </div>
                                     </div>
 

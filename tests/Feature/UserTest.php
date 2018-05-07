@@ -219,47 +219,6 @@ class UserTest extends TestCase
         Storage::disk('local')->assertExists('resumes/' . $file->hashName());
     }
 
-    public function test_admin_can_email_students_after_applying()
-    {
-        $this->login(
-            $admin = create('User', ['role' => 'admin'])
-        );
-
-        $apply = create('Apply');
-
-        $this->assertDatabaseHas('applies', ['id' => $apply->id, 'is_applied' => 0]);
-
-        $this->post('/admin/applied/notify/'.$apply->id);
-
-        Mail::fake();
-        event(new \App\Events\jobIsAppliedForStudent($apply));
-        Mail::assertSent(\App\Mail\YourJobIsApplied::class);
-
-        $this->assertDatabaseHas('applies', ['id' => $apply->id, 'is_applied' => 1]);
-    }
-
-    // public function test_guests_can_not_access_settings_page()
-    // {
-    //     $this->expectException(
-    //         'Illuminate\Auth\AuthenticationException'
-    //     );
-
-    //     $this->get('/admin/settings');
-    // }
-
-    // public function test_users_can_not_access_settings_page()
-    // {
-    //     $this->expectException(
-    //         'Symfony\Component\HttpKernel\Exception\NotFoundHttpException'
-    //     );
-
-    //     $this->login(
-    //         $student = create('User')
-    //     );
-
-    //     $this->get('/admin/settings');
-    // }
-
     public function test_admin_can_add_and_update_plans()
     {
         $this->login(
@@ -331,6 +290,47 @@ class UserTest extends TestCase
 
         $this->assertDatabaseHas('blogs', ['content' => $data->content.'22']);
     }
+
+    // public function test_admin_can_email_students_after_applying()
+    // {
+    //     $this->login(
+    //         $admin = create('User', ['role' => 'admin'])
+    //     );
+
+    //     $apply = create('Apply');
+
+    //     $this->assertDatabaseHas('applies', ['id' => $apply->id, 'is_applied' => 0]);
+
+    //     $this->post('/admin/applied/notify/'.$apply->id);
+
+    //     Mail::fake();
+    //     event(new \App\Events\jobIsAppliedForStudent($apply));
+    //     Mail::assertSent(\App\Mail\YourJobIsApplied::class);
+
+    //     $this->assertDatabaseHas('applies', ['id' => $apply->id, 'is_applied' => 1]);
+    // }
+
+    // public function test_guests_can_not_access_settings_page()
+    // {
+    //     $this->expectException(
+    //         'Illuminate\Auth\AuthenticationException'
+    //     );
+
+    //     $this->get('/admin/settings');
+    // }
+
+    // public function test_users_can_not_access_settings_page()
+    // {
+    //     $this->expectException(
+    //         'Symfony\Component\HttpKernel\Exception\NotFoundHttpException'
+    //     );
+
+    //     $this->login(
+    //         $student = create('User')
+    //     );
+
+    //     $this->get('/admin/settings');
+    // }
 
     // public function test_user_must_have_a_card_to_buy()
     // {
@@ -418,23 +418,23 @@ class UserTest extends TestCase
     //     $this->assertCount(1, \App\Invoice::all());
     // }
 
-    private function createStripeToken($paymentFail = false, $badCard = false)
-    {
-        Stripe::setApiKey('pk_test_SJpv8Y537mDjHvJY5ri7YRir');
+    // private function createStripeToken($paymentFail = false, $badCard = false)
+    // {
+    //     Stripe::setApiKey('pk_test_SJpv8Y537mDjHvJY5ri7YRir');
 
-        $number = "4242424242424242";
+    //     $number = "4242424242424242";
 
-        if($paymentFail) $number = "4000000000000341";
+    //     if($paymentFail) $number = "4000000000000341";
 
-        if($badCard) $number = "4000000000000069";
+    //     if($badCard) $number = "4000000000000069";
 
-        return Token::create([
-            "card" => [
-                "number" => $number,
-                "exp_month" => 4,
-                "exp_year" => 2019,
-                "cvc" => "314"
-            ]
-        ])->id;
-    }
+    //     return Token::create([
+    //         "card" => [
+    //             "number" => $number,
+    //             "exp_month" => 4,
+    //             "exp_year" => 2019,
+    //             "cvc" => "314"
+    //         ]
+    //     ])->id;
+    // }
 }
