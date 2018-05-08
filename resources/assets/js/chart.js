@@ -1,14 +1,13 @@
 window.Chart = require('chart.js');
 
 Vue.component('chart', {
-    template: '<canvas id="chart-canvas"></canvas>',
-    props: ['dataSet', 'chartTitle'],
+    template: '<canvas id="bar-chart-canvas"></canvas>',
+    props: ['dataSet'],
     data() {
         return {
             bars: {
                 labels: [],
                 visa: [],
-                content: [],
                 bgColor: []
             }
         }
@@ -16,10 +15,26 @@ Vue.component('chart', {
     mounted: function() {
         var self = this;
 
+        for(var i = this.dataSet[0].year; i < this.dataSet[this.dataSet.length - 1].year; i++) {
+            var missing = this.dataSet.every(val => {
+                return val.year != i;
+            });
+
+            if(missing) {
+                this.dataSet.push({
+                    year: i,
+                    number_of_visa: 0
+                });
+            }
+        }
+
+        this.dataSet.sort((a, b) => {
+            return a.year > b.year;
+        });
+
         this.dataSet.forEach(function(val) {
             self.bars.labels.push(val.year);
             self.bars.visa.push(val.number_of_visa);
-            self.bars.content.push(val.jobs);
         });
         
         let sum = self.bars.visa.reduce(function(total, num) {
@@ -31,15 +46,14 @@ Vue.component('chart', {
         });
 
         var myChart = new Chart(
-            document.getElementById("chart-canvas").getContext('2d'),
+            document.getElementById("bar-chart-canvas").getContext('2d'),
             {
                 type: 'bar',
                 data: {
                     labels: self.bars.labels,
                     datasets: [{
-                        label: self.chartTitle,
+                        label: '',
                         data: self.bars.visa,
-                        content: self.bars.content,
                         backgroundColor: self.bars.bgColor,
                         borderWidth: 1
                     }]
@@ -54,10 +68,6 @@ Vue.component('chart', {
                         callbacks: {
                             label: function(tooltipItem, data) {
                                 return data['datasets'][0]['data'][tooltipItem['index']] + ' visa issued';
-                            },
-                            afterLabel: function(tooltipItem, data) {
-                                return data['datasets'][0]['content'][tooltipItem['index']].split(',');
-
                             }
                         }
                     },
@@ -76,7 +86,7 @@ Vue.component('chart', {
 
 
 const app = new Vue({
-    el: '#app',
+    el: '#jobPageLeft',
     data: {
         errors: ''
     },

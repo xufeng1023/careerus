@@ -1,10 +1,8 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
+
+Route::get('/', 'PostController@index');
 
 Route::get('/searchLocation', function(){
     $posts = App\Post::where('location', 'LIKE', '%'.request('s').'%')->take(5)->get()->unique('location');
@@ -19,6 +17,7 @@ Route::get('/searchJob', function(){
 Route::get('/jobs', 'PostController@all');
 Route::get('/job/{postSlug}', 'PostController@show');
 Route::get('/blog', 'BlogController@all');
+Route::get('/blog/{blogSlug}', 'BlogController@show');
 
 Route::post('/apply', 'ApplyController@save');
 Route::post('/applyRegister', '\App\Http\Controllers\Auth\RegisterController@register');

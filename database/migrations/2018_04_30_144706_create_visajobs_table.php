@@ -18,7 +18,6 @@ class CreateVisajobsTable extends Migration
             $table->unsignedInteger('company_id');
             $table->unsignedSmallInteger('year')->nullable();
             $table->unsignedInteger('number_of_visa')->nullable();
-            $table->text('jobs')->nullable();
             $table->timestamps();
 
             $table->foreign('company_id')

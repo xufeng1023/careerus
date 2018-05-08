@@ -60,63 +60,71 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 227);
+/******/ 	return __webpack_require__(__webpack_require__.s = 225);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 227:
+/***/ 225:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(228);
+module.exports = __webpack_require__(226);
 
 
 /***/ }),
 
-/***/ 228:
+/***/ 226:
 /***/ (function(module, exports) {
 
-var app = new Vue({
-    el: '#app',
-    data: {
-        errors: ''
+Vue.component('pie-chart', {
+    template: '<canvas id="pie-chart-canvas"></canvas>',
+    props: ['dataSet'],
+    data: function data() {
+        return {
+            bars: {
+                labels: [],
+                numbers: [],
+                bgColor: []
+            }
+        };
     },
-    methods: {
-        onSubmit: function onSubmit(e) {
-            e.preventDefault();
-            var uri = e.target.getAttribute('action');
-            var fd = new FormData(e.target);
-            window.helper.toggle(e.target);
-            $.ajax(uri, {
-                type: 'post',
-                context: this,
-                data: fd,
-                processData: false,
-                contentType: false,
-                error: function error(data) {
-                    this.errors = JSON.parse(data.responseText).errors;
-                },
-                success: function success(data) {
-                    this.errors = '';
-                    toastr.success(data);
 
-                    if (e.target.getAttribute('id') === 'passForm') {
-                        e.target.reset();
-                    }
-                },
+    mounted: function mounted() {
+        var self = this;
 
-                complete: function complete() {
-                    window.helper.toggle(e.target, false);
-                }
-            });
-        },
-        onChange: function onChange(e) {
-            var file = e.target.files[0];
-            $(e.target).siblings('label').text(file.name);
-            $('#resumeFormBtn').click();
-        }
+        var dataArray = this.dataSet.split(',');
+
+        dataArray.forEach(function (val) {
+            var matches = val.replace(/\r\n/, '').match(/([a-zA-Z ]+)\(([\d]+)\)/);
+            for (var prop in matches) {
+                if (prop == 1) self.bars.labels.push(matches[prop]);
+                if (prop == 2) self.bars.numbers.push(matches[prop]);
+            }
+        });
+
+        var sum = self.bars.numbers.reduce(function (total, num) {
+            return Number(total) + Number(num);
+        });
+
+        self.bars.numbers.forEach(function (val) {
+            self.bars.bgColor.push('rgba(54, 162, 235, ' + val / sum + ')');
+        });
+
+        var myChart = new Chart(document.getElementById("pie-chart-canvas").getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: self.bars.labels,
+                datasets: [{
+                    data: self.bars.numbers,
+                    backgroundColor: self.bars.bgColor,
+                    borderWidth: 1
+                }]
+            }
+        });
     }
 });
+
+new Vue({ el: '#jobPageRight' });
 
 /***/ })
 

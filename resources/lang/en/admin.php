@@ -14,7 +14,7 @@ return [
     'company' => '公司',
     'company name' => '公司名称',
     'company hr' => '公司联系人',
-    'company jobs' => 'Sponsor的工作',
+    'company jobs' => 'Sponsor的工作(数量)',
     'company email' => 'HR Email',
     'company website' => '公司网站',
     'company visa history' => '公司VISA记录',

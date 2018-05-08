@@ -6,8 +6,10 @@
     "/css/dashboard.css": "/css/dashboard.css",
     "/css/stripe.css": "/css/stripe.css",
     "/css/editor.css": "/css/editor.css",
-    "/js/admin.js": "/js/admin.js",
     "/js/search.js": "/js/search.js",
+    "/js/admin.js": "/js/admin.js",
     "/js/editor.js": "/js/editor.js",
+    "/js/blog.js": "/js/blog.js",
+    "/js/pie.js": "/js/pie.js",
     "/js/account.js": "/js/account.js"
 }

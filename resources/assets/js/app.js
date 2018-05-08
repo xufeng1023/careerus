@@ -17,10 +17,24 @@ window.helper = {
         let btnForm = form.getAttribute('id');
         $('button[form='+btnForm+']').attr('disable', val);
     },
-    disable: (buttonId) => {
+    disable(buttonId) {
         document.getElementById(buttonId).disabled = true;
     },
-    enable: (buttonId) => {
+    enable(buttonId) {
         document.getElementById(buttonId).disabled = false;
+    },
+    debounce(func, wait, immediate) {
+        var timeout;
+        return function() {
+            var context = this, args = arguments;
+            var later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
     }
 }

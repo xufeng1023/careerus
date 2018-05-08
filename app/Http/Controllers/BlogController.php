@@ -31,6 +31,11 @@ class BlogController extends Controller
         return '/admin/blog';
     }
 
+    public function show(Blog $blog)
+    {
+        return view('blog', compact('blog'));
+    }
+
     public function update(Blog $blog)
     {
         $blog->update(request()->all());

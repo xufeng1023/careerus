@@ -2,34 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
+use App\{Post, Catagory};
 
 class PostController extends Controller
 {
-    public function __construct()
+    public function index()
     {
-        $this->middleware(['auth', 'admin'])->except(['all', 'show']);
+        $categories = Post::all()->unique('catagory_id')->pluck('catagory.name');
+
+        return view('welcome', compact('categories'));
     }
 
     public function all()
     {
-        if(!request('s') && !request('l')) {
+        if(!request('s') && !request('l') && !request('ct')) {
             return back();
         }
 
         $query = Post::with('company.visaJobs');
 
-        if(request('s') && request('l')) {
-            $query = $query->where('title', 'LIKE', '%'.request('s').'%')
-                            ->where('location', 'LIKE', '%'.request('l').'%');
-        }
-
-        if(request('s') && !request('l')) {
+        if(request('s')) {
             $query = $query->where('title', 'LIKE', '%'.request('s').'%');
         }
 
-        if(!request('s') && request('l')) {
+        if(request('l')) {
             $query = $query->where('location', 'LIKE', '%'.request('l').'%');
+        }
+
+        if(request('ct')) {
+            $category = Catagory::where('name', request('ct'))->first();
+
+            if($category) $query = $query->where('catagory_id', $category->id);
         }
 
         $posts = $query->get();
@@ -39,7 +42,12 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        $post->load('catagory', 'company.visaJobs');
+        $post->load([
+            'catagory', 
+            'company.visaJobs' => function($query) {
+                $query->orderBy('year', 'asc');
+            }
+        ]);
 
         return view('post', compact('post'));
     }

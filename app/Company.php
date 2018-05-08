@@ -23,4 +23,9 @@ class Company extends Model
         $visa = $this->visaJobs()->where('year', date('Y'))->first();
         if($visa) return $visa->number_of_visa;
     }
+
+    public function setJobsAttribute($value)
+    {
+        $this->attributes['jobs'] = str_replace(")", '),', $value);
+    }
 }

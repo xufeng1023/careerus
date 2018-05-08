@@ -1,4 +1,4 @@
-window._ = require('lodash');
+//window._ = require('lodash');
 window.Popper = require('popper.js').default;
 
 
@@ -16,15 +16,6 @@ try {
     require('bootstrap');
 } catch (e) {}
 
-
-// window.axios = require('axios');
-
-// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.toastr = require('toastr');
 
-let token = document.head.querySelector('meta[name="csrf-token"]');
-
-if (token) {
-    //window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-    token.remove();
-}
+document.head.querySelector('meta[name="csrf-token"]').remove();

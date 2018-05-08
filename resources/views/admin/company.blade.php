@@ -80,6 +80,12 @@
                 <input type="text" class="form-control" name="website" value="{{ request('id')? $companies[0]->website: '' }}">
             </div>
 
+            <div class="form-group">
+                <label class="col-form-label">{{ __('admin.company jobs') }}</label>
+
+                <textarea class="form-control" name="jobs" rows="5" placeholder="eg: Application Developer(1100)">{{ request('id')? $companies[0]->jobs: '' }}</textarea>
+            </div>
+
             <button type="submit" class="btn btn-primary">{{ request('id')? __('admin.update') : __('admin.save') }}</button>
         </form>
 
@@ -104,12 +110,6 @@
                                 <label class="col-form-label">{{ __('admin.company numberOfVisa') }}</label>
 
                                 <input type="number" class="form-control" name="number_of_visa">
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-form-label">{{ __('admin.company jobs') }}</label>
-
-                                <textarea class="form-control" name="jobs" rows="5" placeholder="eg: Application Developer(1100)"></textarea>
                             </div>
 
                             <div class="form-group">

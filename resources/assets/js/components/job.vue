@@ -19,7 +19,7 @@
             }
         },
         methods: {
-            search: _.debounce(
+            search: window.helper.debounce(
                 function (e) {
                     var s = e.target.value;
                     this.input = s;

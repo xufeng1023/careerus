@@ -7,7 +7,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-7">
+        <div class="col">
             <h1 class="h2">{{ $post->title }}</h1>
             <div class="text-muted">{{ $post->company->name }} - {{ $post->location }}</div>
             <div>
@@ -15,10 +15,10 @@
                 <span class="badge badge-pill badge-secondary">{{ $post->catagory->name }}</span>
                 <span class="badge badge-pill badge-secondary">{{ $post->is_fulltime? 'Full-time' : 'Part-time' }}</span>
             </div>
-            @if(count($post->company->visaJobs))
-                <chart :data-set="{{ $post->company->visaJobs }}" chart-title="{{ __('front.chart title') }}"></chart>
-            @endif
-            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div id="jobPageLeft" class="col-md-7">
             <p>{!! $post->description !!}</p>
 
             <div class="mb-1">
@@ -175,6 +175,26 @@
                 </div>
             </div>
         </div>
+
+        <div id="jobPageRight" class="col-md-5">
+            <div class="card border-light mb-3">
+                <div class="card-header">{{ __('front.chart title') }}</div>
+                <div class="card-body">
+                    @if(count($post->company->visaJobs))
+                        <chart :data-set="{{ $post->company->visaJobs }}"></chart>
+                    @endif
+                </div>
+            </div>
+            
+            <div class="card border-light mb-3">
+                <div class="card-header">{{ __('front.chart title') }}</div>
+                <div class="card-body">
+                    @if($post->company->jobs)
+                        <pie-chart data-set="{{ $post->company->jobs }}"></pie-chart>
+                    @endif
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
@@ -182,4 +202,5 @@
 @section('script')
 <script src="{{ asset('js/search.js') }}"></script>
 <script src="{{ asset('js/chart.js') }}"></script>
+<script src="{{ asset('js/pie.js') }}"></script>
 @endsection

@@ -28,6 +28,11 @@ class RouteServiceProvider extends ServiceProvider
             return \App\Post::where('title', $title)->where('identity', request('i'))->first() ?? abort(404);
         });
 
+        Route::bind('blogSlug', function ($value) {
+            $title = trim(implode(' ', explode('-', $value)));
+            return \App\Blog::where('title', $title)->first() ?? abort(404);
+        });
+
         parent::boot();
     }
 

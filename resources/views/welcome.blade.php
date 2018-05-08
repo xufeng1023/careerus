@@ -94,6 +94,10 @@
             <div class="content">
                 <div class="m-b-md">CAREERUS</div>
                 @include('_search')
+                <br>
+                @foreach($categories as $category)
+                    <a href="/jobs{{ url()->full() === url()->current()? '?ct='.$category : '&ct='.$category }}" class="badge badge-pill badge-secondary">{{ $category }}</a>
+                @endforeach
             </div>
         </div>
         <script src="{{ asset('js/app.js') }}"></script>

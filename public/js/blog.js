@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 229);
+/******/ 	return __webpack_require__(__webpack_require__.s = 231);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -13483,14 +13483,6 @@ function fromByteArray (uint8) {
 
 /***/ }),
 
-/***/ 229:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(230);
-
-
-/***/ }),
-
 /***/ 23:
 /***/ (function(module, exports) {
 
@@ -13582,28 +13574,21 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 /***/ }),
 
-/***/ 230:
+/***/ 231:
 /***/ (function(module, exports, __webpack_require__) {
 
-var toolbarOptions = [['bold', 'italic', 'underline', 'strike'], // toggled buttons
-['blockquote'], [{ 'header': 1 }, { 'header': 2 }], // custom button values
-[{ 'list': 'ordered' }, { 'list': 'bullet' }], [{ 'script': 'sub' }, { 'script': 'super' }], // superscript/subscript
-[{ 'indent': '-1' }, { 'indent': '+1' }], // outdent/indent
+module.exports = __webpack_require__(232);
 
-[{ 'size': ['small', false, 'large', 'huge'] }], // custom dropdown
-[{ 'header': [1, 2, 3, 4, 5, 6, false] }], [{ 'color': [] }, { 'background': [] }], // dropdown with defaults from theme
-[{ 'font': [] }], [{ 'align': [] }], ['clean'] // remove formatting button
-];
+
+/***/ }),
+
+/***/ 232:
+/***/ (function(module, exports, __webpack_require__) {
 
 var quill = __webpack_require__(20);
-window.Delta = quill.import('delta');
 
-window.Quill = new quill('#editor', {
-    theme: 'snow',
-    modules: {
-        toolbar: toolbarOptions
-    }
-});
+window.Quill = new quill('#editor');
+window.Quill.enable(false);
 
 /***/ }),
 
