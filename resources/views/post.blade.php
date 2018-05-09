@@ -8,18 +8,24 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1 class="h2">{{ $post->title }}</h1>
+            <h1 class="h3">{{ $post->title }}</h1>
             <div class="text-muted">{{ $post->company->name }} - {{ $post->location }}</div>
-            <div>
+            <div class="mb-3">
                 <span class="badge badge-pill badge-secondary">{{ $post->created_at->diffforhumans() }}</span>
                 <span class="badge badge-pill badge-secondary">{{ $post->catagory->name }}</span>
                 <span class="badge badge-pill badge-secondary">{{ $post->is_fulltime? 'Full-time' : 'Part-time' }}</span>
+            </div>
+            <div class="mb-3">
+                <div class="text-primary">{{ __('front.we guess sponsor odds') }}{{ $post->sponsor_odds.'%' }}</div>
+                <div class="progress" style="height: 3px;">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $post->sponsor_odds }}%" aria-valuenow="{{ $post->sponsor_odds }}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div id="jobPageLeft" class="col-md-7">
-            <p>{!! $post->description !!}</p>
+            <div>{!! $post->description !!}</div>
 
             <div class="mb-1">
                 <a href="{{ $post->company->website }}" class="btn btn-primary">
@@ -177,23 +183,40 @@
         </div>
 
         <div id="jobPageRight" class="col-md-5">
-            <div class="card border-light mb-3">
-                <div class="card-header">{{ __('front.chart title') }}</div>
-                <div class="card-body">
-                    @if(count($post->company->visaJobs))
+            @if(count($post->company->visaJobs))
+                <div class="card border-light mb-3">
+                    <div class="card-header">{{ __('front.chart title') }}</div>
+                    <div class="card-body">
                         <chart :data-set="{{ $post->company->visaJobs }}"></chart>
-                    @endif
+                    </div>
                 </div>
-            </div>
-            
-            <div class="card border-light mb-3">
-                <div class="card-header">{{ __('front.chart title') }}</div>
-                <div class="card-body">
-                    @if($post->company->jobs)
+            @endif
+
+            @if($post->company->jobs)
+                <div class="card border-light mb-3">
+                    <div class="card-header">{{ __('front.chart title') }}</div>
+                    <div class="card-body">
                         <pie-chart data-set="{{ $post->company->jobs }}"></pie-chart>
-                    @endif
+                    </div>
                 </div>
-            </div>
+            @endif
+
+            @if($post->company->posts()->count() > 1)
+                <div class="card border-light">
+                    <div class="card-header">{{ __('front.company other jobs', ['company' => $post->company->name]) }}</div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            @foreach($post->company->posts as $job)
+                                @if($post->id != $job->id)
+                                    <li>
+                                        <a href="/job/{{ $job->title }}?i={{ $job->identity }}">{{ $job->title }}</a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </div>

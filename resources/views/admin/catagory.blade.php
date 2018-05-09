@@ -24,12 +24,14 @@
                 <thead>
                     <tr>
                         <th>{{ __('admin.catagory name') }}</th>
+                        <th>{{ __('admin.rfe pass rate') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($catagories as $catagory)
                         <tr>
                             <td>{{ $catagory->name }}</td>
+                            <td>{{ $catagory->rfe }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -50,6 +52,27 @@
                     @if ($errors->has('name'))
                         <span class="invalid-feedback">
                             <strong>{{ $errors->first('name') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-form-label">{{ __('admin.rfe pass rate') }}</label>
+
+                <div>
+                    <select class="form-control{{ $errors->has('rfe') ? ' is-invalid' : '' }}" name="rfe" required>
+                        <option value=""></option>
+                        <option value="100">100%</option>
+                        <option value="95">95%</option>
+                        <option value="80">80%</option>
+                        <option value="65">65%</option>
+                        <option value="50">50%</option>
+                    </select>
+
+                    @if ($errors->has('rfe'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('rfe') }}</strong>
                         </span>
                     @endif
                 </div>

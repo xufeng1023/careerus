@@ -23,6 +23,8 @@ class CreatePostTable extends Migration
             $table->longText('description');
             $table->string('location');
             $table->boolean('is_fulltime')->default(false);
+            $table->unsignedTinyInteger('sponsor_rate')->default(0);
+            $table->unsignedTinyInteger('sponsor_odds')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')

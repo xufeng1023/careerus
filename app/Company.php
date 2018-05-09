@@ -13,6 +13,11 @@ class Company extends Model
         return $this->hasMany(VisaJob::class);
     }
 
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
     public function getWebsiteAttribute($value)
     {
         return str_start($value, 'http://');
@@ -26,6 +31,6 @@ class Company extends Model
 
     public function setJobsAttribute($value)
     {
-        $this->attributes['jobs'] = str_replace(")", '),', $value);
+        $this->attributes['jobs'] = preg_replace('/\),*/', '),', $value);
     }
 }

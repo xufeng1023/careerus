@@ -108,6 +108,21 @@
                 </div>
 
                 <div class="col-sm-6">
+                    <label class="col-form-label">{{ __('admin.job sponsor rate') }}</label>
+
+                    <select class="form-control{{ $errors->has('sponsor_rate') ? ' is-invalid' : '' }}" name="sponsor_rate" required>
+                        <option value=""></option>
+                        <option value="80" {{ request('id') && $posts[0]->sponsor_rate == 80 ? 'selected' : '' }}>80%</option>
+                        <option value="65" {{ request('id') && $posts[0]->sponsor_rate == 65 ? 'selected' : '' }}>65%</option>
+                        <option value="50" {{ request('id') && $posts[0]->sponsor_rate == 50 ? 'selected' : '' }}>50%</option>
+                        <option value="35" {{ request('id') && $posts[0]->sponsor_rate == 35 ? 'selected' : '' }}>35%</option>
+                        <option value="20" {{ request('id') && $posts[0]->sponsor_rate == 20 ? 'selected' : '' }}>20%</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
                     <div><label class="col-form-label mb-2">{{ __('admin.job type') }}</label></div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="is_fulltime" id="radio-fulltime" value="1" {{ request('id') && ($posts[0]->is_fulltime == 1)? 'checked' : '' }} required>

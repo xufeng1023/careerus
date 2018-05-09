@@ -62,8 +62,11 @@ class PostController extends Controller
 
     public function save()
     {
+        $category = Catagory::findOrFail(request('catagory_id'));
+
         $data = request()->all();
         $data['user_id'] = auth()->id();
+        $data['sponsor_odds'] = ($category->rfe + 45 + request('sponsor_odds') + rand(70, 100)) * 0.25;
 
         if(app()->environment() !== 'testing') {
             $data['identity'] = str_random(50).md5(time());

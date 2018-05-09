@@ -20,6 +20,7 @@ return [
     'cancel' => '取消',
     'choose' => '选择',
     'consume points' => ' *本次申请需要:points点',
+    'company other jobs' => ':company的其它工作',
     'continue' => '继续',
     'chart title' => '公司年度发行visa数量统计',
     'date' => '日期',
@@ -65,4 +66,5 @@ return [
     'Send Password Reset Link' => '发送重置密码链接',
     'update' => '更新',
     'updated ok' => '更新成功',
+    'we guess sponsor odds' => '内部预测今年该职位Sponsor概率为: ',
 ];
