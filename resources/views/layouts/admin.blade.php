@@ -61,6 +61,13 @@
               </li>
 
               <li class="nav-item">
+                <a class="nav-link {{ str_contains(url()->current(), 'tags')? 'active' : '' }}" href="/admin/tags">
+                  <span data-feather="tag"></span>
+                  {{ __('admin.tags') }}
+                </a>
+              </li>
+
+              <li class="nav-item">
                 <a class="nav-link {{ str_contains(url()->current(), 'user')? 'active' : '' }}" href="/admin/user">
                   <span data-feather="users"></span>
                   {{ __('admin.users') }}

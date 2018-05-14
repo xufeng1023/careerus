@@ -81,6 +81,12 @@
             </div>
 
             <div class="form-group">
+                <label class="col-form-label">{{ __('admin.company scale') }}</label>
+
+                <input type="number" min="0" class="form-control" name="scale" value="{{ request('id')? $companies[0]->scale: 0 }}">
+            </div>
+
+            <div class="form-group">
                 <label class="col-form-label">{{ __('admin.company jobs') }}</label>
 
                 <textarea class="form-control" name="jobs" rows="5" placeholder="eg: Application Developer(1100)">{{ request('id')? $companies[0]->jobs: '' }}</textarea>

@@ -19,6 +19,7 @@ class CreateCompanyTable extends Migration
             $table->string('hr');
             $table->string('email');
             $table->string('website');
+            $table->unsignedMediumInteger('scale')->default(0);
             $table->text('jobs')->nullable();
             $table->timestamps();
         });

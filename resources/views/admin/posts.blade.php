@@ -91,7 +91,7 @@
                 </div>
 
                 <div class="col-sm-6">
-                    <label>{{ __('admin.catagory') }}</label>
+                    <label class="col-form-label">{{ __('admin.catagory') }}</label>
                     <select class="form-control" name="catagory_id">
                         @foreach($catagories as $catagory)
                             <option value="{{ $catagory->id }}" {{ request('id') && ($posts[0]->catagory_id == $catagory->id)? 'selected' : '' }}>{{ $catagory->name }}</option>
@@ -121,16 +121,40 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-form-label col-sm-12">{{ __('admin.tags') }}</label>
+                    <div class="input-group col-sm-3 mb-3">
+                        <input type="text" id="new-tag-input" class="form-control">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" onclick="onClick(event)">{{ __('admin.tag add') }}</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="tags-row">
+                    @foreach($tags as $tag)
+                        <div class="form-check form-check-inline">
+                            <input name="tags[]" class="form-check-input" type="checkbox" id="Checkbox{{ $tag->name }}" value="{{ $tag->id }}" {{ request('id') && ($posts[0]->tags->contains($tag->id))? 'checked' : '' }}>
+                            <label class="form-check-label" for="Checkbox{{ $tag->name }}">{{ $tag->name }}</label>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
             <div class="form-group row">
                 <div class="col-sm-6">
                     <div><label class="col-form-label mb-2">{{ __('admin.job type') }}</label></div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="is_fulltime" id="radio-fulltime" value="1" {{ request('id') && ($posts[0]->is_fulltime == 1)? 'checked' : '' }} required>
+                        <input class="form-check-input" type="radio" name="job_type" id="radio-fulltime" value="Full-time" {{ request('id') && ($posts[0]->job_type == "Full-time")? 'checked' : '' }} required>
                         <label class="form-check-label" for="radio-fulltime">Full Time</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="is_fulltime" id="radio-parttime" value="0" {{ request('id') && ($posts[0]->is_fulltime == 0)? 'checked' : '' }} required>
+                        <input class="form-check-input" type="radio" name="job_type" id="radio-parttime" value="Part-time" {{ request('id') && ($posts[0]->job_type == "Part-time")? 'checked' : '' }} required>
                         <label class="form-check-label" for="radio-parttime">Part Time</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="job_type" id="radio-intership" value="Intership" {{ request('id') && ($posts[0]->job_type == "Intership")? 'checked' : '' }} required>
+                        <label class="form-check-label" for="radio-intership">Intership</label>
                     </div>
                 </div>
             </div>
@@ -141,4 +165,24 @@
         </form>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    function onClick(e) {
+        $.ajax('/admin/tag/add', {
+            type: 'post',
+            data: {name: $('#new-tag-input').val()},
+            error: function(data) {
+                window.toastr.error(data.responseText);
+            },
+            success(data) {
+                window.toastr.success(data.msg);
+                var tag = '<div class="form-check form-check-inline"><input name="tags[]" class="form-check-input" type="checkbox" id="Checkbox'+data.data.name+'" value="'+data.data.id+'" checked><label class="form-check-label" for="Checkbox'+data.data.name+'">'+data.data.name+'</label></div>';
+                $('#tags-row').prepend(tag);
+                $('#new-tag-input').val('');
+            }
+        });
+    }
+</script>
 @endsection

@@ -11,6 +11,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'catagory_id' => factory(App\Catagory::class)->create(),
         'company_id' => factory(App\Company::class)->create(),
         'location' => 'New York,NY',
+        'job_type' => 'Full-time',
         'identity' => str_random(50).md5(time())
     ];
 });

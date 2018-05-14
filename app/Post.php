@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $guarded = [];
+    protected $guarded = ['tags'];
     
     public function creator()
     {
@@ -21,6 +21,11 @@ class Post extends Model
     public function catagory()
     {
         return $this->belongsTo(Catagory::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 
     public function link()

@@ -13,7 +13,7 @@
             <div class="mb-3">
                 <span class="badge badge-pill badge-secondary">{{ $post->created_at->diffforhumans() }}</span>
                 <span class="badge badge-pill badge-secondary">{{ $post->catagory->name }}</span>
-                <span class="badge badge-pill badge-secondary">{{ $post->is_fulltime? 'Full-time' : 'Part-time' }}</span>
+                <span class="badge badge-pill badge-secondary">{{ $post->job_type }}</span>
             </div>
             <div class="mb-3">
                 <div class="text-primary">{{ __('front.we guess sponsor odds') }}{{ $post->sponsor_odds.'%' }}</div>
@@ -27,7 +27,7 @@
         <div id="jobPageLeft" class="col-md-7">
             <div>{!! $post->description !!}</div>
 
-            <div class="mb-1">
+            <div class="my-3">
                 <a href="{{ $post->company->website }}" class="btn btn-primary">
                     {{ __('front.jump to apply') }}
                 </a>

@@ -42,6 +42,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/jobs', 'PostController@allAdmin');
     Route::get('/user', 'UserController@all');
     Route::get('/blog', 'BlogController@allAdmin');
+    Route::get('/tags', 'TagController@allAdmin');
     Route::get('/catagory', 'CatagoryController@allAdmin');
     Route::get('/company', 'CompanyController@all');
     Route::get('/plan', 'PlanController@index');
@@ -51,7 +52,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/post/add', 'PostController@save');
     Route::post('/post/update/{post}', 'PostController@update');
     Route::post('/blog/add', 'BlogController@save');
+    Route::post('/tag/add', 'TagController@save');
     Route::post('/blog/update/{blog}', 'BlogController@update');
+    Route::post('/tag/update/{tag}', 'TagController@update');
     Route::post('/user/add', 'UserController@save');
     Route::post('/user/update/{user}', 'UserController@update');
     Route::post('/plan/add', 'PlanController@save');

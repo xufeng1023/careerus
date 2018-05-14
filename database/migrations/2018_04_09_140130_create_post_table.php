@@ -22,7 +22,7 @@ class CreatePostTable extends Migration
             $table->string('title');
             $table->longText('description');
             $table->string('location');
-            $table->boolean('is_fulltime')->default(false);
+            $table->enum('job_type', ['Full-time', 'Part-time', 'Intership']);
             $table->unsignedTinyInteger('sponsor_rate')->default(0);
             $table->unsignedTinyInteger('sponsor_odds')->default(0);
             $table->timestamps();

@@ -73,6 +73,24 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('posts', $post);
     }
 
+    public function test_admin_can_add_a_post_with_pivot_table()
+    {
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $tag = create('Tag');
+
+        $post = raw('Post', ['user_id' => $admin->id, 'title' => 'a--bb', 'tags' => [$tag->id]]);
+
+        $this->post('/admin/post/add', $post);
+
+        $post['title'] = ucwords('a bb');
+
+        $this->assertDatabaseHas('posts', ['title' => $post['title']]);
+        $this->assertDatabaseHas('post_tag', ['post_id' => 1, 'tag_id' => $tag->id]);
+    }
+
     public function test_admin_can_add_a_catagory()
     {
         $this->login(
@@ -82,6 +100,31 @@ class UserTest extends TestCase
         $this->post('/admin/catagory/add', $catagory = raw('Catagory'));
 
         $this->assertDatabaseHas('catagories', $catagory);
+    }
+
+    public function test_admin_can_add_tags()
+    {
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $this->post('/admin/tag/add', $tag = raw('Tag'));
+
+        $this->assertDatabaseHas('tags', $tag);
+    }
+
+    public function test_admin_can_update_tags()
+    {
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $tag = create('Tag', ['name' => 'tag1']);
+
+        $this->post('/admin/tag/update/'.$tag->id, ['name' => 'tag2']);
+
+        $this->assertDatabaseHas('tags', ['name' => 'tag2']);
+        $this->assertDatabaseMissing('tags', ['name' => 'tag1']);
     }
 
     public function test_admin_can_see_all_catagories()

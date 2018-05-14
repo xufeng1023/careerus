@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{Post, Catagory};
+use App\{Post, Catagory, Tag};
 
 class PostController extends Controller
 {
@@ -54,10 +54,12 @@ class PostController extends Controller
 
     public function allAdmin()
     {
-        if(request('id')) $posts[] = Post::find(request('id'));
+        if(request('id')) $posts[] = Post::find(request('id'))->load('tags');
         else $posts = Post::with('creator')->get();
+
+        $tags = Tag::all();
         
-        return view('admin.posts', compact('posts'));
+        return view('admin.posts', compact('posts', 'tags'));
     }
 
     public function save()
@@ -72,7 +74,11 @@ class PostController extends Controller
             $data['identity'] = str_random(50).md5(time());
         }
 
-        Post::create($data);
+        $post = Post::create($data);
+
+        if(request('tags')) {
+            $post->tags()->attach(request('tags'));
+        }
 
         return back();
     }
@@ -80,6 +86,8 @@ class PostController extends Controller
     public function update(Post $post)
     {
         $post->update(request()->all());
+
+        $post->tags()->sync(request('tags'));
 
         return back()->with('updated', trans('admin.updated'));
     }
