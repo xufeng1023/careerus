@@ -15,11 +15,17 @@ class PostController extends Controller
 
     public function all()
     {
-        if(!request('s') && !request('l') && !request('ct')) {
-            return back();
-        }
+        $filtered = array_where(request()->all(), function ($value, $key) {
+            return !is_null($value);
+        });
+
+        if(!$filtered) return redirect('/');
 
         $query = Post::with('company.visaJobs');
+
+        if(request('tp')) {
+            $query = $query->where('job_type', 'LIKE', '%'.request('t').'%');
+        }
 
         if(request('s')) {
             $query = $query->where('title', 'LIKE', '%'.request('s').'%');
@@ -35,9 +41,26 @@ class PostController extends Controller
             if($category) $query = $query->where('catagory_id', $category->id);
         }
 
+        if(request('t')) {
+            $tag = Tag::where('name', request('t'))->first();
+            if($tag) {
+                $query = $query->whereExists(function($q) use($tag) {
+                    $q->select('post_id')->from('post_tag')->where('tag_id', $tag->id)->whereRaw('post_tag.post_id = posts.id');
+                });
+            }
+        }
+
         $posts = $query->get();
 
-        return view('posts', compact('posts'));
+        $usedTags = Tag::whereExists(function($q) {
+            $q->select('tag_id')->from('post_tag')->whereRaw('post_tag.tag_id = tags.id');
+        })->get();
+
+        $categories = Post::all()->unique('catagory_id')->pluck('catagory.name');
+
+        $locations = Post::all()->unique('location')->pluck('location');
+
+        return view('posts', compact('posts', 'usedTags', 'categories', 'locations'));
     }
 
     public function show(Post $post)

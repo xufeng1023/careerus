@@ -3,27 +3,63 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
-            <ul class="list-group list-group-flush">
+        <div class="col-sm-3">
+            <div class="mb-3">
+                <div>{{ __('admin.job type') }}</div>
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <a 
+                        href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp=Full-time&l={{ request('l') }}&t={{ request('t') }}" 
+                        class="badge badge-light">Full-time</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="mb-3">
+                <div>{{ __('front.job features') }}</div>
+                @foreach($usedTags as $tag)
+                    <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ request('tp') }}&l={{ request('l') }}&t={{ $tag->name }}" class="badge badge-light">{{ $tag->name }}</a>
+                @endforeach
+            </div>
+
+            <div class="mb-3">
+                <div>{{ __('front.job category') }}</div>
+                @foreach($categories as $cat)
+                    <a href="/jobs?s={{ request('s') }}&ct={{ $cat }}&tp={{ request('tp') }}&l={{ request('l') }}&t={{ request('t') }}" class="badge badge-light">{{ $cat }}</a>
+                @endforeach
+            </div>
+
+            <div class="mb-3">
+                <div>{{ __('admin.job location') }}</div>
+                @foreach($locations as $location)
+                    <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ request('tp') }}&l={{ $location }}&t={{ request('t') }}" class="badge badge-light">{{ $location }}</a>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="mb-3">
+                @foreach(collect(request()->all())->filter() as $key => $param)
+                    <a href="{{ str_replace($key.'='.request($key), $key.'=', urldecode(url()->full())) }}" class="badge badge-pill badge-secondary">
+                        {{ $param }} <span class="badge badge-light">X</span>
+                    </a>
+                @endforeach
+            </div>
+            <ul class="list-group list-group-flush box-shadow">
                 @forelse($posts as $post)
-                    <li class="list-group-item">
-                        <h2 class="h5 m-0 font-weight-bold">
+                    <li class="list-group-item border-0">
+                        <h2 class="h6 m-0 font-weight-bold">
                             <a href="/job/{{ str_slug($post->title) }}?i={{ $post->identity }}">{{ $post->title }}</a>
                         </h2>
                         <div>
                             <span>{{ $post->company->name }} - {{ $post->location }}</span>
-                            @if($thisyear = $post->company->thisYearVisa())
-                                <span class="badge badge-pill badge-secondary">
-                                    {{ __('front.jobs this year', ['number' => $thisyear]) }}
-                                </span>
-                            @endif
                         </div>
-                        <div class="text-muted">{{ str_limit(strip_tags($post->description), 150) }}</div>
+                        <div class="text-muted h6">{{ str_limit(strip_tags($post->description), 120) }}</div>
                         <div class="small text-muted">{{ $post->created_at->diffforhumans() }}</div>
                     </li> 
                 @empty
                     <div class="alert alert-light" role="alert">
-                        {{ __('front.no job found', ['location' => request('l'), 'title' => request('s')]) }}
+                        {{ __('front.no job found') }}
                     </div>
                 @endforelse
             </ul>

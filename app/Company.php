@@ -23,12 +23,6 @@ class Company extends Model
         return str_start($value, 'http://');
     }
 
-    public function thisYearVisa()
-    {
-        $visa = $this->visaJobs()->where('year', date('Y'))->first();
-        if($visa) return $visa->number_of_visa;
-    }
-
     public function setJobsAttribute($value)
     {
         $this->attributes['jobs'] = preg_replace('/\),*/', '),', $value);

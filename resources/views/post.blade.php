@@ -9,11 +9,13 @@
     <div class="row">
         <div class="col">
             <h1 class="h3">{{ $post->title }}</h1>
-            <div class="text-muted">{{ $post->company->name }} - {{ $post->location }}</div>
+            <div class="text-muted">{{ $post->created_at->diffforhumans() }} - {{ $post->company->name }} - {{ $post->location }}</div>
             <div class="mb-3">
-                <span class="badge badge-pill badge-secondary">{{ $post->created_at->diffforhumans() }}</span>
                 <span class="badge badge-pill badge-secondary">{{ $post->catagory->name }}</span>
                 <span class="badge badge-pill badge-secondary">{{ $post->job_type }}</span>
+                @foreach($post->tags as $tag)
+                    <span class="badge badge-pill badge-secondary">{{ $tag->name }}</span>
+                @endforeach
             </div>
             <div class="mb-3">
                 <div class="text-primary">{{ __('front.we guess sponsor odds') }}{{ $post->sponsor_odds.'%' }}</div>
