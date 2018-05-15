@@ -6,13 +6,9 @@
         <div class="col-sm-3">
             <div class="mb-3">
                 <div>{{ __('admin.job type') }}</div>
-                <ul class="list-inline">
-                    <li class="list-inline-item">
-                        <a 
-                        href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp=Full-time&l={{ request('l') }}&t={{ request('t') }}" 
-                        class="badge badge-light">Full-time</a>
-                    </li>
-                </ul>
+                @foreach($types as $type)
+                <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ $type }}&l={{ request('l') }}&t={{ request('t') }}" class="badge badge-light">{{ $type }}</a>
+                @endforeach
             </div>
             
             <div class="mb-3">

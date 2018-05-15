@@ -24,7 +24,7 @@ class PostController extends Controller
         $query = Post::with('company.visaJobs');
 
         if(request('tp')) {
-            $query = $query->where('job_type', 'LIKE', '%'.request('t').'%');
+            $query = $query->where('job_type', request('tp'));
         }
 
         if(request('s')) {
@@ -60,7 +60,9 @@ class PostController extends Controller
 
         $locations = Post::all()->unique('location')->pluck('location');
 
-        return view('posts', compact('posts', 'usedTags', 'categories', 'locations'));
+        $types = ['Full-time', 'Part-time', 'Internship'];
+
+        return view('posts', compact('posts', 'usedTags', 'categories', 'locations', 'types'));
     }
 
     public function show(Post $post)
