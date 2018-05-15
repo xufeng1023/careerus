@@ -1,43 +1,8 @@
 @include('layouts.head')
         <style>
             html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-                overflow: hidden;
-            }
-
-            .full-height {
                 height: 100vh;
             }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
             .links > a {
                 color: #636b6f;
                 padding: 0 25px;
@@ -47,16 +12,12 @@
                 text-decoration: none;
                 text-transform: uppercase;
             }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
         </style>
     </head>
     <body>
-        <div id="app" class="flex-center position-ref full-height">
+        <div id="app" class="d-flex justify-content-center align-items-center h-100">
             @if (Route::has('login'))
-                <div class="top-right links">
+                <div class="d-flex fixed-top mt-2 mr-2 justify-content-end links">
                     <a href="/blog">{{ __('admin.blog') }}</a>
                     @auth
                         <a id="homeDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -91,13 +52,14 @@
                 </div>
             @endif
 
-            <div class="content">
-                <div class="m-b-md">CAREERUS</div>
+            <div class="text-center">
+                <div class="mb-3">CAREERUS</div>
                 @include('_search')
-                <br>
-                @foreach($categories as $category)
-                    <a href="/jobs{{ url()->full() === url()->current()? '?ct='.$category : '&ct='.$category }}" class="badge badge-pill badge-secondary">{{ $category }}</a>
-                @endforeach
+                <div class="w-75 mx-auto">
+                    @foreach($categories as $category)
+                        <a href="/jobs{{ url()->full() === url()->current()? '?ct='.$category : '&ct='.$category }}" class="badge badge-pill badge-secondary">{{ $category }}</a>
+                    @endforeach
+                </div>
             </div>
         </div>
         <script src="{{ asset('js/app.js') }}"></script>
