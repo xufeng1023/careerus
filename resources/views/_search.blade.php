@@ -1,4 +1,4 @@
-<form id="searchForm" class="mb-3" action="/jobs" autocomplete="off">
+<form id="searchForm" action="/jobs" autocomplete="off">
     <div class="input-group d-flex justify-content-center">
         <job class="w-25" default="{{ request('s') }}" placeholder="{{ __('front.search job title') }}"></job>
         <location class="w-25" default="{{ request('l') }}" placeholder="{{ __('admin.job location') }}"></location>

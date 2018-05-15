@@ -55,7 +55,7 @@
             <div class="text-center">
                 <div class="mb-3">CAREERUS</div>
                 @include('_search')
-                <div class="w-75 mx-auto">
+                <div class="w-75 mx-auto mt-3">
                     @foreach($categories as $category)
                         <a href="/jobs{{ url()->full() === url()->current()? '?ct='.$category : '&ct='.$category }}" class="badge badge-pill badge-secondary">{{ $category }}</a>
                     @endforeach
