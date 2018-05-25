@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-3">
-            <button class="btn btn-primary d-block d-sm-none" type="button" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
-                Button with data-target
+            <button class="btn btn-light btn-block d-block d-sm-none mb-2" type="button" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+                <span data-feather="search"></span>
             </button>
             <div class="collapse d-sm-block" id="collapseFilter">
                 <div class="mb-3">
