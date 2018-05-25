@@ -4,32 +4,37 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-3">
-            <div class="mb-3">
-                <div>{{ __('admin.job type') }}</div>
-                @foreach($types as $type)
-                <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ $type }}&l={{ request('l') }}&t={{ request('t') }}" class="badge badge-light">{{ $type }}</a>
-                @endforeach
-            </div>
-            
-            <div class="mb-3">
-                <div>{{ __('front.job features') }}</div>
-                @foreach($usedTags as $tag)
-                    <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ request('tp') }}&l={{ request('l') }}&t={{ $tag->name }}" class="badge badge-light">{{ $tag->name }}</a>
-                @endforeach
-            </div>
+            <button class="btn btn-primary d-block d-sm-none" type="button" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+                Button with data-target
+            </button>
+            <div class="collapse d-sm-block" id="collapseFilter">
+                <div class="mb-3">
+                    <div>{{ __('admin.job type') }}</div>
+                    @foreach($types as $type)
+                    <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ $type }}&l={{ request('l') }}&t={{ request('t') }}" class="badge badge-light">{{ $type }}</a>
+                    @endforeach
+                </div>
+                
+                <div class="mb-3">
+                    <div>{{ __('front.job features') }}</div>
+                    @foreach($usedTags as $tag)
+                        <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ request('tp') }}&l={{ request('l') }}&t={{ $tag->name }}" class="badge badge-light">{{ $tag->name }}</a>
+                    @endforeach
+                </div>
 
-            <div class="mb-3">
-                <div>{{ __('front.job category') }}</div>
-                @foreach($categories as $cat)
-                    <a href="/jobs?s={{ request('s') }}&ct={{ $cat }}&tp={{ request('tp') }}&l={{ request('l') }}&t={{ request('t') }}" class="badge badge-light">{{ $cat }}</a>
-                @endforeach
-            </div>
+                <div class="mb-3">
+                    <div>{{ __('front.job category') }}</div>
+                    @foreach($categories as $cat)
+                        <a href="/jobs?s={{ request('s') }}&ct={{ $cat }}&tp={{ request('tp') }}&l={{ request('l') }}&t={{ request('t') }}" class="badge badge-light">{{ $cat }}</a>
+                    @endforeach
+                </div>
 
-            <div class="mb-3">
-                <div>{{ __('admin.job location') }}</div>
-                @foreach($locations as $location)
-                    <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ request('tp') }}&l={{ $location }}&t={{ request('t') }}" class="badge badge-light">{{ $location }}</a>
-                @endforeach
+                <div class="mb-3">
+                    <div>{{ __('admin.job location') }}</div>
+                    @foreach($locations as $location)
+                        <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ request('tp') }}&l={{ $location }}&t={{ request('t') }}" class="badge badge-light">{{ $location }}</a>
+                    @endforeach
+                </div>
             </div>
         </div>
 
@@ -54,7 +59,7 @@
                         <div class="small text-muted">{{ $post->created_at->diffforhumans() }}</div>
                     </li> 
                 @empty
-                    <div class="alert alert-light" role="alert">
+                    <div class="alert alert-light mb-0" role="alert">
                         {{ __('front.no job found') }}
                     </div>
                 @endforelse

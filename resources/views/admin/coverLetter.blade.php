@@ -41,9 +41,11 @@
     </div>
 
     <div class="tab-pane fade {{ request('id')? 'show active' : '' }}" id="company-add" role="tabpanel" aria-labelledby="company-add-tab">
+
         @if(session('updated'))
             <div class="alert alert-success" role="alert">{{ session('updated') }}</div>
         @endif
+        
         <form method="POST" class="mb-3" action="/admin/cover-letter/{{ request('id')? 'update/'.request('id') : 'add' }}">
             @csrf
 

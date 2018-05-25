@@ -23,7 +23,7 @@ class NotifyHREmail extends Mailable
 
     public function build()
     {
-        return $this->from(auth()->user()->email, 'Career Us')
+        return $this->from(auth()->user()->email, auth()->user()->email)
                     ->subject($this->post->title)
                     ->replyTo(auth()->user()->email)
                     ->attach(

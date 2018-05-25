@@ -30,7 +30,7 @@
             <div>{!! $post->description !!}</div>
 
             <div class="my-3">
-                <a href="{{ $post->company->website }}" class="btn btn-primary">
+                <a href="{{ $post->url ?: $post->company->website }}" class="btn btn-primary">
                     {{ __('front.jump to apply') }}
                 </a>
 

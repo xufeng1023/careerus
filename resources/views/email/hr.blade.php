@@ -1,7 +1,9 @@
 @component('mail::message')
 
+Hello {{ $post->company->hr }},
+
 {!! $coverLetter? $coverLetter->content : '' !!}
 
-Thanks,<br>
-{{ config('app.name') }}
+Thank you very much,<br>
+{{ auth()->user()->name }}
 @endcomponent

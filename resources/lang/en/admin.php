@@ -34,6 +34,7 @@ return [
     'job location' => '工作地点',
     'job add' => '添加',
     'job type' => '工作类型',
+    'job url' => '工作链接',
     'job sponsor rate' => '公司会支持的概率',
     'notify student'=> '通知学生已申请',
     'notified' => '已发送通知',

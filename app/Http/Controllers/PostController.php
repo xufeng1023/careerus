@@ -80,7 +80,7 @@ class PostController extends Controller
     public function allAdmin()
     {
         if(request('id')) $posts[] = Post::find(request('id'))->load('tags');
-        else $posts = Post::with('creator')->get();
+        else $posts = Post::with('creator')->latest()->get();
 
         $tags = Tag::all();
         
