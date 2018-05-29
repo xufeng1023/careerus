@@ -39,18 +39,27 @@
                         <th>标题</th>
                         <th>管理员</th>
                         <th>添加日期</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($posts as $post)
                         <tr>
-                            <td><a href="?id={{ $post->id }}">{{ $post->title }}</a></td>
+                            <td class="post-td">
+                                <div><a href="?id={{ $post->id }}">{{ $post->title }}</a></div>
+                                <ul class="list-inline m-0 px-0 invisible">
+                                    <li class="list-inline-item">
+                                        <a class="text-muted" target="_blank" href="/job/{{ str_slug($post->title) }}?i={{ $post->identity }}">{{ __('admin.view') }}</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <form action="/admin/job/delete/{{ $post->id }}" onsubmit="onSubmit(event)">
+                                            @method('DELETE')
+                                            <button type="submit" class="text-muted delete btn btn-link btn-sm">{{ __('admin.delete') }}</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </td>
                             <td>{{ $post->creator->name }}</td>
                             <td>{{ $post->created_at->format('Y-m-d') }}</td>
-                            <td>
-                                <a target="_blank" href="/job/{{ str_slug($post->title) }}?i={{ $post->identity }}"><span data-feather="eye"></span></a>
-                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -196,5 +205,21 @@
             }
         });
     }
+
+    function onSubmit(e) {
+        e.preventDefault();
+        if(confirm('与此工作关联的申请也会一起删除')) {
+            $.post($(e.target).attr('action'), $(e.target).serialize(), function() {
+                $(e.target).parents('tr').remove();
+                toastr.success('删除成功');
+            });
+        }
+    }
+
+    $('td.post-td').mouseover(function() {
+        $(this).find('ul').removeClass('invisible');
+    }).mouseout(function() {
+        $(this).find('ul').addClass('invisible');
+    });
 </script>
 @endsection

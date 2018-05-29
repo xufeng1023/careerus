@@ -23,6 +23,11 @@ class Post extends Model
         return $this->belongsTo(Catagory::class);
     }
 
+    public function applies()
+    {
+        return $this->hasMany(Apply::class);
+    }
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
@@ -36,6 +41,13 @@ class Post extends Model
     public function jobType()
     {
         return $this->is_fulltime? 'Full-time' : 'Part-time';
+    }
+
+    public function remove()
+    {
+        $this->applies->each->delete();
+        $this->tags()->detach();
+        $this->delete();
     }
 
     public function findPost($title, $identity)

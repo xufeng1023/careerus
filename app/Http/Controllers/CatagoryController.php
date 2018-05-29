@@ -24,4 +24,9 @@ class CatagoryController extends Controller
 
         return back();
     }
+
+    public function delete(Catagory $category)
+    {
+        $category->remove();
+    }
 }

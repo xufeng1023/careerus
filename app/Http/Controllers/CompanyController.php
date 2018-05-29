@@ -43,4 +43,11 @@ class CompanyController extends Controller
 
         return response(['msg' => trans('admin.updated'), 'data' => $visa]);
     }
+
+    public function delete(Company $company)
+    {
+        $company->visaJobs->each->remove();
+        $company->posts->each->remove();
+        $company->delete();
+    }
 }

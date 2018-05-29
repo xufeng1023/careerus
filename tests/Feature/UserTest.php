@@ -91,6 +91,28 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('post_tag', ['post_id' => 1, 'tag_id' => $tag->id]);
     }
 
+    public function test_admin_can_delete_a_post_along_with_applies_and_pivots()
+    {
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $tag1 = create('Tag');
+        $tag2 = create('Tag');
+
+        $post = raw('Post', ['user_id' => $admin->id, 'tags' => [$tag1->id, $tag2->id]]);
+
+        $this->post('/admin/post/add', $post);
+
+        $apply = create('Apply', ['user_id' => 1, 'post_id' => 1]);
+
+        $this->delete('/admin/job/delete/1');
+
+        $this->assertDatabaseMissing('posts', ['id' => 1]);
+        $this->assertDatabaseMissing('post_tag', ['post_id' => 1]);
+        $this->assertDatabaseMissing('applies', ['post_id' => 1]);
+    }
+
     public function test_admin_can_add_a_catagory()
     {
         $this->login(
@@ -100,6 +122,22 @@ class UserTest extends TestCase
         $this->post('/admin/catagory/add', $catagory = raw('Catagory'));
 
         $this->assertDatabaseHas('catagories', $catagory);
+    }
+
+    public function test_admin_can_delete_a_category_along_with_posts()
+    {
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $category = create('Catagory');
+
+        $post = create('Post', ['catagory_id' => $category->id]);
+
+        $this->delete('/admin/category/delete/'.$category->id);
+
+        $this->assertDatabaseMissing('catagories', ['id' => $category->id]);
+        $this->assertDatabaseMissing('posts', ['id' => $post->id]);
     }
 
     public function test_admin_can_add_tags()
@@ -158,6 +196,24 @@ class UserTest extends TestCase
         $this->post('/admin/company/add', $company = raw('Company'));
 
         $this->assertDatabaseHas('companies', $company);
+    }
+
+    public function test_admin_can_delete_a_company_along_with_posts()
+    {
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $company = create('Company');
+
+        $post = create('Post', [
+            'company_id' => $company->id
+        ]);
+
+        $this->delete('/admin/company/delete/'.$company->id);
+
+        $this->assertDatabaseMissing('companies', ['id' => $company->id]);
+        $this->assertDatabaseMissing('posts', ['id' => $post->id]);
     }
 
     public function test_admin_can_update_a_company()

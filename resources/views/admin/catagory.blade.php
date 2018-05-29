@@ -25,6 +25,7 @@
                     <tr>
                         <th>{{ __('admin.catagory name') }}</th>
                         <th>{{ __('admin.rfe pass rate') }}</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +33,12 @@
                         <tr>
                             <td>{{ $catagory->name }}</td>
                             <td>{{ $catagory->rfe }}</td>
+                            <td>
+                                <form action="/admin/category/delete/{{ $catagory->id }}" onsubmit="onSubmit(event)">
+                                    @method('DELETE')
+                                    <button type="submit" class="text-muted delete btn btn-link btn-sm">{{ __('admin.delete') }}</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -82,4 +89,18 @@
         </form>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    function onSubmit(e) {
+        e.preventDefault();
+        if(confirm('与此领域关联的工作也会一起删除')) {
+            $.post($(e.target).attr('action'), $(e.target).serialize(), function() {
+                $(e.target).parents('tr').remove();
+                toastr.success('删除成功');
+            });
+        }
+    }
+</script>
 @endsection

@@ -66,5 +66,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/applied/notify/{apply}', 'ApplyController@notify');
     Route::post('/cover-letter/add', 'CoverLetterController@save');
     Route::post('/cover-letter/update/{coverLetter}', 'CoverLetterController@update');
+
+    Route::delete('/job/delete/{post}', 'PostController@delete');
+    Route::delete('/company/delete/{company}', 'CompanyController@delete');
+    Route::delete('/category/delete/{category}', 'CatagoryController@delete');
     // Route::post('/settings', 'SettingsController@update');
 });

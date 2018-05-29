@@ -22,6 +22,7 @@ return [
     'company numberOfVisa' => '发行VISA数量',
     'cover letter' => 'HR邮件Cover Letter',
     'content' => '内容',
+    'delete' => '删除',
     'email' => '邮箱',
     'free apply times' => '免费申请次数',
     'good news' => '好消息',

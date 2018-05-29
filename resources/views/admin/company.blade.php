@@ -34,14 +34,23 @@
                         <th>{{ __('admin.company name') }}</th>
                         <th>{{ __('admin.company hr') }}</th>
                         <th>{{ __('admin.company email') }}</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($companies as $company)
                         <tr>
-                            <td><a href="?id={{ $company->id }}">{{ $company->name }}</a></td>
+                            <td class="post-td">
+                                <a href="?id={{ $company->id }}">{{ $company->name }}</a>
+                            </td>
                             <td>{{ $company->hr }}</td>
                             <td>{{ $company->email }}</td>
+                            <td>
+                                <form action="/admin/company/delete/{{ $company->id }}" onsubmit="onSubmitDelete(event)">
+                                    @method('DELETE')
+                                    <button type="submit" class="text-muted delete btn btn-link btn-sm">{{ __('admin.delete') }}</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -170,6 +179,16 @@
                 e.target.reset();
             }
         });
+    }
+
+    function onSubmitDelete(e) {
+        e.preventDefault();
+        if(confirm('与此公司关联的工作也会一起删除')) {
+            $.post($(e.target).attr('action'), $(e.target).serialize(), function() {
+                $(e.target).parents('tr').remove();
+                toastr.success('删除成功');
+            });
+        }
     }
 </script>
 @endsection

@@ -123,4 +123,9 @@ class PostController extends Controller
         
         return $posts->pluck('location');
     }
+
+    public function delete(Post $post)
+    {
+        $post->remove();
+    }
 }
