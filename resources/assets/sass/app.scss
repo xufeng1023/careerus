@@ -42,3 +42,11 @@ caption {
 .del {
   text-decoration: line-through;
 }
+@media screen and (max-width:736px) {
+  #searchForm {
+    margin-top:1rem;
+  }
+  #searchForm .position-relative {
+    flex:1;
+  }
+}

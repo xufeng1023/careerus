@@ -10680,3 +10680,15 @@ caption {
   text-decoration: line-through;
 }
 
+@media screen and (max-width: 736px) {
+  #searchForm {
+    margin-top: 1rem;
+  }
+
+  #searchForm .position-relative {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+  }
+}
+
