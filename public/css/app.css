@@ -10692,3 +10692,15 @@ caption {
   }
 }
 
+@-webkit-keyframes widthGrow {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes widthGrow {
+  from {
+    width: 0;
+  }
+}
+

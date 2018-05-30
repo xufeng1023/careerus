@@ -110,7 +110,13 @@ class PostController extends Controller
 
     public function update(Post $post)
     {
-        $post->update(request()->all());
+        $category = Catagory::findOrFail(request('catagory_id'));
+
+        $data = request()->all();
+
+        $data['sponsor_odds'] = ($category->rfe + 45 + request('sponsor_odds') + rand(70, 100)) * 0.25;
+
+        $post->update($data);
 
         $post->tags()->sync(request('tags'));
 

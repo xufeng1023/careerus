@@ -19,8 +19,8 @@
             </div>
             <div class="mb-3">
                 <div class="text-primary">{{ __('front.we guess sponsor odds') }}{{ $post->sponsor_odds.'%' }}</div>
-                <div class="progress" style="height: 3px;">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $post->sponsor_odds }}%" aria-valuenow="{{ $post->sponsor_odds }}" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress" style="height:1px;">
+                    <div class="progress-bar bg-primary" role="progressbar" style="animation: widthGrow 1500ms ease 400ms;width: {{ $post->sponsor_odds }}%" aria-valuenow="{{ $post->sponsor_odds }}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
