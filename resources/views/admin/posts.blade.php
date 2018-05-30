@@ -136,7 +136,7 @@
                 <div class="col-sm-12">
                     <label class="col-form-label">{{ __('admin.job url') }}</label>
 
-                    <input type="text" name="url" 
+                    <input type="url" name="url" 
                     class="form-control{{ $errors->has('url') ? ' is-invalid' : '' }}" 
                     value="{{ request('id')? $posts[0]->url : old('url') ?: '' }}">
                 </div>

@@ -95,7 +95,7 @@ Vue.component('pie-chart', {
         var dataArray = this.dataSet.split(',');
 
         dataArray.forEach(function (val) {
-            var matches = val.replace(/\r\n/, '').match(/([a-zA-Z ]+)\(([\d]+)\)/);
+            var matches = val.replace(/\r\n/, '').match(/([a-zA-Z ]*\-?[a-zA-Z ]+)\(([\d]+)\)/);
             for (var prop in matches) {
                 if (prop == 1) self.bars.labels.push(matches[prop]);
                 if (prop == 2) self.bars.numbers.push(matches[prop]);
