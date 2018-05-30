@@ -151,6 +151,26 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('tags', $tag);
     }
 
+    public function test_admin_can_delete_a_tag_with_pivots()
+    {
+
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $tag = create('Tag');
+        $post = create('Post');
+
+        $post->tags()->attach($tag->id);
+
+        $this->assertDatabaseHas('post_tag', ['tag_id' => $tag->id, 'post_id' => $post->id]);
+
+        $this->delete('/admin/tag/delete/'.$tag->id);
+
+        $this->assertDatabaseMissing('tags', ['id' => $tag->id]);
+        $this->assertDatabaseMissing('post_tag', ['tag_id' => $tag->id, 'post_id' => $post->id]);
+    }
+
     public function test_admin_can_update_tags()
     {
         $this->login(

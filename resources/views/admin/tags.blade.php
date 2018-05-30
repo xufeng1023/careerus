@@ -32,12 +32,19 @@
                 <thead>
                     <tr>
                         <th>{{ __('admin.tag name') }}</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($tags as $tag)
                         <tr>
                             <td><a href="?id={{ $tag->id }}">{{ $tag->name }}</a></td>
+                            <td>
+                                <form action="/admin/tag/delete/{{ $tag->id }}" onsubmit="onSubmitDelete(event)">
+                                    @method('DELETE')
+                                    <button type="submit" class="text-muted delete btn btn-link btn-sm">{{ __('admin.delete') }}</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -62,4 +69,18 @@
         </form>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    function onSubmitDelete(e) {
+        e.preventDefault();
+        if(confirm('确定删除?')) {
+            $.post($(e.target).attr('action'), $(e.target).serialize(), function() {
+                $(e.target).parents('tr').remove();
+                toastr.success('删除成功');
+            });
+        }
+    }
+</script>
 @endsection

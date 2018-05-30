@@ -31,4 +31,9 @@ class TagController extends Controller
 
         return back()->with('updated', trans('admin.updated'));
     }
+
+    public function delete(Tag $tag)
+    {
+        $tag->remove();
+    }
 }
