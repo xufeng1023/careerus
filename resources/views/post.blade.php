@@ -18,9 +18,11 @@
                 @endforeach
             </div>
             <div class="mb-3">
-                <div class="text-primary">{{ __('front.we guess sponsor odds') }}{{ $post->sponsor_odds.'%' }}</div>
+                <div>{{ __('front.we guess sponsor odds') }}{{ $post->sponsor_odds.'%' }}</div>
                 <div class="progress" style="height:1px;">
-                    <div class="progress-bar bg-primary" role="progressbar" style="animation: widthGrow 1500ms ease 400ms;width: {{ $post->sponsor_odds }}%" aria-valuenow="{{ $post->sponsor_odds }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-primary" role="progressbar" data-width="{{ $post->sponsor_odds }}%"
+                    aria-valuenow="{{ $post->sponsor_odds }}" aria-valuemin="0" aria-valuemax="100">
+                </div>
                 </div>
             </div>
         </div>
@@ -228,4 +230,9 @@
 <script src="{{ asset('js/search.js') }}"></script>
 <script src="{{ asset('js/chart.js') }}"></script>
 <script src="{{ asset('js/pie.js') }}"></script>
+<script>
+    
+    let progressBarWidth = $('.progress-bar').data('width');
+    $('.progress-bar').css({'animation': 'widthGrow 1500ms','width': progressBarWidth});
+</script>
 @endsection
