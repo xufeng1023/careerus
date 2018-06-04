@@ -29,7 +29,7 @@
     </div>
     <div class="row">
         <div id="jobPageLeft" class="col-md-7">
-            <div>{!! $post->description !!}</div>
+            <div>{!! $post->cleanedDescription() !!}</div>
 
             <div class="my-3">
                 <a href="{{ $post->url ?: $post->company->website }}" class="btn btn-primary">
