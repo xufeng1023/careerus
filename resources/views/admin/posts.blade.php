@@ -123,8 +123,7 @@
                         </div>
                         <div class="col">
                             <div class="d-flex flex-column">
-                                <input class="form-control" name="city" placeholder="{{ __('admin.choose a city') }}" {{ request('id')? '' : 'disabled' }}
-                                value="{{ request('id')? explode(',', $posts[0]->location)[0] : '' }}">
+                                <input class="form-control" name="city" placeholder="{{ __('admin.choose a city') }}" value="{{ request('id')? explode(',', $posts[0]->location)[0] : '' }}">
                                 <div class="alert alert-secondary invisible" role="alert">ff</div>
                             </div>
                             
@@ -221,7 +220,6 @@
                 cities = data;
             });
         }
-        $('[name=city]').attr('disabled', false);
         $('[name=city]').val('');
         $('[name=city]').siblings('.alert').addClass('invisible').text('');
     }
@@ -253,6 +251,8 @@
     }
 
     $('[name=city]').keyup(function() {
+        if(!cities) return false;
+
         var s = $(this).val().trim();
         if(s) {
             var filteredCities = cities.filter(function(val) {

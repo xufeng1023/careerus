@@ -94,8 +94,7 @@ class PostController extends Controller
 
         $data = request()->all();
         $data['user_id'] = auth()->id();
-        if(request('city')) $data['city'] = $data['city'].',';
-        $data['location'] = request('state')? trim($data['city'].$data['state']) : '';
+        $data['location'] = $this->formatLocation();
         $data['sponsor_odds'] = ($category->rfe + 45 + request('sponsor_odds') + rand(70, 100)) * 0.25;
 
         if(app()->environment() !== 'testing') {
@@ -117,8 +116,7 @@ class PostController extends Controller
 
         $data = request()->all();
 
-        if($data['city']) $data['city'] = $data['city'].',';
-        $data['location'] = trim($data['city'].$data['state']);
+        $data['location'] = $this->formatLocation();
 
         $data['sponsor_odds'] = ($category->rfe + 45 + request('sponsor_odds') + rand(70, 100)) * 0.25;
 
@@ -139,5 +137,12 @@ class PostController extends Controller
     public function delete(Post $post)
     {
         $post->remove();
+    }
+
+    private function formatLocation()
+    {
+        if(request('city') && request('state')) return request('city').','.request('state');
+
+        return request('city') ?: request('state');
     }
 }
