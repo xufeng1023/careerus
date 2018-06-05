@@ -59,6 +59,9 @@ class PostController extends Controller
         $categories = Post::all()->unique('catagory_id')->pluck('catagory.name');
 
         $locations = Post::all()->unique('location')->pluck('location');
+        $locations = $locations->filter(function($val, $inx) {
+            return preg_match('/^[a-zA-Z]+\,[A-Z]{2}$/', $val);
+        });
 
         $types = ['Full-time', 'Part-time', 'Internship'];
 
