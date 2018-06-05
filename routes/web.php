@@ -39,6 +39,7 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/applies', 'ApplyController@all');
+    Route::get('/cities', 'LocationController@citiesByState');
     Route::get('/jobs', 'PostController@allAdmin');
     Route::get('/user', 'UserController@all');
     Route::get('/blog', 'BlogController@allAdmin');

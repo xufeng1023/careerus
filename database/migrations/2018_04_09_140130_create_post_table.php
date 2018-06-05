@@ -20,7 +20,7 @@ class CreatePostTable extends Migration
             $table->unsignedInteger('company_id');
             $table->string('identity');
             $table->string('title');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->string('location');
             $table->string('url')->nullable();
             $table->enum('job_type', ['Full-time', 'Part-time', 'Internship']);

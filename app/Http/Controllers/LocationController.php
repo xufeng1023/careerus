@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\City;
+use App\{City, State};
 
 class LocationController extends Controller
 {
@@ -17,5 +17,12 @@ class LocationController extends Controller
             
             return $cities;
         }
+    }
+
+    public function citiesByState()
+    {
+        $state = State::where('STATE_CODE', request('s'))->firstOrFail();
+
+        return City::where('ID_STATE', $state->ID)->where('CITY', 'LIKE', "%".request('k')."%")->get();
     }
 }

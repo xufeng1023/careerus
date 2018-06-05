@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{Post, Catagory, Tag};
+use App\{Post, Catagory, Tag, State};
 
 class PostController extends Controller
 {
@@ -83,8 +83,9 @@ class PostController extends Controller
         else $posts = Post::with('creator')->latest()->get();
 
         $tags = Tag::all();
+        $states = State::all();
         
-        return view('admin.posts', compact('posts', 'tags'));
+        return view('admin.posts', compact('posts', 'tags', 'states'));
     }
 
     public function save()
@@ -93,6 +94,8 @@ class PostController extends Controller
 
         $data = request()->all();
         $data['user_id'] = auth()->id();
+        if(request('city')) $data['city'] = $data['city'].',';
+        $data['location'] = request('state')? trim($data['city'].$data['state']) : '';
         $data['sponsor_odds'] = ($category->rfe + 45 + request('sponsor_odds') + rand(70, 100)) * 0.25;
 
         if(app()->environment() !== 'testing') {
@@ -113,6 +116,9 @@ class PostController extends Controller
         $category = Catagory::findOrFail(request('catagory_id'));
 
         $data = request()->all();
+
+        if($data['city']) $data['city'] = $data['city'].',';
+        $data['location'] = trim($data['city'].$data['state']);
 
         $data['sponsor_odds'] = ($category->rfe + 45 + request('sponsor_odds') + rand(70, 100)) * 0.25;
 

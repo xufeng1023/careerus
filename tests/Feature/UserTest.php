@@ -58,7 +58,7 @@ class UserTest extends TestCase
         $this->get('/admin');
     }
 
-    public function test_admin_can_add_a_post()
+    public function test_admin_can_add_a_post_without_tags()
     {
         $this->login(
             $admin = create('User', ['role' => 'admin'])
@@ -70,10 +70,10 @@ class UserTest extends TestCase
 
         $post['title'] = ucwords('a bb');
 
-        $this->assertDatabaseHas('posts', $post);
+        $this->assertDatabaseHas('posts', ['description' => $post['description']]);
     }
 
-    public function test_admin_can_add_a_post_with_pivot_table()
+    public function test_admin_can_add_a_post_with_tags()
     {
         $this->login(
             $admin = create('User', ['role' => 'admin'])
@@ -91,7 +91,22 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('post_tag', ['post_id' => 1, 'tag_id' => $tag->id]);
     }
 
-    public function test_admin_can_delete_a_post_along_with_applies_and_pivots()
+    public function test_post_location_will_be_formatted_when_saving_in_the_db()
+    {
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $post = raw('Post', ['user_id' => $admin->id]);
+        $post['city'] = 'New York'.time();
+        $post['state'] = 'NY';
+
+        $this->post('/admin/post/add', $post);
+
+        $this->assertDatabaseHas('posts', ['location' => $post['city'].','.$post['state']]);
+    }
+
+    public function test_admin_can_delete_a_post_along_with_applies_and_tags()
     {
         $this->login(
             $admin = create('User', ['role' => 'admin'])

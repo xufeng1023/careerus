@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\{Catagory,Company};
+use App\{Catagory, Company, State, City};
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\{Schema,Blade};
 

@@ -71,7 +71,7 @@
         @if(session('updated'))
             <div class="alert alert-success" role="alert">{{ session('updated') }}</div>
         @endif
-        <form method="POST" action="/admin/post/{{ request('id')? 'update/'.request('id') : 'add' }}">
+        <form method="POST" action="/admin/post/{{ request('id')? 'update/'.request('id') : 'add' }}" autocomplete="off">
             @csrf
             <div class="form-group">
                 <label class="col-form-label">{{ __('admin.job title') }}</label>
@@ -84,7 +84,7 @@
 
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/0.11.2/trix.css">
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/0.11.2/trix.js"></script>
-                <input id="description" type="hidden" name="description" value="{{ request('id')? $posts[0]->description: '' }}">
+                <input id="description" type="hidden" name="description" value="{{ request('id')? $posts[0]->description: '' }}" required>
                 <trix-editor input="description"></trix-editor>
             </div>
 
@@ -112,10 +112,25 @@
             <div class="form-group row">
                 <div class="col-sm-6">
                     <label class="col-form-label">{{ __('admin.job location') }}</label>
-
-                    <input type="text" name="location" 
-                    class="form-control{{ $errors->has('location') ? ' is-invalid' : '' }}" 
-                    value="{{ request('id')? $posts[0]->location : old('location') ?: 'New York, NY' }}">
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-control" name="state" onchange="chooseState(event)">
+                                <option value="">{{ __('admin.choose a state') }}</option>
+                                @foreach($states as $state)
+                                    <option value="{{ $state->STATE_CODE }}" {{ request('id') && (ends_with($posts[0]->location, ','.$state->STATE_CODE))? 'selected' : '' }}>{{ $state->STATE_CODE }} - {{ $state->STATE_NAME }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex flex-column">
+                                <input class="form-control" name="city" placeholder="{{ __('admin.choose a city') }}" {{ request('id')? '' : 'disabled' }}
+                                value="{{ request('id')? explode(',', $posts[0]->location)[0] : '' }}">
+                                <div class="alert alert-secondary invisible" role="alert">ff</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
                 </div>
 
                 <div class="col-sm-6">
@@ -174,8 +189,8 @@
                         <label class="form-check-label" for="radio-parttime">Part Time</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="job_type" id="radio-intership" value="Intership" {{ request('id') && ($posts[0]->job_type == "Intership")? 'checked' : '' }} required>
-                        <label class="form-check-label" for="radio-intership">Intership</label>
+                        <input class="form-check-input" type="radio" name="job_type" id="radio-internship" value="Internship" {{ request('id') && ($posts[0]->job_type == "Internship")? 'checked' : '' }} required>
+                        <label class="form-check-label" for="radio-internship">Internship</label>
                     </div>
                 </div>
             </div>
@@ -190,6 +205,27 @@
 
 @section('script')
 <script>
+    var cities;
+    var state = $('[name=state]').val();
+
+    if(state) {
+        $.get('/admin/cities?s=' + state, function(data) {
+            cities = data;
+        });
+    }
+
+    function chooseState(e) {
+        state = e.target.value.trim();
+        if(state) {
+            $.get('/admin/cities?s=' + state, function(data) {
+                cities = data;
+            });
+        }
+        $('[name=city]').attr('disabled', false);
+        $('[name=city]').val('');
+        $('[name=city]').siblings('.alert').addClass('invisible').text('');
+    }
+
     function onClick(e) {
         $.ajax('/admin/tag/add', {
             type: 'post',
@@ -215,6 +251,30 @@
             });
         }
     }
+
+    $('[name=city]').keyup(function() {
+        var s = $(this).val().trim();
+        if(s) {
+            var filteredCities = cities.filter(function(val) {
+                return val.CITY.toLowerCase().indexOf(s.toLowerCase()) !== -1;
+            });
+            if(filteredCities.length) {
+                $(this).siblings('.alert').removeClass('invisible').text(filteredCities[0].CITY);
+            } else {
+                $(this).siblings('.alert').addClass('invisible').text('');
+            }
+        } else {
+            $(this).siblings('.alert').addClass('invisible').text('');
+        }
+    });
+
+    $('[name=city]').siblings('.alert').click(function() {
+        var city = $(this).text();
+        if(city != '') {
+            $('[name=city]').val(city);
+            $(this).addClass('invisible').text('');
+        }
+    });
 
     $('td.post-td').mouseover(function() {
         $(this).find('ul').removeClass('invisible');
