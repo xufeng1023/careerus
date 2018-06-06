@@ -41,13 +41,13 @@
 
         <div class="col-sm-6">
             <div class="mb-3">
-                @foreach(collect(request()->all())->filter() as $key => $param)
+                @foreach(collect(request()->all())->except('page')->filter() as $key => $param)
                     <a href="{{ str_replace($key.'='.request($key), $key.'=', urldecode(url()->full())) }}" class="badge badge-pill badge-secondary">
                         {{ $param }} <span class="badge badge-light">X</span>
                     </a>
                 @endforeach
             </div>
-            <ul class="list-group list-group-flush box-shadow">
+            <ul class="list-group list-group-flush box-shadow mb-3">
                 @forelse($posts as $post)
                     <li class="list-group-item border-0">
                         <h2 class="h6 m-0 font-weight-bold">
@@ -65,6 +65,8 @@
                     </div>
                 @endforelse
             </ul>
+
+            {!! $posts->appends(request()->all())->links() !!}
         </div>
     </div>
 </div>

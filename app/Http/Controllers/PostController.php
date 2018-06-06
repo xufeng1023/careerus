@@ -19,7 +19,7 @@ class PostController extends Controller
             return !is_null($value);
         });
 
-        if(!$filtered) return redirect('/');
+        if(!array_except($filtered, ['page'])) return redirect('/');
 
         $query = Post::with('company.visaJobs');
 
@@ -50,7 +50,7 @@ class PostController extends Controller
             }
         }
 
-        $posts = $query->get();
+        $posts = $query->paginate(10);
 
         $usedTags = Tag::whereExists(function($q) {
             $q->select('tag_id')->from('post_tag')->whereRaw('post_tag.tag_id = tags.id');
