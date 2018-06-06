@@ -10625,6 +10625,14 @@ button.toast-close-button {
   content: "\6D4F\89C8";
 }
 
+.job-excerpt {
+  line-height: 1.4;
+}
+
+#collapseFilter .badge {
+  font-weight: normal;
+}
+
 [v-cloak] {
   display: none;
 }

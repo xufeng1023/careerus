@@ -5,7 +5,10 @@
 .custom-file-label:after{
   content: "浏览";
 }
-
+.job-excerpt {
+  line-height: 1.4;
+}
+#collapseFilter .badge {font-weight: normal;}
 [v-cloak] {
   display: none;
 }

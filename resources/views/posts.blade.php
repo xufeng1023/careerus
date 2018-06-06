@@ -48,15 +48,15 @@
                 @endforeach
             </div>
             <ul class="list-group list-group-flush box-shadow mb-3">
-                @forelse($posts as $post)
-                    <li class="list-group-item border-0">
-                        <h2 class="h6 m-0 font-weight-bold">
+                @forelse($posts as $key => $post)
+                    <li class="list-group-item {{ $key? '' : 'border-0' }}">
+                        <h2 class="h6 m-0">
                             <a href="/job/{{ str_slug($post->title) }}?i={{ $post->identity }}">{{ $post->title }}</a>
                         </h2>
                         <div>
-                            <span>{{ $post->company->name }} - {{ $post->location }}</span>
+                            <small>{{ $post->company->name }} - {{ $post->location }}</small>
                         </div>
-                        <div class="text-muted h6">{{ str_limit(strip_tags($post->description), 120) }}</div>
+                        <div class="text-muted h6 job-excerpt">{{ str_limit(html_entity_decode(strip_tags($post->description)), 120) }}</div>
                         <div class="small text-muted">{{ $post->created_at->diffforhumans() }}</div>
                     </li> 
                 @empty
