@@ -29,12 +29,13 @@
                     @endforeach
                 </div>
 
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <div>{{ __('admin.job location') }}</div>
                     @foreach($locations as $location)
-                        <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ request('tp') }}&l={{ $location }}&t={{ request('t') }}" class="badge badge-light">{{ $location }}</a>
+                        <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ request('tp') }}&l={{ $location }}&t={{ request('t') }}" 
+                        class="badge badge-light">{{ $location }}</a>
                     @endforeach
-                </div>
+                </div> -->
             </div>
         </div>
 
