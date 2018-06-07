@@ -2,6 +2,10 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~toastr/toastr';
 
+body{
+  font-family: "Helvetica", sans-serif;
+}
+
 .custom-file-label:after{
   content: "浏览";
 }

@@ -10621,6 +10621,10 @@ button.toast-close-button {
   }
 }
 
+body {
+  font-family: "Helvetica", sans-serif;
+}
+
 .custom-file-label:after {
   content: "\6D4F\89C8";
 }
