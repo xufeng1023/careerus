@@ -5,7 +5,31 @@
 body{
   font-family: "Helvetica", sans-serif;
 }
+button.loading {
+  position: relative;
+  color: transparent!important;
+  pointer-events: none;
+}
+button.loading::after {
+  top: 29%;
+  left: 38%;
+  position: absolute!important;
+  -webkit-animation: spin .5s infinite linear;
+  animation: spin .5s infinite linear;
+  border: 2px solid #dbdbdb;
+  border-radius: 290486px;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  content: "";
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+}
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 .custom-file-label:after{
   content: "浏览";
 }

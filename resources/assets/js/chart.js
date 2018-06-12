@@ -92,6 +92,7 @@ const app = new Vue({
     },
     methods: {
         onSubmit(e) {
+            $(e.target).find('[type=submit]').attr('disabled', true).addClass('loading');
             e.preventDefault();
             let uri = e.target.getAttribute('action');
             let fd = new FormData(e.target);
@@ -106,6 +107,9 @@ const app = new Vue({
                 },
                 success(data) {
                     location.assign(data);
+                },
+                complete: function() {
+                    $(e.target).find('[type=submit]').attr('disabled', false).removeClass('loading');
                 }
             });
         },
