@@ -86,7 +86,7 @@
             </div>
             @endunless
 
-            @unless(auth()->id() === $users[0]->id && $users[0]->role === 'admin')
+            @if(auth()->user()->isMaster())
                 <div class="form-group">
                     <label class="col-form-label">{{ __('admin.role') }}</label>
 
@@ -95,7 +95,7 @@
                         <option value="admin" {{ request('id') && ($users[0]->role == 'admin')? 'selected' : '' }}>{{ __('admin.admin') }}</option>
                     </select>
                 </div>
-            @endunless
+            @endif
 
             @if(request('id') && $users[0]->resume)
                 <div class="form-group">
