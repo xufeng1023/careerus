@@ -50,6 +50,8 @@ class RegisterController extends Controller
             (new Apply)->apply($post);
 
             event(new \App\Events\StudentAppliedEvent($post));
+
+            return '/dashboard/applies';
         }
     }
 }

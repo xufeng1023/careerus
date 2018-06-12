@@ -86,8 +86,16 @@
                   <span data-feather="mail"></span>
                   {{ __('admin.cover letter') }}
                 </a>
+			  </li>
+			  
+			  @if(auth()->user()->isMaster())
+			  <li class="nav-item">
+                <a class="nav-link {{ str_contains(url()->current(), 'green-card')? 'active' : '' }}" href="/admin/green-card">
+                  <span data-feather="credit-card"></span>
+                  {{ __('admin.green card') }}
+                </a>
               </li>
-
+				@endif
               <!-- <li class="nav-item">
                 <a class="nav-link {{ str_contains(url()->current(), 'plan')? 'active' : '' }}" href="/admin/plan">
                   <span data-feather="award"></span>

@@ -54,4 +54,12 @@ class User extends Authenticatable
     {
         $this->notify(new \App\Notifications\ResetPasswordNotification($token));
     }
+
+    public function isMaster()
+    {
+        return in_array($this->email, [
+            'xfeng@dreamgo.com',
+            'etsui@dreamgo.com'
+        ]);
+    }
 }

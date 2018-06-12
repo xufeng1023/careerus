@@ -21,14 +21,34 @@
                 <div>{{ __('front.we guess sponsor odds') }}{{ $post->sponsor_odds.'%' }}</div>
                 <div class="progress" style="height:1px;">
                     <div class="progress-bar bg-primary" role="progressbar" data-width="{{ $post->sponsor_odds }}%"
-                    aria-valuenow="{{ $post->sponsor_odds }}" aria-valuemin="0" aria-valuemax="100">
-                </div>
+                        aria-valuenow="{{ $post->sponsor_odds }}" aria-valuemin="0" aria-valuemax="100">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div id="jobPageLeft" class="col-md-7">
+            <div class="my-3">
+                <a href="{{ $post->url ?: $post->company->website }}" class="btn btn-primary">
+                    {{ __('front.jump to apply') }}
+                </a>
+
+                @auth
+                    @if($apply = auth()->user()->isApplied($post->id))
+                        <div class="text-muted">*{{ __('front.applied already', ['time' => $apply->created_at->diffForHumans()]) }}</div>
+                    @else
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyModal">
+                            {{ __('front.apply') }}
+                        </button>
+                    @endif
+                @else
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyModal">
+                        {{ __('front.apply') }}
+                    </button>
+                @endauth
+            </div>
+
             <div>{!! $post->cleanedDescription() !!}</div>
 
             <div class="my-3">
@@ -189,7 +209,7 @@
         <div id="jobPageRight" class="col-md-5">
             @if(count($post->company->visaJobs))
                 <div class="card border-light mb-3">
-                    <div class="card-header">{{ __('front.chart title') }}</div>
+                    <div class="card-header">{{ __('front.bar chart title') }}</div>
                     <div class="card-body">
                         <chart :data-set="{{ $post->company->visaJobs }}"></chart>
                     </div>
@@ -198,7 +218,7 @@
 
             @if($post->company->jobs)
                 <div class="card border-light mb-3">
-                    <div class="card-header">{{ __('front.chart title') }}</div>
+                    <div class="card-header">{{ __('front.pie chart title') }}</div>
                     <div class="card-body">
                         <pie-chart data-set="{{ $post->company->jobs }}"></pie-chart>
                     </div>

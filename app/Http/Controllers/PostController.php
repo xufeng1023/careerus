@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\{Post, Catagory, Tag, State};
 
 class PostController extends Controller
@@ -28,7 +29,19 @@ class PostController extends Controller
         }
 
         if(request('s')) {
-            $query = $query->where('title', 'LIKE', '%'.request('s').'%');
+            $query = $query->where(function($query) {
+                $query->where('title', 'LIKE', '%'.request('s').'%')
+                ->orWhere(function($query) {
+                    $query->whereIn('company_id', DB::table('companies')->select('id')->where('name', 'LIKE', request('s')."%"));
+                })
+                ->orWhere(function($query) {
+                    $query->whereIn(
+                        'id', DB::table('post_tag')->select('post_id')->whereIn(
+                            'tag_id', DB::table('tags')->select('id')->where('name', 'LIKE', request('s')."%")
+                        )
+                    );
+                });
+            });
         }
 
         if(request('l')) {
@@ -36,9 +49,7 @@ class PostController extends Controller
         }
 
         if(request('ct')) {
-            $category = Catagory::where('name', request('ct'))->first();
-
-            if($category) $query = $query->where('catagory_id', $category->id);
+            $query = $query->whereIn('catagory_id', DB::table('catagories')->select('id')->where('name', request('ct')));
         }
 
         if(request('t')) {
@@ -58,14 +69,14 @@ class PostController extends Controller
 
         $categories = Post::all()->unique('catagory_id')->pluck('catagory.name');
 
-        $locations = Post::all()->unique('location')->pluck('location');
-        $locations = $locations->filter(function($val, $inx) {
-            return preg_match('/^[a-zA-Z]+\,[A-Z]{2}$/', $val);
-        });
+        // $locations = Post::all()->unique('location')->pluck('location');
+        // $locations = $locations->filter(function($val, $inx) {
+        //     return preg_match('/^[a-zA-Z]+\,[A-Z]{2}$/', $val);
+        // });
 
         $types = ['Full-time', 'Part-time', 'Internship'];
 
-        return view('posts', compact('posts', 'usedTags', 'categories', 'locations', 'types'));
+        return view('posts', compact('posts', 'usedTags', 'categories', 'types'));
     }
 
     public function show(Post $post)

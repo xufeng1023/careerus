@@ -35,4 +35,9 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'poppler' => [
+        'html_path' => env('POPPLER_HTML_PATH'),
+        'info_path' => env('POPPLER_INFO_PATH')
+    ],
+
 ];

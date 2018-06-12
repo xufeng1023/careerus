@@ -3,14 +3,16 @@
 return [
 
     'admin' => '管理员',
+    'action date' => '批准日期',
     'applies' => '申请',
     'applied' => '已通知申请',
     'applied date' => '申请时间',
     'applied email subject' => '工作内推通知',
-    'blog' => '论坛',
+    'blog' => '求职攻略',
     'blog title' => '标题',
     'catagory' => '领域',
     'catagory name' => '名称',
+    'country' => '国家',
     'choose a state' => '选择一个州(没有可跳过)',
     'choose a city' => '粘贴城市名或其他(没有可跳过)',
     'company' => '公司',
@@ -24,10 +26,15 @@ return [
     'company numberOfVisa' => '发行VISA数量',
     'cover letter' => 'HR邮件Cover Letter',
     'content' => '内容',
+    'crawl date' => '爬日期',
+    'crawl visa bulletin' => '爬日期',
+    'crawl visa inventory' => '爬库存',
     'delete' => '删除',
     'email' => '邮箱',
+    'filing date' => '递交日期',
     'free apply times' => '免费申请次数',
     'good news' => '好消息',
+    'green card' => '绿卡',
     'has been applied' => '你申请的:job已经被内推了。',
     'is fulltime' => 'Full Time',
     'list' => '列表',
@@ -63,6 +70,7 @@ return [
     'updated' => '更新成功!',
     'view'=> '查看',
     'visa may duplicate' => '请检查公司每年的数据是否唯一',
-    'year' => '年份'
+    'visa type' => '签证类别',
+    'year' => '年份',
     
 ];

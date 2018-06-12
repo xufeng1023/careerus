@@ -31,10 +31,10 @@
 
                 <!-- <div class="mb-3">
                     <div>{{ __('admin.job location') }}</div>
-                    @foreach($locations as $location)
-                        <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ request('tp') }}&l={{ $location }}&t={{ request('t') }}" 
-                        class="badge badge-light">{{ $location }}</a>
-                    @endforeach
+                    {{-- @foreach($locations as $location) --}}
+                        <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ request('tp') }}&l={{-- {{ $location }} --}}&t={{ request('t') }}" 
+                        class="badge badge-light">{{-- {{ $location }} --}}</a>
+                        {{-- @endforeach --}}
                 </div> -->
             </div>
         </div>
@@ -53,8 +53,9 @@
                         <h2 class="h6 m-0">
                             <a href="/job/{{ str_slug($post->title) }}?i={{ $post->identity }}">{{ $post->title }}</a>
                         </h2>
-                        <div>
+                        <div class="d-flex justify-content-between">
                             <small>{{ $post->company->name }} - {{ $post->location }}</small>
+                            <small>{{ $post->sponsor_odds }}% sponsor odds</small>
                         </div>
                         <div class="text-muted h6 job-excerpt">{{ str_limit(html_entity_decode(strip_tags($post->description)), 120) }}</div>
                         <div class="small text-muted">{{ $post->created_at->diffforhumans() }}</div>

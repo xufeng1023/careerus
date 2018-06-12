@@ -24,14 +24,14 @@ class ApplyTest extends TestCase
         $data['job'] = $post->title;
         $data['resume'] = $file = UploadedFile::fake()->image('resume.pdf');
 
-        $this->post('/applyRegister', $data);
-
+        $this->post('/applyRegister', $data)->assertSee('/dashboard/applies');
         $this->assert_hr_gets_email_when_student_apply($post);
 
         $user = \App\User::latest()->first();
 
         $this->assertDatabaseHas('applies', ['user_id' => $user->id, 'post_id' => $post->id]);
         $this->assertDatabaseHas('users', ['id' => $user->id, 'resume' => 'resumes/'.$file->hashName()]);
+        
         Storage::disk('local')->assertExists('resumes/' . $file->hashName());
     }
 
@@ -50,7 +50,7 @@ class ApplyTest extends TestCase
         $data['identity'] = $post->identity;
         $data['job'] = $post->title;
 
-        $this->post('/apply', $data);
+        $this->post('/apply', $data)->assertSee('/dashboard/applies');
 
         $this->assert_hr_gets_email_when_student_apply($post);
 

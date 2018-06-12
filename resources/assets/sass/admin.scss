@@ -3,10 +3,35 @@
 @import '~toastr/toastr';
 
 body {
+  font-family: Arial, Helvetica, sans-serif;
     font-size: .875rem;
     padding-bottom: 2rem;
   }
-  
+  button.loading {
+    position: relative;
+    color: transparent!important;
+    pointer-events: none;
+  }
+  button.loading::after {
+    top: 29%;
+    left: 38%;
+    position: absolute!important;
+    -webkit-animation: spin .5s infinite linear;
+    animation: spin .5s infinite linear;
+    border: 2px solid #dbdbdb;
+    border-radius: 290486px;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    content: "";
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
   .feather {
     width: 16px;
     height: 16px;
