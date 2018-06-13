@@ -33,6 +33,9 @@ class PostController extends Controller
                 $query->where('title', 'LIKE', request('s').' %')
                 ->orWhere('title', 'LIKE', '% '.request('s').' %')
                 ->orWhere('title', 'LIKE', '% '.request('s'))
+                //->orWhere('description', 'LIKE', request('s').' %')
+                ->orWhere('description', 'LIKE', '% '.request('s').' %')
+                //->orWhere('description', 'LIKE', '% '.request('s'))
                 ->orWhere(function($query) {
                     $query->whereIn('company_id', DB::table('companies')->select('id')->where('name', 'LIKE', request('s')."%"));
                 })
