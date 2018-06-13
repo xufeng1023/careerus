@@ -18889,7 +18889,9 @@ var app = new Vue({
                 processData: false,
                 contentType: false,
                 error: function error(data) {
-                    this.errors = JSON.parse(data.responseText).errors;
+                    var errorBag = JSON.parse(data.responseText);
+                    this.errors = errorBag.errors;
+                    if (errorBag.toastr) toastr.error(errorBag.toastr);
                 },
                 success: function success(data) {
                     location.assign(data);

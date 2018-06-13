@@ -4,9 +4,9 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Mail;
 
 class ApplyTest extends TestCase
 {
@@ -55,6 +55,31 @@ class ApplyTest extends TestCase
         $this->assert_hr_gets_email_when_student_apply($post);
 
         $this->assertDatabaseHas('applies', ['user_id' => $student->id, 'post_id' => $post->id]);
+    }
+
+    public function test_apply_for_everyone_is_limited_in_a_day()
+    {
+        Storage::fake();
+
+        $file = UploadedFile::fake()->image('resume.pdf');
+
+        $this->login(
+            $user = create('User', ['resume' => 'resumes/' . $file->hashName()])
+        );
+
+        for($i = 1; $i <= 5; $i++) {
+            create('Apply', ['user_id' => $user->id]);
+        }
+
+        $this->assertCount(5, $user->applies);
+
+        $post = create('Post');
+
+        $data['identity'] = $post->identity;
+        $data['job'] = $post->title;
+
+        $this->post('/apply', $data)->assertStatus(422);
+        $this->assertCount(5, $user->fresh()->applies);
     }
 
     // public function test_after_5_times_coupon_students_can_not_apply_if_not_enough_points()
