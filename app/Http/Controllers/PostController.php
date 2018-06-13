@@ -65,9 +65,9 @@ class PostController extends Controller
 
         $posts = $query->paginate(10);
 
-        $usedTags = Tag::whereExists(function($q) {
-            $q->select('tag_id')->from('post_tag')->whereRaw('post_tag.tag_id = tags.id');
-        })->get();
+        // $usedTags = Tag::whereExists(function($q) {
+        //     $q->select('tag_id')->from('post_tag')->whereRaw('post_tag.tag_id = tags.id');
+        // })->get();
 
         $categories = Post::all()->unique('catagory_id')->pluck('catagory.name');
 
@@ -78,7 +78,7 @@ class PostController extends Controller
 
         $types = ['Full-time', 'Part-time', 'Internship'];
 
-        return view('posts', compact('posts', 'usedTags', 'categories', 'types'));
+        return view('posts', compact('posts', 'categories', 'types'));
     }
 
     public function show(Post $post)

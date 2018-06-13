@@ -15,12 +15,12 @@
                     @endforeach
                 </div>
                 
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <div>{{ __('front.job features') }}</div>
-                    @foreach($usedTags as $tag)
-                        <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ request('tp') }}&l={{ request('l') }}&t={{ $tag->name }}" class="badge badge-light">{{ $tag->name }}</a>
-                    @endforeach
-                </div>
+                    {{--  @foreach($usedTags as $tag) --}}
+                        <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ request('tp') }}&l={{ request('l') }}&t={{-- {{ $tag->name }} --}}" class="badge badge-light">{{-- {{ $tag->name }} --}}</a>
+                        {{-- @endforeach --}}
+                </div> -->
 
                 <div class="mb-3">
                     <div>{{ __('front.job category') }}</div>
