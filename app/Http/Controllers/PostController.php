@@ -47,7 +47,11 @@ class PostController extends Controller
         }
 
         if(request('l')) {
+            $state = State::where('simplified_name', request('l'))->orWhere('traditional_name', request('l'))->first();
             $query = $query->where('location', 'LIKE', '%'.request('l').'%');
+            if($state) {
+                $query = $query->orWhere('location', 'LIKE', '%'.$state->STATE_CODE.'%');
+            }
         }
 
         if(request('ct')) {
