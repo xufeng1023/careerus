@@ -13,16 +13,25 @@ Vue.component('pie-chart', {
     mounted: function() {
         var self = this;
 
-        let dataArray = this.dataSet.split(',');
+        var other = 0;
 
-        dataArray.forEach(val => {
+        this.dataSet.split(',').forEach( (val, index) => {
             var matches = val.replace(/\r\n/, '').match(/([a-zA-Z ]*\-?[a-zA-Z ]+)\(([\d]+)\)/);
-            for(var prop in matches) {
-                if(prop == 1) self.bars.labels.push(matches[prop]);
-                if(prop == 2) self.bars.numbers.push(matches[prop]);
-            }
+
+            if(!matches) return;
+
+            if(index > 2) other += Number(matches[2]);
             
+            else {
+                self.bars.labels.push(matches[1]);
+                self.bars.numbers.push(matches[2]);
+            }
         });
+
+        if(other > 0) {
+            self.bars.labels.push('other');
+            self.bars.numbers.push(other);
+        }
 
         let sum = self.bars.numbers.reduce(function(total, num) {
             return Number(total) + Number(num);

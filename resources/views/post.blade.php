@@ -251,7 +251,6 @@
 <script src="{{ asset('js/chart.js') }}"></script>
 <script src="{{ asset('js/pie.js') }}"></script>
 <script>
-    
     let progressBarWidth = $('.progress-bar').data('width');
     $('.progress-bar').css({'animation': 'widthGrow 1500ms','width': progressBarWidth});
 </script>
