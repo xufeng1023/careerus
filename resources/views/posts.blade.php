@@ -11,7 +11,7 @@
                 <div class="mb-3">
                     <div>{{ __('admin.job type') }}</div>
                     @foreach($types as $type)
-                    <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ $type }}&l={{ request('l') }}&t={{ request('t') }}" class="badge badge-light">{{ $type }}</a>
+                    <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ $type }}&l={{ request('l') }}" class="badge badge-light">{{ $type }}</a>
                     @endforeach
                 </div>
                 
@@ -25,14 +25,14 @@
                 <div class="mb-3">
                     <div>{{ __('front.job category') }}</div>
                     @foreach($categories as $cat)
-                        <a href="/jobs?s={{ request('s') }}&ct={{ $cat }}&tp={{ request('tp') }}&l={{ request('l') }}&t={{ request('t') }}" class="badge badge-light">{{ $cat }}</a>
+                        <a href="/jobs?s={{ request('s') }}&ct={{ $cat }}&tp={{ request('tp') }}&l={{ request('l') }}" class="badge badge-light">{{ $cat }}</a>
                     @endforeach
                 </div>
 
                 <!-- <div class="mb-3">
                     <div>{{ __('admin.job location') }}</div>
                     {{-- @foreach($locations as $location) --}}
-                        <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ request('tp') }}&l={{-- {{ $location }} --}}&t={{ request('t') }}" 
+                        <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ request('tp') }}&l={{-- {{ $location }} --}}" 
                         class="badge badge-light">{{-- {{ $location }} --}}</a>
                         {{-- @endforeach --}}
                 </div> -->
@@ -42,8 +42,8 @@
         <div class="col-sm-6">
             <div class="mb-3">
                 @foreach(collect(request()->all())->except('page')->filter() as $key => $param)
-                    <a href="{{ str_replace($key.'='.request($key), $key.'=', urldecode(url()->full())) }}" class="badge badge-pill badge-secondary">
-                        {{ $param }} <span class="badge badge-light">X</span>
+                    <a href="{{ str_replace($key.'='.$param, $key.'=', urldecode(url()->full())) }}" class="badge badge-pill badge-secondary">
+                    {{ __('front.'.$key) }}:{{ $param }} <span class="badge badge-light">X</span>
                     </a>
                 @endforeach
             </div>
@@ -63,6 +63,19 @@
                 @empty
                     <div class="alert alert-light mb-0" role="alert">
                         {{ __('front.no job found') }}
+                        @if(request('s'))
+                            {!! __('front.no job found s', ['value' => request('s')]) !!}
+                        @endif
+                        @if(request('tp'))
+                            {!! __('front.no job found tp', ['value' => request('tp')]) !!}
+                        @endif
+                        @if(request('ct'))
+                            {!! __('front.no job found ct', ['value' => request('ct')]) !!}
+                        @endif
+                        @if(request('l'))
+                            {!! __('front.no job found l', ['value' => request('l')]) !!}
+                        @endif
+                        {{ __('front.no job found2') }}
                     </div>
                 @endforelse
             </ul>

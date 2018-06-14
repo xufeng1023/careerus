@@ -56,12 +56,13 @@ class PostController extends Controller
             });
         }
 
-        if(request('l')) {
-            $state = State::where('simplified_name', $filtered['l'])->orWhere('traditional_name', $filtered['l'])->first();
-            $query = $query->where('location', 'LIKE', '%'.$filtered['l'].'%');
-            if($state) {
-                $query = $query->orWhere('location', 'LIKE', '%'.$state->STATE_CODE.'%');
-            }
+        if($location = isset($filtered['l']) ? $filtered['l'] : isset($filtered['s']) ? $filtered['s'] : '') {
+            $state = State::where('simplified_name', 'LIKE', $location.'%')->first();
+            if($state) $location = $state->STATE_CODE;
+
+            $query = $query->where(function($query) use($location) {
+                $query->where('location', 'LIKE', '%'.$location)->orWhere('location', 'LIKE', $location.'%');
+            });
         }
 
         if(request('ct')) {
