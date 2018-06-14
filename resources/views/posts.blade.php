@@ -49,7 +49,7 @@
             </div>
             <ul class="list-group list-group-flush box-shadow mb-3">
                 @forelse($posts as $key => $post)
-                    <li class="list-group-item {{ $key? '' : 'border-0' }}">
+                    <li class="list-group-item {{ $key? '' : 'border-top-0' }}">
                         <h2 class="h6 m-0">
                             <a href="/job/{{ str_slug($post->title) }}?i={{ $post->identity }}">{{ $post->title }}</a>
                         </h2>
