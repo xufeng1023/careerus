@@ -14,6 +14,7 @@ Route::get('/searchJob', function(){
     return $posts->pluck('title');
 });
 
+Route::get('/tags', 'TagController@all');
 Route::get('/jobs', 'PostController@all');
 Route::get('/job/{postSlug}', 'PostController@show');
 Route::get('/blog', 'BlogController@all');

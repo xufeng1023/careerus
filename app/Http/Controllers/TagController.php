@@ -14,6 +14,11 @@ class TagController extends Controller
         return view('admin.tags', compact('tags'));
     }
 
+    public function all()
+    {
+        return Tag::orderBy('id', 'desc')->take(20)->get()->pluck('name');
+    }
+
     public function save()
     {
         $tag = Tag::create(request()->all());

@@ -52,8 +52,9 @@
                 </div>
             @endif
 
-            <div class="text-center">
-                <div class="mb-3">CAREERUS</div>
+            <div class="text-center" id="animateThrow">
+                <div id="programming-languages" class="position-relative" style="opacity: 0.6;"></div>
+                <h1 class="mb-5" style="font-weight:bolder;">CAREERUS</h1>
                 @include('_search')
                 <div class="w-75 mx-auto mt-3">
                     @foreach($categories as $category)
@@ -64,5 +65,6 @@
         </div>
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/search.js') }}"></script>
+        <script src="{{ asset('js/animate-throw.js') }}"></script>
     </body>
 </html>
