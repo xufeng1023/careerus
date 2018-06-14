@@ -5,7 +5,7 @@ Auth::routes();
 Route::get('/', 'PostController@index');
 
 Route::get('/searchLocation', function(){
-    $posts = App\Post::where('location', 'LIKE', '%'.request('s').'%')->take(5)->get()->unique('location');
+    $posts = App\Post::where('location', 'LIKE', '%'.request('s'))->orWhere('location', 'LIKE', request('s').'%')->take(5)->get()->unique('location');
     return $posts->pluck('location');
 });
 
