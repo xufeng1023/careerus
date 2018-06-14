@@ -78,7 +78,7 @@ class PostController extends Controller
             }
         }
 
-        $posts = $query->paginate(10);
+        $posts = $query->latest()->paginate(10);
 
         // $usedTags = Tag::whereExists(function($q) {
         //     $q->select('tag_id')->from('post_tag')->whereRaw('post_tag.tag_id = tags.id');
