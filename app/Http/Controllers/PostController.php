@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use SteelyWing\Chinese\Chinese;
 use App\{Post, Catagory, Tag, State};
 
 class PostController extends Controller
@@ -24,25 +25,31 @@ class PostController extends Controller
 
         $query = Post::with('company.visaJobs');
 
+        $chinese = new Chinese();
+
+        foreach($filtered as $key => $value) {
+            $filtered[$key] = $chinese->to(Chinese::CHS, $value);
+        }
+
         if(request('tp')) {
-            $query = $query->where('job_type', request('tp'));
+            $query = $query->where('job_type', $filtered['tp']);
         }
 
         if(request('s')) {
-            $query = $query->where(function($query) {
-                $query->where('title', 'LIKE', request('s').' %')
-                ->orWhere('title', 'LIKE', '% '.request('s').' %')
-                ->orWhere('title', 'LIKE', '% '.request('s'))
-                //->orWhere('description', 'LIKE', request('s').' %')
-                ->orWhere('description', 'LIKE', '% '.request('s').' %')
-                //->orWhere('description', 'LIKE', '% '.request('s'))
-                ->orWhere(function($query) {
-                    $query->whereIn('company_id', DB::table('companies')->select('id')->where('name', 'LIKE', request('s')."%"));
+            $query = $query->where(function($query) use($filtered) {
+                $query->where('title', 'LIKE', $filtered['s'].' %')
+                ->orWhere('title', 'LIKE', '% '.$filtered['s'].' %')
+                ->orWhere('title', 'LIKE', '% '.$filtered['s'])
+                //->orWhere('description', 'LIKE', $filtered['s'].' %')
+                ->orWhere('description', 'LIKE', '% '.$filtered['s'].' %')
+                //->orWhere('description', 'LIKE', '% '.$filtered['s'])
+                ->orWhere(function($query) use($filtered) {
+                    $query->whereIn('company_id', DB::table('companies')->select('id')->where('name', 'LIKE', $filtered['s']."%"));
                 })
-                ->orWhere(function($query) {
+                ->orWhere(function($query) use($filtered) {
                     $query->whereIn(
                         'id', DB::table('post_tag')->select('post_id')->whereIn(
-                            'tag_id', DB::table('tags')->select('id')->where('name', 'LIKE', request('s')."%")
+                            'tag_id', DB::table('tags')->select('id')->where('name', 'LIKE', $filtered['s']."%")
                         )
                     );
                 });
@@ -50,19 +57,19 @@ class PostController extends Controller
         }
 
         if(request('l')) {
-            $state = State::where('simplified_name', request('l'))->orWhere('traditional_name', request('l'))->first();
-            $query = $query->where('location', 'LIKE', '%'.request('l').'%');
+            $state = State::where('simplified_name', $filtered['l'])->orWhere('traditional_name', $filtered['l'])->first();
+            $query = $query->where('location', 'LIKE', '%'.$filtered['l'].'%');
             if($state) {
                 $query = $query->orWhere('location', 'LIKE', '%'.$state->STATE_CODE.'%');
             }
         }
 
         if(request('ct')) {
-            $query = $query->whereIn('catagory_id', DB::table('catagories')->select('id')->where('name', request('ct')));
+            $query = $query->whereIn('catagory_id', DB::table('catagories')->select('id')->where('name', $filtered['ct']));
         }
 
         if(request('t')) {
-            $tag = Tag::where('name', request('t'))->first();
+            $tag = Tag::where('name', $filtered['t'])->first();
             if($tag) {
                 $query = $query->whereExists(function($q) use($tag) {
                     $q->select('post_id')->from('post_tag')->where('tag_id', $tag->id)->whereRaw('post_tag.post_id = posts.id');
