@@ -56,7 +56,7 @@ class PostController extends Controller
             });
         }
 
-        if($location = isset($filtered['l']) ? $filtered['l'] : isset($filtered['s']) ? $filtered['s'] : '') {
+        if($location = isset($filtered['l']) ? $filtered['l'] : (isset($filtered['s']) ? $filtered['s'] : '')) {
             $state = State::where('simplified_name', 'LIKE', $location.'%')->first();
             if($state) $location = $state->STATE_CODE;
 
