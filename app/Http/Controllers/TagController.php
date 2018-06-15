@@ -16,7 +16,7 @@ class TagController extends Controller
 
     public function all()
     {
-        return Tag::orderBy('id', 'desc')->take(20)->get()->pluck('name');
+        return Tag::orderBy('id', 'desc')->get()->random(50)->pluck('name');
     }
 
     public function save()
