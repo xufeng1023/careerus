@@ -52,9 +52,9 @@
                 </div>
             @endif
 
-            <div class="text-center" id="animateThrow">
-                <div id="programming-languages" class="position-relative" style="opacity: 0.6;height:100px;"></div>
-                <h1 class="mb-5" style="font-weight:bolder;">CAREERUS</h1>
+            <div class="text-center">
+                <div id="programming-languages" class="position-relative" style="opacity:0.6;"></div>
+                <h1 class="mb-5" style="text-shadow:2px 2px 2px #868686c2;">CAREERUS</h1>
                 @include('_search')
                 <div class="w-75 mx-auto mt-3">
                     @foreach($categories as $category)

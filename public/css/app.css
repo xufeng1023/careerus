@@ -10773,19 +10773,3 @@ div.throw {
   }
 }
 
-@-webkit-keyframes throw {
-  100% {
-    opacity: 0;
-    -webkit-transform: rotate(90deg);
-            transform: rotate(90deg);
-  }
-}
-
-@keyframes throw {
-  100% {
-    opacity: 0;
-    -webkit-transform: rotate(90deg);
-            transform: rotate(90deg);
-  }
-}
-
