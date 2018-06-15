@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-3 order-sm-1 order-1">
             <button class="btn btn-light btn-block d-block d-sm-none mb-2" type="button" data-toggle="collapse" data-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
                 <span data-feather="search"></span>
             </button>
@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-6 order-sm-2 order-2">
             <div class="mb-3">
                 @foreach(collect(request()->all())->except('page')->filter() as $key => $param)
                     <a href="{{ str_replace($key.'='.$param, $key.'=', urldecode(url()->full())) }}" class="badge badge-pill badge-secondary">

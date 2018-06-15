@@ -106,7 +106,7 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('posts', ['location' => $post['city'].','.$post['state']]);
     }
 
-    public function test_admin_can_delete_a_post_along_with_applies_and_tags()
+    public function test_admin_can_delete_a_post_along_with_applies_and_pivot_tags()
     {
         $this->login(
             $admin = create('User', ['role' => 'admin'])
