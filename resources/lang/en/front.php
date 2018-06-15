@@ -74,7 +74,7 @@ return [
     'remember me' => '记住我',
     's' => '搜索',
     'search' => '搜索',
-    'search job title' => '搜索职位,公司,关键字',
+    'search job title' => '搜索职位,公司',
     'Send Password Reset Link' => '发送重置密码链接',
     'tp' => '类型',
     'update' => '更新',

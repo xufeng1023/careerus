@@ -65,6 +65,8 @@
                 </tbody>
             </table>
         </div>
+
+        {!! $posts->links() !!}
     </div>
 
     <div class="tab-pane fade {{ request('id')? 'show active' : '' }}" id="job-add" role="tabpanel" aria-labelledby="job-add-tab">
