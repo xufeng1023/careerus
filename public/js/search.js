@@ -701,19 +701,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         search: window.helper.debounce(function (e) {
-            var s = e.target.value;
-            this.input = s;
-            if (s.trim()) {
-                $.ajax('/searchJob?s=' + s, {
-                    dataType: 'json',
-                    context: this,
-                    success: function success(data) {
-                        this.cities = data;
-                    }
-                });
-            } else {
-                this.cities = '';
-            }
+            // var s = e.target.value;
+            // this.input = s;
+            // if(s.trim()) {
+            //     $.ajax('/searchJob?s='+s, {
+            //         dataType: 'json',
+            //         context: this,
+            //         success(data) {
+            //             this.cities = data;
+            //         }
+            //     })
+            // } else {
+            //     this.cities = ''
+            // }
         }, 500),
 
         onClick: function onClick(e) {

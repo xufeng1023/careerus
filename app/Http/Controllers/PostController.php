@@ -36,28 +36,35 @@ class PostController extends Controller
         }
 
         if(request('s')) {
-            $query = $query->where(function($query) use($filtered) {
-                $query->where('title', 'LIKE', $filtered['s'].' %')
-                ->orWhere('title', 'LIKE', '% '.$filtered['s'].' %')
-                ->orWhere('title', 'LIKE', '% '.$filtered['s'])
+            $query->where('title', 'LIKE', '%'.$filtered['s'].'%');
+            // $query = $query->where(function($query) use($filtered) {
+            //     $query->where('title', 'LIKE', $filtered['s'].' %')
+            //     ->orWhere('title', 'LIKE', '% '.$filtered['s'].' %')
+            //     ->orWhere('title', 'LIKE', '% '.$filtered['s'])
                 //->orWhere('description', 'LIKE', $filtered['s'].' %')
-                ->orWhere('description', 'LIKE', '% '.$filtered['s'].' %')
+                //->orWhere('description', 'LIKE', '% '.$filtered['s'].' %')
                 //->orWhere('description', 'LIKE', '% '.$filtered['s'])
-                ->orWhere(function($query) use($filtered) {
-                    $query->whereIn('company_id', DB::table('companies')->select('id')->where('name', 'LIKE', $filtered['s']."%"));
-                })
-                ->orWhere(function($query) use($filtered) {
-                    $query->whereIn(
-                        'id', DB::table('post_tag')->select('post_id')->whereIn(
-                            'tag_id', DB::table('tags')->select('id')->where('name', 'LIKE', $filtered['s']."%")
-                        )
-                    );
-                });
-            });
+                // ->orWhere(function($query) use($filtered) {
+                //     $query->whereIn('company_id', DB::table('companies')->select('id')->where('name', 'LIKE', $filtered['s']."%"));
+                // })
+                // ->orWhere(function($query) use($filtered) {
+                //     $query->whereIn('catagory_id', DB::table('catagories')->select('id')->where('name', $filtered['s']));
+                // })
+                // ->orWhere(function($query) use($filtered) {
+                //     $query->whereIn(
+                //         'id', DB::table('post_tag')->select('post_id')->whereIn(
+                //             'tag_id', DB::table('tags')->select('id')->where('name', 'LIKE', $filtered['s']."%")
+                //         )
+                //     );
+                // });
+           // });
         }
 
-        if($location = isset($filtered['l']) ? $filtered['l'] : (isset($filtered['s']) ? $filtered['s'] : '')) {
-            $state = State::where('simplified_name', 'LIKE', $location.'%')->first();
+        if(request('l')) $location = $filtered['l'];
+        elseif(request('s') && $query->count() === 0) $location = $filtered['s'];
+
+        if(isset($location)) {
+            $state = State::where('simplified_name', 'LIKE', $location.'%')->orWhere('STATE_NAME', 'LIKE', $location.'%')->first();
             if($state) $location = $state->STATE_CODE;
 
             $query = $query->where(function($query) use($location) {
@@ -78,6 +85,25 @@ class PostController extends Controller
             }
         }
 
+        if($query->count() === 0 && isset($filtered['s'])) {
+            $query = Post::with('company.visaJobs');
+            $query->whereIn('company_id', DB::table('companies')->select('id')->where('name', 'LIKE', $filtered['s']."%"));
+        }
+
+        if($query->count() === 0 && isset($filtered['s'])) {
+            $query = Post::with('company.visaJobs');
+            $query->whereIn(
+                'id', DB::table('post_tag')->select('post_id')->whereIn(
+                    'tag_id', DB::table('tags')->select('id')->where('name', 'LIKE', $filtered['s']."%")
+                )
+            );
+        }
+
+        if($query->count() === 0 && isset($filtered['s'])) {
+            $query = Post::with('company.visaJobs');
+            $query->whereIn('catagory_id', DB::table('catagories')->select('id')->where('name', $filtered['s']));
+        }
+    
         $posts = $query->latest()->paginate(10);
 
         // $usedTags = Tag::whereExists(function($q) {
