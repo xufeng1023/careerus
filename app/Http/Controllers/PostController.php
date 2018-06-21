@@ -31,10 +31,6 @@ class PostController extends Controller
             $filtered[$key] = $chinese->to(Chinese::CHS, $value);
         }
 
-        if(request('tp')) {
-            $query = $query->where('job_type', $filtered['tp']);
-        }
-
         if(request('s')) {
             $query->where('title', 'LIKE', '%'.$filtered['s'].'%');
             // $query = $query->where(function($query) use($filtered) {
@@ -58,6 +54,29 @@ class PostController extends Controller
                 //     );
                 // });
            // });
+        }
+
+        if($query->count() === 0 && isset($filtered['s'])) {
+            $query = Post::with('company.visaJobs');
+            $query->whereIn('company_id', DB::table('companies')->select('id')->where('name', 'LIKE', $filtered['s']."%"));
+        }
+
+        if($query->count() === 0 && isset($filtered['s'])) {
+            $query = Post::with('company.visaJobs');
+            $query->whereIn(
+                'id', DB::table('post_tag')->select('post_id')->whereIn(
+                    'tag_id', DB::table('tags')->select('id')->where('name', 'LIKE', $filtered['s']."%")
+                )
+            );
+        }
+
+        if($query->count() === 0 && isset($filtered['s'])) {
+            $query = Post::with('company.visaJobs');
+            $query->whereIn('catagory_id', DB::table('catagories')->select('id')->where('name', $filtered['s']));
+        }
+
+        if(request('tp')) {
+            $query = $query->where('job_type', $filtered['tp']);
         }
 
         if(request('l')) $location = $filtered['l'];
@@ -85,24 +104,7 @@ class PostController extends Controller
             }
         }
 
-        if($query->count() === 0 && isset($filtered['s'])) {
-            $query = Post::with('company.visaJobs');
-            $query->whereIn('company_id', DB::table('companies')->select('id')->where('name', 'LIKE', $filtered['s']."%"));
-        }
-
-        if($query->count() === 0 && isset($filtered['s'])) {
-            $query = Post::with('company.visaJobs');
-            $query->whereIn(
-                'id', DB::table('post_tag')->select('post_id')->whereIn(
-                    'tag_id', DB::table('tags')->select('id')->where('name', 'LIKE', $filtered['s']."%")
-                )
-            );
-        }
-
-        if($query->count() === 0 && isset($filtered['s'])) {
-            $query = Post::with('company.visaJobs');
-            $query->whereIn('catagory_id', DB::table('catagories')->select('id')->where('name', $filtered['s']));
-        }
+        
     
         $posts = $query->latest()->paginate(10);
 
