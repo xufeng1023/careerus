@@ -33,6 +33,7 @@ return [
     'free alert' => '新注册用户可以获得:times次免费内推机会',
     'free times left' => '您还有:times次免费申请机会',
     'job apply' => '工作申请',
+    'job apply times left' => '今日该工作内推名额还剩下:times次。',
     'job features' => '工作特点',
     'job full today' => '该工作的申请名额今日已满,请明天再来。',
     'job category' => '工作领域',

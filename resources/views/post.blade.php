@@ -45,11 +45,13 @@
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyModal">
                             {{ __('front.apply') }}
                         </button>
+                        <div class="text-muted">*{{ __('front.job apply times left', ['times' => cache('job_applies_a_day') - $post->applyTimes()]) }}</div>
                     @endif
                 @else
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyModal">
                         {{ __('front.apply') }}
                     </button>
+                    <div class="text-muted">*{{ __('front.job apply times left', ['times' => cache('job_applies_a_day') - $post->applyTimes()]) }}</div>
                 @endauth
             </div>
 
