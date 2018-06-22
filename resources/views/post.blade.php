@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1 class="h3">{{ $post->title }}</h1>
+            <h1 class="h3">{{ $post->chinese_title ?: $post->title }}</h1>
             <div class="text-muted">{{ $post->created_at->diffforhumans() }} - {{ $post->company->name }} - {{ $post->location }}</div>
             <div class="mb-3">
                 <span class="badge badge-pill badge-secondary">{{ $post->catagory->name }}</span>
@@ -233,7 +233,7 @@
                             @foreach($post->company->posts as $job)
                                 @if($post->id != $job->id)
                                     <li>
-                                        <a href="/job/{{ $job->title }}?i={{ $job->identity }}">{{ $job->title }}</a>
+                                        <a href="/job/{{ $job->title }}?i={{ $job->identity }}">{{ $job->chinese_title ?: $job->title }}</a>
                                     </li>
                                 @endif
                             @endforeach

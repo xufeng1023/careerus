@@ -32,28 +32,8 @@ class PostController extends Controller
         }
 
         if(request('s')) {
-            $query->where('title', 'LIKE', '%'.$filtered['s'].'%');
-            // $query = $query->where(function($query) use($filtered) {
-            //     $query->where('title', 'LIKE', $filtered['s'].' %')
-            //     ->orWhere('title', 'LIKE', '% '.$filtered['s'].' %')
-            //     ->orWhere('title', 'LIKE', '% '.$filtered['s'])
-                //->orWhere('description', 'LIKE', $filtered['s'].' %')
-                //->orWhere('description', 'LIKE', '% '.$filtered['s'].' %')
-                //->orWhere('description', 'LIKE', '% '.$filtered['s'])
-                // ->orWhere(function($query) use($filtered) {
-                //     $query->whereIn('company_id', DB::table('companies')->select('id')->where('name', 'LIKE', $filtered['s']."%"));
-                // })
-                // ->orWhere(function($query) use($filtered) {
-                //     $query->whereIn('catagory_id', DB::table('catagories')->select('id')->where('name', $filtered['s']));
-                // })
-                // ->orWhere(function($query) use($filtered) {
-                //     $query->whereIn(
-                //         'id', DB::table('post_tag')->select('post_id')->whereIn(
-                //             'tag_id', DB::table('tags')->select('id')->where('name', 'LIKE', $filtered['s']."%")
-                //         )
-                //     );
-                // });
-           // });
+            $query->where('title', 'LIKE', '%'.$filtered['s'].'%')
+                ->orWhere('chinese_title', 'LIKE', '%'.$filtered['s'].'%');
         }
 
         if($query->count() === 0 && isset($filtered['s'])) {

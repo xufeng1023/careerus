@@ -20,6 +20,7 @@ class CreatePostTable extends Migration
             $table->unsignedInteger('company_id');
             $table->string('identity');
             $table->string('title');
+            $table->string('chinese_title')->nullable();
             $table->longText('description')->nullable();
             $table->string('location');
             $table->string('url')->nullable();

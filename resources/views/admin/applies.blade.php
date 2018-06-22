@@ -31,7 +31,7 @@
                             </td>
                             <td>
                                 <div>
-                                    <a target="_blank" href="{{ $apply->post->link() }}">{{ $apply->post->title }}</a>
+                                    <a target="_blank" href="{{ $apply->post->link() }}">{{ $apply->post->chinese_title ?:$apply->post->title }}</a>
                                 </div>
                                 <div class="text-muted small">{{ $apply->post->jobType() }} ({{ $apply->post->location }})</div>
                             </td>

@@ -9,7 +9,7 @@
                 <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                     <span class="float-left">
                         <a href="/job/{{ $apply->post->title }}?i={{ $apply->post->identity }}">
-                            <strong class="d-block text-gray-dark">{{ $apply->post->title }}</strong>
+                            <strong class="d-block text-gray-dark">{{ $apply->post->chinese_title ?: $apply->post->title }}</strong>
                         </a>
                         {{ $apply->post->company->name }} - {{ $apply->post->location }}
                     </span>

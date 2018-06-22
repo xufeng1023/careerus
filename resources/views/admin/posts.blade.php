@@ -37,7 +37,6 @@
                 <thead>
                     <tr>
                         <th>标题</th>
-                        <th>管理员</th>
                         <th>添加日期</th>
                     </tr>
                 </thead>
@@ -45,7 +44,7 @@
                     @foreach($posts as $post)
                         <tr>
                             <td class="post-td">
-                                <div><a href="?id={{ $post->id }}">{{ $post->title }}</a></div>
+                                <div><a href="?id={{ $post->id }}">{{ $post->title }} / {{ $post->chinese_title }}</a></div>
                                 <ul class="list-inline m-0 px-0 invisible">
                                     <li class="list-inline-item">
                                         <a class="text-muted" target="_blank" href="/job/{{ str_slug($post->title) }}?i={{ $post->identity }}">{{ __('admin.view') }}</a>
@@ -58,7 +57,6 @@
                                     </li>
                                 </ul>
                             </td>
-                            <td>{{ $post->creator->name }}</td>
                             <td>{{ $post->created_at->format('Y-m-d') }}</td>
                         </tr>
                     @endforeach
@@ -79,6 +77,12 @@
                 <label class="col-form-label">{{ __('admin.job title') }}</label>
 
                 <input type="text" class="form-control" name="title" value="{{ request('id')? $posts[0]->title: '' }}">
+            </div>
+
+            <div class="form-group">
+                <label class="col-form-label">{{ __('admin.job title chinese') }}</label>
+
+                <input type="text" class="form-control" name="chinese_title" value="{{ request('id')? $posts[0]->chinese_title: '' }}">
             </div>
 
             <div class="form-group">

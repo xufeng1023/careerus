@@ -40,6 +40,7 @@ return [
     'list' => '列表',
     'job list' => '工作',
     'job title' => '标题',
+    'job title chinese' => '中文标题',
     'job desc' => '简介',
     'job location' => '工作地点',
     'job add' => '添加',

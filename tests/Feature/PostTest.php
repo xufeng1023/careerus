@@ -30,4 +30,13 @@ class PostTest extends TestCase
         ->assertSee($post1['description'])
         ->assertDontSee($post2['description']);
     }
+
+    public function test_chinese_title_can_be_added()
+    {
+        $data = ['chinese_title' => '中文'];
+        
+        create('Post', $data);
+
+        $this->assertDatabaseHas('posts', $data);
+    }
 }
