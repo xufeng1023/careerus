@@ -61,17 +61,19 @@ class ApplyTest extends TestCase
     {
         Storage::fake();
 
+        $limit = cache('apply_times_a_day', 5);
+
         $file = UploadedFile::fake()->image('resume.pdf');
 
         $this->login(
             $user = create('User', ['resume' => 'resumes/' . $file->hashName()])
         );
 
-        for($i = 1; $i <= 5; $i++) {
+        for($i = 1; $i <= $limit; $i++) {
             create('Apply', ['user_id' => $user->id]);
         }
 
-        $this->assertCount(5, $user->applies);
+        $this->assertEquals($limit, $user->apply_count);
 
         $post = create('Post');
 
@@ -79,7 +81,34 @@ class ApplyTest extends TestCase
         $data['job'] = $post->title;
 
         $this->post('/apply', $data)->assertStatus(422);
-        $this->assertCount(5, $user->fresh()->applies);
+        $this->assertEquals($limit, $user->fresh()->apply_count);
+    }
+
+    public function test_each_job_has_limited_apply_times()
+    {
+        Storage::fake();
+
+        $job = create('Post');
+
+        $limit = cache('job_applies_a_day', 5);
+
+        $file = UploadedFile::fake()->image('resume.pdf');
+
+        $this->login(
+            $user = create('User', ['resume' => 'resumes/' . $file->hashName()])
+        );
+
+        for($i = 1; $i <= $limit; $i++) {
+            create('Apply', ['user_id' => create('User'), 'post_id' => $job->id]);
+        }
+
+        $this->assertEquals($limit, $job->applyTimes());
+
+        $data['identity'] = $job->identity;
+        $data['job'] = $job->title;
+
+        $this->post('/apply', $data)->assertStatus(422);
+        $this->assertEquals($limit, $job->fresh()->applyTimes());
     }
 
     // public function test_after_5_times_coupon_students_can_not_apply_if_not_enough_points()

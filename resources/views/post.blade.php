@@ -37,6 +37,10 @@
                 @auth
                     @if($apply = auth()->user()->isApplied($post->id))
                         <div class="text-muted">*{{ __('front.applied already', ['time' => $apply->created_at->diffForHumans()]) }}</div>
+                    @elseif($post->applyTimes() >= cache('job_applies_a_day'))
+                        <div class="text-muted">*{{ __('front.job full today') }}</div>
+                    @elseif(auth()->user()->apply_count >= cache('apply_times_a_day'))
+                        <div class="text-muted">*{{ __('front.applied enough', ['times' => cache('apply_times_a_day')]) }}</div>
                     @else
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyModal">
                             {{ __('front.apply') }}

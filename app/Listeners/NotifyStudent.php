@@ -2,8 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Mail\YourJobIsApplied;
-use App\Events\jobIsAppliedForStudent;
+use App\Events\StudentAppliedEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -15,8 +14,8 @@ class NotifyStudent
         //
     }
 
-    public function handle(jobIsAppliedForStudent $event)
+    public function handle(StudentAppliedEvent $event)
     {
-        \Mail::to($event->apply->user)->send(new YourJobIsApplied($event->apply));
+        //\Mail::to($event->apply->user)->send(new \App\Mail\YourJobIsApplied($event->apply));
     }
 }

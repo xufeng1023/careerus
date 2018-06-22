@@ -26,11 +26,15 @@ class ApplyController extends Controller
             }
         }
 
-        if(auth()->user()->applies()->count() >= config('app.free_apply')) {
-            return response(['toastr' => trans('front.apply hit limit today')], 422);
+        if(auth()->user()->applyCount >= cache('apply_times_a_day', 5)) {
+            return response('', 422);
         }
 
         $post = (new Post)->findPost(request('job'), request('identity'));
+
+        if($post->applyTimes() >= cache('job_applies_a_day', 5)) {
+            return response('', 422);
+        }
 
         (new Apply)->apply($post);
 

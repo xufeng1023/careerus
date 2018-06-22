@@ -42,7 +42,9 @@ class User extends Authenticatable
 
     public function getApplyCountAttribute()
     {
-        return $this->applies()->count();
+        return $this->applies->filter(function($val) {
+            return $val->created_at->format('Y-m-d') == now()->format('Y-m-d');
+        })->count();
     }
 
     public function maskResumeName()

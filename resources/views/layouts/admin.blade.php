@@ -94,19 +94,19 @@
                   <span data-feather="credit-card"></span>
                   {{ __('admin.green card') }}
                 </a>
+			  </li>
+			  
+			  <li class="nav-item">
+                <a class="nav-link {{ str_contains(url()->current(), 'settings')? 'active' : '' }}" href="/admin/settings">
+                  <span data-feather="settings"></span>
+                  {{ __('admin.settings') }}
+                </a>
               </li>
 				@endif
               <!-- <li class="nav-item">
                 <a class="nav-link {{ str_contains(url()->current(), 'plan')? 'active' : '' }}" href="/admin/plan">
                   <span data-feather="award"></span>
                   {{ __('admin.plans') }}
-                </a>
-              </li> -->
-
-              <!-- <li class="nav-item">
-                <a class="nav-link {{ str_contains(url()->current(), 'settings')? 'active' : '' }}" href="/admin/settings">
-                  <span data-feather="settings"></span>
-                  {{ __('admin.settings') }}
                 </a>
               </li> -->
             </ul>

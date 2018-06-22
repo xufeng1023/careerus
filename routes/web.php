@@ -50,7 +50,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/plan', 'PlanController@index');
     Route::get('/cover-letter', 'CoverLetterController@all');
     Route::get('/green-card', 'GreenCardController@alladmin');
-    // Route::get('/settings', 'SettingsController@index');
+    Route::get('/settings', 'SettingsController@index');
     Route::get('/visa', 'GreenCardController@crawl');
 
     Route::post('/visa', 'GreenCardController@save');
@@ -77,5 +77,5 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::delete('/tag/delete/{tag}', 'TagController@delete');
     Route::delete('/company/delete/{company}', 'CompanyController@delete');
     Route::delete('/category/delete/{category}', 'CatagoryController@delete');
-    // Route::post('/settings', 'SettingsController@update');
+    Route::post('/settings', 'SettingsController@update');
 });
