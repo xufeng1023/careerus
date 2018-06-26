@@ -20,6 +20,8 @@ class ApplyController extends Controller
 
     public function save()
     {
+        //if(!auth()->user()->confirmed) return response('', 403);
+        
         if(app()->environment() !== 'testing') {
             if(! \Storage::exists(auth()->user()->resume)) {
                 return response(['errors' => ['resume' => trans('front.resume invalid')]], 422);

@@ -27,6 +27,7 @@ class CreatePostTable extends Migration
             $table->enum('job_type', ['Full-time', 'Part-time', 'Internship']);
             $table->unsignedTinyInteger('sponsor_rate')->default(0);
             $table->unsignedTinyInteger('sponsor_odds')->default(0);
+            $table->boolean('recommended')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')

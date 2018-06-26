@@ -47,6 +47,11 @@ class User extends Authenticatable
         })->count();
     }
 
+    public function hasValidResume()
+    {
+        return $this->resume && \Storage::exists($this->resume);
+    }
+
     public function maskResumeName()
     {
         return substr($this->resume, 30, 25);

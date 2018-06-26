@@ -46,7 +46,7 @@
                             <td>{{ $user->phone }}</td>
                             <td>{{ $user->role }}</td>
                             <td>
-                                @if($user->resume)
+                                @if($user->hasValidResume())
                                     <a href="/dashboard/resume/download?r={{ $user->resume }}">
                                         <span data-feather="download" title="{{ __('front.resume download') }}"></span>
                                     </a>

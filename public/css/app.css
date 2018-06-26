@@ -10647,6 +10647,12 @@ button.loading::after {
   width: 1em;
 }
 
+#welcome-page a.d-block {
+  color: #6c757d !important;
+  font-size: 12px;
+  line-height: 2;
+}
+
 .custom-file-label:after {
   content: "\6D4F\89C8";
 }

@@ -12,7 +12,17 @@ class PostController extends Controller
     {
         $categories = Post::all()->unique('catagory_id')->pluck('catagory.name');
 
-        return view('welcome', compact('categories'));
+        $newJobs = Post::latest()->take(10)->get()->pluck('title', 'identity');
+
+        $recommendedJobs = Post::where('recommended', 1)->take(10)->get()->pluck('title', 'identity');
+
+        $hotSpots = ['New York', 'California'];
+
+        $hotTags = DB::table('tags')->select('name')->whereIn('id', 
+            DB::table('post_tag')->select('tag_id')->orderByRaw('count(tag_id)', 'desc')->groupBy('tag_id')
+        )->take(10)->get()->pluck('name');
+
+        return view('welcome', compact('categories', 'newJobs', 'hotSpots', 'hotTags', 'recommendedJobs'));
     }
 
     public function all()

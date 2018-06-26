@@ -25,6 +25,11 @@ button.loading::after {
   height: 1em;
   width: 1em;
 }
+#welcome-page a.d-block{
+  color: #6c757d !important;
+  font-size: 12px;
+  line-height: 2;
+}
 .custom-file-label:after{
   content: "浏览";
 }

@@ -12,28 +12,35 @@ class ApplyTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_guests_can_apply_and_register_all_together()
+    public function test_user_must_confirm_their_email_before_apply()
     {
-        Storage::fake();
-        
-        $post = create('Post');
+        $this->login($user = create('User'));
 
-        $data = raw('User');
-        $data['password_confirmation'] = $data['password'];
-        $data['identity'] = $post->identity;
-        $data['job'] = $post->title;
-        $data['resume'] = $file = UploadedFile::fake()->image('resume.pdf');
-
-        $this->post('/applyRegister', $data)->assertSee('/dashboard/applies');
-        $this->assert_hr_gets_email_when_student_apply($post);
-
-        $user = \App\User::latest()->first();
-
-        $this->assertDatabaseHas('applies', ['user_id' => $user->id, 'post_id' => $post->id]);
-        $this->assertDatabaseHas('users', ['id' => $user->id, 'resume' => 'resumes/'.$file->hashName()]);
-        
-        Storage::disk('local')->assertExists('resumes/' . $file->hashName());
+        $this->post('/apply', [])->assertForbidden();
     }
+
+    // public function test_guests_can_apply_and_register_all_together()
+    // {
+    //     Storage::fake();
+        
+    //     $post = create('Post');
+
+    //     $data = raw('User');
+    //     $data['password_confirmation'] = $data['password'];
+    //     $data['identity'] = $post->identity;
+    //     $data['job'] = $post->title;
+    //     $data['resume'] = $file = UploadedFile::fake()->image('resume.pdf');
+
+    //     $this->post('/applyRegister', $data)->assertSee('/dashboard/applies');
+    //     $this->assert_hr_gets_email_when_student_apply($post);
+
+    //     $user = \App\User::latest()->first();
+
+    //     $this->assertDatabaseHas('applies', ['user_id' => $user->id, 'post_id' => $post->id]);
+    //     $this->assertDatabaseHas('users', ['id' => $user->id, 'resume' => 'resumes/'.$file->hashName()]);
+        
+    //     Storage::disk('local')->assertExists('resumes/' . $file->hashName());
+    // }
 
     public function test_students_can_apply()
     {
@@ -42,7 +49,7 @@ class ApplyTest extends TestCase
         $file = UploadedFile::fake()->image('resume.pdf');
 
         $this->login(
-            $student = create('User', ['resume' => 'resumes/' . $file->hashName()])
+            $student = create('User', ['resume' => 'resumes/' . $file->hashName(), 'confirmed' => 1])
         );
         
         $post = create('Post');
@@ -66,7 +73,7 @@ class ApplyTest extends TestCase
         $file = UploadedFile::fake()->image('resume.pdf');
 
         $this->login(
-            $user = create('User', ['resume' => 'resumes/' . $file->hashName()])
+            $user = create('User', ['resume' => 'resumes/' . $file->hashName(), 'confirmed' => 1])
         );
 
         for($i = 1; $i <= $limit; $i++) {
@@ -95,7 +102,7 @@ class ApplyTest extends TestCase
         $file = UploadedFile::fake()->image('resume.pdf');
 
         $this->login(
-            $user = create('User', ['resume' => 'resumes/' . $file->hashName()])
+            $user = create('User', ['resume' => 'resumes/' . $file->hashName(), 'confirmed' => 1])
         );
 
         for($i = 1; $i <= $limit; $i++) {
@@ -155,7 +162,7 @@ class ApplyTest extends TestCase
     public function test_students_can_see_their_applies_on_dashboard()
     {
         $this->login(
-            $student = create('User', ['points' => 100])
+            $student = create('User', ['points' => 100, 'confirmed' => 1])
         );
         
         $post = create('Post');
