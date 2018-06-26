@@ -52,13 +52,14 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/green-card', 'GreenCardController@alladmin');
     Route::get('/settings', 'SettingsController@index');
     Route::get('/visa', 'GreenCardController@crawl');
+    Route::get('/visa/inventory', 'GreenCardController@crawlInventory');
 
     Route::post('/visa', 'GreenCardController@save');
-    Route::get('/visa/inventory', 'GreenCardController@crawlInventory');
     Route::post('/post/add', 'PostController@save');
     Route::post('/post/update/{post}', 'PostController@update');
     Route::post('/blog/add', 'BlogController@save');
     Route::post('/tag/add', 'TagController@save');
+    Route::post('/job/recommend/{post}', 'PostController@recommend');
     Route::post('/blog/update/{blog}', 'BlogController@update');
     Route::post('/tag/update/{tag}', 'TagController@update');
     Route::post('/user/add', 'UserController@save');

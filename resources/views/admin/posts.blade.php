@@ -37,12 +37,13 @@
                 <thead>
                     <tr>
                         <th>标题</th>
+                        <th>公司</th>
                         <th>添加日期</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($posts as $post)
-                        <tr>
+                        <tr class="{{ $post->recommended? 'table-success' : '' }}">
                             <td class="post-td">
                                 <div><a href="?id={{ $post->id }}">{{ $post->title }} / {{ $post->chinese_title }}</a></div>
                                 <ul class="list-inline m-0 px-0 invisible">
@@ -52,19 +53,23 @@
                                     <li class="list-inline-item">
                                         <form action="/admin/job/delete/{{ $post->id }}" onsubmit="onSubmit(event)">
                                             @method('DELETE')
-                                            <button type="submit" class="text-muted delete btn btn-link btn-sm">{{ __('admin.delete') }}</button>
+                                            <button type="submit" class="text-muted p-0 btn btn-link btn-sm">{{ __('admin.delete') }}</button>
+                                        </form>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <form action="/admin/job/recommend/{{ $post->id }}" onsubmit="recommend(event)">
+                                            <button type="submit" class="text-muted p-0 btn btn-link btn-sm">更新推荐</button>
                                         </form>
                                     </li>
                                 </ul>
                             </td>
+                            <td>{{ $post->company->name }}</td>
                             <td>{{ $post->created_at->format('Y-m-d') }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-
-        
     </div>
 
     <div class="tab-pane fade {{ request('id')? 'show active' : '' }}" id="job-add" role="tabpanel" aria-labelledby="job-add-tab">
@@ -254,6 +259,14 @@
                 toastr.success('删除成功');
             });
         }
+    }
+
+    function recommend(e) {
+        e.preventDefault();
+        $.post($(e.target).attr('action'), $(e.target).serialize(), function() {
+            var tr = $(e.target).parents('tr');
+            $(e.target).parents('tr').toggleClass('table-success');
+        });
     }
 
     $('[name=city]').keyup(function() {

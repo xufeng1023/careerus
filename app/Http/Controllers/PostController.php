@@ -129,7 +129,7 @@ class PostController extends Controller
     public function allAdmin()
     {
         if(request('id')) $posts[] = Post::find(request('id'))->load('tags');
-        else $posts = Post::with('creator')->latest()->get();
+        else $posts = Post::with('company')->latest()->get();
 
         $tags = Tag::all();
         $states = State::all();
@@ -186,6 +186,12 @@ class PostController extends Controller
     public function delete(Post $post)
     {
         $post->remove();
+    }
+
+    public function recommend(Post $post)
+    {
+        $post->recommended = !$post->recommended;
+        $post->save();
     }
 
     private function formatLocation()

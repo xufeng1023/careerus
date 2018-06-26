@@ -17,6 +17,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'url' => $faker->url,
         'location' => $faker->city.','.$faker->stateAbbr,
         'job_type' => array_random(['Full-time', 'Part-time', 'Internship']),
-        'identity' => str_random(50).md5(time())
+        'identity' => str_random(50).md5(time()),
+        'recommended' => 0
     ];
 });

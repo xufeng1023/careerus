@@ -39,4 +39,23 @@ class PostTest extends TestCase
 
         $this->assertDatabaseHas('posts', $data);
     }
+
+    public function test_post_recommendation_can_be_toggled()
+    {
+        $post = create('Post');
+
+        $this->assertDatabaseHas('posts', ['recommended' => 0]);
+
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $this->post('/admin/job/recommend/1');
+
+        $this->assertDatabaseHas('posts', ['recommended' => 1]);
+
+        $this->post('/admin/job/recommend/1');
+
+        $this->assertDatabaseHas('posts', ['recommended' => 0]);
+    }
 }
