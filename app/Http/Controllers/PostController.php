@@ -10,7 +10,9 @@ class PostController extends Controller
 {
     public function index()
     {
-        $categories = Post::all()->unique('catagory_id')->pluck('catagory.name');
+        $categories = DB::table('catagories')->select('name')->whereIn('id', 
+            DB::table('posts')->select('catagory_id')->orderByRaw('count(catagory_id)', 'desc')->groupBy('catagory_id')
+        )->take(10)->get()->pluck('name');
 
         $newJobs = Post::select('chinese_title', 'title', 'identity')->latest()->take(10)->get();
 
