@@ -46,11 +46,11 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     @if($post->chinese_description)
-                        <div class="tab-pane fade show active" id="zh-desc" role="tabpanel" aria-labelledby="zh-desc-tab">
+                        <div class="tab-pane fade {{ $post->chinese_description? 'show active' : '' }}" id="zh-desc" role="tabpanel" aria-labelledby="zh-desc-tab">
                             {!! $post->cleanedDescription('zh') !!}
                         </div>
                     @endif
-                    <div class="tab-pane fade" id="en-desc" role="tabpanel" aria-labelledby="en-desc-tab">
+                    <div class="tab-pane fade {{ $post->chinese_description? '' : 'show active' }}" id="en-desc" role="tabpanel" aria-labelledby="en-desc-tab">
                         {!! $post->cleanedDescription() !!}
                     </div>
                 </div>
