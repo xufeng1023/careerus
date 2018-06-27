@@ -71,7 +71,7 @@
                             <span data-feather="list"></span><small>&nbsp;最新工作</small>
                         </h2><hr>
                         @foreach($newJobs as $key => $job)
-                            <a href="/job/{{ $job }}?i={{ $key }}" class="d-block">{{ $job->chinese_title ?: $job->title }}</a>
+                            <a href="/job/{{ $job->title }}?i={{ $key }}" class="d-block">{{ $job->chinese_title ?: $job->title }}</a>
                         @endforeach
                     </div>
                     <div class="col">
@@ -95,7 +95,7 @@
                             <span data-feather="thumbs-up"></span><small>&nbsp;推荐工作</small>
                         </h2><hr>
                         @foreach($recommendedJobs as $key => $job)
-                            <a href="/job/{{ $job }}?i={{ $key }}" class="d-block">{{ $job->chinese_title ?: $job->title }}</a>
+                            <a href="/job/{{ $job->title }}?i={{ $key }}" class="d-block">{{ $job->chinese_title ?: $job->title }}</a>
                         @endforeach
                     </div>
                 </div>
