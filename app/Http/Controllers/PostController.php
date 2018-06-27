@@ -12,9 +12,9 @@ class PostController extends Controller
     {
         $categories = Post::all()->unique('catagory_id')->pluck('catagory.name');
 
-        $newJobs = Post::latest()->take(10)->get()->pluck('title', 'identity');
+        $newJobs = Post::select('chinese_title', 'title', 'identity')->latest()->take(10)->get();
 
-        $recommendedJobs = Post::where('recommended', 1)->take(10)->get()->pluck('title', 'identity');
+        $recommendedJobs = Post::select('chinese_title', 'title', 'identity')->where('recommended', 1)->take(10)->get();
 
         $hotSpots = ['New York', 'California'];
 
