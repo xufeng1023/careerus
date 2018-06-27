@@ -99,6 +99,12 @@
                 <trix-editor input="description"></trix-editor>
             </div>
 
+            <div class="form-group">
+                <label class="col-form-label">中文简介</label>
+                <input id="chinese_description" type="hidden" name="chinese_description" value="{{ request('id')? $posts[0]->chinese_description: '' }}" required>
+                <trix-editor input="chinese_description"></trix-editor>
+            </div>
+
             <div class="form-group row">
                 <div class="col-sm-6">
                     <label class="col-form-label">{{ __('admin.company') }}</label>

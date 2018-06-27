@@ -22,6 +22,7 @@ class CreatePostTable extends Migration
             $table->string('title');
             $table->string('chinese_title')->nullable();
             $table->longText('description')->nullable();
+            $table->longText('chinese_description')->nullable();
             $table->string('location');
             $table->string('url')->nullable();
             $table->enum('job_type', ['Full-time', 'Part-time', 'Internship']);
