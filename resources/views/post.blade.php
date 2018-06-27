@@ -35,17 +35,21 @@
             
             <div>
                 <ul class="nav nav-tabs mb-3" id="contentTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="zh-desc-tab" data-toggle="tab" href="#zh-desc" role="tab" aria-controls="zh-desc" aria-selected="true">中文</a>
-                    </li>
+                    @if($post->chinese_description)
+                        <li class="nav-item">
+                            <a class="nav-link active" id="zh-desc-tab" data-toggle="tab" href="#zh-desc" role="tab" aria-controls="zh-desc" aria-selected="true">中文</a>
+                        </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" id="en-desc-tab" data-toggle="tab" href="#en-desc" role="tab" aria-controls="en-desc" aria-selected="false">English</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="zh-desc" role="tabpanel" aria-labelledby="zh-desc-tab">
-                        {!! $post->cleanedDescription('zh') !!}
-                    </div>
+                    @if($post->chinese_description)
+                        <div class="tab-pane fade show active" id="zh-desc" role="tabpanel" aria-labelledby="zh-desc-tab">
+                            {!! $post->cleanedDescription('zh') !!}
+                        </div>
+                    @endif
                     <div class="tab-pane fade" id="en-desc" role="tabpanel" aria-labelledby="en-desc-tab">
                         {!! $post->cleanedDescription() !!}
                     </div>
