@@ -50,9 +50,9 @@ class Post extends Model
         $this->delete();
     }
 
-    public function cleanedDescription()
+    public function cleanedDescription($zh = '')
     {
-        return strip_tags($this->description.$this->chinese_description, 
+        return strip_tags($zh? $this->chinese_description : $this->description, 
             "<div><span><pre><p><br><hr><hgroup><h1><h2><h3><h4><h5><h6>
             <ul><ol><li><dl><dt><dd><strong><em><b><i><u><img><abbr><address>
             <blockquote><label><caption><table><tbody><td><tfoot><th><thead><tr>"
