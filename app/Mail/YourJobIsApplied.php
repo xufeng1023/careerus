@@ -12,11 +12,11 @@ class YourJobIsApplied extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $apply;
+    public $post;
 
-    public function __construct(Apply $apply)
+    public function __construct($post)
     {
-        $this->apply = $apply;
+        $this->post = $post;
     }
 
     public function build()

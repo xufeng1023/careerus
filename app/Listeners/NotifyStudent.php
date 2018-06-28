@@ -16,6 +16,6 @@ class NotifyStudent
 
     public function handle(StudentAppliedEvent $event)
     {
-        //\Mail::to($event->apply->user)->send(new \App\Mail\YourJobIsApplied($event->apply));
+        \Mail::to(auth()->user())->send(new \App\Mail\YourJobIsApplied($event->post));
     }
 }
