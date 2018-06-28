@@ -45,8 +45,9 @@ class RegisterController extends Controller
 
     public function verify()
     {
-        $user = User::where('confirm_token', request('token'))->firstOrFail();
+        $user = User::where('confirm_token', request('token'))->where('confirmed', 0)->firstOrFail();
         $user->confirmed = 1;
+        $user->confirm_token = null;
         $user->save();
         return redirect('/');
     }

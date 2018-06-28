@@ -66,13 +66,13 @@ class UserTest extends TestCase
 
     public function test_a_user_can_click_the_button_in_the_email_to_finish_sign_up()
     {
-        create('User');
+        $user = create('User');
 
-        $this->assertDatabaseHas('users', ['id' => 1, 'confirmed' => 0]);
+        $this->assertDatabaseHas('users', ['id' => 1, 'confirmed' => 0, 'confirm_token' => $user->confirm_token]);
 
-        $this->get('/register/verification');
+        $this->get('/register/verification?token='.$user->confirm_token);
 
-        $this->assertDatabaseHas('users', ['id' => 1, 'confirmed' => 1]);
+        $this->assertDatabaseHas('users', ['id' => 1, 'confirmed' => 1, 'confirm_token' => null]);
     }
 
     public function test_students_cannot_access_admin_pages()
