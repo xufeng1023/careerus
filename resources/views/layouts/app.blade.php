@@ -25,10 +25,17 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->name }} 
+                                    @unless(auth()->user()->confirmed)
+                                        <span data-feather="alert-circle" class="text-warning"></span> 
+                                    @endunless
+                                    <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    @unless(auth()->user()->confirmed)
+                                        <div class="text-warning" style="padding:0 1.5rem;max-width:120px;">{{ __('front.need to confirm email') }}</div> 
+                                    @endunless
                                     <a class="dropdown-item" href="{{ url('dashboard/applies') }}">
                                         {{ __('front.dashboard') }}
                                     </a>

@@ -17,7 +17,7 @@ class RegisterController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest')->except('verify');
     }
 
     protected function validator(array $data)
@@ -39,19 +39,30 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'resume' => request()->resume->store('resumes'),
             'password' => Hash::make($data['password']),
+            'confirm_token' => str_random(100)
         ]);
+    }
+
+    public function verify()
+    {
+        $user = User::where('confirm_token', request('token'))->firstOrFail();
+        $user->confirmed = 1;
+        $user->save();
+        return redirect('/');
     }
 
     protected function registered(Request $request, $user)
     {
-        if($request->job && $request->identity) {
-            $post = (new Post)->findPost($request->job, $request->identity);
+        // if($request->job && $request->identity) {
+        //     $post = (new Post)->findPost($request->job, $request->identity);
 
-            (new Apply)->apply($post);
+        //     (new Apply)->apply($post);
 
-            event(new \App\Events\StudentAppliedEvent($post));
+        //     event(new \App\Events\StudentAppliedEvent($post));
 
-            return '/dashboard/applies';
-        }
+        //     return '/dashboard/applies';
+        // }
+
+        \Mail::to($user)->send(new \App\Mail\ConfirmYourEmail($user));
     }
 }

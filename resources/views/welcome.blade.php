@@ -21,10 +21,17 @@
                     <a href="/blog">{{ __('admin.blog') }}</a>
                     @auth
                         <a id="homeDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ Auth::user()->name }} <span class="caret"></span>
+                            {{ Auth::user()->name }}
+                            @unless(auth()->user()->confirmed)
+                                <span data-feather="alert-circle" class="text-warning"></span> 
+                            @endunless
+                            <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="homeDropdown">
+                            @unless(auth()->user()->confirmed)
+                                <div class="text-warning" style="padding:0 1.5rem;max-width:120px;">{{ __('front.need to confirm email') }}</div> 
+                            @endunless
                             <a class="dropdown-item" href="{{ url('dashboard/applies') }}">
                                 {{ __('front.dashboard') }}
                             </a>

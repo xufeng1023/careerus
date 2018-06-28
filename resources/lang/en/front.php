@@ -43,6 +43,7 @@ return [
     'login' => '登入',
     'logout' => '退出',
     'name' => '名字',
+    'need to confirm email' => '请到邮箱验证完成注册',
     'no points' => '点数不够，请充值',
     'no card' => '还未添加信用卡',
     'no job found' => '没有找到',

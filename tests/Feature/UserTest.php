@@ -45,6 +45,36 @@ class UserTest extends TestCase
         $this->get('/admin/applies');
     }
 
+    public function test_a_confirm_email_will_send_when_sign_up()
+    {
+        Storage::fake();
+        Mail::fake();
+
+        $data = raw('User');
+        $data['password_confirmation'] = $data['password'];
+        $data['resume'] = $file = UploadedFile::fake()->image('resume.pdf');
+
+        $this->post('/register', $data);
+
+        $user = \App\User::first();
+
+        $this->assertDatabaseHas('users', ['confirmed' => 0]);
+        $this->assertNotNull($user->confirm_token);
+
+        Mail::assertSent(\App\Mail\ConfirmYourEmail::class);
+    }
+
+    public function test_a_user_can_click_the_button_in_the_email_to_finish_sign_up()
+    {
+        create('User');
+
+        $this->assertDatabaseHas('users', ['id' => 1, 'confirmed' => 0]);
+
+        $this->get('/register/verification');
+
+        $this->assertDatabaseHas('users', ['id' => 1, 'confirmed' => 1]);
+    }
+
     public function test_students_cannot_access_admin_pages()
     {
         $this->expectException(

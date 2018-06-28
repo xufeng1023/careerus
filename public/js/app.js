@@ -71,7 +71,9 @@
 //window._ = require('lodash');
 window.Popper = __webpack_require__(7).default;
 
-__webpack_require__(12).replace();
+try {
+    __webpack_require__(12).replace();
+} catch (e) {}
 
 try {
     window.$ = window.jQuery = __webpack_require__(6);

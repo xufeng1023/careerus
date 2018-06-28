@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('card_last_four')->nullable();
             $table->timestamp('trial_ends_at')->nullable();
             $table->boolean('confirmed')->default(false);
+            $table->string('confirm_token')->nullable();
             $table->rememberToken();
             $table->string('password');
             $table->timestamps();

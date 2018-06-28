@@ -1,8 +1,9 @@
 //window._ = require('lodash');
 window.Popper = require('popper.js').default;
 
-
-require('feather-icons').replace();
+try {
+    require('feather-icons').replace();
+} catch(e) {}
 
 try {
     window.$ = window.jQuery = require('jquery');
