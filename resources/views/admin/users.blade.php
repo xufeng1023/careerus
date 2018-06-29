@@ -35,23 +35,29 @@
                         <th>{{ __('admin.email') }}</th>
                         <th>{{ __('admin.phone') }}</th>
                         <th>{{ __('admin.role') }}</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($users as $user)
-                        <tr>
-                            <td><a href="?id={{ $user->id }}">{{ $user->name }}</a></td>
+                        <tr class="{{ $user->suspended? 'table-danger' : '' }} toggle-on-hover">
+                            <td>
+                                <div><a href="?id={{ $user->id }}">{{ $user->name }}</a></div>
+                                <ul class="list-inline m-0 px-0 invisible">
+                                    @if($user->hasValidResume())
+                                        <li class="list-inline-item">
+                                            <a href="/dashboard/resume/download?r={{ $user->resume }}" class="text-muted">{{ __('front.resume download') }}</a>
+                                        </li>
+                                    @endif
+                                    <li class="list-inline-item">
+                                        <form action="/admin/user/suspend/{{ $user->id }}" onsubmit="suspend(event)">
+                                            <button type="submit" class="text-muted p-0 btn btn-link btn-sm to-toggle-text">{{ $user->suspended? '取消冻结' : '冻结' }}</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone }}</td>
                             <td>{{ $user->role }}</td>
-                            <td>
-                                @if($user->hasValidResume())
-                                    <a href="/dashboard/resume/download?r={{ $user->resume }}">
-                                        <span data-feather="download" title="{{ __('front.resume download') }}"></span>
-                                    </a>
-                                @endif
-                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -109,4 +115,27 @@
         </form>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    function suspend(e) {
+        e.preventDefault();
+        $.post($(e.target).attr('action'), $(e.target).serialize(), function() {
+            var tr = $(e.target).parents('tr');
+
+            tr.toggleClass('table-danger');
+
+            var btn = tr.find('button.to-toggle-text');
+            if(btn.text() == '冻结') btn.text('取消冻结');
+            else btn.text('冻结');
+        });
+    }
+
+    $('tr.toggle-on-hover').mouseover(function() {
+        $(this).find('ul').removeClass('invisible');
+    }).mouseout(function() {
+        $(this).find('ul').addClass('invisible');
+    });
+</script>
 @endsection

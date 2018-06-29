@@ -14,7 +14,7 @@ Route::get('/blog/{blogSlug}', 'BlogController@show');
 Route::get('/register/verification', '\App\Http\Controllers\Auth\RegisterController@verify');
 
 Route::post('/apply', 'ApplyController@save');
-Route::post('/applyRegister', '\App\Http\Controllers\Auth\RegisterController@register');
+//Route::post('/applyRegister', '\App\Http\Controllers\Auth\RegisterController@register');
 
 Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::get('/applies', 'UserController@applies');
@@ -56,6 +56,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/blog/update/{blog}', 'BlogController@update');
     Route::post('/tag/update/{tag}', 'TagController@update');
     Route::post('/user/add', 'UserController@save');
+    Route::post('/user/suspend/{user}', 'UserController@toggleSuspend');
     Route::post('/user/update/{user}', 'UserController@update');
     Route::post('/plan/add', 'PlanController@save');
     Route::post('/plan/update/{plan}', 'PlanController@update');
@@ -66,10 +67,11 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/applied/notify/{apply}', 'ApplyController@notify');
     Route::post('/cover-letter/add', 'CoverLetterController@save');
     Route::post('/cover-letter/update/{coverLetter}', 'CoverLetterController@update');
+    Route::post('/settings', 'SettingsController@update');
+    
 
     Route::delete('/job/delete/{post}', 'PostController@delete');
     Route::delete('/tag/delete/{tag}', 'TagController@delete');
     Route::delete('/company/delete/{company}', 'CompanyController@delete');
     Route::delete('/category/delete/{category}', 'CatagoryController@delete');
-    Route::post('/settings', 'SettingsController@update');
 });

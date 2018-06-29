@@ -28,6 +28,12 @@ class UserController extends Controller
         return back()->with('updated', trans('admin.updated'));
     }
 
+    public function toggleSuspend(User $user)
+    {
+        $user->suspended = !$user->suspended;
+        $user->save();
+    }
+
     public function applies()
     {
         $applies = auth()->user()->applies()->orderBy('created_at','desc')->paginate(15);

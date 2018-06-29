@@ -158,6 +158,45 @@ class UserTest extends TestCase
         $this->assertDatabaseMissing('applies', ['post_id' => 1]);
     }
 
+    public function test_admin_can_suspend_a_user_with_a_trash_resume()
+    {
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $user = create('User');
+
+        $this->assertDatabaseHas('users', ['id' => 2, 'role' => 'student', 'suspended' => 0]);
+
+        $this->post('/admin/user/suspend/2');
+
+        $this->assertDatabaseHas('users', ['id' => 2, 'role' => 'student', 'suspended' => 1]);
+    }
+
+    public function test_admin_can_release_a_user_after_he_updates_his_resume()
+    {
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $user = create('User', ['suspended' => 1]);
+
+        $this->assertDatabaseHas('users', ['id' => 2, 'suspended' => 1]);
+
+        $this->post('/admin/user/suspend/2');
+
+        $this->assertDatabaseHas('users', ['id' => 2, 'suspended' => 0]);
+    }
+
+    public function test_a_suspended_user_can_not_apply()
+    {
+        $this->login(
+            $user = create('User', ['suspended' => 1, 'confirmed' => 1])
+        );
+
+        $this->post('/apply')->assertStatus(403)->assertJson(['toastr' => trans('front.bad resume msg')]);
+    }
+
     public function test_admin_can_add_a_catagory()
     {
         $this->login(

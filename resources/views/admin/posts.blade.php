@@ -43,8 +43,8 @@
                 </thead>
                 <tbody>
                     @foreach($posts as $post)
-                        <tr class="{{ $post->recommended? 'table-success' : '' }}">
-                            <td class="post-td">
+                        <tr class="{{ $post->recommended? 'table-success' : '' }} toggle-on-hover">
+                            <td>
                                 <div><a href="?id={{ $post->id }}">{{ $post->title }} / {{ $post->chinese_title }}</a></div>
                                 <ul class="list-inline m-0 px-0 invisible">
                                     <li class="list-inline-item">
@@ -58,7 +58,7 @@
                                     </li>
                                     <li class="list-inline-item">
                                         <form action="/admin/job/recommend/{{ $post->id }}" onsubmit="recommend(event)">
-                                            <button type="submit" class="text-muted p-0 btn btn-link btn-sm">更新推荐</button>
+                                            <button type="submit" class="text-muted p-0 btn btn-link btn-sm to-toggle-text">{{ $post->recommended? '取消推荐' : '推荐' }}</button>
                                         </form>
                                     </li>
                                 </ul>
@@ -271,7 +271,12 @@
         e.preventDefault();
         $.post($(e.target).attr('action'), $(e.target).serialize(), function() {
             var tr = $(e.target).parents('tr');
-            $(e.target).parents('tr').toggleClass('table-success');
+
+            tr.toggleClass('table-success');
+
+            var btn = tr.find('button.to-toggle-text');
+            if(btn.text() == '推荐') btn.text('取消推荐');
+            else btn.text('推荐');
         });
     }
 
@@ -301,7 +306,7 @@
         }
     });
 
-    $('td.post-td').mouseover(function() {
+    $('tr.toggle-on-hover').mouseover(function() {
         $(this).find('ul').removeClass('invisible');
     }).mouseout(function() {
         $(this).find('ul').addClass('invisible');

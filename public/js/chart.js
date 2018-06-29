@@ -18890,7 +18890,7 @@ var app = new Vue({
                 contentType: false,
                 error: function error(data) {
                     var errorBag = JSON.parse(data.responseText);
-                    this.errors = errorBag.errors;
+                    if (errorBag.errors) this.errors = errorBag.errors;
                     if (errorBag.toastr) toastr.error(errorBag.toastr);
                 },
                 success: function success(data) {
