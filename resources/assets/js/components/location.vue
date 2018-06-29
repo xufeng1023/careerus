@@ -1,6 +1,6 @@
 <template>
     <div class="position-relative">
-        <input type="text" name="l" class="form-control rounded-0" @input="search" :placeholder="placeholder" :value="value">
+        <input type="text" name="l" class="form-control rounded-0" @blur="cities=''" @input="search" :placeholder="placeholder" :value="value">
         <div v-if="cities" class="list-group position-absolute list-group-flush box-shadow z9 w-100">
             <button type="button" class="list-group-item list-group-item-action" v-for="city in cities" :key="city.key" @click="onClick">
                 {{ city }}

@@ -287,7 +287,12 @@ var render = function() {
       staticClass: "form-control rounded-0",
       attrs: { type: "text", name: "l", placeholder: _vm.placeholder },
       domProps: { value: _vm.value },
-      on: { input: _vm.search }
+      on: {
+        blur: function($event) {
+          _vm.cities = ""
+        },
+        input: _vm.search
+      }
     }),
     _vm._v(" "),
     _vm.cities
@@ -753,7 +758,12 @@ var render = function() {
       staticClass: "form-control border-right-0 rounded-left",
       attrs: { type: "text", name: "s", placeholder: _vm.placeholder },
       domProps: { value: _vm.value },
-      on: { input: _vm.search }
+      on: {
+        blur: function($event) {
+          _vm.jobs = ""
+        },
+        input: _vm.search
+      }
     }),
     _vm._v(" "),
     _vm.jobs
