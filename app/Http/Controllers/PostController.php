@@ -44,10 +44,12 @@ class PostController extends Controller
         }
 
         if(request('s')) {
-            $query->where('title', 'LIKE', $filtered['s'].' %')
-                ->orWhere('title', 'LIKE', '% '.$filtered['s'])
-                ->orWhere('title', 'LIKE', '% '.$filtered['s'].' %')
-                ->orWhere('chinese_title', 'LIKE', '%'.$filtered['s'].'%');
+            $query->where(function($query) use($filtered) {
+                $query->where('title', 'LIKE', $filtered['s'].' %')
+                    ->orWhere('title', 'LIKE', '% '.$filtered['s'])
+                    ->orWhere('title', 'LIKE', '% '.$filtered['s'].' %')
+                    ->orWhere('chinese_title', 'LIKE', '%'.$filtered['s'].'%');
+            });
         }
 
         if($query->count() === 0 && isset($filtered['s'])) {
@@ -97,7 +99,7 @@ class PostController extends Controller
                 });
             }
         }
-    
+ 
         $posts = $query->latest()->paginate(10);
 
         // $usedTags = Tag::whereExists(function($q) {
