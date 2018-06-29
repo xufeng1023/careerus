@@ -162,7 +162,15 @@ module.exports = __webpack_require__(164);
 Vue.component('location', __webpack_require__(165));
 Vue.component('job', __webpack_require__(168));
 
-new Vue({ el: '#searchForm' });
+new Vue({
+    el: '#searchForm',
+    data: function data() {
+        return {
+            searchJob: '',
+            searchLocation: ''
+        };
+    }
+});
 
 /***/ }),
 
@@ -232,33 +240,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['placeholder', 'value', 'default'],
+    props: ['placeholder', 'value', 'defaultLocation'],
     data: function data() {
         return {
-            input: this.default,
             cities: ''
         };
     },
+    mounted: function mounted() {
+        this.$emit('input', this.defaultLocation);
+    },
 
     methods: {
-        search: window.helper.debounce(function (e) {
+        search: function search(e) {
+            var _this = this;
+
             var s = e.target.value;
-            this.input = s;
+            this.$emit('input', s);
             if (s.trim()) {
                 $.ajax('/searchLocation?s=' + s, {
                     dataType: 'json',
                     context: this,
                     success: function success(data) {
-                        this.cities = data;
+                        return _this.cities = data;
                     }
                 });
-            } else {
-                this.cities = '';
-            }
-        }, 500),
-
+            } else this.cities = '';
+        },
         onClick: function onClick(e) {
-            this.input = e.target.innerText;
+            this.$emit('input', e.target.innerText);
             this.cities = '';
         }
     }
@@ -277,7 +286,7 @@ var render = function() {
     _c("input", {
       staticClass: "form-control rounded-0",
       attrs: { type: "text", name: "l", placeholder: _vm.placeholder },
-      domProps: { value: _vm.input },
+      domProps: { value: _vm.value },
       on: { input: _vm.search }
     }),
     _vm._v(" "),
@@ -691,34 +700,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['placeholder', 'value', 'default'],
+    props: ['placeholder', 'value', 'defaultJob'],
     data: function data() {
         return {
-            input: this.default,
-            cities: ''
+            jobs: ''
         };
     },
 
-    methods: {
-        search: window.helper.debounce(function (e) {
-            // var s = e.target.value;
-            // this.input = s;
-            // if(s.trim()) {
-            //     $.ajax('/searchJob?s='+s, {
-            //         dataType: 'json',
-            //         context: this,
-            //         success(data) {
-            //             this.cities = data;
-            //         }
-            //     })
-            // } else {
-            //     this.cities = ''
-            // }
-        }, 500),
+    filters: {
+        jobLink: function jobLink(job) {
+            return '/job/' + job.title + '?i=' + job.identity;
+        }
+    },
+    mounted: function mounted() {
+        this.$emit('input', this.defaultJob);
+    },
 
+    methods: {
+        search: function search(e) {
+            var _this = this;
+
+            var s = e.target.value;
+            this.$emit('input', s);
+            if (s.trim()) {
+                $.ajax('/searchJob?s=' + s, {
+                    dataType: 'json',
+                    context: this,
+                    success: function success(data) {
+                        return _this.jobs = data;
+                    }
+                });
+            } else this.jobs = '';
+        },
         onClick: function onClick(e) {
-            this.input = e.target.innerText;
-            this.cities = '';
+            this.$emit('input', e.target.innerText);
+            this.jobs = '';
         }
     }
 });
@@ -736,27 +752,33 @@ var render = function() {
     _c("input", {
       staticClass: "form-control border-right-0 rounded-left",
       attrs: { type: "text", name: "s", placeholder: _vm.placeholder },
-      domProps: { value: _vm.input },
+      domProps: { value: _vm.value },
       on: { input: _vm.search }
     }),
     _vm._v(" "),
-    _vm.cities
+    _vm.jobs
       ? _c(
           "div",
           {
             staticClass:
               "list-group position-absolute list-group-flush box-shadow z9 w-100"
           },
-          _vm._l(_vm.cities, function(city) {
+          _vm._l(_vm.jobs, function(job) {
             return _c(
-              "button",
+              "a",
               {
-                key: city.key,
+                key: job.key,
                 staticClass: "list-group-item list-group-item-action",
-                attrs: { type: "button" },
+                attrs: { href: _vm._f("jobLink")(job) },
                 on: { click: _vm.onClick }
               },
-              [_vm._v("\n            " + _vm._s(city) + "\n        ")]
+              [
+                _vm._v(
+                  "\n            " +
+                    _vm._s(job.chinese_title || job.title) +
+                    "\n        "
+                )
+              ]
             )
           })
         )

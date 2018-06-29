@@ -27,6 +27,23 @@ class PostController extends Controller
         return view('welcome', compact('categories', 'newJobs', 'hotSpots', 'hotTags', 'recommendedJobs'));
     }
 
+    public function searchBarJob()
+    {
+        return Post::select('title', 'chinese_title', 'identity')
+            ->where('title', 'LIKE', request('s').' %')
+            ->orWhere('title', 'LIKE', '% '.request('s'))
+            ->orWhere('title', 'LIKE', '% '.request('s').' %')
+            ->orWhere('chinese_title', 'LIKE', '%'.request('s').'%')
+            ->take(5)->get()->unique('title');
+    }
+
+    public function searchBarLocation()
+    {
+        return Post::where('location', 'LIKE', '%'.request('s'))
+            ->orWhere('location', 'LIKE', request('s').'%')
+            ->take(5)->get()->unique('location')->pluck('location');
+    }
+
     public function all()
     {
         $filtered = array_where(request()->all(), function ($value, $key) {
@@ -45,7 +62,8 @@ class PostController extends Controller
 
         if(request('s')) {
             $query->where(function($query) use($filtered) {
-                $query->where('title', 'LIKE', $filtered['s'].' %')
+                $query->where('title', $filtered['s'])
+                    ->orWhere('title', 'LIKE', $filtered['s'].' %')
                     ->orWhere('title', 'LIKE', '% '.$filtered['s'])
                     ->orWhere('title', 'LIKE', '% '.$filtered['s'].' %')
                     ->orWhere('chinese_title', 'LIKE', '%'.$filtered['s'].'%');
