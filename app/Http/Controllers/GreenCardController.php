@@ -10,7 +10,11 @@ class GreenCardController extends Controller
 {
     public function index()
     {
-        return view('greenCardFrame');
+        $visas = GreenCard::orderBy('check_at', 'desc')->take(32)->get();
+
+        $inventories = GreenCardInventory::whereCountry('china')->get();
+
+        return view('greenCardFrame', compact('visas', 'inventories'));
     }
 
     public function alladmin()

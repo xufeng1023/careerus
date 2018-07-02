@@ -13,7 +13,7 @@ class GreenCard extends Model
 
     protected $dates = ['check_at'];
 
-    public function getTitleAttribute($value)
+    public function titleToChinese($value)
     {
         $filter = [
             '1st' => '第一优先，杰出人才，研究人员教授，跨国公司主管',
@@ -29,7 +29,7 @@ class GreenCard extends Model
         return isset($filter[$value]) ? $filter[$value] : $value;
     }
 
-    public function getCountryAttribute($value)
+    public function countryToChinese($value)
     {
         $filter = [
             'all' => '全球/港澳台',
