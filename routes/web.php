@@ -2,6 +2,8 @@
 
 Auth::routes();
 
+Route::get('/green-card', 'GreenCardController@index');
+
 Route::get('/', 'PostController@index');
 
 Route::get('/searchLocation', 'PostController@searchBarLocation');

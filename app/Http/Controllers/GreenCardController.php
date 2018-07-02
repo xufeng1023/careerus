@@ -8,6 +8,11 @@ use App\{GreenCard, GreenCardInventory};
 
 class GreenCardController extends Controller
 {
+    public function index()
+    {
+        return view('greenCardFrame');
+    }
+
     public function alladmin()
     {
         $inventories = GreenCardInventory::all();
