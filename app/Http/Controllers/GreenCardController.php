@@ -14,7 +14,9 @@ class GreenCardController extends Controller
 
         $inventories = GreenCardInventory::whereCountry('china')->get();
 
-        return view('greenCardFrame', compact('visas', 'inventories'));
+        $first = $visas->first();
+
+        return view('greenCardFrame', compact('visas', 'inventories', 'first'));
     }
 
     public function alladmin()
