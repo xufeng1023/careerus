@@ -15,7 +15,7 @@
         </style>
     </head>
     <body>
-        <div id="app" class="d-flex justify-content-center flex-column align-items-center h-100">
+        <div id="app" class="d-flex flex-column h-100 pt-5 mt-5">
             @if (Route::has('login'))
                 <div class="d-flex fixed-top mt-2 mr-2 justify-content-end links">
                     <a href="/blog">{{ __('admin.blog') }}</a>
@@ -59,13 +59,13 @@
                 </div>
             @endif
 
-            <div class="text-center">
+            <div class="text-center mb-3">
                 <h1 class="mb-3" style="text-shadow:2px 2px 2px #868686c2;">CAREERUS</h1>
                 @include('_search')
-            </div><br>
+            </div>
             <div id="welcome-page" class="container mt-5">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-12 col-md mb-5">
                         <h2 class="h4 text-muted d-flex align-items-center">
                             <span data-feather="grid"></span><small>&nbsp;热门专业</small>
                         </h2><hr>
@@ -73,7 +73,7 @@
                             <a href="/jobs?ct={{ $category }}" class="d-block">{{ $category }}</a>
                         @endforeach
                     </div>
-                    <div class="col">
+                    <div class="col-12 col-md mb-5">
                         <h2 class="h4 text-muted d-flex align-items-center">
                             <span data-feather="list"></span><small>&nbsp;最新工作</small>
                         </h2><hr>
@@ -81,7 +81,7 @@
                             <a href="/job/{{ $job->title }}?i={{ $job->identity }}" class="d-block">{{ $job->chinese_title ?: $job->title }}</a>
                         @endforeach
                     </div>
-                    <div class="col">
+                    <div class="col-12 col-md mb-5">
                         <h2 class="h4 text-muted d-flex align-items-center">
                             <span data-feather="map-pin"></span><small>&nbsp;热门地点</small>
                         </h2><hr>
@@ -89,7 +89,7 @@
                             <a href="/jobs?l={{ $location }}" class="d-block">{{ $location }}</a>
                         @endforeach
                     </div>
-                    <div class="col">
+                    <div class="col-12 col-md mb-5">
                         <h2 class="h4 text-muted d-flex align-items-center">
                             <span data-feather="search"></span><small>&nbsp;热搜</small>
                         </h2><hr>
@@ -97,7 +97,7 @@
                             <a href="/jobs?s={{ $tag }}" class="d-block">{{ $tag }}</a>
                         @endforeach
                     </div>
-                    <div class="col">
+                    <div class="col-12 col-md mb-5">
                         <h2 class="h4 text-muted d-flex align-items-center">
                             <span data-feather="thumbs-up"></span><small>&nbsp;推荐工作</small>
                         </h2><hr>
