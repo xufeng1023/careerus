@@ -25,6 +25,16 @@ class User extends Authenticatable
         return $this->hasMany(Apply::class);
     }
 
+    public function favoriteJobs()
+    {
+        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withTimestamps();
+    }
+
+    public function isFavorited($post_id)
+    {
+        return $this->favoriteJobs()->where('post_id', $post_id)->exists();
+    }
+
     public function invoices()
     {
         return $this->hasMany(Invoice::class);

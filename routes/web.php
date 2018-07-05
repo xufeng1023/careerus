@@ -16,11 +16,13 @@ Route::get('/blog/{blogSlug}', 'BlogController@show');
 Route::get('/register/verification', '\App\Http\Controllers\Auth\RegisterController@verify');
 
 Route::post('/apply', 'ApplyController@save');
+Route::post('/job/favorite/toggle/{post}', 'FavoriteController@toggle');
 //Route::post('/applyRegister', '\App\Http\Controllers\Auth\RegisterController@register');
 
 Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::get('/applies', 'UserController@applies');
     Route::get('/account', 'UserController@account');
+    Route::get('/favorites', 'UserController@favorites');
     Route::get('/resume/download', 'UserController@resumeDownload');
     //Route::get('/payment', 'UserController@payment');
     //Route::get('/payment/invoices', 'UserController@invoices');

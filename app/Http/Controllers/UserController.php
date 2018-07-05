@@ -43,6 +43,11 @@ class UserController extends Controller
         return view('dashboard.applies', compact('applies'));
     }
 
+    public function favorites()
+    {
+        return view('dashboard.favorites');
+    }
+
     public function account()
     {
         return view('dashboard.account');

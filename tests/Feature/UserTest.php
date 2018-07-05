@@ -75,6 +75,37 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('users', ['id' => 1, 'confirmed' => 1, 'confirm_token' => null]);
     }
 
+    public function test_gustes_can_not_add_favorite_job()
+    {
+        $this->expectException('Illuminate\Auth\AuthenticationException');
+
+        $this->post('/job/favorite/toggle/1');
+    }
+
+    public function test_a_user_can_toggle_their_favorite_job_list()
+    {
+        $post = create('Post');
+
+        $this->login(
+          $user = create('User')  
+        );
+
+        $this->post('/job/favorite/toggle/'.$post->id);
+        $this->assertDatabaseHas('favorites', ['user_id' => $user->id, 'post_id' => $post->id]);
+
+        $this->post('/job/favorite/toggle/'.$post->id);
+        $this->assertDatabaseMissing('favorites', ['user_id' => $user->id, 'post_id' => $post->id]);
+    }
+
+    public function test_user_can_their_favorite_job_lists()
+    {
+        $this->login( $user = create('User') );
+        $post = create('Post');
+        create('Favorite', ['user_id' => $user->id, 'post_id' => $post->id]);
+
+        $this->get('/dashboard/favorites')->assertSee($post->title);
+    }
+
     public function test_students_cannot_access_admin_pages()
     {
         $this->expectException(

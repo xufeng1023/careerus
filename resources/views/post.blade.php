@@ -43,6 +43,17 @@
                     <li class="nav-item">
                         <a class="nav-link {{ $post->chinese_description? '' : 'active' }}" id="en-desc-tab" data-toggle="tab" href="#en-desc" role="tab" aria-controls="en-desc" aria-selected="false">English</a>
                     </li>
+                    @auth
+                        <li class="ml-auto nav-item">
+                            <form action="/job/favorite/toggle/{{ $post->id }}" method="post" onsubmit="toggleFavorite(event)" 
+                            class="{{ auth()->user()->isFavorited($post->id)? 'filled' : '' }}"
+                            >
+                                <button type="submit" class="btn btn-link">
+                                    <span data-feather="star"></span>
+                                </button>
+                            </form>
+                        </li>
+                    @endauth
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     @if($post->chinese_description)
@@ -242,5 +253,14 @@
 <script>
     let progressBarWidth = $('.progress-bar').data('width');
     $('.progress-bar').css({'animation': 'widthGrow 1500ms','width': progressBarWidth});
+
+    function toggleFavorite(e) {
+        e.preventDefault();
+        var feedback = e.target.classList.contains('filled')? '关注已被取消。' : '已添加到关注列表。';
+        $.post(e.target.getAttribute('action'), [], function() {
+            e.target.classList.toggle('filled');
+            toastr.success(feedback);
+        });
+    }
 </script>
 @endsection

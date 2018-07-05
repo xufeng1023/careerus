@@ -10625,6 +10625,10 @@ body {
   font-family: "Helvetica", sans-serif;
 }
 
+form.filled svg {
+  fill: #007bff;
+}
+
 button.loading {
   position: relative;
   color: transparent !important;

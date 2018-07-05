@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use SteelyWing\Chinese\Chinese;
-use App\{Post, Catagory, Tag, State};
+use App\{Post, Catagory, Tag, State, Favorite};
 
 class PostController extends Controller
 {
