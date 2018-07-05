@@ -19,7 +19,7 @@ Vue.component('pie-chart', {
             var matches = val.replace(/\r\n/, '').match(/([a-zA-Z ]*\-?[a-zA-Z ]+)\(([\d]+)\)/);
 
             if(!matches) return;
-
+            
             if(index > 2) other += Number(matches[2]);
             
             else {
@@ -33,9 +33,11 @@ Vue.component('pie-chart', {
             self.bars.numbers.push(other);
         }
 
-        let sum = self.bars.numbers.reduce(function(total, num) {
-            return Number(total) + Number(num);
-        });
+        if(self.bars.numbers.length) {
+            let sum = self.bars.numbers.reduce(function(total, num) {
+                return Number(total) + Number(num);
+            });
+        }
 
         self.bars.numbers.forEach(function(val) {
             self.bars.bgColor.push('rgba(54, 162, 235, '+ val / sum +')');
