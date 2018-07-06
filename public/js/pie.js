@@ -111,7 +111,7 @@ Vue.component('pie-chart', {
         }
 
         if (self.bars.numbers.length) {
-            var _sum = self.bars.numbers.reduce(function (total, num) {
+            var sum = self.bars.numbers.reduce(function (total, num) {
                 return Number(total) + Number(num);
             });
         }
