@@ -27,7 +27,7 @@ class LoginController extends Controller
     {
         $user = Socialite::driver('github')->user();
 
-        // $user->token;
+        dd($user);
     }
 
     // protected function authenticated(Request $request, $user)
