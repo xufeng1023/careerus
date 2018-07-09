@@ -78,6 +78,11 @@ class Post extends Model
         $this->attributes['title'] = ucwords(trim(preg_replace("/[^A-Za-z0-9]+/", ' ', $value)));
     }
 
+    public function setChineseTitleAttribute($value)
+    {
+        $this->attributes['chinese_title'] = trim(stripslashes($value));
+    }
+
     public function setLocationAttribute($value)
     {
         $this->attributes['location'] = preg_replace("/, /", ',', $value);
