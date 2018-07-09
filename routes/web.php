@@ -2,8 +2,8 @@
 
 Auth::routes();
 
-Route::get('/login/github', '\App\Http\Controllers\Auth\LoginController@redirectToProvider');
-Route::get('/login/github/callback', '\App\Http\Controllers\Auth\LoginController@handleProviderCallback');
+// Route::get('/login/github', '\App\Http\Controllers\Auth\LoginController@redirectToProvider');
+// Route::get('/login/github/callback', '\App\Http\Controllers\Auth\LoginController@handleProviderCallback');
 
 Route::get('/green-card', 'GreenCardController@index');
 
