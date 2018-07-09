@@ -43,7 +43,7 @@ return [
     'github' => [
         'client_id' => '2004e13032aabcb8fc37',//env('GITHUB_CLIENT_ID'),         // Your GitHub Client ID
         'client_secret' => 'a379efc500ec4f1822d27c2a5b9b4973b5ca41d3',//env('GITHUB_CLIENT_SECRET'), // Your GitHub Client Secret
-        'redirect' => 'https://github.com/login/oauth/authorize',
+        'redirect' => 'https://careerus.com/login/github/callback',
     ],
 
 ];
