@@ -57,7 +57,7 @@
                             <small>{{ $post->company->name }} - {{ $post->location }}</small>
                             <small>{{ $post->sponsor_odds }}% sponsor odds</small>
                         </div>
-                        <div class="text-muted h6 job-excerpt">{{ str_limit(html_entity_decode(strip_tags($post->description)), 120) }}</div>
+                        <div class="text-muted h6 job-excerpt">{{ str_limit(html_entity_decode(strip_tags($post->chinese_description? $post->chinese_description : $post->description)), 120) }}</div>
                         <div class="small text-muted">{{ $post->created_at->diffforhumans() }}</div>
                     </li> 
                 @empty
