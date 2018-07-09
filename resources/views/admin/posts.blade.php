@@ -6,7 +6,7 @@
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         @if(request('id'))
             <li class="nav-item">
-                <a class="nav-link" target="_blank" href="/job/{{ $posts[0]->title }}?i={{ $posts[0]->identity }}">
+                <a class="nav-link" target="_blank" href="{{ $posts[0]->link() }}">
                     {{ __('admin.view') }}
                 </a>
             </li>
@@ -48,7 +48,7 @@
                                 <div><a href="?id={{ $post->id }}">{{ $post->title }} / {{ $post->chinese_title }}</a></div>
                                 <ul class="list-inline m-0 px-0 invisible">
                                     <li class="list-inline-item">
-                                        <a class="text-muted" target="_blank" href="/job/{{ str_slug($post->title) }}?i={{ $post->identity }}">{{ __('admin.view') }}</a>
+                                        <a class="text-muted" target="_blank" href="{{ $post->link() }}">{{ __('admin.view') }}</a>
                                     </li>
                                     <li class="list-inline-item">
                                         <form action="/admin/job/delete/{{ $post->id }}" onsubmit="onSubmit(event)">

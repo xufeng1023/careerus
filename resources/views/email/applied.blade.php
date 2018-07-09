@@ -3,7 +3,7 @@
 
 您刚刚成功的申请了{{ $post->title }}的工作。
 
-@component('mail::button', ['url' => url('/job/'.$post->title.'?i='.$post->identity)])
+@component('mail::button', ['url' => url($post->link())])
 点击查看
 @endcomponent
 

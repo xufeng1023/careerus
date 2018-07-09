@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\{Post, Blog};
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -24,13 +25,17 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         Route::bind('postSlug', function ($value) {
+            if($post = Post::where('chinese_title', $value)->where('identity', request('i'))->first()) {
+                return $post;
+            }
+
             $title = ucwords(trim(implode(' ', explode('-', $value))));
-            return \App\Post::where('title', $title)->where('identity', request('i'))->first() ?? abort(404);
+            return Post::where('title', $title)->where('identity', request('i'))->first() ?? abort(404);
         });
 
         Route::bind('blogSlug', function ($value) {
             $title = trim(implode(' ', explode('-', $value)));
-            return \App\Blog::where('title', $title)->first() ?? abort(404);
+            return Blog::where('title', $title)->first() ?? abort(404);
         });
 
         parent::boot();

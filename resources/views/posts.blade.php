@@ -51,7 +51,7 @@
                 @forelse($posts as $key => $post)
                     <li class="list-group-item {{ $key? '' : 'border-top-0' }}">
                         <h2 class="h6 m-0">
-                            <a href="/job/{{ str_slug($post->title) }}?i={{ $post->identity }}">{{ $post->chinese_title ?: $post->title }}</a>
+                            <a href="{{ $post->link() }}">{{ $post->chinese_title ?: $post->title }}</a>
                         </h2>
                         <div class="d-flex justify-content-between">
                             <small>{{ $post->company->name }} - {{ $post->location }}</small>

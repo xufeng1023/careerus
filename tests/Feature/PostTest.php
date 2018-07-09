@@ -9,6 +9,13 @@ class PostTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_chinese_post_link_prior_to_english_link()
+    {
+        $post = create('Post', ['title' => 'English title', 'chinese_title' => '中文标题']);
+
+        $this->assertEquals('/job/中文标题?i='.$post->identity, $post->link());
+    }
+
     public function test_posts_with_same_title_in_the_uri_should_show_by_identity()
     {
         $this->login(
@@ -29,6 +36,13 @@ class PostTest extends TestCase
         $this->get("/job/development-coordinator?i={$post1->identity}")
         ->assertSee($post1['description'])
         ->assertDontSee($post2['description']);
+    }
+
+    public function test_job_link_can_also_created_with_chinese_title()
+    {
+        $post_zh_en = create('Post', ['chinese_title' => '中文标题']);
+
+        $this->get('/job/'.urlencode($post_zh_en->chinese_title).'?i='.$post_zh_en->identity)->assertSee($post_zh_en->title);
     }
 
     public function test_chinese_title_can_be_added()

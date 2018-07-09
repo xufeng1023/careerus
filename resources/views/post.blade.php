@@ -233,7 +233,7 @@
                             @foreach($post->company->posts as $job)
                                 @if($post->id != $job->id)
                                     <li>
-                                        <a href="/job/{{ $job->title }}?i={{ $job->identity }}">{{ $job->chinese_title ?: $job->title }}</a>
+                                        <a href="{{ $job->link() }}">{{ $job->chinese_title ?: $job->title }}</a>
                                     </li>
                                 @endif
                             @endforeach

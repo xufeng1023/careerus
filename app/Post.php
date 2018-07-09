@@ -35,7 +35,7 @@ class Post extends Model
 
     public function link()
     {
-        return '/job/'.$this->title.'?i='.$this->identity;
+        return '/job/'.($this->chinese_title? $this->chinese_title : str_slug($this->title)).'?i='.$this->identity;
     }
 
     public function jobType()
