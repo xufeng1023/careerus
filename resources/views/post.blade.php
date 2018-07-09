@@ -40,9 +40,13 @@
                             <a class="nav-link {{ $post->chinese_description? 'active' : '' }}" id="zh-desc-tab" data-toggle="tab" href="#zh-desc" role="tab" aria-controls="zh-desc" aria-selected="true">中文</a>
                         </li>
                     @endif
+
+                    @if($post->chinese_description)
                     <li class="nav-item">
                         <a class="nav-link {{ $post->chinese_description? '' : 'active' }}" id="en-desc-tab" data-toggle="tab" href="#en-desc" role="tab" aria-controls="en-desc" aria-selected="false">English</a>
                     </li>
+                    @endif
+                    
                     @auth
                         <li class="ml-auto nav-item">
                             <form action="/job/favorite/toggle/{{ $post->id }}" method="post" onsubmit="toggleFavorite(event)" 
