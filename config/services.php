@@ -40,15 +40,9 @@ return [
         'info_path' => env('POPPLER_INFO_PATH')
     ],
 
-    'github' => [
-        'client_id' => '2004e13032aabcb8fc37',//env('GITHUB_CLIENT_ID'),         // Your GitHub Client ID
-        'client_secret' => 'a379efc500ec4f1822d27c2a5b9b4973b5ca41d3',//env('GITHUB_CLIENT_SECRET'), // Your GitHub Client Secret
-        'redirect' => 'https://careerus.com/login/github/callback',
-    ],
-
     'google' => [
-        'client_id' => '176109523039-mempaa3uqo1oe1rm0vk1a6ddne63ue1k.apps.googleusercontent.com',
-        'client_secret' => 'zeoY4g1UITBnt9IIXgYg4b2N',
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => 'https://careerus.com/login/google/callback',
     ]
 
