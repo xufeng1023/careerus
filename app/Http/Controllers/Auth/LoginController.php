@@ -27,7 +27,7 @@ class LoginController extends Controller
     public function handleProviderCallback()
     {
         $userInfo = Socialite::driver('google')->user();
-        dd($user);
+        dd($userInfo);
         $user = User::updateOrCreate(
             [
                 'email' => $userInfo->email
