@@ -1,4 +1,4 @@
-<a href="{{ $post->url ?: $post->company->website }}" class="btn btn-primary">
+<a href="{{ $post->url ?: $post->company->website }}" class="btn btn-primary" rel="nofollow">
     {{ __('front.jump to apply') }}
 </a>
 
