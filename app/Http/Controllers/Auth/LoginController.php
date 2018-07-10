@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Socialite;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -25,9 +26,22 @@ class LoginController extends Controller
 
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('google')->user();
+        $userInfo = Socialite::driver('google')->user();
+        
+        $user = User::updateOrCreate(
+            [
+                'email' => $userInfo->email
+            ],
+            [
+                'name' => $userInfo->name,
+                'confirmed' => 1,
+                'login_provider' => 'google'
+            ]
+        );
 
-        dd($user);
+        \Auth::login($user, true);
+
+        return redirect('/dashboard/account');
     }
 
     // protected function authenticated(Request $request, $user)
