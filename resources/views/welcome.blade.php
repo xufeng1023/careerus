@@ -1,3 +1,7 @@
+@section('title')
+{{ '提供H1B工作查找并且有HR内推机会 - ' }}
+@endsection
+
 @include('layouts.head')
         <style>
             html, body {

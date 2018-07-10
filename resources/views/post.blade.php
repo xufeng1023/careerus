@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-{{ ($post->chinese_title ?: $post->title).'-' }}
+{{ ($post->chinese_title? $post->chinese_title : $post->title).'-' }}
 @endsection
 
 @section('content')
