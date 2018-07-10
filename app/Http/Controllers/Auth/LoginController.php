@@ -33,9 +33,10 @@ class LoginController extends Controller
                 'email' => $userInfo->email
             ],
             [
+                'login_provider' => 'google',
                 'name' => $userInfo->name,
                 'confirmed' => 1,
-                'login_provider' => 'google'
+                
             ]
         );
 
