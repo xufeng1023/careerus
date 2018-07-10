@@ -27,13 +27,13 @@ class LoginController extends Controller
     public function handleProviderCallback()
     {
         $userInfo = Socialite::driver('google')->user();
-        dd($userInfo);
+
         $user = User::updateOrCreate(
             [
                 'email' => $userInfo->email
             ],
             [
-                'name' => $userInfo->name,
+                'name' => explode('@', $userInfo->name)[0],
                 'confirmed' => 1,
                 'login_provider' => 'google'
             ]
