@@ -55,7 +55,7 @@
                 <form id="passForm" method="POST" class="px-4" action="/dashboard/password" @submit="onSubmit">
                     @csrf
 
-                    @if(auth()->user()->password && !auth()->user()->login_provider)
+                    @if(auth()->user()->password)
                         <div class="form-group row">
                             <label for="old-password" class="col-3 col-form-label">{{ __('front.password old') }}</label>
                             <div class="col-9">
