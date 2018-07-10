@@ -1,6 +1,8 @@
 <html lang="zh">
+
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+<div class="table-responsive">
 <table class="table table-striped">
     <caption class="text-center">
         <h2>{{ $first->check_at->year }}年{{ $first->check_at->month }}月 职业移民绿卡排期 - 批准日期</h2>
@@ -47,7 +49,9 @@
         @endforeach
     </tbody>
 </table>
+</div>
 
+<div class="table-responsive">
 <table class="table table-striped">
     <caption class="text-center">
         <h2>{{ $first->check_at->year }}年{{ $first->check_at->month }}月 职业移民绿卡排期 - 递件日期</h2>
@@ -94,4 +98,6 @@
         @endforeach
     </tbody>
 </table>
+</div>
+
 </html>
