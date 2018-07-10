@@ -46,4 +46,10 @@ return [
         'redirect' => 'https://careerus.com/login/github/callback',
     ],
 
+    'google' => [
+        'client_id' => '176109523039-mempaa3uqo1oe1rm0vk1a6ddne63ue1k.apps.googleusercontent.com',
+        'client_secret' => '',
+        'redirect' => 'https://careerus.com/login/google/callback',
+    ]
+
 ];
