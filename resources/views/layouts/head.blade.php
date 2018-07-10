@@ -11,3 +11,10 @@
     <title>@yield('title'){{ config('app.name', 'CareerUS') }}</title>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-122143114-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-122143114-1');
+    </script>
