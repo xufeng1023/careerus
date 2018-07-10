@@ -1,3 +1,5 @@
+<html lang="zh">
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
 <div class="table-responsive">
@@ -94,3 +96,4 @@
 </table>
 </div>
 
+</html>
