@@ -75,7 +75,7 @@ class UserController extends Controller
     public function passwordUpdate()
     {
         request()->validate([
-            'oldPass' => 'required_if:login_provider,null|string|min:6',
+            'oldPass' => 'sometimes|required|string|min:6',
             'password' => 'required|string|min:6|confirmed'
         ]);
 

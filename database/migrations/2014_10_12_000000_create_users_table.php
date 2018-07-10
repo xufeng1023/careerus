@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->boolean('confirmed')->default(false);
             $table->string('confirm_token')->nullable();
             $table->rememberToken();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('login_provider', 20)->nullable();
             $table->boolean('suspended')->default(false);
             $table->timestamps();

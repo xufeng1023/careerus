@@ -436,6 +436,21 @@ class UserTest extends TestCase
         $this->assertDatabaseMissing('users', ['password' => $pass1]);
     }
 
+    public function test_third_party_login_user_dont_need_an_old_pass_when_update_password()
+    {
+        $this->login(
+            $user = create('User', ['password' => null, 'login_provider' => 'google'])
+        );
+
+        $this->assertDatabaseHas('users', ['password' => null, 'name' => $user->name]);
+        
+        $data = ['password' => '123123', 'password_confirmation' => '123123'];
+
+        $this->post('/dashboard/password', $data);
+
+        $this->assertDatabaseMissing('users', ['password' => null, 'name' => $user->name]);
+    }
+
     public function test_students_can_update_their_resume()
     {
         Storage::fake();
