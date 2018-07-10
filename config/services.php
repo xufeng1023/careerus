@@ -48,7 +48,7 @@ return [
 
     'google' => [
         'client_id' => '176109523039-mempaa3uqo1oe1rm0vk1a6ddne63ue1k.apps.googleusercontent.com',
-        'client_secret' => '',
+        'client_secret' => 'zeoY4g1UITBnt9IIXgYg4b2N',
         'redirect' => 'https://careerus.com/login/google/callback',
     ]
 
