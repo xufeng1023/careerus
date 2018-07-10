@@ -1,12 +1,8 @@
-<html lang="zh">
 
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 <div class="table-responsive">
+<h3 class="text-center">{{ $first->check_at->year }}年{{ $first->check_at->month }}月职业移民绿卡批准日期</h3>
 <table class="table table-striped">
-    <caption class="text-center">
-        <h3>{{ $first->check_at->year }}年{{ $first->check_at->month }}月职业移民绿卡批准日期</h3>
-    </caption>
     <thead class="thead-dark">
         <tr>
             <th>签证类别</th>
@@ -52,10 +48,8 @@
 </div>
 
 <div class="table-responsive">
+<h3 class="text-center">{{ $first->check_at->year }}年{{ $first->check_at->month }}月职业移民绿卡递件日期</h3>
 <table class="table table-striped">
-    <caption class="text-center">
-        <h3>{{ $first->check_at->year }}年{{ $first->check_at->month }}月职业移民绿卡递件日期</h3>
-    </caption>
     <thead class="thead-dark">
         <tr>
             <th>签证类别</th>
@@ -100,4 +94,3 @@
 </table>
 </div>
 
-</html>
