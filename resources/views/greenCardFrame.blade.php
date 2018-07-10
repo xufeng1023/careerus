@@ -1,6 +1,8 @@
 <html lang="zh">
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+<style>
+.table th, .table td {padding: 0.75rem 7px !important;}
+</style>
 
 <div class="table-responsive">
 <h3 class="text-center">{{ $first->check_at->year }}年{{ $first->check_at->month }}月职业移民绿卡批准日期</h3>
