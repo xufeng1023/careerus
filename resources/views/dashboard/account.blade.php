@@ -76,6 +76,7 @@
                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                         </div>
                     </div>
+                    <input type="hidden" name="login_provider" value="{{ auth()->user()->login_provider }}">
                 </form>
             </div>
 

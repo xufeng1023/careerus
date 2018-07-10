@@ -75,14 +75,17 @@ class UserController extends Controller
     public function passwordUpdate()
     {
         request()->validate([
-            'oldPass' => 'required|string|min:6',
+            'oldPass' => 'required_if:login_provider,null|string|min:6',
             'password' => 'required|string|min:6|confirmed'
         ]);
 
-        $credentials = ['email' => auth()->user()->email, 'password' => request('oldPass')];
+        if(!auth()->user()->login_provider) {
 
-        if(!\Auth::once($credentials)) {
-            return response(['errors' => ['oldPass' => trans('front.old pass bad')]], 422);
+            $credentials = ['email' => auth()->user()->email, 'password' => request('oldPass')];
+
+            if(!\Auth::once($credentials)) {
+                return response(['errors' => ['oldPass' => trans('front.old pass bad')]], 422);
+            }
         }
 
         auth()->user()->update(['password' => \Hash::make(request('password'))]);
