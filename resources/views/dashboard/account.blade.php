@@ -57,7 +57,7 @@
                     <div class="form-group row">
                         <label for="old-password" class="col-3 col-form-label">{{ __('front.password old') }}</label>
                         <div class="col-9">
-                            <input id="old-password" type="password" class="form-control" :class="{'is-invalid': errors.oldPass}" name="oldPass" required>
+                            <input id="old-password" type="password" class="form-control" :class="{'is-invalid': errors.oldPass}" name="oldPass">
                             <span v-if="errors.oldPass" v-text="errors.oldPass" class="invalid-feedback"></span>
                         </div>
                     </div>
