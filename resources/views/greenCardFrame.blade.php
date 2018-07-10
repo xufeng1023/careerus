@@ -5,7 +5,7 @@
 <div class="table-responsive">
 <table class="table table-striped">
     <caption class="text-center">
-        <h2>{{ $first->check_at->year }}年{{ $first->check_at->month }}月 职业移民绿卡排期 - 批准日期</h2>
+        <h3>{{ $first->check_at->year }}年{{ $first->check_at->month }}月 职业移民绿卡排期 - 批准日期</h3>
     </caption>
     <thead class="thead-dark">
         <tr>
@@ -54,7 +54,7 @@
 <div class="table-responsive">
 <table class="table table-striped">
     <caption class="text-center">
-        <h2>{{ $first->check_at->year }}年{{ $first->check_at->month }}月 职业移民绿卡排期 - 递件日期</h2>
+        <h3>{{ $first->check_at->year }}年{{ $first->check_at->month }}月 职业移民绿卡排期 - 递件日期</h3>
     </caption>
     <thead class="thead-dark">
         <tr>
