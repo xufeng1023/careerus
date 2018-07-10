@@ -7,11 +7,11 @@
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
-            <th>签证类别</th>
-            <th>上月排期</th>
-            <th>本月排期</th>
-            <th>485库存存量</th>
-            <th>全球/港澳台</th>
+            <th>类别</th>
+            <th>上月</th>
+            <th>本月</th>
+            <th>485库存</th>
+            <th>港澳台</th>
         </tr>
     </thead>
     <tbody>
@@ -54,11 +54,11 @@
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
-            <th>签证类别</th>
-            <th>上月排期</th>
-            <th>本月排期</th>
-            <th>485库存存量</th>
-            <th>全球/港澳台</th>
+            <th>类别</th>
+            <th>上月</th>
+            <th>本月</th>
+            <th>485库存</th>
+            <th>港澳台</th>
         </tr>
     </thead>
     <tbody>
