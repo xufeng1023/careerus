@@ -6,6 +6,7 @@ Route::get('/login/google', '\App\Http\Controllers\Auth\LoginController@redirect
 Route::get('/login/google/callback', '\App\Http\Controllers\Auth\LoginController@handleProviderCallback');
 
 Route::get('/green-card', 'GreenCardController@index');
+Route::get('/visa-bulletin', 'GreenCardController@visaBulletin');
 
 Route::get('/', 'PostController@index');
 

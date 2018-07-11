@@ -10,13 +10,23 @@ class GreenCardController extends Controller
 {
     public function index()
     {
+        return $this->generateVisaPage('greenCardFrame');
+    }
+
+    public function visaBulletin()
+    {
+        return $this->generateVisaPage('visaBulletin');
+    }
+
+    private function generateVisaPage($view)
+    {
         $visas = GreenCard::orderBy('check_at', 'desc')->take(32)->get();
 
         $inventories = GreenCardInventory::whereCountry('china')->get();
 
         $first = $visas->first();
 
-        return view('greenCardFrame', compact('visas', 'inventories', 'first'));
+        return view($view, compact('visas', 'inventories', 'first'));
     }
 
     public function alladmin()
