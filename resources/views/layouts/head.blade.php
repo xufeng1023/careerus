@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="keywords" content="h1b工作,h1b,h1b job,工作内推,hr内推">    
     <meta name="description" content="H1B工作HR内推和工作搜索">
-    
+    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/png">
     <title>@yield('title'){{ config('app.name', 'CareerUS') }}</title>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
