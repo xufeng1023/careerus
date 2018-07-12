@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1 class="h3">{{ $post->chinese_title ?: $post->title }}</h1>
+            <h1 id="job-title" class="h3">{{ $post->chinese_title ?: $post->title }}</h1>
             <div class="text-muted">{{ $post->created_at->diffforhumans() }} - {{ $post->company->name }} - {{ $post->location }}</div>
             <div class="mb-3">
                 <span class="badge badge-pill badge-secondary">{{ $post->catagory->name }}</span>
@@ -266,5 +266,32 @@
             toastr.success(feedback);
         });
     }
+</script>
+
+<script type="application/ld+json"> {
+  "@context" : "http://schema.org/",
+  "@type" : "JobPosting",
+  "title" : "{{ $post->chinese_title? $post->chinese_title : $post->title }}",
+  "description" :"{{ str_limit(html_entity_decode(strip_tags($post->chinese_description? $post->chinese_description : $post->description)), 120) }}",
+  "identifier": {
+    "@type": "PropertyValue",
+    "name": "{{ $post->company->name }}"
+  },
+  "datePosted" : "{{ $post->created_at->format('Y-m-d') }}",
+  "employmentType" : "{{ $post->job_type }}",
+  "hiringOrganization" : {
+    "@type" : "Organization",
+    "name" : "{{ $post->company->name }}",
+    "sameAs" : "{{ $post->url? $post->url : $post->company->website }}"
+  },
+  "jobLocation" : {
+    "@type" : "Place",
+    "address" : {
+      "@type" : "PostalAddress",
+      "addressLocality" : "{{ explode(',', $post->location)[0] }}",
+      "addressRegion" : "{{ explode(',', $post->location)[1] }}"
+    }
+  }
+}
 </script>
 @endsection
