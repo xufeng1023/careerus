@@ -13,7 +13,7 @@
                 </button>
                 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    @if(str_contains(url()->current(), ['job', 'dashboard', 'blog']))
+                    @if(str_contains(url()->current(), ['job', 'dashboard']))
                         @include('_search')
                     @endif
 

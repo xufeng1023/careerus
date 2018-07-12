@@ -25,7 +25,6 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('js/search.js') }}"></script>
 <script src="{{ asset('js/blog.js') }}"></script>
 <script>
     var oldContent = document.querySelector('#editor').dataset.content;
