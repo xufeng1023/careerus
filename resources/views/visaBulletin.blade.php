@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-{{ 'visa bulletin -' }}
+{{ '绿卡排期 -' }}
 @endsection
 
 @section('style')

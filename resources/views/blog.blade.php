@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-{{ $blog->title.'-' }}
+{{ '求职攻略-'.$blog->title.'-' }}
 @endsection
 
 

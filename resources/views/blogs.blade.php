@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+{{ '求职攻略 -' }}
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">

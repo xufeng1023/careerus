@@ -14,6 +14,6 @@ class BlogTest extends TestCase
     {
         $blog = create('Blog');
 
-        $this->get('/blog')->assertSee($blog->title);
+        $this->get('/'.urlencode('求职攻略'))->assertSee($blog->title);
     }
 }
