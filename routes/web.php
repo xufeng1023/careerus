@@ -6,7 +6,7 @@ Route::get('/login/google', '\App\Http\Controllers\Auth\LoginController@redirect
 Route::get('/login/google/callback', '\App\Http\Controllers\Auth\LoginController@handleProviderCallback');
 
 Route::get('/green-card', 'GreenCardController@index');
-Route::get('/visa-bulletin', 'GreenCardController@visaBulletin');
+Route::get('/绿卡排期', 'GreenCardController@visaBulletin');
 
 Route::get('/', 'PostController@index');
 
@@ -15,8 +15,8 @@ Route::get('/searchJob', 'PostController@searchBarJob');
 Route::get('/tags', 'TagController@all');
 Route::get('/jobs', 'PostController@all');
 Route::get('/job/{postSlug}', 'PostController@show');
-Route::get('/blog', 'BlogController@all');
-Route::get('/blog/{blogSlug}', 'BlogController@show');
+Route::get('/求职攻略', 'BlogController@all');
+Route::get('/求职攻略/{blogSlug}', 'BlogController@show');
 Route::get('/register/verification', '\App\Http\Controllers\Auth\RegisterController@verify');
 
 Route::post('/apply', 'ApplyController@save');

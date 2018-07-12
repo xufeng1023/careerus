@@ -18,8 +18,8 @@
                     @endif
 
                     <ul class="navbar-nav ml-auto">
-                        <li><a class="nav-link" href="{{ url('blog') }}">{{ __('admin.blog') }}</a></li>
-                        <li><a class="nav-link" href="{{ url('visa-bulletin') }}">{{ __('front.visa bulletin') }}</a></li>
+                        <li><a class="nav-link" href="{{ url('求职攻略') }}">{{ __('admin.blog') }}</a></li>
+                        <li><a class="nav-link" href="{{ url('绿卡排期') }}">{{ __('front.visa bulletin') }}</a></li>
                         @guest
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('front.register') }}</a></li>
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('front.login') }}</a></li>

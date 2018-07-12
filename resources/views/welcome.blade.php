@@ -22,7 +22,8 @@
         <div id="app" class="d-flex flex-column h-100 pt-5 mt-5">
             @if (Route::has('login'))
                 <div class="d-flex fixed-top mt-2 mr-2 justify-content-end links">
-                    <a href="/blog">{{ __('admin.blog') }}</a>
+                    <a href="/求职攻略">{{ __('admin.blog') }}</a>
+                    <a href="/绿卡排期">{{ __('front.visa bulletin') }}</a>
                     @auth
                         <a id="homeDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ Auth::user()->name }}

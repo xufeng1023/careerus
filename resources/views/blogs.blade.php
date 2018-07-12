@@ -8,7 +8,7 @@
                 @forelse($blogs as $blog)
                     <li class="list-group-item">
                         <h2 class="h5 m-0 font-weight-bold">
-                            <a href="/blog/{{ $blog->title }}">{{ $blog->title }}</a>
+                            <a href="/求职攻略/{{ $blog->title }}">{{ $blog->title }}</a>
                         </h2>
                         <div class="small text-muted">{{ $blog->created_at->diffforhumans() }}</div>
                     </li> 
