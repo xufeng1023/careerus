@@ -22,8 +22,8 @@
         <div id="app" class="d-flex flex-column h-100 pt-5 mt-5">
             @if (Route::has('login'))
                 <div class="d-flex fixed-top mt-2 mr-2 justify-content-end links">
-                    <a href="/求职攻略">{{ __('admin.blog') }}</a>
-                    <a href="/绿卡排期">{{ __('front.visa bulletin') }}</a>
+                    <a href="/求职攻略" title="求职攻略">{{ __('admin.blog') }}</a>
+                    <a href="/绿卡排期" title="绿卡排期">{{ __('front.visa bulletin') }}</a>
                     @auth
                         <a id="homeDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ Auth::user()->name }}
@@ -58,8 +58,8 @@
                             </form>
                         </div>
                     @else
-                        <a href="{{ route('register') }}">{{ __('front.register') }}</a>
-                        <a href="{{ route('login') }}">{{ __('front.login') }}</a>
+                        <a href="{{ route('register') }}" title="上传简历至HR">{{ __('front.register') }}</a>
+                        <a href="{{ route('login') }}" title="登入账号">{{ __('front.login') }}</a>
                     @endauth
                 </div>
             @endif

@@ -288,8 +288,11 @@
     "@type" : "Place",
     "address" : {
       "@type" : "PostalAddress",
-      "addressLocality" : "{{ explode(',', $post->location)[0] }}",
-      "addressRegion" : "{{ explode(',', $post->location)[1] }}"
+      @php
+        $location = explode(',', $post->location);
+      @endphp
+      "addressLocality" : "{{ $location[0] }}",
+      "addressRegion" : "{{ isset($location[1]) ? $location[1] : $location[0] }}"
     }
   }
 }
