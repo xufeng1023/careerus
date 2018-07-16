@@ -18,7 +18,7 @@
                     @endif
 
                     <ul class="navbar-nav ml-auto">
-                        <li><a class="nav-link" href="{{ url('求职攻略') }}" title="求职攻略">{{ __('admin.blog') }}</a></li>
+                        <li><a class="nav-link" href="{{ url('blog') }}" title="求职攻略">{{ __('admin.blog') }}</a></li>
                         <li><a class="nav-link" href="{{ url('绿卡排期') }}" title="绿卡排期">{{ __('front.visa bulletin') }}</a></li>
                         @guest
                             <li><a class="nav-link" href="{{ route('register') }}" title="上传简历至HR">{{ __('front.register') }}</a></li>

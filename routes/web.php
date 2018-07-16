@@ -15,8 +15,8 @@ Route::get('/searchJob', 'PostController@searchBarJob');
 Route::get('/tags', 'TagController@all');
 Route::get('/jobs', 'PostController@all');
 Route::get('/job/{postSlug}', 'PostController@show');
-Route::get('/求职攻略', 'BlogController@all');
-Route::get('/求职攻略/{blogSlug}', 'BlogController@show');
+Route::get('/blog', 'BlogController@all');
+Route::get('/blog/{blogSlug}', 'BlogController@show');
 Route::get('/register/verification', '\App\Http\Controllers\Auth\RegisterController@verify');
 
 Route::post('/apply', 'ApplyController@save');
