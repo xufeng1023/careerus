@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-{{ '求职攻略 -' }}
+{{ '美国求职攻略 -' }}
 @endsection
 
 @section('content')

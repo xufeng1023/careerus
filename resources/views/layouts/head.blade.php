@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="keywords" content="h1b工作,h1b,h1b job,工作内推,hr内推">    
-    <meta name="description" content="每日都更新的H1B工作.在本站可直接向HR递交简历申请并有机会得到内推.同时还有不断更新的原创求职攻略可参考.">
+    <meta name="description" content="每日都更新的H1B工作.在本站可直接向HR递交简历申请并有机会得到内推.同时还有不断更新的原创美国求职攻略可参考.">
     <link rel="apple-touch-icon" href="{{ asset('images/favicon.png') }}" type="image/png">
     <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/png">
     <title>@yield('title'){{ config('app.name', 'CareerUS') }}</title>
