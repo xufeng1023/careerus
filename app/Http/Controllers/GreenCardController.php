@@ -15,7 +15,7 @@ class GreenCardController extends Controller
 
     public function subscribe()
     {
-        dd(request()->server );
+        return request()->server;
     }
 
     public function visaBulletin()
