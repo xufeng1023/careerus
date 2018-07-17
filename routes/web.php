@@ -8,7 +8,7 @@ Route::get('/login/google/callback', '\App\Http\Controllers\Auth\LoginController
 Route::get('/green-card', 'GreenCardController@index')->middleware(\Barryvdh\Cors\HandleCors::class);
 Route::post('/green-card-subscriber', function() {
     return request()->all();
-});
+})->middleware(\Barryvdh\Cors\HandleCors::class);
 Route::get('/绿卡排期', 'GreenCardController@visaBulletin');
 
 Route::get('/', 'PostController@index');
