@@ -13,6 +13,11 @@ class GreenCardController extends Controller
         return $this->generateVisaPage('greenCardFrame');
     }
 
+    public function subscribe()
+    {
+        return request()->url();
+    }
+
     public function visaBulletin()
     {
         return $this->generateVisaPage('visaBulletin');
