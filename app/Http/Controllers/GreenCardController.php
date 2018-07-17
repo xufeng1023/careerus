@@ -15,7 +15,7 @@ class GreenCardController extends Controller
 
     public function subscribe()
     {
-        return request()->server->get('HTTP_HOST');
+        return request()->headers->get('host');
     }
 
     public function visaBulletin()

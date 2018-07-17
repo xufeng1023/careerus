@@ -10,9 +10,7 @@ Route::post('/green-card-subscriber', 'GreenCardController@subscribe')->middlewa
 Route::get('/绿卡排期', 'GreenCardController@visaBulletin');
 
 Route::get('/', 'PostController@index');
-Route::get('/ss', function() {
-    dd(request()->server );
-});
+
 Route::get('/searchLocation', 'PostController@searchBarLocation');
 Route::get('/searchJob', 'PostController@searchBarJob');
 Route::get('/tags', 'TagController@all');
