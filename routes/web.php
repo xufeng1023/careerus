@@ -5,8 +5,7 @@ Auth::routes();
 Route::get('/login/google', '\App\Http\Controllers\Auth\LoginController@redirectToProvider');
 Route::get('/login/google/callback', '\App\Http\Controllers\Auth\LoginController@handleProviderCallback');
 
-Route::get('/green-card', 'GreenCardController@index');
-Route::get('/green-card-test', 'GreenCardController@index')->middleware(\Barryvdh\Cors\HandleCors::class);
+Route::get('/green-card', 'GreenCardController@index')->middleware(\Barryvdh\Cors\HandleCors::class);
 Route::get('/绿卡排期', 'GreenCardController@visaBulletin');
 
 Route::get('/', 'PostController@index');
