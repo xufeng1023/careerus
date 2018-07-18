@@ -15,10 +15,14 @@ class GreenCardController extends Controller
 
     public function subscribe()
     {
-        request()->validate([
+        $data = request()->validate([
             'url' => 'required|url',
             'email' => 'required|string|email|max:255|unique:green_card_subscribe'
         ]);
+
+        GreenCardSubscribe::create($data);
+
+        return '订阅成功!';
     }
 
     public function visaBulletin()

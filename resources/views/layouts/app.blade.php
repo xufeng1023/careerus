@@ -68,11 +68,13 @@
 
         <main class="py-4">@yield('content')</main>
 
-        <!-- <footer class="footer">
+        <footer class="footer">
             <div class="container">
-                <span class="text-muted">{{ '@'.date('Y').' '.config('app.name') }} </span>
+                <div class="border-top">
+                    <span class="text-muted">{{ '@'.date('Y').' '.config('app.name') }} </span>
+                </div>
             </div>
-        </footer> -->
+        </footer>
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
     <!-- <script src="https://js.stripe.com/v3/"></script>
