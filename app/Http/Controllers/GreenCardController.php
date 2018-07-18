@@ -20,7 +20,11 @@ class GreenCardController extends Controller
             'email' => 'required|string|email|max:255'
         ]);
 
-        GreenCardSubscribe::create($data);
+        try {
+            GreenCardSubscribe::create($data);
+        } catch(\Illuminate\Database\QueryException $e) {
+            return response(['errors' => ['email' => '此邮箱已经订阅']], 422);
+        }
 
         return '订阅成功!';
     }
