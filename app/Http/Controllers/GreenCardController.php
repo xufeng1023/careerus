@@ -17,7 +17,7 @@ class GreenCardController extends Controller
     {
         $data = request()->validate([
             'url' => 'required|url',
-            'email' => 'required|string|email|max:255|unique:green_card_subscribe'
+            'email' => 'required|string|email|max:255'
         ]);
 
         GreenCardSubscribe::create($data);
