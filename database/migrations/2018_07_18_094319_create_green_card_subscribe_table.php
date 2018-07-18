@@ -16,8 +16,10 @@ class CreateGreenCardSubscribeTable extends Migration
         Schema::create('green_card_subscribe', function (Blueprint $table) {
             $table->increments('id');
             $table->string('url', 50);
-            $table->string('email')->unique();
+            $table->string('email');
             $table->timestamps();
+
+            $table->unique(['url', 'email']);
         });
     }
 

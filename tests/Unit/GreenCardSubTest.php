@@ -38,11 +38,19 @@ class GreenCardSubTest extends TestCase
         $this->post('/green-card-subscriber', ['email' => 'ss@ff', 'url' => 'http://localhost']);
     }
 
+    public function test_email_and_url_is_unique_pair()
+    {
+        create('GreenCardSubscribe', ['email' => 'ss@ff.com', 'url' => 'http://fwef.com']);
+        create('GreenCardSubscribe', ['email' => 'ss@ff.com', 'url' => 'http://fwef2.com']);
+
+        $this->assertCount(2, \App\GreenCardSubscribe::all());
+    }
+
     public function test_email_must_be_unique()
     {
         $this->expectException('Illuminate\Database\QueryException');
 
-        create('GreenCardSubscribe', ['email' => 'ss@ff.com']);
-        create('GreenCardSubscribe', ['email' => 'ss@ff.com']);
+        create('GreenCardSubscribe', ['email' => 'ss@ff.com', 'url' => 'http://fwef.com']);
+        create('GreenCardSubscribe', ['email' => 'ss@ff.com', 'url' => 'http://fwef.com']);
     }
 }
