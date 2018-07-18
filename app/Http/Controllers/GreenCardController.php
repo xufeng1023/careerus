@@ -15,7 +15,7 @@ class GreenCardController extends Controller
 
     public function subscribe()
     {
-        return Validator::make($data, [
+        request()->validate([
             'url' => 'required|url',
             'email' => 'required|string|email|max:255|unique:green_card_subscribe'
         ]);
