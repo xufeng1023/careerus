@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
-use App\{GreenCard, GreenCardInventory};
+use App\{GreenCard, GreenCardInventory, GreenCardSubscribe};
 
 class GreenCardController extends Controller
 {
@@ -15,7 +15,10 @@ class GreenCardController extends Controller
 
     public function subscribe()
     {
-        return request()->headers->get('host');
+        return Validator::make($data, [
+            'url' => 'required|url',
+            'email' => 'required|string|email|max:255|unique:green_card_subscribe'
+        ]);
     }
 
     public function visaBulletin()
