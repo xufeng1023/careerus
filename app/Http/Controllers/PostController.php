@@ -18,7 +18,7 @@ class PostController extends Controller
 
         $recommendedJobs = Post::select('chinese_title', 'title', 'identity')->where('recommended', 1)->take(10)->get();
 
-        $hotSpots = ['New York', 'California'];
+        $hotSpots = ['New York' => '纽约', 'California' => '加州'];
 
         $hotTags = DB::table('tags')->select('name')->whereIn('id', 
             DB::table('post_tag')->select('tag_id')->orderByRaw('count(tag_id)', 'desc')->groupBy('tag_id')

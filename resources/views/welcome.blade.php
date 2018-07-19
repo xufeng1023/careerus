@@ -90,8 +90,8 @@
                         <h2 class="h4 text-muted d-flex align-items-center">
                             <span data-feather="map-pin"></span><small>&nbsp;热门地点</small>
                         </h2><hr>
-                        @foreach($hotSpots as $location)
-                            <a href="/jobs?l={{ $location }}" class="d-block">{{ $location }}</a>
+                        @foreach($hotSpots as $key => $location)
+                            <a href="/jobs?l={{ $key }}" class="d-block">{{ $location }}</a>
                         @endforeach
                     </div>
                     <div class="col-12 col-md mb-5">
