@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use App\{GreenCard, GreenCardInventory, GreenCardSubscribe};
+use App\Mail\GreenCardUpdated;
 
 class GreenCardController extends Controller
 {
@@ -113,6 +115,42 @@ class GreenCardController extends Controller
                 ['title' => $visa['title'], 'country' => $visa['country'], 'check_at' => date('Y-m-d')],
                 [array_pop($keys) => array_pop($visa)]
             );
+        }
+
+        $this->notifySubscribers();
+        //$this->notifySubscribers2();
+    }
+
+    public function notifySubscribers()
+    {
+        $subscribers = GreenCardSubscribe::whereUrl('https://greencardlegal.com')->get();
+        config([
+            'mail.username' => env('GCL_MAIL_USERNAME'),
+            'mail.password' => env('GCL_MAIL_PASSWORD'),
+            'mail.from.address' => env('GCL_MAIL_FROM_ADDRESS'),
+            'mail.from.name' => 'greencardlegal'
+        ]);
+        foreach($subscribers as $sub) {
+            //if(stripos($sub->url, 'greencardlegal') !== false) {
+                
+           // }
+            //Mail::to($sub->email)->send(new GreenCardUpdated($sub->url)); 
+            $headers = "From: ".config('mail.from.address');
+            mail($sub->email, 'aaa', 'bbb', $headers);
+        }
+    }
+
+    public function notifySubscribers2()
+    {
+        $subscribers = GreenCardSubscribe::whereUrl('https://careerus.com')->get();
+        config([
+            'mail.username' => env('MAIL_USERNAME'),
+            'mail.password' => env('MAIL_PASSWORD'),
+            'mail.from.address' => env('MAIL_FROM_ADDRESS'),
+            'mail.from.name' => 'careerus'
+        ]);
+        foreach($subscribers as $sub) {
+            Mail::to($sub->email)->send(new GreenCardUpdated($sub->url)); 
         }
     }
 }

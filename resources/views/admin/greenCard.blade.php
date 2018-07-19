@@ -129,7 +129,7 @@
                 //console.log(visa);
                 if(visa.length) {
                     $.post('/admin/visa', {visa: visa}, function() {
-                        location.reload();
+                        //location.reload();
                     });
                 }
             },
