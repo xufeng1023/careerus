@@ -19,7 +19,7 @@
     <div class="row justify-content-center my-5">
         <div class="col-sm-6">
             <form action="/green-card-subscriber" method="post" onsubmit="subscribe(event)">
-                <label class="text-center d-block">第一时间收到绿卡排期更新的提醒</label>
+                <h1 class="text-center h6">第一时间收到绿卡排期更新的提醒</h1>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">您的邮箱</span>

@@ -32,7 +32,7 @@ h3{font-size:18px !important;}
                 @php
                     if($visa->action_at) {
                         echo $visa->action_at;
-                        if(($last && $visa->action_at) && ($last != $visa->action_at)) echo '<br>'.$visa->changesInDays($last);
+                        if((isset($last) && $visa->action_at) && ($last != $visa->action_at)) echo '<br>'.$visa->changesInDays($last);
                     }
                     else echo '无需排期';
                 @endphp
@@ -78,7 +78,7 @@ h3{font-size:18px !important;}
                 @php
                     if($visa->filing_at) {
                         echo $visa->filing_at;
-                        if(($last && $visa->filing_at) && ($last != $visa->filing_at)) echo '<br>'.$visa->changesInDays($last, 'filing_at');
+                        if((isset($last) && $visa->filing_at) && ($last != $visa->filing_at)) echo '<br>'.$visa->changesInDays($last, 'filing_at');
                     }
                     else echo '无需排期';
                 @endphp
