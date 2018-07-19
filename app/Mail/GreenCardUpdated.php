@@ -30,6 +30,7 @@ class GreenCardUpdated extends Mailable
      */
     public function build()
     {
-        return $this->from(config('mail.from.address'))->markdown('emails.toGreenCardSubscribers');
+        return $this->from(config('mail.from.address'))
+                    ->markdown('emails.'.rtrim(parse_url($this->url, PHP_URL_HOST), '.com').'Subscribers');
     }
 }

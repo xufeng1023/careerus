@@ -77,7 +77,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/cover-letter/add', 'CoverLetterController@save');
     Route::post('/cover-letter/update/{coverLetter}', 'CoverLetterController@update');
     Route::post('/settings', 'SettingsController@update');
-    
+    Route::post('/notifySubscribers1', 'GreenCardController@notifySubscribers1');
+    Route::post('/notifySubscribers2', 'GreenCardController@notifySubscribers2');
 
     Route::delete('/job/delete/{post}', 'PostController@delete');
     Route::delete('/tag/delete/{tag}', 'TagController@delete');

@@ -117,38 +117,30 @@ class GreenCardController extends Controller
             );
         }
 
-        $this->notifySubscribers();
+        //$this->notifySubscribers();
         //$this->notifySubscribers2();
     }
 
-    public function notifySubscribers()
+    public function notifySubscribers1()
     {
         $subscribers = GreenCardSubscribe::whereUrl('https://greencardlegal.com')->get();
+
         config([
             'mail.username' => env('GCL_MAIL_USERNAME'),
             'mail.password' => env('GCL_MAIL_PASSWORD'),
             'mail.from.address' => env('GCL_MAIL_FROM_ADDRESS'),
             'mail.from.name' => 'greencardlegal'
         ]);
+        
         foreach($subscribers as $sub) {
-            //if(stripos($sub->url, 'greencardlegal') !== false) {
-                
-           // }
-            //Mail::to($sub->email)->send(new GreenCardUpdated($sub->url)); 
-            $headers = "From: ".config('mail.from.address');
-            mail($sub->email, 'aaa', 'bbb', $headers);
+            Mail::to($sub->email)->send(new GreenCardUpdated($sub->url)); 
         }
     }
 
     public function notifySubscribers2()
     {
         $subscribers = GreenCardSubscribe::whereUrl('https://careerus.com')->get();
-        config([
-            'mail.username' => env('MAIL_USERNAME'),
-            'mail.password' => env('MAIL_PASSWORD'),
-            'mail.from.address' => env('MAIL_FROM_ADDRESS'),
-            'mail.from.name' => 'careerus'
-        ]);
+
         foreach($subscribers as $sub) {
             Mail::to($sub->email)->send(new GreenCardUpdated($sub->url)); 
         }
