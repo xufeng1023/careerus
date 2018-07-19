@@ -46,6 +46,8 @@ class PostController extends Controller
 
     public function all()
     {
+        $locationTitleChinese = '';
+
         $filtered = array_where(request()->all(), function ($value, $key) {
             return !is_null($value);
         });
@@ -98,8 +100,10 @@ class PostController extends Controller
 
         if(isset($location)) {
             $state = State::where('simplified_name', 'LIKE', $location.'%')->orWhere('STATE_NAME', 'LIKE', $location.'%')->first();
-            if($state) $location = $state->STATE_CODE;
-
+            if($state) {
+                $location = $state->STATE_CODE;
+                $locationTitleChinese = $state->simplified_name;
+            }
             $query = $query->where(function($query) use($location) {
                 $query->where('location', 'LIKE', '%'.$location)->orWhere('location', 'LIKE', $location.'%');
             });
@@ -133,7 +137,7 @@ class PostController extends Controller
 
         $types = ['Full-time', 'Part-time', 'Internship'];
 
-        return view('posts', compact('posts', 'categories', 'types'));
+        return view('posts', compact('posts', 'categories', 'types', 'locationTitleChinese'));
     }
 
     public function show(Post $post)

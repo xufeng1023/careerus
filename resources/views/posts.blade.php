@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+{{ request('l') && $locationTitleChinese? $locationTitleChinese.'工作-' : '' }}
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
