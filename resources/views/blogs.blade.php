@@ -8,6 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
+            <h1 class="h3 mb-3">原创美国求职攻略</h1>
             <ul class="list-group list-group-flush">
                 @forelse($blogs as $blog)
                     <li class="list-group-item">
