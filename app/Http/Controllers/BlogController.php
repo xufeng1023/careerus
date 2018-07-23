@@ -15,7 +15,8 @@ class BlogController extends Controller
 
     public function allAdmin()
     {
-        $blogs = Blog::latest()->get();
+        if(request('id')) $blogs[] = Blog::find(request('id'));
+        else $blogs = Blog::latest()->get();
 
         return view('admin.blog', compact('blogs'));
     }

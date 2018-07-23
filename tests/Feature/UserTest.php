@@ -514,6 +514,20 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('cover_letters', ['content'=> $data->content.'1231231']);
     }
 
+    public function test_admin_can_view_each_blog_in_the_backend()
+    {
+        $this->login(
+          $admin = create("User", ['role' => 'admin'])  
+        );
+
+        $blog1 = create('Blog');
+        $blog2 = create('Blog');
+
+        $this->get('/admin/blog?id='.$blog1->id)
+            ->assertSee($blog1->title)
+            ->assertDontSee($blog2->title);
+    }
+
     public function test_admin_can_add_blog()
     {
         $this->login(
