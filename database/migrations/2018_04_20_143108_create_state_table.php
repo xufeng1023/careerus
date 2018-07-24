@@ -13,10 +13,11 @@ class CreateStateTable extends Migration
      */
     public function up()
     {
-        Schema::create('states', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('initial');
-            $table->string('name');
+        Schema::create('us_states', function (Blueprint $table) {
+            $table->increments('ID');
+            $table->string('STATE_CODE', 2);
+            $table->string('STATE_NAME')->nullable();
+            $table->string('simplified_name')->nullable();
         });
     }
 
