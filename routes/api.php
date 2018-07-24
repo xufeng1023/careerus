@@ -18,6 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/search', function (Request $request) {
-    dd(request()->server);
+    dd(request()->headers);
     return $request->all();
 });
