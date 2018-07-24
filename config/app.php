@@ -115,6 +115,7 @@ return [
     */
 
     'free_apply' => env('FREE_APPLY_TIMES', 5),
+    'wechat_uri_prefix' => env('WECHAT_URI_PREFIX'),
 
     /*
     |--------------------------------------------------------------------------
