@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/search', function (Request $request) {
+Route::middleware('cors')->get('/search', function (Request $request) {
     dd(request()->headers->get('referer'));
     return $request->all();
 });
