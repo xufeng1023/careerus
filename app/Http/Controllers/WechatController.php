@@ -9,7 +9,7 @@ class WechatController extends Controller
 {
     public function search()
     {
-        $query = Post::select('title', 'chinese_title', 'identity');
+        $query = Post::with('company.visaJobs')->select('title', 'chinese_title', 'identity');
 
         if(request('search')) {
             $chinese = new Chinese();
@@ -34,6 +34,6 @@ class WechatController extends Controller
 
         if(!$query->count()) return [];
 
-        return $query->take(15)->get()->load('company.visaJobs')->unique('title');
+        return $query->take(15)->get()->unique('title');
     }
 }
