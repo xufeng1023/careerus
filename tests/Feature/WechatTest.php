@@ -74,4 +74,12 @@ class WechatTest extends TestCase
             ->assertDontSee($post2->title)
             ->assertDontSee($post1->title);
     }
+
+    public function test_wechat_app_can_see_a_post()
+    {
+        $post = create('Post');
+
+        $this->getJson('/api/job?i='.$post->identity, ['referer' => config('app.wechat_uri_prefix')])
+            ->assertSee($post->title);
+    }
 }

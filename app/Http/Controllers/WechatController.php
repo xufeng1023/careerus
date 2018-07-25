@@ -7,6 +7,16 @@ use SteelyWing\Chinese\Chinese;
 
 class WechatController extends Controller
 {
+    public function job()
+    {
+        return Post::with([
+            'catagory', 
+            'company.visaJobs' => function($query) {
+                $query->orderBy('year', 'asc');
+            }
+        ])->whereIdentity(request('i'))->firstOrFail();
+    }
+
     public function search()
     {
         $query = Post::with('company');
