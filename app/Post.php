@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $guarded = ['tags', 'state', 'city'];
+
+    protected $appends = ['posted_at'];
     
     public function creator()
     {
@@ -86,5 +88,10 @@ class Post extends Model
     public function setLocationAttribute($value)
     {
         $this->attributes['location'] = preg_replace("/, /", ',', $value);
+    }
+
+    public function getPostedAtAttribute()
+    {
+        return $this->created_at->diffforhumans();
     }
 }
