@@ -19,7 +19,7 @@ class WechatController extends Controller
             });
         }
             
-        if(request('state') && request('state') != '全部') {
+        if(request('state') && request('state') != '任何地区') {
             $state = State::where('simplified_name', 'LIKE', request('state').'%')->first();
             if($state) {
                 $query->where('location', 'LIKE', '%'.$state->STATE_CODE);
