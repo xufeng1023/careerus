@@ -74,7 +74,7 @@ class GreenCardController extends Controller
 
     public function crawlInventory()
     {
-        $month_year = 'August_2018';//Carbon::now()->format('F_Y');
+        $month_year = Carbon::now()->format('F_Y');
         $url = 'https://www.uscis.gov/sites/default/files/USCIS/Green%20Card/Green%20Card%20Through%20a%20Job/I-485%20Employment-Based%20Inventory%20Statistics/Employment-based_I-485_Pending_at_the_Service_Centers_as_of_'.$month_year.'.pdf';
         try {
             $resource = file_get_contents($url);
@@ -112,13 +112,10 @@ class GreenCardController extends Controller
         foreach(request()->all()['visa'] as $visa) {
             $keys = array_keys($visa);
             GreenCard::updateOrCreate(
-                ['title' => $visa['title'], 'country' => $visa['country'], 'check_at' => date('Y-m-d')],
+                ['title' => $visa['title'], 'country' => $visa['country'], 'check_at' => '2018-08-01'],
                 [array_pop($keys) => array_pop($visa)]
             );
         }
-
-        $this->notifySubscribers1();
-        $this->notifySubscribers2();
     }
 
     public function notifySubscribers1()

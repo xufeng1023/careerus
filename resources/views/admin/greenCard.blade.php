@@ -126,7 +126,7 @@
                     }
                 }
 
-                //console.log(visa);
+                console.log(visa);
                 if(visa.length) {
                     $.post('/admin/visa', {visa: visa}, function() {
                         $.post('/admin/notifySubscribers1', {}, function() {
