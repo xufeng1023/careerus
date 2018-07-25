@@ -36,6 +36,15 @@ class WechatTest extends TestCase
             ->assertDontSee($post1->title);
     }
 
+    public function test_job_will_return_with_company_info()
+    {
+        $post = create('Post', ['title' => 'nice day']);
+
+        $this->getJson('/api/search?search=nice&state=', ['referer' => config('app.wechat_uri_prefix')])
+            ->assertSee($post->title)
+            ->assertSee($post->company->name);
+    }
+
     public function test_wechat_app_can_search_job_by_location()
     {
         $ca = create('State', ['STATE_CODE' => 'CA', 'simplified_name' => '加州']);

@@ -9,7 +9,7 @@ class WechatController extends Controller
 {
     public function search()
     {
-        $query = Post::with('company.visaJobs')->select('title', 'chinese_title', 'identity');
+        $query = Post::with('company.visaJobs');
 
         if(request('search')) {
             $chinese = new Chinese();
