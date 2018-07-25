@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\{Post, State};
+use SteelyWing\Chinese\Chinese;
 
 class WechatController extends Controller
 {
@@ -11,11 +12,14 @@ class WechatController extends Controller
         $query = Post::select('title', 'chinese_title', 'identity');
 
         if(request('search')) {
-            $query->where(function($query) {
-                $query->where('title', 'LIKE', request('search').' %')
-                ->orWhere('title', 'LIKE', '% '.request('search'))
-                ->orWhere('title', 'LIKE', '% '.request('search').' %')
-                ->orWhere('chinese_title', 'LIKE', '%'.request('search').'%');
+            $chinese = new Chinese();
+            $search = $chinese->to(Chinese::CHS, request('search'));
+
+            $query->where(function($query) use($search) {
+                $query->where('title', 'LIKE', $search.' %')
+                ->orWhere('title', 'LIKE', '% '.$search)
+                ->orWhere('title', 'LIKE', '% '.$search.' %')
+                ->orWhere('chinese_title', 'LIKE', '%'.$search.'%');
             });
         }
             
@@ -30,6 +34,6 @@ class WechatController extends Controller
 
         if(!$query->count()) return [];
 
-        return $query->take(15)->get()->unique('title');
+        return $query->take(15)->get()->load('company.visaJobs')->unique('title');
     }
 }
