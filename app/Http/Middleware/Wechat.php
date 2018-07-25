@@ -17,6 +17,7 @@ class Wechat
     public function handle($request, Closure $next)
     {
         if(!starts_with(request()->headers->get('referer'), config('app.wechat_uri_prefix'))) {
+            dd(request()->headers->get('referer'));
             abort(404);
         }
         
