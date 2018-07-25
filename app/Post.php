@@ -103,6 +103,6 @@ class Post extends Model
 
         return array_map(function($value) {
             return strip_tags($value);
-        }, $ary);
+        }, $ary)->filter();
     }
 }
