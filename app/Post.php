@@ -9,6 +9,8 @@ class Post extends Model
     protected $guarded = ['tags', 'state', 'city'];
 
     protected $appends = ['posted_at'];
+
+    protected $hidden = ['user_id'];
     
     public function creator()
     {
@@ -93,5 +95,14 @@ class Post extends Model
     public function getPostedAtAttribute()
     {
         return $this->created_at->diffforhumans();
+    }
+
+    public function getWechatDescriptionAttribute()
+    {
+        $ary = explode('</div>', $this->description);
+
+        return array_map(function($value) {
+            return strip_tags($value);
+        }, $ary);
     }
 }

@@ -14,7 +14,7 @@ class WechatController extends Controller
             'company.visaJobs' => function($query) {
                 $query->orderBy('year', 'asc');
             }
-        ])->whereIdentity(request('i'))->firstOrFail();
+        ])->whereIdentity(request('i'))->firstOrFail()->append('wechat_description');
     }
 
     public function search()

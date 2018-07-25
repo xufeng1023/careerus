@@ -77,7 +77,7 @@ class WechatTest extends TestCase
 
     public function test_wechat_app_can_see_a_post()
     {
-        $post = create('Post');
+        $post = create('Post', ['description' => '<div>aa</div><div>bbb</div>']);
 
         $this->getJson('/api/job?i='.$post->identity, ['referer' => config('app.wechat_uri_prefix')])
             ->assertSee($post->title);
