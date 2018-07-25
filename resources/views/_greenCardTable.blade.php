@@ -17,6 +17,7 @@ h3{font-size:18px !important;}
         @php
             $inventory_key = 0;
         @endphp
+        
         @foreach($visas->where('country', 'china')->take(8) as $key => $visa)
             <tr>
                 <td>

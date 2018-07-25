@@ -56,13 +56,14 @@ class GreenCardController extends Controller
 
     public function crawl()
     {
-        $today = '2018_08';//Carbon::now()->format('Y-m');
+        $next = Carbon::now()->addMonth();
+        $today = $next->format('Y-m');
         $last_record_date = GreenCard::orderBy('id', 'desc')->pluck('check_at')->first();
 
        if(!$last_record_date || ($today > $last_record_date->format('Y-m'))) {
             try {
                 return file_get_contents(
-                    'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin/'.date('Y').'/visa-bulletin-for-'.strtolower('august-2018').'.html'
+                    'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin/'.date('Y').'/visa-bulletin-for-'.strtolower($next->format('F-Y')).'.html'
                 );
             } catch(\ErrorException $e) {
                 return response('数据还未更新', 404);
@@ -112,7 +113,7 @@ class GreenCardController extends Controller
         foreach(request()->all()['visa'] as $visa) {
             $keys = array_keys($visa);
             GreenCard::updateOrCreate(
-                ['title' => $visa['title'], 'country' => $visa['country'], 'check_at' => '2018-08-01'],
+                ['title' => $visa['title'], 'country' => $visa['country'], 'check_at' => date("Y-m-d", strtotime("+1 month", time()))],
                 [array_pop($keys) => array_pop($visa)]
             );
         }
