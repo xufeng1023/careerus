@@ -117,7 +117,7 @@ class GreenCardController extends Controller
             );
         }
 
-        $this->notifySubscribers();
+        $this->notifySubscribers1();
         $this->notifySubscribers2();
     }
 
