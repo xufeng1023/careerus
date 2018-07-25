@@ -42,7 +42,8 @@ class WechatTest extends TestCase
 
         $this->getJson('/api/search?search=nice&state=', ['referer' => config('app.wechat_uri_prefix')])
             ->assertSee($post->title)
-            ->assertSee($post->company->name);
+            ->assertSee($post->company->name)
+            ->assertDontSee($post->description);
     }
 
     public function test_wechat_app_can_search_job_by_location()
