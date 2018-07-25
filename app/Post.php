@@ -101,8 +101,12 @@ class Post extends Model
     {
         $ary = explode('</div>', $this->description);
 
-        return array_map(function($value) {
+        $ary = array_map(function($value) {
             return strip_tags($value);
-        }, $ary)->filter();
+        }, $ary);
+
+        return array_filter($ary, function($value) {
+            return !empty($value);
+        });
     }
 }
