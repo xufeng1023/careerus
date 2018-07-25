@@ -56,13 +56,13 @@ class GreenCardController extends Controller
 
     public function crawl()
     {
-        $today = Carbon::now()->format('Y-m');
+        $today = '2018_08';//Carbon::now()->format('Y-m');
         $last_record_date = GreenCard::orderBy('id', 'desc')->pluck('check_at')->first();
 
        if(!$last_record_date || ($today > $last_record_date->format('Y-m'))) {
             try {
                 return file_get_contents(
-                    'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin/'.date('Y').'/visa-bulletin-for-'.strtolower(date('F-Y')).'.html'
+                    'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin/'.date('Y').'/visa-bulletin-for-'.strtolower('august-2018').'.html'
                 );
             } catch(\ErrorException $e) {
                 return response('数据还未更新', 404);
