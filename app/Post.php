@@ -99,7 +99,7 @@ class Post extends Model
 
     public function getWechatDescriptionAttribute()
     {
-        $ary = explode('</div>', $this->description);
+        $ary = explode('</div>', $this->chinese_description ?: $this->description);
 
         $ary = array_map(function($value) {
             return str_replace('&nbsp;', ' ', strip_tags($value));
