@@ -44,7 +44,7 @@ class WechatController extends Controller
 
         if(!$query->count()) return [];
 
-        return $query->take(15)->get()->unique('title')
+        return $query->latest()->take(15)->get()->unique('title')
                 ->each->makeHidden(['chinese_description','description']);
     }
 }
