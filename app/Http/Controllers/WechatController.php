@@ -19,6 +19,8 @@ class WechatController extends Controller
 
     public function search()
     {
+        $offset = (int)request('offset');
+
         $query = Post::with('company');
 
         if(request('search')) {
@@ -44,7 +46,7 @@ class WechatController extends Controller
 
         if(!$query->count()) return [];
 
-        return $query->latest()->take(15)->get()->unique('title')
+        return $query->latest()->offset($offset)->take(15)->get()->unique('title')
                 ->each->makeHidden(['chinese_description','description']);
     }
 }
