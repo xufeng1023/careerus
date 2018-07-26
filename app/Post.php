@@ -102,7 +102,7 @@ class Post extends Model
         $ary = explode('</div>', $this->description);
 
         $ary = array_map(function($value) {
-            return strip_tags($value);
+            return str_replace('&nbsp;', ' ', strip_tags($value));
         }, $ary);
 
         return array_filter($ary, function($value) {
