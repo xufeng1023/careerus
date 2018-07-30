@@ -52,7 +52,7 @@ class WechatController extends Controller
 
     public function login()
     {
-        $http = new GuzzleHttp\Client;
+        $http = new \GuzzleHttp\Client;
 
         $response = $http->get(
             'https://api.weixin.qq.com/sns/jscode2session?appid='.config('app.wechat_app_id').'&secret='.config('app.wechat_app_secret').'&js_code='.request('code').'&grant_type=authorization_code'
