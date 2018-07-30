@@ -116,6 +116,8 @@ return [
 
     'free_apply' => env('FREE_APPLY_TIMES', 5),
     'wechat_uri_prefix' => env('WECHAT_URI_PREFIX'),
+    'wechat_app_id' => env('WECHAT_APP_ID'),
+    'wechat_app_secret' => env('WECHAT_APP_SECRET'),
 
     /*
     |--------------------------------------------------------------------------

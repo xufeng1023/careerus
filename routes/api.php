@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/search', 'WechatController@search');
 Route::get('/job', 'WechatController@job');
+Route::get('/login', 'WechatController@login');

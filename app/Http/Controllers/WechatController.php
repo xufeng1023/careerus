@@ -49,4 +49,15 @@ class WechatController extends Controller
         return $query->latest()->offset($offset)->take(15)->get()
                 ->each->makeHidden(['chinese_description','description']);
     }
+
+    public function login()
+    {
+        $http = new GuzzleHttp\Client;
+
+        $response = $http->get(
+            'https://api.weixin.qq.com/sns/jscode2session?appid='.config('app.wechat_app_id').'&secret='.config('app.wechat_app_secret').'&js_code='.request('code').'&grant_type=authorization_code'
+        );
+
+        return $response->getBody();
+    }
 }
