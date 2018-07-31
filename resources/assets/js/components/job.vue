@@ -1,6 +1,6 @@
 <template>
     <div class="position-relative">
-        <input type="text" name="s" class="form-control border-right-0 rounded-left" @input="search" :placeholder="placeholder" :value="value">
+        <input type="text" name="s" class="form-control border-0 rounded-left" @input="search" :placeholder="placeholder" :value="value">
         <div v-if="jobs" class="list-group position-absolute list-group-flush box-shadow z9 w-100">
             <a :href="job | jobLink" class="list-group-item list-group-item-action" v-for="job in jobs" :key="job.key" @click="onClick">
                 {{ job.chinese_title || job.title }}

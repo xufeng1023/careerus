@@ -284,7 +284,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "position-relative" }, [
     _c("input", {
-      staticClass: "form-control rounded-0",
+      staticClass: "form-control border-0",
       attrs: { type: "text", name: "l", placeholder: _vm.placeholder },
       domProps: { value: _vm.value },
       on: { input: _vm.search }
@@ -750,7 +750,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "position-relative" }, [
     _c("input", {
-      staticClass: "form-control border-right-0 rounded-left",
+      staticClass: "form-control border-0 rounded-left",
       attrs: { type: "text", name: "s", placeholder: _vm.placeholder },
       domProps: { value: _vm.value },
       on: { input: _vm.search }

@@ -2,13 +2,14 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
     protected $guarded = ['tags', 'state', 'city'];
 
-    protected $appends = ['posted_at'];
+    protected $appends = ['posted_at', 'availibility'];
 
     protected $hidden = ['user_id'];
     
@@ -95,6 +96,15 @@ class Post extends Model
     public function getPostedAtAttribute()
     {
         return $this->created_at->diffforhumans();
+    }
+
+    public function getAvailibilityAttribute()
+    {
+        if(!$this->end_at || $this->end_at < date('Y-m-d')) return '申请已过期';
+
+        if($this->end_at == date('Y-m-d')) return '申请将于今日截止';
+
+        return '申请截止于'.Carbon::createFromFormat('Y-m-d', $this->end_at)->diffInDays(Carbon::now()).'天后';
     }
 
     public function getWechatDescriptionAttribute()

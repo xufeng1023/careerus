@@ -3,26 +3,37 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
+        <nav class="navbar navbar-expand-md navbar-light p-0 bg-white">
+            <div class="container align-items-stretch">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="{{ asset('images/logo.png') }}" alt="careerus logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    @if(str_contains(url()->current(), ['job', 'dashboard']))
-                        @include('_search')
-                    @endif
+                <div class="collapse navbar-collapse align-items-stretch" id="navbarSupportedContent">
+
+                    <ul class="navbar-nav">
+                        <li>
+                            <a class="nav-link {{ url()->current() === url('/')? 'active' : '' }}" href="{{ url('/') }}" title="首页">首页</a>
+                        </li>
+                        <li>
+                            <a class="nav-link {{ str_contains(url()->current(), 'blog')? 'active' : '' }}" href="{{ url('blog') }}" title="求职攻略">{{ __('admin.blog') }}</a>
+                        </li>
+                        <li>
+                            <a class="nav-link {{ str_contains(url()->current(), urlencode('绿卡排期'))? 'active' : '' }}" href="{{ url('绿卡排期') }}" title="绿卡排期">{{ __('front.visa bulletin') }}</a>
+                        </li>
+                    </ul>
 
                     <ul class="navbar-nav ml-auto">
-                        <li><a class="nav-link" href="{{ url('blog') }}" title="求职攻略">{{ __('admin.blog') }}</a></li>
-                        <li><a class="nav-link" href="{{ url('绿卡排期') }}" title="绿卡排期">{{ __('front.visa bulletin') }}</a></li>
-                        @guest
-                            <li><a class="nav-link" href="{{ route('register') }}" title="上传简历至HR">{{ __('front.register') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('login') }}" title="登入账号">{{ __('front.login') }}</a></li>
+                    @guest
+                            <li>
+                                <a class="nav-link {{ str_contains(url()->current(), 'register')? 'active' : '' }}" href="{{ route('register') }}" title="上传简历至HR">{{ __('front.register') }}</a>
+                            </li>
+                            <li>
+                                <a class="nav-link {{ str_contains(url()->current(), 'login')? 'active' : '' }}" href="{{ route('login') }}" title="登入账号">{{ __('front.login') }}</a>
+                            </li>
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -64,6 +75,23 @@
             </div>
         </nav>
 
+        @if(url()->current() === url('/') || str_contains(url()->current(), 'job'))
+            <header class="pt-5 pb-4">
+                <div class="container">
+                    @include('_search')
+                    <nav class="nav justify-content-center mt-1">
+                        <a class="nav-link text-secondary">热门搜索:</a>
+                        <a class="nav-link" href="/jobs?s=会计">会计</a>
+                        <a class="nav-link" href="/jobs?s=文职">文职</a>
+                        <a class="nav-link" href="/jobs?s=市场营销">市场营销</a>
+                        <a class="nav-link" href="/jobs?s=金融">金融</a>
+                        <a class="nav-link" href="/jobs?s=管理">管理</a>
+                        <a class="nav-link" href="/jobs?s=软件工程">软件工程</a>
+                    </nav>
+                </div>               
+            </header>
+        @endif
+
         @yield('submenu')
 
         <main class="py-4">@yield('content')</main>
@@ -77,8 +105,6 @@
         </footer>
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
-    <!-- <script src="https://js.stripe.com/v3/"></script>
-    <script>window.stripe = Stripe('pk_test_SJpv8Y537mDjHvJY5ri7YRir')</script> -->
     @yield('script')
 </body>
 </html>

@@ -12,24 +12,24 @@ class PostController extends Controller
     {
         $categories = DB::table('catagories')->select('name')->whereIn('id', 
             DB::table('posts')->select('catagory_id')->orderByRaw('count(catagory_id)', 'desc')->groupBy('catagory_id')
-        )->take(10)->get()->pluck('name');
+        )->take(16)->get()->pluck('name');
 
-        $newJobs = Post::select('chinese_title', 'title', 'identity')->latest()->take(10)->get();
+        $newJobs = Post::with('company')->whereRaw('end_at >= '.date('Y-m-d'))->latest()->get();
 
         $recommendedJobs = Post::select('chinese_title', 'title', 'identity')->where('recommended', 1)->take(10)->get();
 
-        $hotSpots = ['New York' => '纽约', 'California' => '加州'];
+        $locations = State::where('simplified_name','<>', null)->take(12)->get();
 
         $hotTags = DB::table('tags')->select('name')->whereIn('id', 
             DB::table('post_tag')->select('tag_id')->orderByRaw('count(tag_id)', 'desc')->groupBy('tag_id')
         )->take(10)->get()->pluck('name');
 
-        return view('welcome', compact('categories', 'newJobs', 'hotSpots', 'hotTags', 'recommendedJobs'));
+        return view('welcome', compact('categories', 'newJobs', 'locations', 'hotTags', 'recommendedJobs'));
     }
 
     public function searchBarJob()
     {
-        return Post::select('title', 'chinese_title', 'identity')
+        return Post::select('title', 'chinese_title', 'identity', 'created_at', 'end_at')
             ->where('title', 'LIKE', request('s').' %')
             ->orWhere('title', 'LIKE', '% '.request('s'))
             ->orWhere('title', 'LIKE', '% '.request('s').' %')
@@ -52,7 +52,7 @@ class PostController extends Controller
             return !is_null($value);
         });
 
-        if(!array_except($filtered, ['page'])) return redirect('/');
+        //if(!array_except($filtered, ['page'])) return redirect('/');
 
         $query = Post::with('company.visaJobs');
 
@@ -105,7 +105,7 @@ class PostController extends Controller
                 $locationTitleChinese = $state->simplified_name;
             }
             $query = $query->where(function($query) use($location) {
-                $query->where('location', 'LIKE', '%'.$location)->orWhere('location', 'LIKE', $location.'%');
+                $query->where('location', 'LIKE', '%'.$location);
             });
         }
 
@@ -130,14 +130,11 @@ class PostController extends Controller
 
         $categories = Post::all()->unique('catagory_id')->pluck('catagory.name');
 
-        // $locations = Post::all()->unique('location')->pluck('location');
-        // $locations = $locations->filter(function($val, $inx) {
-        //     return preg_match('/^[a-zA-Z]+\,[A-Z]{2}$/', $val);
-        // });
+        $locations = State::all();
 
         $types = ['Full-time', 'Part-time', 'Internship'];
 
-        return view('posts', compact('posts', 'categories', 'types', 'locationTitleChinese'));
+        return view('posts', compact('posts', 'categories', 'types', 'locations', 'locationTitleChinese'));
     }
 
     public function show(Post $post)

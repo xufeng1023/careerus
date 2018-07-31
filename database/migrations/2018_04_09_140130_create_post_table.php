@@ -30,6 +30,7 @@ class CreatePostTable extends Migration
             $table->unsignedTinyInteger('sponsor_odds')->default(0);
             $table->boolean('recommended')->default(0);
             $table->timestamps();
+            $table->date('end_at')->nullable();
 
             $table->foreign('user_id')
                 ->references('id')->on('users');

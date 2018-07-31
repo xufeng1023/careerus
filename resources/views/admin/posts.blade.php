@@ -79,7 +79,7 @@
         <form method="POST" action="/admin/post/{{ request('id')? 'update/'.request('id') : 'add' }}" autocomplete="off">
             @csrf
             <div class="form-group">
-                <label class="col-form-label">{{ __('admin.job title') }}</label>
+                <label class="col-form-label">英文标题</label>
 
                 <input type="text" class="form-control" name="title" value="{{ request('id')? $posts[0]->title: '' }}">
             </div>
@@ -208,6 +208,12 @@
                         <input class="form-check-input" type="radio" name="job_type" id="radio-internship" value="Internship" {{ request('id') && ($posts[0]->job_type == "Internship")? 'checked' : '' }} required>
                         <label class="form-check-label" for="radio-internship">Internship</label>
                     </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <label class="col-form-label">申请截止日期</label>
+
+                    <input type="date" class="form-control" name="end_at" value="{{ request('id')? $posts[0]->end_at: '' }}" required>
                 </div>
             </div>
 

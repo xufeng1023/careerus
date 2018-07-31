@@ -10625,6 +10625,50 @@ body {
   font-family: "Helvetica", sans-serif;
 }
 
+a {
+  color: #192e58;
+}
+
+.page-item.active .page-link {
+  background-color: #fede00;
+  border-color: #fede00;
+}
+
+header,
+#filter {
+  background-color: #eaedef;
+}
+
+header nav a.nav-link {
+  padding-bottom: 0;
+}
+
+.navbar-brand {
+  padding: 0.5rem 0;
+}
+
+.navbar-brand img {
+  width: 130px;
+}
+
+.navbar-nav li {
+  padding: 0 1rem;
+}
+
+.navbar-nav li > a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+}
+
+.navbar-nav li > a.active {
+  border-bottom: 2px solid #fede00;
+}
+
 form.filled svg {
   fill: #007bff;
 }
@@ -10681,12 +10725,6 @@ caption {
   color: #007bff !important;
 }
 
-.navbar-laravel {
-  background-color: #fff;
-  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
-
 .feather {
   width: 16px;
   height: 16px;
@@ -10703,10 +10741,6 @@ caption {
 
 .modal-body {
   padding: 1rem 2rem;
-}
-
-.border-search {
-  border: 1px solid #ced4da !important;
 }
 
 .box-shadow {
@@ -10731,6 +10765,20 @@ div.throw {
   left: 50%;
   opacity: 0.3;
   will-change: transform, opacity;
+}
+
+#searchForm .position-relative {
+  -webkit-box-shadow: 0px 0px 1px 0px #949494;
+          box-shadow: 0px 0px 1px 0px #949494;
+}
+
+#searchForm input:first-child {
+  border-right: 1px solid #f2f4f5 !important;
+}
+
+#searchForm button[type=submit] {
+  background-color: #192e58;
+  border: 1px solid #192e58;
 }
 
 @media screen and (max-width: 736px) {
