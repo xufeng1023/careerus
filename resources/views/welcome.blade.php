@@ -10,7 +10,7 @@
             <div class="col-sm-4 mb-5">
                 <h2 class="h4 text-muted d-flex align-items-center">
                     <span data-feather="grid"></span><small>&nbsp;工作领域</small>
-                    <a href="/jobs?s=&l=" class="ml-auto h6 m-0">查看更多</a>
+                    <a href="/jobs?s=&l=" class="ml-auto h6 m-0">>>></a>
                 </h2><hr>
                 <div class="row">
                     @foreach($categories as $category)
@@ -21,7 +21,7 @@
                 </div><br>
                 <h2 class="h4 text-muted d-flex align-items-center">
                     <span data-feather="map-pin"></span><small>&nbsp;地点</small>
-                    <a href="/jobs?s=&l=" class="ml-auto h6 m-0">查看更多</a>
+                    <a href="/jobs?s=&l=" class="ml-auto h6 m-0">>>></a>
                 </h2><hr>
                 <div class="row">
                     @foreach($locations as $lo)
@@ -55,12 +55,13 @@
 
         <h2 class="h4 text-muted d-flex align-items-center">
             <span data-feather="list"></span><small>&nbsp;最新工作</small>
+            <a href="/jobs?s=&l=" class="ml-auto h6 m-0">>>></a>
         </h2><hr>
 
         <div class="row">
             @foreach($newJobs as $key => $job)
                 <div class="col-sm-4">
-                    <div class="card">
+                    <div class="card mb-3">
                         <div class="card-body">
                             <a href="{{ $job->link() }}">
                                 <h5 class="card-title mb-0">{{ $job->chinese_title ?: $job->title }}</h5>
