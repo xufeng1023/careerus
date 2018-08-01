@@ -110,6 +110,5 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('js/search.js') }}"></script>
 <script src="{{ asset('js/account.js') }}"></script>
 @endsection

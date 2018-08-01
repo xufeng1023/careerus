@@ -29,7 +29,6 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('js/search.js') }}"></script>
 <script>
     function cancelFavorite(e) {
         e.preventDefault();

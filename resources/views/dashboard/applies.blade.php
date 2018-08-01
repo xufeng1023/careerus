@@ -24,7 +24,3 @@
     {{ $applies->links() }}
 </div>
 @endsection
-
-@section('script')
-<script src="{{ asset('js/search.js') }}"></script>
-@endsection
