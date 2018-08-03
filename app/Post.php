@@ -85,7 +85,7 @@ class Post extends Model
 
     public function setChineseTitleAttribute($value)
     {
-        $this->attributes['chinese_title'] = trim(str_replace('/','', stripslashes($value)));
+        $this->attributes['chinese_title'] = trim(str_replace('/','', stripslashes(preg_replace("/ +/", ' ', $value))));
     }
 
     public function setLocationAttribute($value)

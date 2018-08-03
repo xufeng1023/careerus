@@ -119,6 +119,19 @@ class UserTest extends TestCase
         $this->get('/admin');
     }
 
+    public function test_post_title_will_strip_off_extra_spaces()
+    {
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $post = raw('Post', ['user_id' => $admin->id, 'title' => 'A  B', 'chinese_title' => 'A  B标题']);
+
+        $this->post('/admin/post/add', $post);
+
+        $this->assertDatabaseHas('posts', ['title' => 'A B', 'chinese_title' => 'A B标题']);
+    }
+
     public function test_admin_can_add_a_post_without_tags()
     {
         $this->login(
