@@ -86,7 +86,7 @@
                         <a class="nav-link" href="/jobs?s=市场营销">市场营销</a>
                         <a class="nav-link" href="/jobs?s=金融">金融</a>
                         <a class="nav-link" href="/jobs?s=管理">管理</a>
-                        <a class="nav-link" href="/jobs?s=软件工程">软件工程</a>
+                        <a class="nav-link" href="/jobs?s=程序员">程序员</a>
                     </nav>
                 </div>               
             </header>

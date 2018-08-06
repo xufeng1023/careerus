@@ -131,6 +131,15 @@ class PostController extends Controller
                 });
             }
         }
+
+        if(!request('t') && request('s')) {
+            $tag = Tag::where('name', $filtered['s'])->first();
+            if($tag) {
+                $query = $query->whereExists(function($q) use($tag) {
+                    $q->select('post_id')->from('post_tag')->where('tag_id', $tag->id)->whereRaw('post_tag.post_id = posts.id');
+                });
+            }
+        }
  
         $posts = $query->latest()->paginate(10);
 
