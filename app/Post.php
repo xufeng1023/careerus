@@ -95,7 +95,7 @@ class Post extends Model
 
     public function getPostedAtAttribute()
     {
-        return $this->created_at->diffforhumans();
+        return $this->created_at? $this->created_at->diffforhumans() : '';
     }
 
     public function getAvailibilityAttribute()

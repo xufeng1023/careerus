@@ -8,17 +8,27 @@ use App\{Post, Catagory, Tag, State, Favorite};
 
 class PostController extends Controller
 {
+    protected $locations = [
+        'ny' => '纽约', 'San Francisco' => '圣弗朗西期', 'Los Angeles' => '洛杉矶',
+        'Atlanta' => '亚特兰大', 'Chicago' => '芝加哥', 'Boston' => '波士顿',
+        'Houston' => '休斯顿', 'Seattle' => '西雅图', 'Dallas' => '达拉斯',
+        'Austin' => '奥斯丁', 'nj' => '新泽西', 'Washington' => '华盛顿',
+        'San Diego' => 'San Diego', 'Bellevue' => 'Bellevue', 'San Jose' => 'San Jose',
+        'Mountian View' => 'Mountian View', 'Palo Alto' => 'Palo Alto', 'Columbus' => 'Columbus',
+        'Richardson' => 'Richardson'
+    ];
+
     public function index()
     {
-        $categories = DB::table('catagories')->select('name')->whereIn('id', 
-            DB::table('posts')->select('catagory_id')->orderByRaw('count(catagory_id)', 'desc')->groupBy('catagory_id')
-        )->take(16)->get()->pluck('name');
+        $categories = (new Catagory)->orderByMostUsed();
 
         $newJobs = Post::with('company')->whereRaw('end_at >= '.date('Y-m-d'))->latest()->take(9)->get();
 
         $recommendedJobs = Post::select('chinese_title', 'title', 'identity')->where('recommended', 1)->take(10)->get();
-
-        $locations = State::where('simplified_name','<>', null)->take(12)->get();
+        
+        //$locations = Post::select(DB::raw('count(id) as total'), 'location')->groupBy('location')->orderBy('total', 'desc')->take(9)->get(); 
+        
+        $locations = array_splice($this->locations, 0, 9);
 
         $hotTags = DB::table('tags')->select('name')->whereIn('id', 
             DB::table('post_tag')->select('tag_id')->orderByRaw('count(tag_id)', 'desc')->groupBy('tag_id')
@@ -105,7 +115,7 @@ class PostController extends Controller
                 $locationTitleChinese = $state->simplified_name;
             }
             $query = $query->where(function($query) use($location) {
-                $query->where('location', 'LIKE', '%'.$location);
+                $query->where('location', 'LIKE', '%,'.$location)->orWhere('location', 'LIKE', $location.'%');
             });
         }
 
@@ -128,9 +138,9 @@ class PostController extends Controller
         //     $q->select('tag_id')->from('post_tag')->whereRaw('post_tag.tag_id = tags.id');
         // })->get();
 
-        $categories = Post::all()->unique('catagory_id')->pluck('catagory.name');
+        $categories = (new Catagory)->orderByMostUsed();
 
-        $locations = State::all();
+        $locations = $this->locations;
 
         $types = ['Full-time', 'Part-time', 'Internship'];
 

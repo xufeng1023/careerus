@@ -13,8 +13,8 @@
                     <a href="/jobs?s=&l=" class="ml-auto h6 m-0">>>></a>
                 </h2><hr>
                 <div class="row">
-                    @foreach($categories as $category)
-                        <div class="col-3">
+                    @foreach($categories->take(9) as $category)
+                        <div class="col-4">
                             <a href="/jobs?ct={{ $category }}" class="d-block">{{ $category }}</a>
                         </div>
                     @endforeach
@@ -24,9 +24,9 @@
                     <a href="/jobs?s=&l=" class="ml-auto h6 m-0">>>></a>
                 </h2><hr>
                 <div class="row">
-                    @foreach($locations as $lo)
+                    @foreach($locations as $key => $lo)
                         <div class="col-4">
-                            <a href="/jobs?l={{ $lo->simplified_name }}" class="d-block">{{ $lo->simplified_name }}</a>
+                            <a href="/jobs?l={{ $key }}" class="d-block">{{ $lo }}</a>
                         </div>
                     @endforeach
                 </div>

@@ -29,14 +29,16 @@
                             <a href="/jobs?s={{ request('s') }}&ct={{ $cat }}&tp={{ request('tp') }}&l={{ request('l') }}" 
                             class="badge {{ request('ct') == $cat? 'badge-dark' : '' }}">{{ $cat }}</a>
                         @endforeach
+                        <a href="/jobs?s={{ request('s') }}&ct=其他&tp={{ request('tp') }}&l={{ request('l') }}" 
+                            class="badge {{ request('ct') == '其他'? 'badge-dark' : '' }}">其他</a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-auto">地点:</div>
                     <div class="col pl-0">
-                        @foreach($locations as $location)
-                            <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ request('tp') }}&l={{ $location->simplified_name }}" 
-                            class="badge {{ request('l') == $location->simplified_name? 'badge-dark' : '' }}">{{ $location->simplified_name }}</a>
+                        @foreach($locations as $key => $location)
+                            <a href="/jobs?s={{ request('s') }}&ct={{ request('ct') }}&tp={{ request('tp') }}&l={{ $key }}" 
+                            class="badge {{ request('l') == $key? 'badge-dark' : '' }}">{{ $location }}</a>
                         @endforeach
                     </div>
                 </div>

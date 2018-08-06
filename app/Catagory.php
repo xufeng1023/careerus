@@ -20,4 +20,15 @@ class Catagory extends Model
         $this->posts->each->remove();
         $this->delete();
     }
+
+    public function orderByMostUsed()
+    {
+        $categories = static::all()->sortByDesc(function ($category, $key) {
+            return count($category['posts']);
+        })->pluck('name');
+
+        return $categories->filter(function($val) {
+            return $val != '其他';
+        });
+    }
 }
