@@ -90,5 +90,5 @@ return [
     'update' => '更新',
     'updated ok' => '更新成功',
     'visa bulletin' => '绿卡排期',
-    'we guess sponsor odds' => '内部预测今年该职位Sponsor概率为: ',
+    'we guess sponsor odds' => 'H1B Sponsor概率: ',
 ];

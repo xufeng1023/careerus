@@ -14,7 +14,7 @@ class PostController extends Controller
             DB::table('posts')->select('catagory_id')->orderByRaw('count(catagory_id)', 'desc')->groupBy('catagory_id')
         )->take(16)->get()->pluck('name');
 
-        $newJobs = Post::with('company')->whereRaw('end_at >= '.date('Y-m-d'))->latest()->take(6)->get();
+        $newJobs = Post::with('company')->whereRaw('end_at >= '.date('Y-m-d'))->latest()->take(9)->get();
 
         $recommendedJobs = Post::select('chinese_title', 'title', 'identity')->where('recommended', 1)->take(10)->get();
 

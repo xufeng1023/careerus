@@ -8,6 +8,11 @@ body{
 a {
   color:#192e58;
 }
+input, textarea {
+  outline: none;
+  box-shadow:none !important;
+  border:1px solid #ccc !important;
+}
 .page-item.active .page-link {
   background-color: #fede00;
   border-color: #fede00;
