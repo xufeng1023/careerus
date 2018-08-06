@@ -82,11 +82,11 @@
                     <nav class="nav justify-content-center mt-1">
                         <a class="nav-link text-secondary">热门搜索:</a>
                         <a class="nav-link" href="/jobs?s=会计">会计</a>
-                        <a class="nav-link" href="/jobs?s=文职">文职</a>
-                        <a class="nav-link" href="/jobs?s=市场营销">市场营销</a>
+                        <a class="nav-link" href="/jobs?s=销售">销售</a>
+                        <a class="nav-link" href="/jobs?s=数据分析">数据分析</a>
                         <a class="nav-link" href="/jobs?s=金融">金融</a>
                         <a class="nav-link" href="/jobs?s=管理">管理</a>
-                        <a class="nav-link" href="/jobs?s=程序员">程序员</a>
+                        <a class="nav-link" href="/jobs?s=engineer">Engineer</a>
                     </nav>
                 </div>               
             </header>
