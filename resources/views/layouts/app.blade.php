@@ -83,9 +83,9 @@
                         <a class="nav-link text-secondary">热门搜索:</a>
                         <a class="nav-link" href="/jobs?s=会计">会计</a>
                         <a class="nav-link" href="/jobs?s=销售">销售</a>
-                        <a class="nav-link" href="/jobs?s=数据分析">数据分析</a>
-                        <a class="nav-link" href="/jobs?s=金融">金融</a>
-                        <a class="nav-link" href="/jobs?s=管理">管理</a>
+                        <a class="nav-link" href="/jobs?s=数据">数据</a>
+                        <a class="nav-link" href="/jobs?s=工程师">工程师</a>
+                        <a class="nav-link" href="/jobs?s=分析师">分析师</a>
                         <a class="nav-link" href="/jobs?s=engineer">Engineer</a>
                     </nav>
                 </div>               
