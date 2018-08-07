@@ -40,6 +40,17 @@ header nav a.nav-link {
 .navbar-nav li>a.active {
   border-bottom: 2px solid #fede00;
 }
+.hand {
+  cursor: pointer;
+}
+#back-to-top {
+  width: 50px;
+  height: 50px;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 999;
+  visibility: hidden;
+}
 .timeline {
   background: #92badd;
   color: #fff;

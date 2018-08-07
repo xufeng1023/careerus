@@ -57,6 +57,9 @@
         </div>
     </div>
 </div>
+<div id="back-to-top" class="position-fixed d-flex justify-content-center align-items-center rounded bg-white hand">
+    <span data-feather="arrow-up"></span>
+</div>
 @endsection
 
 @section('script')
@@ -64,12 +67,17 @@
 <script>
     
     const ul = $('#post-list');
+    const topBtn = $('#back-to-top');
     const dates = [];
     var offset = 0;
     var timeout;
     var isEnd = false;
 
     fetch();
+
+    topBtn.click(function() {
+        $("html, body").animate({ scrollTop: "0px" });
+    });
 
     function fetch() {
         if(isEnd) return;
@@ -111,6 +119,9 @@
                             fetch();
                         }, 60);
                     }
+
+                    if(window.scrollY >= 350) topBtn.css('visibility', 'visible');
+                    else topBtn.css('visibility', 'hidden');
                 });
             }
         });
