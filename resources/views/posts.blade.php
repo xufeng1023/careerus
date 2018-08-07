@@ -95,9 +95,8 @@
                         ul.append('<div class="alert m-0 timeline">'+post.chineseDate+'</div>');
                     }
                     var li = '<li class="list-group-item">';
-                    li += '<h2 class="h6 m-0">';
-                    li += '<a href="'+post.path+'">'+post.showTitle+'</a>';
-                    li += '</h2>';
+                    li += '<a href="'+post.path+'">';
+                    li += '<h2 class="h6 m-0">'+post.showTitle+'</h2>';
                     li += '<div class="d-flex justify-content-between">';
                     li += '<small>'+post.company.name+' - '+post.location+'</small>';
                     li += '</div>';
@@ -106,6 +105,7 @@
                     li += '<div class="small text-muted">h1b sponsor odds '+post.sponsor_odds+'%</div>';
                     li += '<div class="small text-danger">'+post.availibility+'</div>';
                     li += '</div>';
+                    li += '</a>';
                     li += '</li>';
                     ul.append(li);
                 });

@@ -10629,6 +10629,10 @@ a {
   color: #192e58;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 input,
 textarea {
   outline: none;
