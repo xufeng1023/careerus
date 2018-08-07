@@ -65,7 +65,7 @@
 /************************************************************************/
 /******/ ({
 
-/***/ 20:
+/***/ 21:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/*!
@@ -11557,11 +11557,11 @@ module.exports = __webpack_require__(63);
 /***/ })
 /******/ ])["default"];
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(22).Buffer))
 
 /***/ }),
 
-/***/ 21:
+/***/ 22:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11575,9 +11575,9 @@ module.exports = __webpack_require__(63);
 
 
 
-var base64 = __webpack_require__(22)
-var ieee754 = __webpack_require__(23)
-var isArray = __webpack_require__(24)
+var base64 = __webpack_require__(23)
+var ieee754 = __webpack_require__(24)
+var isArray = __webpack_require__(25)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -13359,7 +13359,7 @@ function isnan (val) {
 
 /***/ }),
 
-/***/ 22:
+/***/ 23:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13483,7 +13483,25 @@ function fromByteArray (uint8) {
 
 /***/ }),
 
-/***/ 23:
+/***/ 231:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(232);
+
+
+/***/ }),
+
+/***/ 232:
+/***/ (function(module, exports, __webpack_require__) {
+
+var quill = __webpack_require__(21);
+
+window.Quill = new quill('#editor');
+window.Quill.enable(false);
+
+/***/ }),
+
+/***/ 24:
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -13574,25 +13592,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 /***/ }),
 
-/***/ 231:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(232);
-
-
-/***/ }),
-
-/***/ 232:
-/***/ (function(module, exports, __webpack_require__) {
-
-var quill = __webpack_require__(20);
-
-window.Quill = new quill('#editor');
-window.Quill.enable(false);
-
-/***/ }),
-
-/***/ 24:
+/***/ 25:
 /***/ (function(module, exports) {
 
 var toString = {}.toString;

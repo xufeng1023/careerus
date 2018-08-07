@@ -12,6 +12,10 @@ class Post extends Model
     protected $appends = ['posted_at', 'availibility'];
 
     protected $hidden = ['user_id'];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d'
+    ];
     
     public function creator()
     {
@@ -91,6 +95,26 @@ class Post extends Model
     public function setLocationAttribute($value)
     {
         $this->attributes['location'] = preg_replace("/, /", ',', $value);
+    }
+
+    public function getExcerptAttribute()
+    {
+        return str_limit(html_entity_decode(strip_tags($this->chinese_description? $this->chinese_description : $this->description)), 120);
+    }
+
+    public function getShowTitleAttribute()
+    {
+        return $this->chinese_title ? $this->chinese_title : $this->title;
+    }
+
+    public function getPathAttribute()
+    {
+        return $this->link();
+    }
+
+    public function getChineseDateAttribute()
+    {
+        return $this->created_at->format('Y年m月d日');
     }
 
     public function getPostedAtAttribute()

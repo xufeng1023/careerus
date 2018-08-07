@@ -56,15 +56,28 @@ class PostController extends Controller
 
     public function all()
     {
-        $locationTitleChinese = '';
+        // $usedTags = Tag::whereExists(function($q) {
+        //     $q->select('tag_id')->from('post_tag')->whereRaw('post_tag.tag_id = tags.id');
+        // })->get();
 
+        $categories = (new Catagory)->orderByMostUsed();
+
+        $locations = $this->locations;
+
+        $types = ['Full-time', 'Part-time', 'Internship'];
+
+        return view('posts', compact('categories', 'types', 'locations'));
+    }
+
+    public function fetch()
+    {
         $filtered = array_where(request()->all(), function ($value, $key) {
             return !is_null($value);
         });
 
         //if(!array_except($filtered, ['page'])) return redirect('/');
 
-        $query = Post::with('company.visaJobs');
+        $query = Post::with(['company']);
 
         $chinese = new Chinese();
 
@@ -110,10 +123,7 @@ class PostController extends Controller
 
         if(isset($location)) {
             $state = State::where('simplified_name', 'LIKE', $location.'%')->orWhere('STATE_NAME', 'LIKE', $location.'%')->first();
-            if($state) {
-                $location = $state->STATE_CODE;
-                $locationTitleChinese = $state->simplified_name;
-            }
+            
             $query = $query->where(function($query) use($location) {
                 $query->where('location', 'LIKE', '%,'.$location)->orWhere('location', 'LIKE', $location.'%');
             });
@@ -141,19 +151,30 @@ class PostController extends Controller
             }
         }
  
-        $posts = $query->latest()->paginate(10);
+        $posts = $query->latest()->offset(request('offset'))->take(15)->get();
 
-        // $usedTags = Tag::whereExists(function($q) {
-        //     $q->select('tag_id')->from('post_tag')->whereRaw('post_tag.tag_id = tags.id');
-        // })->get();
-
-        $categories = (new Catagory)->orderByMostUsed();
-
-        $locations = $this->locations;
-
-        $types = ['Full-time', 'Part-time', 'Internship'];
-
-        return view('posts', compact('posts', 'categories', 'types', 'locations', 'locationTitleChinese'));
+        if(count($posts)) {
+            $posts->each->setAppends(['excerpt', 'path', 'showTitle', 'posted_at', 'availibility', 'chineseDate']);
+            return $posts;
+        }
+        else {
+            $error = trans('front.no job found');
+            if(request('s')) {
+                $error .= trans('front.no job found s', ['value' => request('s')]);
+            }
+            if(request('tp')) {
+                $error .= trans('front.no job found tp', ['value' => request('tp')]);
+            }
+            if(request('ct')) {
+                $error .= trans('front.no job found ct', ['value' => request('ct')]);
+            }
+            if(request('l')) {
+                $error .= trans('front.no job found l', ['value' => request('l')]);
+            }
+            $error .= trans('front.no job found2');
+            
+            return response($error, 404);
+        }
     }
 
     public function show(Post $post)

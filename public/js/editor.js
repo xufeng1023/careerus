@@ -65,7 +65,7 @@
 /************************************************************************/
 /******/ ({
 
-/***/ 20:
+/***/ 21:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/*!
@@ -11557,11 +11557,11 @@ module.exports = __webpack_require__(63);
 /***/ })
 /******/ ])["default"];
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(22).Buffer))
 
 /***/ }),
 
-/***/ 21:
+/***/ 22:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11575,9 +11575,9 @@ module.exports = __webpack_require__(63);
 
 
 
-var base64 = __webpack_require__(22)
-var ieee754 = __webpack_require__(23)
-var isArray = __webpack_require__(24)
+var base64 = __webpack_require__(23)
+var ieee754 = __webpack_require__(24)
+var isArray = __webpack_require__(25)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -13359,7 +13359,15 @@ function isnan (val) {
 
 /***/ }),
 
-/***/ 22:
+/***/ 229:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(230);
+
+
+/***/ }),
+
+/***/ 23:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13483,15 +13491,32 @@ function fromByteArray (uint8) {
 
 /***/ }),
 
-/***/ 229:
+/***/ 230:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(230);
+var toolbarOptions = [['bold', 'italic', 'underline', 'strike'], // toggled buttons
+['blockquote'], [{ 'header': 1 }, { 'header': 2 }], // custom button values
+[{ 'list': 'ordered' }, { 'list': 'bullet' }], [{ 'script': 'sub' }, { 'script': 'super' }], // superscript/subscript
+[{ 'indent': '-1' }, { 'indent': '+1' }], // outdent/indent
 
+[{ 'size': ['small', false, 'large', 'huge'] }], // custom dropdown
+[{ 'header': [1, 2, 3, 4, 5, 6, false] }], [{ 'color': [] }, { 'background': [] }], // dropdown with defaults from theme
+[{ 'font': [] }], [{ 'align': [] }], ['clean'] // remove formatting button
+];
+
+var quill = __webpack_require__(21);
+window.Delta = quill.import('delta');
+
+window.Quill = new quill('#editor', {
+    theme: 'snow',
+    modules: {
+        toolbar: toolbarOptions
+    }
+});
 
 /***/ }),
 
-/***/ 23:
+/***/ 24:
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -13582,32 +13607,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 /***/ }),
 
-/***/ 230:
-/***/ (function(module, exports, __webpack_require__) {
-
-var toolbarOptions = [['bold', 'italic', 'underline', 'strike'], // toggled buttons
-['blockquote'], [{ 'header': 1 }, { 'header': 2 }], // custom button values
-[{ 'list': 'ordered' }, { 'list': 'bullet' }], [{ 'script': 'sub' }, { 'script': 'super' }], // superscript/subscript
-[{ 'indent': '-1' }, { 'indent': '+1' }], // outdent/indent
-
-[{ 'size': ['small', false, 'large', 'huge'] }], // custom dropdown
-[{ 'header': [1, 2, 3, 4, 5, 6, false] }], [{ 'color': [] }, { 'background': [] }], // dropdown with defaults from theme
-[{ 'font': [] }], [{ 'align': [] }], ['clean'] // remove formatting button
-];
-
-var quill = __webpack_require__(20);
-window.Delta = quill.import('delta');
-
-window.Quill = new quill('#editor', {
-    theme: 'snow',
-    modules: {
-        toolbar: toolbarOptions
-    }
-});
-
-/***/ }),
-
-/***/ 24:
+/***/ 25:
 /***/ (function(module, exports) {
 
 var toString = {}.toString;

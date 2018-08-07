@@ -4583,7 +4583,7 @@
 "use strict";
 
 
-module.exports = __webpack_require__(10);
+module.exports = __webpack_require__(11);
 module.exports.easing = __webpack_require__(179);
 module.exports.canvas = __webpack_require__(180);
 module.exports.options = __webpack_require__(181);
@@ -5251,7 +5251,8 @@ module.exports = {
 
 
 /***/ }),
-/* 10 */
+/* 10 */,
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5597,7 +5598,6 @@ helpers.getValueAtIndexOrDefault = helpers.valueAtIndexOrDefault;
 
 
 /***/ }),
-/* 11 */,
 /* 12 */,
 /* 13 */,
 /* 14 */,
@@ -19100,7 +19100,7 @@ module.exports = function() {
 "use strict";
 
 
-var helpers = __webpack_require__(10);
+var helpers = __webpack_require__(11);
 
 /**
  * Easing functions adapted from Robert Penner's easing equations.
@@ -19357,7 +19357,7 @@ helpers.easingEffects = effects;
 "use strict";
 
 
-var helpers = __webpack_require__(10);
+var helpers = __webpack_require__(11);
 
 /**
  * @namespace Chart.helpers.canvas
@@ -19578,7 +19578,7 @@ helpers.drawRoundedRectangle = function(ctx) {
 "use strict";
 
 
-var helpers = __webpack_require__(10);
+var helpers = __webpack_require__(11);
 
 /**
  * @alias Chart.helpers.options

@@ -40,6 +40,12 @@ header nav a.nav-link {
 .navbar-nav li>a.active {
   border-bottom: 2px solid #fede00;
 }
+.timeline {
+  background: #92badd;
+  color: #fff;
+  border-radius: 0;
+  box-shadow: inset 0px 5px 10px -8px #333;
+}
 form.filled svg {
   fill: #007bff;
 }

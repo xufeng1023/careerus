@@ -10,6 +10,7 @@
     "/js/admin.js": "/js/admin.js",
     "/js/editor.js": "/js/editor.js",
     "/js/blog.js": "/js/blog.js",
+    "/js/timeline.js": "/js/timeline.js",
     "/js/pie.js": "/js/pie.js",
     "/js/animate-throw.js": "/js/animate-throw.js",
     "/js/account.js": "/js/account.js"
