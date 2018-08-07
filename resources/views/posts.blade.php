@@ -62,12 +62,15 @@
 @section('script')
 <script src="{{ asset('js/search.js') }}"></script>
 <script>
+    
     const ul = $('#post-list');
     const dates = [];
     var offset = 0;
     var timeout;
     var isEnd = false;
+
     fetch();
+
     function fetch() {
         if(isEnd) return;
         $.ajax('/fetch/post'+location.search, {
@@ -99,17 +102,18 @@
                     li += '</li>';
                     ul.append(li);
                 });
+            },
+            complete: function() {
+                $(window).scroll(function() {
+                    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                        clearTimeout(timeout);
+                        timeout = setTimeout(() => {
+                            fetch();
+                        }, 60);
+                    }
+                });
             }
         });
     }
-    
-    $(window).scroll(function() {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => {
-                fetch();
-            }, 60);
-        }
-    });
 </script>
 @endsection

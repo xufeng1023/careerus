@@ -154,7 +154,8 @@ class PostController extends Controller
         $posts = $query->latest()->offset(request('offset'))->take(15)->get();
 
         if(count($posts)) {
-            $posts->each->setAppends(['excerpt', 'path', 'showTitle', 'posted_at', 'availibility', 'chineseDate']);
+            $posts->each->setAppends(['excerpt', 'path', 'showTitle', 'posted_at', 'availibility', 'chineseDate'])
+                ->makeHidden(['description', 'chinese_description']);
             return $posts;
         }
         else {
