@@ -100,11 +100,10 @@
                     li += '</h2>';
                     li += '<div class="d-flex justify-content-between">';
                     li += '<small>'+post.company.name+' - '+post.location+'</small>';
-                    li += '<small>'+post.sponsor_odds+'% sponsor odds</small>';
                     li += '</div>';
                     li += '<div class="text-muted h6 job-excerpt">'+post.excerpt+'</div>';
                     li += '<div class="d-flex justify-content-between">';
-                    li += '<div class="small text-muted">'+post.posted_at+'</div>';
+                    li += '<div class="small text-muted">h1b sponsor odds '+post.sponsor_odds+'%</div>';
                     li += '<div class="small text-danger">'+post.availibility+'</div>';
                     li += '</div>';
                     li += '</li>';
