@@ -123,10 +123,26 @@ class PostController extends Controller
 
         if(isset($location)) {
             $state = State::where('simplified_name', 'LIKE', $location.'%')->orWhere('STATE_NAME', 'LIKE', $location.'%')->first();
-            
-            $query = $query->where(function($query) use($location) {
-                $query->where('location', 'LIKE', '%,'.$location)->orWhere('location', 'LIKE', $location.'%');
-            });
+            if($state) {
+                $query = $query->where(function($query) use($state) {
+                    $query->where('location', 'LIKE', '%,'.$state->STATE_CODE);
+                });
+            } else {
+                $city = array_filter($this->locations, function($val) use($location) {
+                    return $val == $location;
+                });
+                if($city) {
+                    $key = array_keys($city)[0];
+                    $query = $query->where(function($query) use($key) {
+                        $query->where('location', 'LIKE', $key.'%');
+                    });
+                }
+            }
+            if(!$state && !$city) {
+                $query = $query->where(function($query) use($location) {
+                    $query->where('location', 'LIKE', '%,'.$location)->orWhere('location', 'LIKE', $location.'%');
+                });
+            }
         }
 
         if(request('ct')) {
