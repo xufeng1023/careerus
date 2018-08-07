@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-{{ request('l') && $locationTitleChinese? $locationTitleChinese.'工作-' : '' }}
+{{ request('l')? request('l').'工作-' : '' }}
 @endsection
 
 @section('content')
