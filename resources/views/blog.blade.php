@@ -4,6 +4,10 @@
 {{ '求职攻略-'.$blog->title.'-' }}
 @endsection
 
+@section('description')
+<meta name="description" content="{{ $blog->excerpt() }}">
+@endsection
+
 
 @section('style')
 <link href="{{ asset('css/editor.css') }}" rel="stylesheet">

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Apply;
 use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
@@ -59,9 +60,18 @@ class ApplyTest extends TestCase
 
         $this->post('/apply', $data)->assertSee('/dashboard/applies');
 
-        $this->assert_hr_gets_email_when_student_apply($post);
+        //$this->assert_hr_gets_email_when_student_apply($post);
 
         $this->assertDatabaseHas('applies', ['user_id' => $student->id, 'post_id' => $post->id]);
+    }
+
+    public function test_new_applies_will_be_held()
+    {
+        $this->test_students_can_apply();
+
+        $apply = Apply::first();
+
+        $this->assertEquals(0, $apply->is_applied);
     }
 
     public function test_apply_for_everyone_is_limited_in_a_day()
@@ -97,7 +107,7 @@ class ApplyTest extends TestCase
 
         $job = create('Post');
 
-        $limit = cache('job_applies_a_day', 5);
+        $limit = cache('job_applies_limit', 10);
 
         $file = UploadedFile::fake()->image('resume.pdf');
 
@@ -179,5 +189,12 @@ class ApplyTest extends TestCase
         Mail::fake();
         event(new \App\Events\StudentAppliedEvent($post));
         Mail::assertSent(\App\Mail\NotifyHREmail::class);
+    }
+
+    private function assert_hr_dont_get_email_when_student_apply()
+    {
+        Mail::fake();
+        //event(new \App\Events\StudentAppliedEvent());
+        Mail::assertNotSent(\App\Mail\NotifyHREmail::class);
     }
 }

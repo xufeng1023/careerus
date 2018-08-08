@@ -51,6 +51,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/catagory', 'CatagoryController@allAdmin');
     Route::get('/company', 'CompanyController@all');
     Route::get('/plan', 'PlanController@index');
+    Route::get('/fetch/applies', 'ApplyController@fetch');
     Route::get('/cover-letter', 'CoverLetterController@all');
     Route::get('/green-card', 'GreenCardController@alladmin');
     Route::get('/settings', 'SettingsController@index');
@@ -75,6 +76,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/company/{company}/visajob', 'CompanyController@addVisa');
     Route::post('/company/update/{company}', 'CompanyController@update');
     Route::post('/applied/notify/{apply}', 'ApplyController@notify');
+    Route::post('/send/applies', 'ApplyController@send');
     Route::post('/cover-letter/add', 'CoverLetterController@save');
     Route::post('/cover-letter/update/{coverLetter}', 'CoverLetterController@update');
     Route::post('/settings', 'SettingsController@update');

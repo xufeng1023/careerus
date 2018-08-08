@@ -10625,6 +10625,10 @@ body {
   padding-bottom: 2rem;
 }
 
+caption {
+  caption-side: top;
+}
+
 button.loading {
   position: relative;
   color: transparent !important;

@@ -9,20 +9,23 @@
         @else
             @if($apply = auth()->user()->isApplied($post->id))
                 <div class="text-muted">*{{ __('front.applied already', ['time' => $apply->created_at->diffForHumans()]) }}</div>
-            @elseif($post->applyTimes() >= cache('job_applies_a_day'))
-                <div class="text-muted">*{{ __('front.job full today') }}</div>
+            @elseif($post->applyTimes() >= cache('job_applies_limit', 10))
+                <div class="text-muted">*该工作申请名额已满</div>
             @elseif(auth()->user()->apply_count >= cache('apply_times_a_day'))
                 <div class="text-muted">*{{ __('front.applied enough', ['times' => cache('apply_times_a_day')]) }}</div>
             @else
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyModal">
                     {{ __('front.apply') }}
                 </button>
-                <div class="text-muted">*{{ __('front.job apply times left', ['times' => cache('job_applies_a_day') - $post->applyTimes()]) }}</div>
+                <div class="text-muted">*该工作申请名额还有{{ $post->applyTimesLeft }}次。</div>
             @endif
         @endif
     @else
-        <div class="text-muted">*{{ __('front.job apply times left', ['times' => cache('job_applies_a_day') - $post->applyTimes()]) }}请先到邮箱验证完成注册。</div>
+        <div class="text-muted">*该工作申请名额还有{{ $post->applyTimesLeft }}次。请先到邮箱验证完成注册。</div>
     @endif
 @else
-    <div class="text-muted">*{{ __('front.job apply times left', ['times' => cache('job_applies_a_day') - $post->applyTimes()]) }}请先登入账号。</div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#applyModal">
+        {{ __('front.apply') }}
+    </button>
+    <div class="text-muted">*该工作申请名额还有{{ $post->applyTimesLeft }}次。</div>
 @endauth

@@ -42,7 +42,7 @@ class PostTest extends TestCase
     {
         $post_zh_en = create('Post', ['chinese_title' => '中文标题']);
 
-        $this->get('/job/'.urlencode($post_zh_en->chinese_title).'?i='.$post_zh_en->identity)->assertSee($post_zh_en->title);
+        $this->get('/job/'.urlencode($post_zh_en->chinese_title).'?i='.$post_zh_en->identity)->assertStatus(200);
     }
 
     public function test_chinese_title_can_be_added()

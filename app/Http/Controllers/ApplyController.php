@@ -13,9 +13,7 @@ class ApplyController extends Controller
 
     public function all()
     {
-        $applies = Apply::with(['post', 'user'])->latest()->get();
-
-        return view('admin.applies', compact('applies'));
+        return view('admin.applies');
     }
 
     public function save()
@@ -36,15 +34,31 @@ class ApplyController extends Controller
 
         $post = (new Post)->findPost(request('job'), request('identity'));
 
-        if($post->applyTimes() >= cache('job_applies_a_day', 5)) {
+        if($post->applyTimes() >= cache('job_applies_limit', 10)) {
             return response('', 422);
         }
 
         (new Apply)->apply($post);
 
-        event(new \App\Events\StudentAppliedEvent($post));
+        //event(new \App\Events\StudentAppliedEvent($post));
 
         return '/dashboard/applies';
+    }
+
+    public function fetch()
+    {
+        return Apply::with(['post.company', 'user'])->latest()->get();
+    }
+
+    public function send($emails = [])
+    {
+        $applies = Apply::with(['post.company', 'user'])->where('is_applied', 0)->get();
+
+        foreach($applies as $a) {
+            $emails[$a->post->company->email][$a->post->title][] = $a->user->name;
+        }
+
+        return $emails;
     }
 
     // public function save()

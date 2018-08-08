@@ -9,7 +9,7 @@ class Post extends Model
 {
     protected $guarded = ['tags', 'state', 'city'];
 
-    protected $appends = ['posted_at', 'availibility'];
+    protected $appends = ['posted_at', 'availibility', 'showTitle'];
 
     protected $hidden = ['user_id'];
 
@@ -122,13 +122,22 @@ class Post extends Model
         return $this->created_at? $this->created_at->diffforhumans() : '';
     }
 
+    public function getApplyTimesLeftAttribute()
+    {
+        return cache('job_applies_limit', 10) - $this->applies->count();
+    }
+
     public function getAvailibilityAttribute()
     {
-        if(!$this->end_at || $this->end_at < date('Y-m-d')) return '申请已过期';
+        if($this->applyTimesLeft) return '还有'.$this->applyTimesLeft.'次申请机会';
 
-        if($this->end_at == date('Y-m-d')) return '申请将于今日截止';
+        return '申请已结束';
 
-        return '申请截止于'.Carbon::createFromFormat('Y-m-d', $this->end_at)->diffInDays(Carbon::now()).'天后';
+        // if(!$this->end_at || $this->end_at < date('Y-m-d')) return '申请已结束';
+
+        // if($this->end_at == date('Y-m-d')) return '申请将于今日截止';
+
+        // return '申请截止于'.Carbon::createFromFormat('Y-m-d', $this->end_at)->diffInDays(Carbon::now()).'天后';
     }
 
     public function getWechatDescriptionAttribute()

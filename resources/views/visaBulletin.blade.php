@@ -4,6 +4,10 @@
 {{ '绿卡排期 -' }}
 @endsection
 
+@section('description')
+<meta name="description" content="提供及时更新的最新绿卡排期查询，让大家对绿卡日期变动有最快的了解.">
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">

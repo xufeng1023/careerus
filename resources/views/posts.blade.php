@@ -4,6 +4,10 @@
 {{ request('l')? request('l').'工作-' : '' }}
 @endsection
 
+@section('description')
+<meta name="description" content="搜索工作,条件是{{ request('s') }}{{ request('tp') }}{{ request('ct') }}{{ request('l') }}">
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

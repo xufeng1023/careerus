@@ -20,6 +20,11 @@
             <input type="text" class="form-control w-25" name="job_applies_a_day" value="{{ cache('job_applies_a_day') }}">
         </div>
 
+        <div class="form-group">
+            <label>每个工作最大申请次数</label>
+            <input type="text" class="form-control w-25" name="job_applies_limit" value="{{ cache('job_applies_limit') }}">
+        </div>
+
         <button class="btn btn-primary" type="submit">{{ __('admin.update') }}</button>
     </form>
 </div>

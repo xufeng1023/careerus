@@ -32,13 +32,14 @@
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
+			@if(auth()->user()->isMaster())
               <li class="nav-item">
                 <a class="nav-link {{ str_contains(url()->current(), 'applies')? 'active' : '' }}" href="/admin/applies">
                   <span data-feather="flag"></span>
                   {{ __('admin.applies') }}
                 </a>
               </li>
-
+			@endif
               <li class="nav-item">
                 <a class="nav-link {{ str_contains(url()->current(), 'jobs')? 'active' : '' }}" href="/admin/jobs">
                   <span data-feather="list"></span>
@@ -81,12 +82,12 @@
                 </a>
               </li>
 
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link {{ str_contains(url()->current(), 'cover-letter')? 'active' : '' }}" href="/admin/cover-letter">
                   <span data-feather="mail"></span>
                   {{ __('admin.cover letter') }}
                 </a>
-			  </li>
+			  </li> -->
 			  
 			  @if(auth()->user()->isMaster())
 			  <li class="nav-item">

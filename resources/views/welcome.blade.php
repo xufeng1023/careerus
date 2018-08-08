@@ -4,6 +4,10 @@
 {{ '提供H1B工作查找并且有HR内推机会 - ' }}
 @endsection
 
+@section('description')
+<meta name="description" content="每日都有最新的H1B工作介绍,尤其是在纽约和加州这种华人公司较多的大城市,并且可直接向HR递交简历申请并有机会得到内推,同时还有不断更新的原创美国求职攻略可参考.">
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row mt-4">
