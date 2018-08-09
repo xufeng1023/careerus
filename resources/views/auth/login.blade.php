@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('title')
+{{ '登入' }}
+@endsection
+
+@section('description')
+<meta name="description" content="登入页">
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

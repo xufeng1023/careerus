@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('title')
-{{ request('l')? request('l').'工作-' : '' }}
+{{ request('l') }}{{ request('s') }}{{ request('tp') }}{{ request('ct') }}{{ '工作' }}
 @endsection
 
 @section('description')
-<meta name="description" content="搜索工作,条件是{{ request('s') }}{{ request('tp') }}{{ request('ct') }}{{ request('l') }}">
+<meta name="description" content="搜索工作,条件是{{ request('l') }}{{ request('s') }}{{ request('tp') }}{{ request('ct') }}">
 @endsection
 
 @section('content')
