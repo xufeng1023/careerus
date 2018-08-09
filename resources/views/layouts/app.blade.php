@@ -81,12 +81,12 @@
                     @include('_search')
                     <nav class="nav justify-content-center mt-1">
                         <a class="nav-link text-secondary">热门搜索:</a>
-                        <a class="nav-link" href="/jobs?s=会计">会计</a>
-                        <a class="nav-link" href="/jobs?s=销售">销售</a>
-                        <a class="nav-link" href="/jobs?s=数据">数据</a>
-                        <a class="nav-link" href="/jobs?s=工程师">工程师</a>
-                        <a class="nav-link" href="/jobs?s=分析师">分析师</a>
-                        <a class="nav-link" href="/jobs?s=engineer">Engineer</a>
+                        <a title="会计" class="nav-link" href="/jobs?s=会计">会计</a>
+                        <a title="销售" class="nav-link" href="/jobs?s=销售">销售</a>
+                        <a title="数据" class="nav-link" href="/jobs?s=数据">数据</a>
+                        <a title="工程师" class="nav-link" href="/jobs?s=工程师">工程师</a>
+                        <a title="分析师" class="nav-link" href="/jobs?s=分析师">分析师</a>
+                        <a title="Engineer" class="nav-link" href="/jobs?s=engineer">Engineer</a>
                     </nav>
                 </div>               
             </header>

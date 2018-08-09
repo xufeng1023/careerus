@@ -19,7 +19,7 @@
                 <div class="row">
                     @foreach($categories->take(9) as $category)
                         <div class="col-4">
-                            <a href="/jobs?ct={{ $category }}" class="d-block">{{ $category }}</a>
+                            <a href="/jobs?ct={{ $category }}" title="{{ $category }}" class="d-block">{{ $category }}</a>
                         </div>
                     @endforeach
                 </div><br>
@@ -30,7 +30,7 @@
                 <div class="row">
                     @foreach($locations as $key => $lo)
                         <div class="col-4">
-                            <a href="/jobs?l={{ $key }}" class="d-block">{{ $lo }}</a>
+                            <a href="/jobs?l={{ $key }}" title="{{ $lo }}" class="d-block">{{ $lo }}</a>
                         </div>
                     @endforeach
                 </div>
@@ -67,7 +67,7 @@
                 <div class="col-sm-4">
                     <div class="card mb-3">
                         <div class="card-body">
-                            <a href="{{ $job->link() }}">
+                            <a href="{{ $job->link() }}" title="{{ $job->chinese_title ?: $job->title }}">
                                 <h5 class="card-title mb-0">{{ $job->chinese_title ?: $job->title }}</h5>
                             </a>
                             <p class="card-text"><small class="text-muted">{{ $job->location.'-'.$job->company->name }}</small></p>
