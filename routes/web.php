@@ -42,7 +42,7 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
-    Route::get('/applies', 'ApplyController@all');
+    Route::get('/applies', 'ApplyController@all')->middleware('master');
     Route::get('/cities', 'LocationController@citiesByState');
     Route::get('/jobs', 'PostController@allAdmin');
     Route::get('/user', 'UserController@all');
@@ -51,12 +51,12 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/catagory', 'CatagoryController@allAdmin');
     Route::get('/company', 'CompanyController@all');
     Route::get('/plan', 'PlanController@index');
-    Route::get('/fetch/applies', 'ApplyController@fetch');
+    Route::get('/fetch/applies', 'ApplyController@fetch')->middleware('master');
     Route::get('/cover-letter', 'CoverLetterController@all');
-    Route::get('/green-card', 'GreenCardController@alladmin');
-    Route::get('/settings', 'SettingsController@index');
-    Route::get('/visa', 'GreenCardController@crawl');
-    Route::get('/visa/inventory', 'GreenCardController@crawlInventory');
+    Route::get('/green-card', 'GreenCardController@alladmin')->middleware('master');
+    Route::get('/settings', 'SettingsController@index')->middleware('master');
+    Route::get('/visa', 'GreenCardController@crawl')->middleware('master');
+    Route::get('/visa/inventory', 'GreenCardController@crawlInventory')->middleware('master');
 
     Route::post('/visa', 'GreenCardController@save');
     Route::post('/post/add', 'PostController@save');
