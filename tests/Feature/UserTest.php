@@ -378,7 +378,7 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('companies', ['name' => 'Apple']);
     }
 
-    public function test_admin_cannot_see_all_users()
+    public function test_normal_admin_cannot_see_all_users()
     {
         $this->login(
             $admin = create('User', ['role' => 'admin'])
@@ -408,6 +408,25 @@ class UserTest extends TestCase
 
         $this->assertDatabaseMissing('users', ['name' => 'admin']);
         $this->assertDatabaseHas('users', ['name' => 'not admin']);
+    }
+
+    public function test_superadmin_can_send_applications_to_hr()
+    {
+        Mail::fake();
+
+        $this->login(
+            $admin = create('User', ['role' => 'admin', 'email' => 'xfeng@dreamgo.com'])
+        );
+
+        create('Apply');
+
+        $this->assertDatabaseHas('applies', ['is_applied' => 0, 'id' => 1]);
+
+        $this->post('/admin/send/applies');
+
+        $this->assertDatabaseHas('applies', ['is_applied' => 1, 'id' => 1]);
+
+        Mail::assertSent(\App\Mail\NotifyHREmail::class);
     }
 
     public function test_guests_can_not_see_dashboard()

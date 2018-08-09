@@ -55,10 +55,17 @@ class ApplyController extends Controller
         $applies = Apply::with(['post.company', 'user'])->where('is_applied', 0)->get();
 
         foreach($applies as $a) {
-            $emails[$a->post->company->email][$a->post->title][] = $a->user->name;
+            $emails[$a->post->company->email][$a->post->title][] = $a->user;
+
+            $a->is_applied = 1;
+            $a->save();
         }
 
-        return $emails;
+        foreach($emails as $hrEmail => $jobs) {
+            foreach($jobs as $job => $user) {
+                \Mail::to($hrEmail)->send(new \App\Mail\NotifyHREmail($user, $job));
+            }
+        }
     }
 
     // public function save()

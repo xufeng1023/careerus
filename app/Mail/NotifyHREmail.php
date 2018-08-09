@@ -12,25 +12,31 @@ class NotifyHREmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $post, $coverLetter;
+    public $post, $coverLetter, $user;
 
-    public function __construct(Post $post)
+    public function __construct($user, $jobTitle)
     {
-        $this->post = $post;
+        $this->user = $user;
 
-        $this->getCoverLetter();
+        $this->post = $jobTitle;
+
+       // $this->getCoverLetter();
     }
 
     public function build()
     {
-        return $this->from(auth()->user()->email, auth()->user()->email)
-                    ->subject($this->post->title)
-                    ->replyTo(auth()->user()->email)
-                    ->attach(
-                        storage_path('app/'.auth()->user()->resume),
-                        ['as' => 'resume.'.\File::extension(auth()->user()->resume)]
-                    )
-                    ->markdown('email.hr');
+        $this->subject($this->post);
+
+        //$this->replyTo(auth()->user()->email);
+        
+        foreach($this->user as $u) {
+            $this->attach(
+                storage_path('app/'.$u->resume),
+                ['as' => $u->name.'.'.\File::extension($u->resume)]
+            );
+        }
+
+        return $this->markdown('email.hr');
     }
 
     private function getCoverLetter()
