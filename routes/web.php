@@ -45,7 +45,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/applies', 'ApplyController@all')->middleware('master');
     Route::get('/cities', 'LocationController@citiesByState');
     Route::get('/jobs', 'PostController@allAdmin');
-    Route::get('/user', 'UserController@all');
+    Route::get('/user', 'UserController@all')->middleware('master');
     Route::get('/blog', 'BlogController@allAdmin');
     Route::get('/tags', 'TagController@allAdmin');
     Route::get('/catagory', 'CatagoryController@allAdmin');

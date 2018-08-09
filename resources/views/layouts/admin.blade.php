@@ -67,14 +67,14 @@
                   {{ __('admin.tags') }}
                 </a>
               </li>
-
+              @if(auth()->user()->isMaster())
               <li class="nav-item">
                 <a class="nav-link {{ str_contains(url()->current(), 'user')? 'active' : '' }}" href="/admin/user">
                   <span data-feather="users"></span>
                   {{ __('admin.users') }}
                 </a>
               </li>
-
+              @endif
               <li class="nav-item">
                 <a class="nav-link {{ str_contains(url()->current(), 'blog')? 'active' : '' }}" href="/admin/blog">
                   <span data-feather="radio"></span>

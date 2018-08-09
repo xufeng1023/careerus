@@ -378,13 +378,13 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('companies', ['name' => 'Apple']);
     }
 
-    public function test_admin_can_see_all_users()
+    public function test_admin_cannot_see_all_users()
     {
         $this->login(
             $admin = create('User', ['role' => 'admin'])
         );
 
-        $this->get('/admin/user')->assertSee($admin->name);
+        $this->get('/admin/user')->assertRedirect('/admin/jobs');
     }
 
     public function test_admin_can_add_an_user()
