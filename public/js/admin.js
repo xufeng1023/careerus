@@ -6887,9 +6887,9 @@ window.Vue = __webpack_require__(17);
 
 Vue.component('applies-table', __webpack_require__(253));
 
-var app = new Vue({
-    el: '#app'
-});
+// const app = new Vue({
+//     el: '#app'
+// });
 
 /***/ }),
 

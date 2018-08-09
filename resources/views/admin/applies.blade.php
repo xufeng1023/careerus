@@ -38,6 +38,9 @@
 
 @section('script')
 <script>
+    const app = new Vue({
+        el: '#app'
+    });
     // function onSubmit(e) {
     //     e.preventDefault();
     //     let uri = e.target.getAttribute('action');
