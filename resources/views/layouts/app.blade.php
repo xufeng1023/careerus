@@ -29,7 +29,7 @@
                     <ul class="navbar-nav ml-auto">
                     @guest
                             <li>
-                                <a class="nav-link {{ str_contains(url()->current(), 'register')? 'active' : '' }}" href="{{ route('register') }}" title="上传简历至HR">{{ __('front.register') }}</a>
+                                <a class="nav-link {{ str_contains(url()->current(), 'register')? 'active' : '' }}" href="{{ route('register') }}" title="注册">注册</a>
                             </li>
                             <li>
                                 <a class="nav-link {{ str_contains(url()->current(), 'login')? 'active' : '' }}" href="{{ route('login') }}" title="登入账号">{{ __('front.login') }}</a>
