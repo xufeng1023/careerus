@@ -10,7 +10,7 @@
                 </select>
                 <select class="custom-select" @change="location = $event.target.value">
                     <option value="" selected>所有地区</option>
-                    <option v-for="location in locations" :key="location.id" :value="location.STATE_CODE">{{ location.simplified_name }}</option>
+                    <option v-for="location in locations" :key="location.ID" :value="location.STATE_CODE">{{ location.simplified_name }}</option>
                 </select>
             </div>
         </div>
@@ -129,20 +129,34 @@ export default {
             });
         },
         fetchCategories() {
+            if(this.categories = this.tryLocalGet('categories')) return;
             $.ajax('/catagory', {
                 context: this,
                 success(data) {
+                    this.tryLocalSet('categories', data);
                     this.categories = data;
                 }
             });
         },
         fetchLocations() {
+            if(this.locations = this.tryLocalGet('locations')) return;
             $.ajax('/locations', {
                 context: this,
                 success(data) {
+                    this.tryLocalSet('locations', data);
                     this.locations = data;
                 }
             });
+        },
+        tryLocalGet(item) {
+            if(typeof(Storage) !== "undefined") {
+                return JSON.parse(localStorage.getItem(item));
+            }
+        },
+        tryLocalSet(item, data) {
+            if(typeof(Storage) !== "undefined") {
+                return localStorage.setItem(item, JSON.stringify(data));
+            }
         },
         toggleFavorite(e) {
             $.post(e.target.getAttribute('action'), [], function() {

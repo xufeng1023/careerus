@@ -270,20 +270,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         fetchCategories: function fetchCategories() {
+            if (this.categories = this.tryLocalGet('categories')) return;
             $.ajax('/catagory', {
                 context: this,
                 success: function success(data) {
+                    this.tryLocalSet('categories', data);
                     this.categories = data;
                 }
             });
         },
         fetchLocations: function fetchLocations() {
+            if (this.locations = this.tryLocalGet('locations')) return;
             $.ajax('/locations', {
                 context: this,
                 success: function success(data) {
+                    this.tryLocalSet('locations', data);
                     this.locations = data;
                 }
             });
+        },
+        tryLocalGet: function tryLocalGet(item) {
+            if (typeof Storage !== "undefined") {
+                return JSON.parse(localStorage.getItem(item));
+            }
+        },
+        tryLocalSet: function tryLocalSet(item, data) {
+            if (typeof Storage !== "undefined") {
+                return localStorage.setItem(item, JSON.stringify(data));
+            }
         },
         toggleFavorite: function toggleFavorite(e) {
             $.post(e.target.getAttribute('action'), [], function () {
@@ -399,7 +413,7 @@ var render = function() {
                 return _c(
                   "option",
                   {
-                    key: location.id,
+                    key: location.ID,
                     domProps: { value: location.STATE_CODE }
                   },
                   [_vm._v(_vm._s(location.simplified_name))]
