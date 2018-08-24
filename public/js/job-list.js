@@ -211,7 +211,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -223,13 +222,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             type: '',
             offset: 0,
             stopLoading: false,
-            categories: []
+            categories: [],
+            locations: []
         };
     },
     created: function created() {
         var self = this;
         var timeout;
         this.fetch();
+        this.fetchLocations();
         this.fetchCategories();
         $(window).scroll(function () {
             if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
@@ -273,6 +274,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 context: this,
                 success: function success(data) {
                     this.categories = data;
+                }
+            });
+        },
+        fetchLocations: function fetchLocations() {
+            $.ajax('/locations', {
+                context: this,
+                success: function success(data) {
+                    this.locations = data;
                 }
             });
         },
@@ -386,10 +395,18 @@ var render = function() {
                 _vm._v("所有地区")
               ]),
               _vm._v(" "),
-              _c("option", { attrs: { value: "NY" } }, [_vm._v("纽约")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "NJ" } }, [_vm._v("新泽西")])
-            ]
+              _vm._l(_vm.locations, function(location) {
+                return _c(
+                  "option",
+                  {
+                    key: location.id,
+                    domProps: { value: location.STATE_CODE }
+                  },
+                  [_vm._v(_vm._s(location.simplified_name))]
+                )
+              })
+            ],
+            2
           )
         ])
       ]),

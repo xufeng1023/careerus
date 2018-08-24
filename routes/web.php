@@ -11,6 +11,7 @@ Route::get('/绿卡排期', 'GreenCardController@visaBulletin');
 
 Route::get('/', 'PostController@newHomePage');
 Route::get('/catagory', 'CatagoryController@allAdmin');
+Route::get('/locations', 'LocationController@states');
 Route::get('/job-list', 'PostController@newHomePageJobs');
 Route::get('/searchLocation', 'PostController@searchBarLocation');
 Route::get('/searchJob', 'PostController@searchBarJob');

@@ -6,6 +6,11 @@ use App\{City, State};
 
 class LocationController extends Controller
 {
+    public function states()
+    {
+        return State::all();
+    }
+
     public function search()
     {
         $s = request('s');

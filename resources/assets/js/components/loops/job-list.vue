@@ -10,8 +10,7 @@
                 </select>
                 <select class="custom-select" @change="location = $event.target.value">
                     <option value="" selected>所有地区</option>
-                    <option value="NY">纽约</option>
-                    <option value="NJ">新泽西</option>
+                    <option v-for="location in locations" :key="location.id" :value="location.STATE_CODE">{{ location.simplified_name }}</option>
                 </select>
             </div>
         </div>
@@ -84,13 +83,15 @@ export default {
             type: '',
             offset: 0,
             stopLoading: false,
-            categories: []
+            categories: [],
+            locations: []
         }
     },
     created() {
         const self = this;
         var timeout;
         this.fetch();
+        this.fetchLocations();
         this.fetchCategories();
         $(window).scroll(function() {
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
@@ -132,6 +133,14 @@ export default {
                 context: this,
                 success(data) {
                     this.categories = data;
+                }
+            });
+        },
+        fetchLocations() {
+            $.ajax('/locations', {
+                context: this,
+                success(data) {
+                    this.locations = data;
                 }
             });
         },
