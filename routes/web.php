@@ -1,9 +1,5 @@
 <?php
 
-Route::get('/card', function() {
-    return view('card');
-});
-
 Auth::routes();
 
 Route::get('/login/google', '\App\Http\Controllers\Auth\LoginController@redirectToProvider');

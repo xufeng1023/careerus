@@ -30,14 +30,6 @@ class PostController extends Controller
 
         if(request('s')) {
             $query->where(function($query) {
-                // if($tag = Tag::where('name', 'like', request('s').'%')->first()) {
-                //     $query->whereExists(function ($query) use($tag) {
-                //         $query->select(DB::raw(1))
-                //               ->from('post_tag')
-                //               ->whereRaw('post_tag.post_id = posts.id and post_tag.tag_id ='.$tag->id);
-                //     });
-                // }
-
                 $query->whereIn('id', DB::table('post_tag')->select('post_id')->whereIn('tag_id', DB::table('tags')->select('id')->where('name', 'like', request('s').'%')))
 
                     ->orWhere('title', request('s'))

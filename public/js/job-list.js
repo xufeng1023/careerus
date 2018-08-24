@@ -211,6 +211,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -441,187 +442,191 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "row" },
-      _vm._l(_vm.computedJobs, function(job) {
-        return _c("div", { key: job.id, staticClass: "col-sm-4" }, [
-          _c("div", { staticClass: "card mb-5" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "justify-content-between d-flex align-items-center"
-                },
-                [
+    _vm.computedJobs.length
+      ? _c(
+          "div",
+          { staticClass: "row" },
+          _vm._l(_vm.computedJobs, function(job) {
+            return _c("div", { key: job.id, staticClass: "col-sm-4" }, [
+              _c("div", { staticClass: "card mb-5" }, [
+                _c("div", { staticClass: "card-header" }, [
                   _c(
-                    "h5",
+                    "div",
                     {
-                      staticClass: "card-title m-0",
-                      attrs: { title: job.chinese_title || job.title }
+                      staticClass:
+                        "justify-content-between d-flex align-items-center"
                     },
-                    [_vm._v(_vm._s(job.showTitle))]
+                    [
+                      _c(
+                        "h5",
+                        {
+                          staticClass: "card-title m-0",
+                          attrs: { title: job.chinese_title || job.title }
+                        },
+                        [_vm._v(_vm._s(job.showTitle))]
+                      ),
+                      _vm._v(" "),
+                      job.posted_in_hours < 24
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success btn-sm",
+                              attrs: {
+                                "data-toggle": "modal",
+                                "data-target": "#applyModal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  _vm.getJob(job)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v("点选直申\r\n                        "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "bg-white d-inline-flex justify-content-center align-items-center text-success",
+                                  staticStyle: {
+                                    width: "15px",
+                                    height: "15px",
+                                    "border-radius": "50%"
+                                  }
+                                },
+                                [_vm._v("✔")]
+                              )
+                            ]
+                          )
+                        : _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-secondary btn-sm",
+                              attrs: {
+                                role: "button",
+                                target: "_blank",
+                                rel: "nofollow",
+                                href: job.url
+                              }
+                            },
+                            [_vm._v("网站直申")]
+                          )
+                    ]
                   ),
                   _vm._v(" "),
-                  job.posted_in_hours < 24
-                    ? _c(
-                        "button",
+                  _c("div", { staticClass: "text-muted" }, [
+                    _vm._v(_vm._s(job.job_type))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "card-body d-flex flex-column justify-content-between"
+                  },
+                  [
+                    _c("p", { staticClass: "card-text" }, [
+                      _vm._v(_vm._s(job.excerpt))
+                    ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("div", [_vm._v(_vm._s(job.company.name))]),
+                      _vm._v(" "),
+                      _c(
+                        "p",
+                        { staticClass: "small d-flex justify-content-between" },
+                        [
+                          _c("span", [
+                            _vm._v("地点: "),
+                            _c("span", { staticClass: "text-secondary" }, [
+                              _vm._v(_vm._s(job.company.state))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("span", [
+                            _vm._v("规模: "),
+                            _c("span", { staticClass: "text-secondary" }, [
+                              _vm._v(_vm._s(job.company.scale))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("span", [
+                            _vm._v("2017 H1B: "),
+                            _c("span", { staticClass: "text-secondary" }, [
+                              _vm._v(_vm._s(job.company.totalSponsor) + "人")
+                            ])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        _vm._l(job.tags, function(tag) {
+                          return _c(
+                            "span",
+                            {
+                              key: tag.id,
+                              staticClass: "badge badge-pill badge-secondary"
+                            },
+                            [_vm._v(_vm._s(tag.name))]
+                          )
+                        })
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "card-footer d-flex align-items-center justify-content-between"
+                  },
+                  [
+                    _c("small", { staticClass: "text-muted" }, [
+                      _vm._v(_vm._s(job.posted_at))
+                    ]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c(
+                        "form",
                         {
-                          staticClass: "btn btn-success btn-sm",
+                          staticClass: "d-inline",
+                          class: job.is_favorited ? "filled" : "",
                           attrs: {
-                            "data-toggle": "modal",
-                            "data-target": "#applyModal"
+                            action: "/job/favorite/toggle/" + job.id,
+                            method: "post"
                           },
                           on: {
-                            click: function($event) {
-                              _vm.getJob(job)
+                            submit: function($event) {
+                              $event.preventDefault()
+                              return _vm.toggleFavorite($event)
                             }
                           }
                         },
                         [
-                          _vm._v("点选直申\r\n                        "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "bg-white d-inline-flex justify-content-center align-items-center text-success",
-                              staticStyle: {
-                                width: "15px",
-                                height: "15px",
-                                "border-radius": "50%"
-                              }
-                            },
-                            [_vm._v("✔")]
-                          )
+                          _c("button", {
+                            staticClass:
+                              "btn btn-sm p-0 btn-light border-0 icon heart",
+                            attrs: { type: "submit" }
+                          })
                         ]
-                      )
-                    : _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-secondary btn-sm",
-                          attrs: {
-                            role: "button",
-                            target: "_blank",
-                            rel: "nofollow",
-                            href: job.url
-                          }
-                        },
-                        [_vm._v("网站直申")]
-                      )
-                ]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "text-muted" }, [
-                _vm._v(_vm._s(job.job_type))
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "card-body d-flex flex-column justify-content-between"
-              },
-              [
-                _c("p", { staticClass: "card-text" }, [
-                  _vm._v(_vm._s(job.excerpt))
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _c("div", [_vm._v(_vm._s(job.company.name))]),
-                  _vm._v(" "),
-                  _c(
-                    "p",
-                    { staticClass: "small d-flex justify-content-between" },
-                    [
-                      _c("span", [
-                        _vm._v("地点: "),
-                        _c("span", { staticClass: "text-secondary" }, [
-                          _vm._v(_vm._s(job.company.state))
-                        ])
-                      ]),
+                      ),
                       _vm._v(" "),
-                      _c("span", [
-                        _vm._v("规模: "),
-                        _c("span", { staticClass: "text-secondary" }, [
-                          _vm._v(_vm._s(job.company.scale))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("span", [
-                        _vm._v("2017 H1B: "),
-                        _c("span", { staticClass: "text-secondary" }, [
-                          _vm._v(_vm._s(job.company.totalSponsor) + "人")
-                        ])
+                      _c("span", { staticClass: "favorites" }, [
+                        _vm._v(_vm._s(job.favorites_count))
                       ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    _vm._l(job.tags, function(tag) {
-                      return _c(
-                        "span",
-                        {
-                          key: tag.id,
-                          staticClass: "badge badge-pill badge-secondary"
-                        },
-                        [_vm._v(_vm._s(tag.name))]
-                      )
-                    })
-                  )
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "card-footer d-flex align-items-center justify-content-between"
-              },
-              [
-                _c("small", { staticClass: "text-muted" }, [
-                  _vm._v(_vm._s(job.posted_at))
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _c(
-                    "form",
-                    {
-                      staticClass: "d-inline",
-                      class: job.is_favorited ? "filled" : "",
-                      attrs: {
-                        action: "/job/favorite/toggle/" + job.id,
-                        method: "post"
-                      },
-                      on: {
-                        submit: function($event) {
-                          $event.preventDefault()
-                          return _vm.toggleFavorite($event)
-                        }
-                      }
-                    },
-                    [
-                      _c("button", {
-                        staticClass:
-                          "btn btn-sm p-0 btn-light border-0 icon heart",
-                        attrs: { type: "submit" }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "favorites" }, [
-                    _vm._v(_vm._s(job.favorites_count))
-                  ])
-                ])
-              ]
-            )
-          ])
+                    ])
+                  ]
+                )
+              ])
+            ])
+          })
+        )
+      : _c("div", [
+          _vm._v("抱歉，暂时没有找到您要求的工作，请尝试其他搜索吧。")
         ])
-      })
-    )
   ])
 }
 var staticRenderFns = []

@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div v-if="computedJobs.length" class="row">
         <div v-for="job in computedJobs" :key="job.id" class="col-sm-4">
             <div class="card mb-5">
                 <div class="card-header">
@@ -69,6 +69,7 @@
             </div>
         </div>
     </div>
+    <div v-else>抱歉，暂时没有找到您要求的工作，请尝试其他搜索吧。</div>
 </div>
 </template>
 
