@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 229);
+/******/ 	return __webpack_require__(__webpack_require__.s = 232);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -13359,14 +13359,6 @@ function isnan (val) {
 
 /***/ }),
 
-/***/ 229:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(230);
-
-
-/***/ }),
-
 /***/ 23:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13491,7 +13483,15 @@ function fromByteArray (uint8) {
 
 /***/ }),
 
-/***/ 230:
+/***/ 232:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(233);
+
+
+/***/ }),
+
+/***/ 233:
 /***/ (function(module, exports, __webpack_require__) {
 
 var toolbarOptions = [['bold', 'italic', 'underline', 'strike'], // toggled buttons

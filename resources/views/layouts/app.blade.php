@@ -75,10 +75,10 @@
             </div>
         </nav>
 
-        @if(url()->current() === url('/') || str_contains(url()->current(), 'job'))
-            <header class="pt-5 pb-4">
+        
+            <!-- <header class="pt-5 pb-4">
                 <div class="container">
-                    @include('_search')
+                    
                     <nav class="nav justify-content-center mt-1">
                         <a class="nav-link text-secondary">热门搜索:</a>
                         <a title="会计" class="nav-link" href="/jobs?s=会计">会计</a>
@@ -89,8 +89,8 @@
                         <a title="Engineer" class="nav-link" href="/jobs?s=engineer">Engineer</a>
                     </nav>
                 </div>               
-            </header>
-        @endif
+            </header> -->
+        
 
         @yield('submenu')
 

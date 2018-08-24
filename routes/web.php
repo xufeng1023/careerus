@@ -1,5 +1,9 @@
 <?php
 
+Route::get('/card', function() {
+    return view('card');
+});
+
 Auth::routes();
 
 Route::get('/login/google', '\App\Http\Controllers\Auth\LoginController@redirectToProvider');
@@ -9,8 +13,9 @@ Route::get('/green-card', 'GreenCardController@index')->middleware('cors');
 Route::post('/green-card-subscriber', 'GreenCardController@subscribe')->middleware('cors');
 Route::get('/绿卡排期', 'GreenCardController@visaBulletin');
 
-Route::get('/', 'PostController@index');
-
+Route::get('/', 'PostController@newHomePage');
+Route::get('/catagory', 'CatagoryController@allAdmin');
+Route::get('/job-list', 'PostController@newHomePageJobs');
 Route::get('/searchLocation', 'PostController@searchBarLocation');
 Route::get('/searchJob', 'PostController@searchBarJob');
 Route::get('/tags', 'TagController@all');
@@ -23,7 +28,7 @@ Route::get('/register/verification', '\App\Http\Controllers\Auth\RegisterControl
 
 Route::post('/apply', 'ApplyController@save');
 Route::post('/job/favorite/toggle/{post}', 'FavoriteController@toggle');
-//Route::post('/applyRegister', '\App\Http\Controllers\Auth\RegisterController@register');
+Route::post('/applyRegister', '\App\Http\Controllers\Auth\RegisterController@register');
 
 Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::get('/applies', 'UserController@applies');
@@ -57,6 +62,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/settings', 'SettingsController@index')->middleware('master');
     Route::get('/visa', 'GreenCardController@crawl')->middleware('master');
     Route::get('/visa/inventory', 'GreenCardController@crawlInventory')->middleware('master');
+    Route::get('/companies', 'CompanyController@select2Companies');
 
     Route::post('/visa', 'GreenCardController@save');
     Route::post('/post/add', 'PostController@save');

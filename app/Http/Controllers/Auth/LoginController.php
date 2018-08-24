@@ -47,10 +47,10 @@ class LoginController extends Controller
         return redirect('/dashboard/account');
     }
 
-    // protected function authenticated(Request $request, $user)
-    // {
-    //     if($request->title && $request->identity) {
-            
-    //     }
-    // }
+    protected function authenticated(Request $request, $user)
+    {
+        if($request->ajax()) {
+            return view('_applyForm', compact('user'));
+        }
+    }
 }

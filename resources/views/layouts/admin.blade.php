@@ -54,12 +54,12 @@
                 </a>
               </li>
 
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link {{ str_contains(url()->current(), 'company')? 'active' : '' }}" href="/admin/company">
                   <span data-feather="home"></span>
                   {{ __('admin.company') }}
                 </a>
-              </li>
+              </li> -->
 
               <li class="nav-item">
                 <a class="nav-link {{ str_contains(url()->current(), 'tags')? 'active' : '' }}" href="/admin/tags">

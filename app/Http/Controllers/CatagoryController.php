@@ -8,12 +8,14 @@ class CatagoryController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'admin']);
+       //$this->middleware(['auth', 'admin']);
     }
 
     public function allAdmin()
     {
         $catagories = Catagory::all();
+
+        if(request()->ajax()) return $catagories;
 
         return view('admin.catagory', compact('catagories'));
     }

@@ -132,17 +132,30 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('posts', ['title' => 'A B', 'chinese_title' => 'A B标题']);
     }
 
+    public function test_when_adding_a_post_company_email_will_be_updated()
+    {
+        $this->login(
+            $admin = create('User', ['role' => 'admin'])
+        );
+
+        $post = raw('Post');
+
+        $post['email'] = 'aaa@email.com';
+
+        $this->post('/admin/post/add', $post);
+
+        $this->assertDatabaseHas($this->companyTable, ['email' => 'aaa@email.com']);
+    }
+
     public function test_admin_can_add_a_post_without_tags()
     {
         $this->login(
             $admin = create('User', ['role' => 'admin'])
         );
 
-        $post = raw('Post', ['user_id' => $admin->id, 'title' => 'a--bb']);
+        $post = raw('Post');
 
         $this->post('/admin/post/add', $post);
-
-        $post['title'] = ucwords('a bb');
 
         $this->assertDatabaseHas('posts', ['description' => $post['description']]);
     }
@@ -155,13 +168,11 @@ class UserTest extends TestCase
 
         $tag = create('Tag');
 
-        $post = raw('Post', ['user_id' => $admin->id, 'title' => 'a--bb', 'tags' => [$tag->id]]);
+        $post = raw('Post', ['tags' => [$tag->id]]);
 
         $this->post('/admin/post/add', $post);
 
-        $post['title'] = ucwords('a bb');
-
-        $this->assertDatabaseHas('posts', ['title' => $post['title']]);
+        $this->assertDatabaseHas('posts', ['description' => $post['description']]);
         $this->assertDatabaseHas('post_tag', ['post_id' => 1, 'tag_id' => $tag->id]);
     }
 
@@ -330,38 +341,9 @@ class UserTest extends TestCase
             $admin = create('User', ['role' => 'admin'])
         );
 
-        $company = create('Company');
+        $company = create($this->companyModel);
 
         $this->get('/admin/company')->assertSee($company->name);
-    }
-
-    public function test_admin_can_add_a_company()
-    {
-        $this->login(
-            $admin = create('User', ['role' => 'admin'])
-        );
-
-        $this->post('/admin/company/add', $company = raw('Company'));
-
-        $this->assertDatabaseHas('companies', $company);
-    }
-
-    public function test_admin_can_delete_a_company_along_with_posts()
-    {
-        $this->login(
-            $admin = create('User', ['role' => 'admin'])
-        );
-
-        $company = create('Company');
-
-        $post = create('Post', [
-            'company_id' => $company->id
-        ]);
-
-        $this->delete('/admin/company/delete/'.$company->id);
-
-        $this->assertDatabaseMissing('companies', ['id' => $company->id]);
-        $this->assertDatabaseMissing('posts', ['id' => $post->id]);
     }
 
     public function test_admin_can_update_a_company()
@@ -370,12 +352,12 @@ class UserTest extends TestCase
             $admin = create('User', ['role' => 'admin'])
         );
 
-        $company = create('Company', ['name' => 'Google']);
+        $company = create($this->companyModel, ['name' => 'Google']);
 
         $this->post('/admin/company/update/'.$company->id, ['name' => 'Apple']);
 
-        $this->assertDatabaseMissing('companies', ['name' => 'Google']);
-        $this->assertDatabaseHas('companies', ['name' => 'Apple']);
+        $this->assertDatabaseMissing($this->companyTable, ['name' => 'Google']);
+        $this->assertDatabaseHas($this->companyTable, ['name' => 'Apple']);
     }
 
     public function test_normal_admin_cannot_see_all_users()

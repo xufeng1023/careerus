@@ -23,6 +23,11 @@ class Company extends Model
         return str_start($value, 'http://');
     }
 
+    public function getNameAttribute($value)
+    {
+        return html_entity_decode($value);
+    }
+
     public function setJobsAttribute($value)
     {
         $this->attributes['jobs'] = preg_replace('/\),*/', '),', $value);

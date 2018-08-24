@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Company;
+use App\{CompanyData};
 
 class CompanyController extends Controller
 {
@@ -11,29 +11,36 @@ class CompanyController extends Controller
         $this->middleware(['auth', 'admin']);
     }
 
+    public function select2Companies()
+    {
+        $companies = CompanyData::selectRaw('id, name as text')->where('name', 'like', request('search').'%')->take(5)->get();
+
+        return $companies;
+    }
+
     public function all()
     {
-        if(request('id')) $companies[] = Company::find(request('id'))->load('visaJobs');
-        else $companies = Company::latest()->get();
+        if(request('id')) $companies[] = CompanyData::find(request('id'))->load('visaJobs');
+        else $companies = CompanyData::latest()->get();
 
         return view('admin.company', compact('companies'));
     }
 
     public function save()
     {
-        Company::create(request()->all());
+        CompanyData::create(request()->all());
 
         return back();
     }
 
-    public function update(Company $company)
+    public function update(CompanyData $company)
     {
         $company->update(request()->all());
 
         return back()->with('updated', trans('admin.updated'));
     }
 
-    public function addVisa(Company $company)
+    public function addVisa(CompanyData $company)
     {
         try {
             $visa = $company->visaJobs()->create(request()->all());
@@ -42,12 +49,5 @@ class CompanyController extends Controller
         }
 
         return response(['msg' => trans('admin.updated'), 'data' => $visa]);
-    }
-
-    public function delete(Company $company)
-    {
-        $company->visaJobs->each->remove();
-        $company->posts->each->remove();
-        $company->delete();
     }
 }

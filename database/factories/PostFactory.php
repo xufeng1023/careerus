@@ -13,7 +13,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'description' => $faker->paragraph(25),
         'user_id' => 1,
         'catagory_id' => App\Catagory::all()->random(),
-        'company_id' => factory(App\Company::class)->create(),
+        'company_id' => factory(App\CompanyData::class)->create(),
         'url' => $faker->url,
         'location' => $faker->city.','.$faker->stateAbbr,
         'job_type' => array_random(['Full-time', 'Part-time', 'Internship']),

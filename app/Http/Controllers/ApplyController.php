@@ -18,7 +18,7 @@ class ApplyController extends Controller
 
     public function save()
     {
-        if(!auth()->user()->confirmed) return response('', 403);
+        if(!auth()->user()->confirmed) return response('请先完成邮箱验证。', 403);
 
         if(auth()->user()->suspended) return response(['toastr' => trans('front.bad resume msg')], 403);
         
@@ -38,7 +38,11 @@ class ApplyController extends Controller
             return response('', 422);
         }
 
-        (new Apply)->apply($post);
+        try {
+            (new Apply)->apply($post);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response('您已经申请过该工作了。', 422);
+        }
 
         //event(new \App\Events\StudentAppliedEvent($post));
 

@@ -10633,6 +10633,12 @@ a:hover {
   text-decoration: none;
 }
 
+* {
+  outline: none;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
 input,
 textarea {
   outline: none;
@@ -10641,9 +10647,37 @@ textarea {
   border: 1px solid #ccc !important;
 }
 
+button.icon {
+  width: 20px;
+  height: 20px;
+  opacity: .2;
+  background-repeat: no-repeat;
+}
+
+button.icon:hover {
+  opacity: 1;
+  background-color: transparent;
+}
+
+button.icon.heart {
+  background-image: url(/images/heart.svg);
+}
+
+button.icon.wechat {
+  background-image: url(/images/wechat.svg);
+}
+
+button.icon.website {
+  background-image: url(/images/website.svg);
+}
+
 .page-item.active .page-link {
   background-color: #fede00;
   border-color: #fede00;
+}
+
+.card-body {
+  min-height: 205px;
 }
 
 header,
@@ -10704,6 +10738,10 @@ header nav a.nav-link {
 
 form.filled svg {
   fill: #007bff;
+}
+
+form.filled button.icon {
+  opacity: 1;
 }
 
 button.loading {

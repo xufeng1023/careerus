@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('style')
+<link href="{{ asset('css/select2.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
     <h1 class="h2">{{ __('admin.job list') }}</h1>
@@ -79,15 +83,21 @@
         <form method="POST" action="/admin/post/{{ request('id')? 'update/'.request('id') : 'add' }}" autocomplete="off">
             @csrf
             <div class="form-group">
+                <label class="col-form-label">{{ __('admin.job title chinese') }}(优先显示)</label>
+
+                <input type="text" class="form-control" name="chinese_title" value="{{ request('id')? $posts[0]->chinese_title: '' }}">
+            </div>
+
+            <div class="form-group">
                 <label class="col-form-label">英文标题</label>
 
                 <input type="text" class="form-control" name="title" value="{{ request('id')? $posts[0]->title: '' }}">
             </div>
 
             <div class="form-group">
-                <label class="col-form-label">{{ __('admin.job title chinese') }}</label>
-
-                <input type="text" class="form-control" name="chinese_title" value="{{ request('id')? $posts[0]->chinese_title: '' }}">
+                <label class="col-form-label">中文简介(优先显示)</label>
+                <input id="chinese_description" type="hidden" name="chinese_description" value="{{ request('id')? $posts[0]->chinese_description: '' }}" required>
+                <trix-editor input="chinese_description"></trix-editor>
             </div>
 
             <div class="form-group">
@@ -99,35 +109,25 @@
                 <trix-editor input="description"></trix-editor>
             </div>
 
-            <div class="form-group">
-                <label class="col-form-label">中文简介</label>
-                <input id="chinese_description" type="hidden" name="chinese_description" value="{{ request('id')? $posts[0]->chinese_description: '' }}" required>
-                <trix-editor input="chinese_description"></trix-editor>
-            </div>
-
             <div class="form-group row">
                 <div class="col-sm-6">
                     <label class="col-form-label">{{ __('admin.company') }}</label>
 
-                    <select class="form-control" name="company_id">
-                        @foreach($companies as $company)
-                            <option value="{{ $company->id }}" {{ request('id') && ($posts[0]->company_id == $company->id)? 'selected' : '' }}>{{ $company->name }}</option>
-                        @endforeach
+                    <select class="company-select" name="company_id" style="width: 100%" required>
+                        @if(request('id'))
+                            <option value="{{ $posts[0]->company->id }}" selected>{{ $posts[0]->company->name }}</option>
+                        @endif
                     </select>
                 </div>
 
                 <div class="col-sm-6">
-                    <label class="col-form-label">{{ __('admin.catagory') }}</label>
-                    <select class="form-control" name="catagory_id">
-                        @foreach($catagories as $catagory)
-                            <option value="{{ $catagory->id }}" {{ request('id') && ($posts[0]->catagory_id == $catagory->id)? 'selected' : '' }}>{{ $catagory->name }}</option>
-                        @endforeach
-                    </select>
+                    <label class="col-form-label">HR邮箱</label>
+                    <input type="email" class="form-control" name="email" value="{{ request('id')? $posts[0]->company->email: '' }}" id="hr-email" required>
                 </div>
             </div>
 
             <div class="form-group row">
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                     <label class="col-form-label">{{ __('admin.job location') }}</label>
                     <div class="row">
                         <div class="col">
@@ -147,6 +147,15 @@
                         </div>
                     </div>
                     
+                </div> -->
+
+                <div class="col-sm-6">
+                    <label class="col-form-label">{{ __('admin.catagory') }}</label>
+                    <select class="form-control" name="catagory_id">
+                        @foreach($catagories as $catagory)
+                            <option value="{{ $catagory->id }}" {{ request('id') && ($posts[0]->catagory_id == $catagory->id)? 'selected' : '' }}>{{ $catagory->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="col-sm-6">
@@ -210,11 +219,11 @@
                     </div>
                 </div>
 
-                <div class="col-sm-3">
+                <!-- <div class="col-sm-3">
                     <label class="col-form-label">申请截止日期</label>
 
                     <input type="date" class="form-control" name="end_at" value="{{ request('id')? $posts[0]->end_at: '' }}" required>
-                </div>
+                </div> -->
             </div>
 
             <div class="form-group">
@@ -226,7 +235,38 @@
 @endsection
 
 @section('script')
+<script src="{{ asset('js/select2.js') }}"></script>
 <script>
+    $(document).ready(function() {
+        $('.company-select').select2({
+            minimumInputLength: 1,
+            ajax: {
+                url: '/admin/companies',
+                data: function (params) {
+                    return {
+                        search: params.term
+                    }
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                }
+            },
+            // templateResult: function(data) {
+            //     return data.name;
+            // },
+            // templateSelection: function(data) {
+            //     return data.name;
+            // }
+        });
+
+        $('.company-select').on('select2:select', function (e) {
+            var data = e.params.data;
+            $('#hr-email').val(data.email);
+        });
+    });
+
     var cities;
     var state = $('[name=state]').val();
 

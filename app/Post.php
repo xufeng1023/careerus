@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $guarded = ['tags', 'state', 'city'];
+    protected $guarded = ['tags', 'state', 'city', 'email'];
 
-    protected $appends = ['posted_at', 'availibility', 'showTitle'];
+    protected $appends = ['posted_at', 'availibility', 'showTitle', 'excerpt', 'posted_in_hours', 'is_favorited'];
 
     protected $hidden = ['user_id'];
 
@@ -24,7 +24,7 @@ class Post extends Model
 
     public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(CompanyData::class);
     }
 
     public function catagory()
@@ -99,17 +99,33 @@ class Post extends Model
 
     public function getExcerptAttribute()
     {
-        return str_limit(html_entity_decode(strip_tags($this->chinese_description? $this->chinese_description : $this->description)), 120);
+        return str_limit(html_entity_decode(strip_tags($this->chinese_description? $this->chinese_description : $this->description)), 110);
     }
 
     public function getShowTitleAttribute()
     {
-        return $this->chinese_title ? $this->chinese_title : $this->title;
+        $title = $this->chinese_title ? $this->chinese_title : $this->title;
+        return str_limit($title, 20);
     }
 
     public function getPathAttribute()
     {
         return $this->link();
+    }
+
+    public function getPostedInHoursAttribute()
+    {
+        return $this->created_at->diffInHours(Carbon::now());
+    }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'favorites');
+    }
+
+    public function getIsFavoritedAttribute()
+    {
+        return $this->favorites()->where('user_id', auth()->id())->exists();
     }
 
     public function getChineseDateAttribute()

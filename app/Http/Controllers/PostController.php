@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use SteelyWing\Chinese\Chinese;
 use App\{Post, Catagory, Tag, State, Favorite};
+use App\CompanyData;
 
 class PostController extends Controller
 {
@@ -18,13 +19,52 @@ class PostController extends Controller
         'Richardson' => 'Richardson'
     ];
 
+    public function newHomePage()
+    {
+        return view('newHome');
+    }
+
+    public function newHomePageJobs()
+    {
+        $query = Post::with(['company', 'tags'])->withCount('favorites');
+
+        if(request('s')) {
+            $query->where(function($query) {
+                // if($tag = Tag::where('name', 'like', request('s').'%')->first()) {
+                //     $query->whereExists(function ($query) use($tag) {
+                //         $query->select(DB::raw(1))
+                //               ->from('post_tag')
+                //               ->whereRaw('post_tag.post_id = posts.id and post_tag.tag_id ='.$tag->id);
+                //     });
+                // }
+
+                $query->whereIn('id', DB::table('post_tag')->select('post_id')->whereIn('tag_id', DB::table('tags')->select('id')->where('name', 'like', request('s').'%')))
+
+                    ->orWhere('title', request('s'))
+                    ->orWhere('title', 'LIKE', request('s').' %')
+                    ->orWhere('title', 'LIKE', '% '.request('s').'%')
+                    ->orWhere('chinese_title', 'LIKE', '%'.request('s').'%');
+            });
+        }
+
+        if(request('c')) $query->where('catagory_id', request('c'));
+
+        if(request('l')) $query->whereIn('company_id', DB::table('company_data')->select('id')->whereState(request('l')));
+
+        if(request('t')) $query->where('job_type', request('t'));
+
+        $jobs = $query->latest()->offset(request('o'))->take(9)->get();
+
+        return $jobs;
+    }
+
     public function index()
     {
         $categories = (new Catagory)->orderByMostUsed();
 
-        $newJobs = Post::with('company')->whereRaw('end_at >= '.date('Y-m-d'))->latest()->take(9)->get();
+        $newJobs = Post::with('company')->latest()->take(9)->get();
 
-        $recommendedJobs = Post::select('chinese_title', 'title', 'identity')->where('recommended', 1)->take(10)->get();
+        //$recommendedJobs = Post::select('chinese_title', 'title', 'identity')->where('recommended', 1)->take(10)->get();
         
         //$locations = Post::select(DB::raw('count(id) as total'), 'location')->groupBy('location')->orderBy('total', 'desc')->take(9)->get(); 
         
@@ -34,7 +74,7 @@ class PostController extends Controller
             DB::table('post_tag')->select('tag_id')->orderByRaw('count(tag_id)', 'desc')->groupBy('tag_id')
         )->take(10)->get()->pluck('name');
 
-        return view('welcome', compact('categories', 'newJobs', 'locations', 'hotTags', 'recommendedJobs'));
+        return view('welcome', compact('categories', 'newJobs', 'locations', 'hotTags'));
     }
 
     public function searchBarJob()
@@ -194,17 +234,17 @@ class PostController extends Controller
         }
     }
 
-    public function show(Post $post)
-    {
-        $post->load([
-            'catagory', 
-            'company.visaJobs' => function($query) {
-                $query->orderBy('year', 'asc');
-            }
-        ]);
+    // public function show(Post $post)
+    // {
+    //     $post->load([
+    //         'catagory', 
+    //         'company.visaJobs' => function($query) {
+    //             $query->orderBy('year', 'asc');
+    //         }
+    //     ]);
 
-        return view('post', compact('post'));
-    }
+    //     return view('post', compact('post'));
+    // }
 
     public function allAdmin()
     {
@@ -234,6 +274,12 @@ class PostController extends Controller
 
         if(request('tags')) {
             $post->tags()->attach(request('tags'));
+        }
+
+        if(request('email')) {
+            $company = CompanyData::find(request('company_id'));
+
+            if($company) $company->update(['email' => $data['email']]);
         }
 
         return back();

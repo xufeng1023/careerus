@@ -46,34 +46,10 @@ class WechatTest extends TestCase
             ->assertDontSee($post->description);
     }
 
-    public function test_wechat_app_can_search_job_by_location()
-    {
-        $ca = create('State', ['STATE_CODE' => 'CA', 'simplified_name' => '加州']);
-        $ny = create('State', ['STATE_CODE' => 'NY', 'simplified_name' => '纽约州']);
-
-        $post1 = create('Post', ['title' => 'nice day', 'location' => 'aa,ca']);
-        $post2 = create('Post', ['title' => 'bad day', 'location' => 'bb,ny']);
-
-        $this->getJson('/api/search?search=&state=加州', ['referer' => config('app.wechat_uri_prefix')])
-            ->assertSee($post1->title)
-            ->assertDontSee($post2->title);
-
-        $this->getJson('/api/search?search=nice&state=加州', ['referer' => config('app.wechat_uri_prefix')])
-            ->assertSee($post1->title)
-            ->assertDontSee($post2->title);
-
-        $this->getJson('/api/search?search=&state=纽约', ['referer' => config('app.wechat_uri_prefix')])
-            ->assertSee($post2->title)
-            ->assertDontSee($post1->title);
-
-        $this->getJson('/api/search?search=&state=德州', ['referer' => config('app.wechat_uri_prefix')])
-            ->assertDontSee($post2->title)
-            ->assertDontSee($post1->title);
-
-        $this->getJson('/api/search?search=any&state=纽约', ['referer' => config('app.wechat_uri_prefix')])
-            ->assertDontSee($post2->title)
-            ->assertDontSee($post1->title);
-    }
+    // public function test_wechat_app_can_search_job_by_location()
+    // {
+    //     // todo: use company_data_table
+    // }
 
     public function test_wechat_app_can_see_a_post()
     {

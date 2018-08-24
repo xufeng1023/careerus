@@ -65,17 +65,40 @@
         <div class="row">
             @foreach($newJobs as $key => $job)
                 <div class="col-sm-4">
-                    <div class="card mb-3">
+                    <div class="card mb-5">
+                        <div class="card-header">
+                            <div class="justify-content-between d-flex align-items-center">
+                                <h5 class="card-title m-0" title="{{ $job->showTitle }}">{{ str_limit($job->showTitle, 20) }}</h5>
+                                <a href="#" class="btn btn-success btn-sm">点选直申
+                                <div style="width:15px;height:15px;border-radius:50%;" class="bg-white d-inline-flex justify-content-center align-items-center text-success">&#10004;</div>
+                                </a>
+                            </div>
+                            
+                            <div>
+                                @foreach($job->tags as $tag)
+                                    <span class="badge badge-pill badge-secondary">{{ $tag->name }}</span>
+                                @endforeach
+                            </div>
+
+                            <div class="justify-content-between d-flex align-items-center">
+                                <small class="text-muted">{{ $job->posted_at }}</small>
+                            </div>
+                        </div>
+
                         <div class="card-body">
-                            <a href="{{ $job->link() }}" title="{{ $job->chinese_title ?: $job->title }}">
-                                <h5 class="card-title mb-0">{{ $job->chinese_title ?: $job->title }}</h5>
-                            </a>
-                            <p class="card-text"><small class="text-muted">{{ $job->location.'-'.$job->company->name }}</small></p>
-                            <p class="card-text">{{ str_limit(html_entity_decode(strip_tags($job->chinese_description? $job->chinese_description : $job->description)), 120) }}</p>
-                            <p class="card-text d-flex justify-content-between">
-                                <small class="text-muted">发布于{{ $job->posted_at }}</small>
-                                <small class="text-danger">{{ $job->availibility }}</small>
-                            </p>
+                            <p class="card-text">{{ $job->excerpt }}</p>
+                            <div>{{ html_entity_decode($job->company->name) }}</div>
+                            <div class="small d-flex justify-content-between">
+                                <span>地点: <span class="text-secondary">{{ $job->company->state }}</span></span>
+                                <span>规模: <span class="text-secondary">{{ $job->company->scale }}</span></span>
+                                <span>2017 H1B: <span class="text-secondary">{{ $job->company->totalSponsor }}人</span></span>
+                            </div>
+                        </div>
+
+                        <div class="card-footer d-flex align-items-center justify-content-around">
+                            <button type="button" class="btn btn-sm p-0 btn-light border-0 icon heart"></button>
+                            <button type="button" class="btn btn-sm p-0 btn-light border-0 icon wechat"></button>
+                            <button type="button" class="btn btn-sm p-0 btn-light border-0 icon website"></button>
                         </div>
                     </div>
                 </div>

@@ -16,34 +16,27 @@ class PostTest extends TestCase
         $this->assertEquals('/job/中文标题?i='.$post->identity, $post->link());
     }
 
-    public function test_posts_with_same_title_in_the_uri_should_show_by_identity()
-    {
-        $this->login(
-            $admin = create('User', ['role' => 'admin'])
-        );
+    // public function test_posts_with_same_title_in_the_uri_should_show_by_identity()
+    // {
+    //     $this->login(
+    //         $admin = create('User', ['role' => 'admin'])
+    //     );
 
-        $title = 'Development Coordinator';
+    //     $title = 'Development Coordinator';
 
-        $post1 = raw('Post', ['title' => $title]);
-        $this->post('/admin/post/add', $post1);
+    //     $post1 = raw('Post', ['title' => $title]);
+    //     $this->post('/admin/post/add', $post1);
 
-        $post2 = raw('Post', ['title' => $title]);
-        $this->post('/admin/post/add', $post2);
+    //     $post2 = raw('Post', ['title' => $title]);
+    //     $this->post('/admin/post/add', $post2);
 
-        $post1 = \App\Post::first();
+    //     $post1 = \App\Post::first();
 
 
-        $this->get("/job/development-coordinator?i={$post1->identity}")
-        ->assertSee($post1['description'])
-        ->assertDontSee($post2['description']);
-    }
-
-    public function test_job_link_can_also_created_with_chinese_title()
-    {
-        $post_zh_en = create('Post', ['chinese_title' => '中文标题']);
-
-        $this->get('/job/'.urlencode($post_zh_en->chinese_title).'?i='.$post_zh_en->identity)->assertStatus(200);
-    }
+    //     $this->get("/job/development-coordinator?i={$post1->identity}")
+    //     ->assertSee($post1['description'])
+    //     ->assertDontSee($post2['description']);
+    // }
 
     public function test_chinese_title_can_be_added()
     {
