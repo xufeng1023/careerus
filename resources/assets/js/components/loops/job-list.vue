@@ -69,7 +69,7 @@
             </div>
         </div>
     </div>
-    <div v-else>抱歉，暂时没有找到您要求的工作，请尝试其他搜索吧。</div>
+    <div v-else v-cloak>抱歉，暂时没有找到您要求的工作，请尝试其他搜索吧。</div>
 </div>
 </template>
 

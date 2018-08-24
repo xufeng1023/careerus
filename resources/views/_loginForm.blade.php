@@ -50,4 +50,8 @@
             </a>
         </div>
     </div>
+    <hr>
+    <div class="text-center">
+        <a href="/register" class="btn btn-link">或者去注册</a>
+    </div>
 </form>
