@@ -17,7 +17,7 @@ Route::get('/searchLocation', 'PostController@searchBarLocation');
 Route::get('/searchJob', 'PostController@searchBarJob');
 Route::get('/tags', 'TagController@all');
 Route::get('/jobs', 'PostController@all');
-Route::get('/job/{postSlug}', 'PostController@show');
+//Route::get('/job/{postSlug}', 'PostController@show');
 Route::get('/fetch/post', 'PostController@fetch');
 Route::get('/blog', 'BlogController@all');
 Route::get('/blog/{blogSlug}', 'BlogController@show');
