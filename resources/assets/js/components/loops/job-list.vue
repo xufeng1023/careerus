@@ -44,7 +44,7 @@
                     <p class="card-text">{{ job.excerpt }}</p>
                     
                     <div>
-                        <div>{{ job.company.name }}</div>
+                        <div class="text-truncate" :title="job.company.name">{{ job.company.name }}</div>
                         <p class="small d-flex justify-content-between">
                             <span>地点: <span class="text-secondary">{{ job.company.state }}</span></span>
                             <span>规模: <span class="text-secondary">{{ job.company.scale }}</span></span>

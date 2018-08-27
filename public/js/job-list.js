@@ -562,7 +562,14 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", [
-                      _c("div", [_vm._v(_vm._s(job.company.name))]),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "text-truncate",
+                          attrs: { title: job.company.name }
+                        },
+                        [_vm._v(_vm._s(job.company.name))]
+                      ),
                       _vm._v(" "),
                       _c(
                         "p",
