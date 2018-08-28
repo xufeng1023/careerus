@@ -82,8 +82,7 @@
         var job = window.jobToApply;
         $(this).find('input#job').val(job.title);
         $(this).find('input#identity').val(job.identity);
-        //var file = $('#resume').val();
-        $(e.target).find('#resume').attr('disabled', true);
+        if($('#resume')[0].files[0] === undefined) $(e.target).find('#resume').attr('disabled', true);
         var form = new FormData(e.target);
         $.ajax('/apply', {
             data: form,
