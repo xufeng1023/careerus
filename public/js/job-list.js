@@ -211,6 +211,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -310,6 +314,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         getJob: function getJob(job) {
             window.jobToApply = job;
+        },
+        goTo: function goTo(url) {
+            window.open(url);
         }
     },
     watch: {
@@ -527,17 +534,27 @@ var render = function() {
                             ]
                           )
                         : _c(
-                            "a",
+                            "button",
                             {
                               staticClass: "btn btn-secondary btn-sm",
-                              attrs: {
-                                role: "button",
-                                target: "_blank",
-                                rel: "nofollow",
-                                href: job.url
-                              }
+                              attrs: { disabled: "" }
                             },
-                            [_vm._v("网站直申")]
+                            [
+                              _vm._v("点选直申\r\n                        "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "bg-white d-inline-flex justify-content-center align-items-center text-secondary",
+                                  staticStyle: {
+                                    width: "15px",
+                                    height: "15px",
+                                    "border-radius": "50%"
+                                  }
+                                },
+                                [_vm._v("✔")]
+                              )
+                            ]
                           )
                     ]
                   ),
@@ -622,6 +639,17 @@ var render = function() {
                     _c("small", { staticClass: "text-muted" }, [
                       _vm._v(_vm._s(job.posted_at))
                     ]),
+                    _vm._v(" "),
+                    _c("button", {
+                      staticClass:
+                        "btn btn-sm p-0 btn-light border-0 icon website",
+                      attrs: { title: "公司链接", type: "submit" },
+                      on: {
+                        click: function($event) {
+                          _vm.goTo(job.url)
+                        }
+                      }
+                    }),
                     _vm._v(" "),
                     _c("div", [
                       _c(

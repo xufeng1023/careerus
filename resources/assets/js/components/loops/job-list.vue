@@ -34,7 +34,10 @@
                         <button v-if="job.posted_in_hours < 24" class="btn btn-success btn-sm" data-toggle="modal" data-target="#applyModal" @click="getJob(job)">点选直申
                         <div style="width:15px;height:15px;border-radius:50%;" class="bg-white d-inline-flex justify-content-center align-items-center text-success">&#10004;</div>
                         </button>
-                        <a role="button" target="_blank" rel="nofollow" class="btn btn-secondary btn-sm" v-else :href="job.url">网站直申</a>
+
+                        <button v-else class="btn btn-secondary btn-sm" disabled>点选直申
+                        <div style="width:15px;height:15px;border-radius:50%;" class="bg-white d-inline-flex justify-content-center align-items-center text-secondary">&#10004;</div>
+                        </button>
                     </div>
                     
                     <div class="text-muted">{{ job.job_type }}</div>
@@ -58,6 +61,7 @@
 
                 <div class="card-footer d-flex align-items-center justify-content-between">
                     <small class="text-muted">{{ job.posted_at }}</small>
+                    <button title="公司链接" type="submit" class="btn btn-sm p-0 btn-light border-0 icon website" @click="goTo(job.url)"></button>
                     <div>
                         <form class="d-inline" :class="job.is_favorited? 'filled' : ''" :action="'/job/favorite/toggle/'+job.id" method="post" @submit.prevent="toggleFavorite">
                             <button type="submit" class="btn btn-sm p-0 btn-light border-0 icon heart"></button>
@@ -182,6 +186,9 @@ export default {
         },
         getJob(job) {
             window.jobToApply = job;
+        },
+        goTo(url){
+            window.open(url);
         }
     },
     watch: {
