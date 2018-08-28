@@ -249,7 +249,7 @@ class UserTest extends TestCase
             $user = create('User', ['suspended' => 1, 'confirmed' => 1])
         );
 
-        $this->post('/apply')->assertStatus(403)->assertJson(['toastr' => trans('front.bad resume msg')]);
+        $this->post('/apply')->assertStatus(403)->assertJson(['errors' => ['account' => trans('front.bad resume msg')]]);
     }
 
     public function test_admin_can_add_a_catagory()

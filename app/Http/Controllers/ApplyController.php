@@ -19,9 +19,9 @@ class ApplyController extends Controller
 
     public function save()
     {
-        if(!auth()->user()->confirmed) return response('请先完成邮箱验证。', 403);
+        if(!auth()->user()->confirmed) return response(['errors' => ['email' => '请先完成邮箱验证。']], 403);
 
-        if(auth()->user()->suspended) return response(['toastr' => trans('front.bad resume msg')], 403);
+        if(auth()->user()->suspended) return response(['errors' => ['account' => trans('front.bad resume msg')]], 403);
 
         request()->validate([
             'resume' => 'file|mimes:doc,docx,txt,pdf,rtf',
@@ -51,7 +51,7 @@ class ApplyController extends Controller
         try {
             (new Apply)->apply($post);
         } catch (\Illuminate\Database\QueryException $e) {
-            return response('您已经申请过该工作了。', 422);
+            return response(['errors' => ['apply' => '您已经申请过该工作了。']], 422);
         }
 
         //event(new \App\Events\StudentAppliedEvent($post));
