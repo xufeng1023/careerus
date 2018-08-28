@@ -71,7 +71,7 @@ class ApplyController extends Controller
                 try {
                     Mail::to($hrEmail)->send(new \App\Mail\NotifyHREmail($user, $job));
                 } catch(\Exception $e) {
-                    return 'hr '.$hrEmail." not sent \n";
+                    return 'hr '.$hrEmail.$job." not sent \n";
                 }
                 
                 foreach($user as $u) {
