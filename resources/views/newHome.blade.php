@@ -82,6 +82,8 @@
         var job = window.jobToApply;
         $(this).find('input#job').val(job.title);
         $(this).find('input#identity').val(job.identity);
+        var file = $('#resume').val();
+        if(file == '') $(e.target).find('#resume').remove();
         var form = new FormData(e.target);
         $.ajax('/apply', {
             data: form,
