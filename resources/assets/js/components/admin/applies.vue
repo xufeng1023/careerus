@@ -66,7 +66,7 @@ export default {
             if(confirm('确定开始群发吗？')) {
                 e.target.classList.add('loading');
                 $.post('/admin/send/applies', function() {
-                   // location.reload();
+                    location.reload();
                     //e.target.classList.remove('loading');
                 });
             }

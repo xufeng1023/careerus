@@ -392,7 +392,7 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('users', ['name' => 'not admin']);
     }
 
-    public function test_superadmin_can_send_applications_to_hr()
+    public function test_superadmin_can_send_applications_to_hr_and_also_email_notify_user()
     {
         Mail::fake();
 
@@ -410,27 +410,6 @@ class UserTest extends TestCase
 
         Mail::assertSent(\App\Mail\NotifyHREmail::class);
         Mail::assertSent(\App\Mail\YourJobIsApplied::class);
-    }
-
-    public function test_invalid_emails_will_be_caught_when_sending_applications()
-    {
-       // $this->expectException('Swift_RfcComplianceException');
-
-        //Mail::fake();
-
-        $this->login(
-            $admin = create('User', ['role' => 'admin', 'email' => 'xfeng@dreamgo.com'])
-        );
-
-        create('Apply', [
-            'user_id' => create('User', ['email' => '']),
-            'post_id' => create('Post', [
-                'company_id' => create('CompanyData', ['email' => 'hr@hr.com'])
-                ]
-            )
-        ]);
-
-        $this->post('/admin/send/applies')->assertSee("user ppw.0405@gmail.cn not sent \n");
     }
 
     public function test_guests_can_not_see_dashboard()
