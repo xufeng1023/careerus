@@ -5,7 +5,7 @@
 @endsection
 
 @section('description')
-<meta name="description" content="这里有相当实用的美国求职功率和心得体会供大家阅读,希望对每个人以后在美国找工作都能有所帮助.">
+<meta name="description" content="这里有相当实用的美国求职攻略和心得体会供大家阅读,希望对每个人以后在美国找工作都能有所帮助.">
 @endsection
 
 @section('content')
