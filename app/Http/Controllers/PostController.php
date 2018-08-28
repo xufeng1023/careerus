@@ -41,7 +41,11 @@ class PostController extends Controller
 
         if(request('c')) $query->where('catagory_id', request('c'));
 
-        if(request('l')) $query->whereIn('company_id', DB::table('company_data')->select('id')->whereState(request('l')));
+        if(request('l')) $query->whereIn('company_id', 
+            DB::table('company_data')->select('id')->where(function($query) {
+                $query->whereCity(request('l'))->orWhere('state', request('l'));
+            })
+        );
 
         if(request('t')) $query->where('job_type', request('t'));
 

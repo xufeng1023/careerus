@@ -223,14 +223,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             offset: 0,
             stopLoading: false,
             categories: [],
-            locations: []
+            locations: [{ en: 'NY', zh: '纽约' }, { en: 'NJ', zh: '新泽西' }, { en: 'CHICAGO', zh: '芝加哥' }, { en: 'LOS ANGELES', zh: '洛杉矶' }, { en: 'MIAMI', zh: '迈阿密' }, { en: 'BOSTON', zh: '波士顿' }, { en: 'SAN JOSE', zh: '圣何塞' }, { en: 'WASHINGTON', zh: '华盛顿' }, { en: 'ATLANTA', zh: '亚特兰大' }, { en: 'SAN FRANCISCO', zh: '圣弗朗西斯科' }, { en: 'SAN DIEGO', zh: '圣地亚哥' }]
         };
     },
     created: function created() {
         var self = this;
         var timeout;
         this.fetch();
-        this.fetchLocations();
+        //this.fetchLocations();
         this.fetchCategories();
         $(window).scroll(function () {
             if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
@@ -412,11 +412,8 @@ var render = function() {
               _vm._l(_vm.locations, function(location) {
                 return _c(
                   "option",
-                  {
-                    key: location.ID,
-                    domProps: { value: location.STATE_CODE }
-                  },
-                  [_vm._v(_vm._s(location.simplified_name))]
+                  { key: location.en, domProps: { value: location.en } },
+                  [_vm._v(_vm._s(location.zh))]
                 )
               })
             ],
