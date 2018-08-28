@@ -62,23 +62,23 @@ class ApplyController extends Controller
         foreach($applies as $a) {
             $emails[$a->post->company->email][$a->post->title][] = $a->user;
 
-            // $a->is_applied = 1;
-            // $a->save();
+            $a->is_applied = 1;
+            $a->save();
         }
 
         foreach($emails as $hrEmail => $jobs) {
             foreach($jobs as $job => $user) {
                 try {
-                    Mail::to($hrEmail)->send(new \App\Mail\NotifyHREmail($user, $job));
+                    if($hrEmail) Mail::to($hrEmail)->send(new \App\Mail\NotifyHREmail($user, $job));
                 } catch(\Exception $e) {
-                    return 'hr '.$hrEmail.$job." not sent \n";
+                    echo 'hr '.$hrEmail.$job." not sent \n";
                 }
                 
                 foreach($user as $u) {
                     try {
                         Mail::to($u->email)->send(new \App\Mail\YourJobIsApplied($u, $job));
                     } catch(\Exception $e) {
-                        return 'user '.$u->email." not sent \n";
+                        echo 'user '.$u->email." not sent \n";
                     }
                 }
             }

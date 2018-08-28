@@ -423,7 +423,7 @@ class UserTest extends TestCase
         );
 
         create('Apply', [
-            'user_id' => create('User', ['email' => 'ppw.0405@gmail.cn']),
+            'user_id' => create('User', ['email' => '']),
             'post_id' => create('Post', [
                 'company_id' => create('CompanyData', ['email' => 'hr@hr.com'])
                 ]
