@@ -68,9 +68,18 @@ class ApplyController extends Controller
 
         foreach($emails as $hrEmail => $jobs) {
             foreach($jobs as $job => $user) {
-                Mail::to($hrEmail)->send(new \App\Mail\NotifyHREmail($user, $job));
+                try {
+                    Mail::to($hrEmail)->send(new \App\Mail\NotifyHREmail($user, $job));
+                } catch(Swift_RfcComplianceException $e) {
+                    echo 'hr '.$hrEmail." not sent \n";
+                }
+                
                 foreach($user as $u) {
-                    Mail::to($u->email)->send(new \App\Mail\YourJobIsApplied($u, $job));
+                    try {
+                        Mail::to($u->email)->send(new \App\Mail\YourJobIsApplied($u, $job));
+                    } catch(Swift_RfcComplianceException $e) {
+                        echo 'user '.$u->email." not sent \n";
+                    }
                 }
             }
         }
