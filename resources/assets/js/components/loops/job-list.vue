@@ -1,7 +1,7 @@
 <template>
 <div class="container">
-    <div class="row justify-content-between">
-        <div class="col col-sm-6">
+    <div class="row justify-content-sm-between">
+        <div class="col-sm-6">
             <div class="input-group mb-4">
                 <input type="text" class="form-control" v-model="search" placeholder="关键字">
                 <select class="custom-select" @change="category = $event.target.value">
@@ -14,8 +14,8 @@
                 </select>
             </div>
         </div>
-        <div class="col col-sm-2">
-            <select class="form-control" v-model="type">
+        <div class="col-sm-4 col-md-3 col-lg-2">
+            <select class="form-control mb-4" v-model="type">
                 <option value="">所有工作类型</option>
                 <option value="Part-time">Part-time</option>
                 <option value="Full-time">Full-time</option>

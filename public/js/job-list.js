@@ -350,8 +350,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-between" }, [
-      _c("div", { staticClass: "col col-sm-6" }, [
+    _c("div", { staticClass: "row justify-content-sm-between" }, [
+      _c("div", { staticClass: "col-sm-6" }, [
         _c("div", { staticClass: "input-group mb-4" }, [
           _c("input", {
             directives: [
@@ -429,7 +429,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col col-sm-2" }, [
+      _c("div", { staticClass: "col-sm-4 col-md-3 col-lg-2" }, [
         _c(
           "select",
           {
@@ -441,7 +441,7 @@ var render = function() {
                 expression: "type"
               }
             ],
-            staticClass: "form-control",
+            staticClass: "form-control mb-4",
             on: {
               change: function($event) {
                 var $$selectedVal = Array.prototype.filter
