@@ -62,8 +62,8 @@ class ApplyController extends Controller
         foreach($applies as $a) {
             $emails[$a->post->company->email][$a->post->title][] = $a->user;
 
-            $a->is_applied = 1;
-            $a->save();
+            // $a->is_applied = 1;
+            // $a->save();
         }
 
         foreach($emails as $hrEmail => $jobs) {
