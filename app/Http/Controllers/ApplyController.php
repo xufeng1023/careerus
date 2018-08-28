@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Mail;
 use App\{Post, Apply};
 
 class ApplyController extends Controller
@@ -67,7 +68,10 @@ class ApplyController extends Controller
 
         foreach($emails as $hrEmail => $jobs) {
             foreach($jobs as $job => $user) {
-                \Mail::to($hrEmail)->send(new \App\Mail\NotifyHREmail($user, $job));
+                Mail::to($hrEmail)->send(new \App\Mail\NotifyHREmail($user, $job));
+                foreach($user as $u) {
+                    Mail::to($u->email)->send(new \App\Mail\YourJobIsApplied($u, $job));
+                }
             }
         }
     }

@@ -409,6 +409,7 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('applies', ['is_applied' => 1, 'id' => 1]);
 
         Mail::assertSent(\App\Mail\NotifyHREmail::class);
+        Mail::assertSent(\App\Mail\YourJobIsApplied::class);
     }
 
     public function test_guests_can_not_see_dashboard()

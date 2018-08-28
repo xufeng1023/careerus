@@ -1,12 +1,7 @@
 @component('mail::message')
-# 您好，{{ auth()->user()->name }}
+# 您好，{{ $user->name }}
 
-您刚刚成功的申请了{{ $post->title }}的工作。
+"{{ $post }}"的工作申请已经帮您发送出去了。
 
-@component('mail::button', ['url' => url($post->link())])
-点击查看
-@endcomponent
-
-祝您好运,<br>
-{{ config('app.name') }}
+祝您好运！
 @endcomponent
