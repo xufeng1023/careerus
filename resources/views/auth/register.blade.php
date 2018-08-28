@@ -13,7 +13,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('front.register') }}</div>
+                <div class="card-header">注册</div>
 
                 <div class="card-body">
                     @if ($errors->any())
@@ -59,7 +59,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label for="resume" class="col-md-4 col-form-label text-md-right">{{ __('front.resume') }}</label>
                             <div class="col-md-6">
                                 <div class="custom-file">
@@ -68,7 +68,7 @@
                                     <div v-if="errors.resume" class="invalid-feedback"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">

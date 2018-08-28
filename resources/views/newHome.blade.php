@@ -13,7 +13,7 @@
         <job-list></job-list>
     </div>
     <div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="applyModalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="applyModalTitle">工作申请</h5>
@@ -72,15 +72,28 @@
         })
     });
 
+    $('#resume').change(function(e) {
+        let file = e.target.files[0];
+        $(e.target).siblings('label').text(file.name);
+    });
+
     $('body').on('submit', '#applyForm', function(e) {
         e.preventDefault();
         var job = window.jobToApply;
+        $(this).find('input#job').val(job.title);
+        $(this).find('input#identity').val(job.identity);
+        var form = new FormData(e.target);
         $.ajax('/apply', {
-            data: $(e.target).serialize()+'&job='+job.title+'&identity='+job.identity,
+            data: form,
             type: 'post',
             context: $(this),
+            contentType: false,
+            processData: false,
             error(data) {
-                toastr.error(data.responseText);
+                var errors = JSON.parse(data.responseText).errors;
+                for(prop in errors) {
+                    toastr.error(errors[prop]);
+                }
             },
             success(data) {
                 location.assign(data)

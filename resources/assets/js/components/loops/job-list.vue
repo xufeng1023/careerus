@@ -25,10 +25,10 @@
     </div>
 
     <div v-if="computedJobs.length" class="row">
-        <div v-for="job in computedJobs" :key="job.id" class="col-sm-4">
+        <div v-for="job in computedJobs" :key="job.id" class="col-lg-6 col-xl-4">
             <div class="card mb-5">
                 <div class="card-header">
-                    <div class="justify-content-between d-flex align-items-center">
+                    <div class="justify-content-between d-flex align-items-center flex-sm-wrap">
                         <h5 class="card-title m-0" :title="job.chinese_title || job.title">{{ job.showTitle }}</h5>
                         
                         <button v-if="job.posted_in_hours < 24" class="btn btn-success btn-sm" data-toggle="modal" data-target="#applyModal" @click="getJob(job)">点选直申

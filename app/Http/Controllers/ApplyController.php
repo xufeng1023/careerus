@@ -22,6 +22,15 @@ class ApplyController extends Controller
         if(!auth()->user()->confirmed) return response('请先完成邮箱验证。', 403);
 
         if(auth()->user()->suspended) return response(['toastr' => trans('front.bad resume msg')], 403);
+
+        request()->validate([
+            'resume' => 'file|mimes:doc,docx,txt,pdf,rtf',
+        ]);
+
+        if(request()->file('resume')) {
+            auth()->user()->resume = request()->resume->store('resumes');
+            auth()->user()->save();
+        }
         
         if(app()->environment() !== 'testing') {
             if(! \Storage::exists(auth()->user()->resume)) {

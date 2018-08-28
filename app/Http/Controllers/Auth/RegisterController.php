@@ -25,8 +25,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|regex:/^[a-zA-Z]{1}[a-zA-Z ]*$/|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required|regex:/^[1-9]{1}[0-9]{9}$/|unique:users',
-            'resume' => 'required|file|mimes:doc,docx,txt,pdf,rtf',
+            //'phone' => 'required|regex:/^[1-9]{1}[0-9]{9}$/|unique:users',
+            //'resume' => 'required|file|mimes:doc,docx,txt,pdf,rtf',
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
@@ -36,8 +36,8 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'phone' => $data['phone'],
-            'resume' => request()->resume->store('resumes'),
+            //'phone' => $data['phone'],
+            //'resume' => request()->resume->store('resumes'),
             'password' => Hash::make($data['password']),
             'confirm_token' => str_random(100)
         ]);
