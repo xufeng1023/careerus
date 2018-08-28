@@ -26,7 +26,8 @@ class BlogController extends Controller
         Blog::create([
             'user_id' => auth()->id(),
             'title' => request('title'),
-            'content' => request('content')
+            'content' => request('content'),
+            'description' => request('description')
         ]);
 
         return '/admin/blog';

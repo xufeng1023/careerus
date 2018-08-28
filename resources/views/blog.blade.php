@@ -5,7 +5,7 @@
 @endsection
 
 @section('description')
-<meta name="description" content="{{ $blog->excerpt() }}">
+<meta name="description" content="{{ $blog->description ?: $blog->excerpt() }}">
 @endsection
 
 

@@ -58,6 +58,13 @@
             </div>
 
             <div class="form-group">
+                <label class="col-form-label">SEO描述(155字内)</label>
+
+                <textarea class="form-control" name="description" rows="3">{{ request('id')? $blogs[0]->description: '' }}</textarea>
+                <small class="form-text text-muted"></small>
+            </div>
+
+            <div class="form-group">
                 <label class="col-form-label">{{ __('admin.content') }}</label>
 
                 <div id="editor" data-content="{{ request('id')? $blogs[0]->content : '' }}"></div>
@@ -76,6 +83,12 @@
     if(oldContent) {
         window.Quill.setContents(JSON.parse(oldContent));
     }
+
+    $('textarea[name=description]').on('input', function() {
+        var numbers = $(this).val().length;
+        if(numbers > 0) $(this).next().text(numbers+'字');
+        else $(this).next().text('');
+    });
 
     function onSubmit(e) {
         e.preventDefault();
