@@ -44,7 +44,7 @@ export default {
 .shelf-date {
     transform: skewY(-5deg) translateY(-3px)
 }
-.rotate:hover,.rotate:touchstart {
+.rotate:hover {
     cursor: pointer;
     animation-name: swing;
     animation-duration: 200ms;
