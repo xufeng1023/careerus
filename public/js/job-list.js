@@ -137,6 +137,11 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__timeline2_vue__ = __webpack_require__(264);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__timeline2_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__timeline2_vue__);
+//
+//
+//
 //
 //
 //
@@ -216,7 +221,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+window.dates = [];
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+    components: { timeline: __WEBPACK_IMPORTED_MODULE_0__timeline2_vue___default.a },
     data: function data() {
         return {
             jobs: [],
@@ -247,6 +255,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        newDate: function newDate(date) {
+            if (!window.dates.includes(date)) {
+                window.dates.push(date);
+                return '<div class="w-100">' + date + '</div>';
+            }
+        },
         fetch: function fetch() {
             var push = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
@@ -265,9 +279,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 },
                 context: this,
                 success: function success(data) {
+                    var _this = this;
+
                     this.offset += data.length;
 
-                    if (push) this.jobs = this.jobs.concat(data);else this.jobs = data;
+                    data.forEach(function (job) {
+                        _this.jobs.push(job);
+                    });
 
                     if (data.length < 9) this.stopLoading = true;
                 }
@@ -477,221 +495,231 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm.computedJobs.length
+    _vm.jobs.length
       ? _c(
           "div",
           { staticClass: "row" },
-          _vm._l(_vm.computedJobs, function(job) {
-            return _c(
-              "div",
-              { key: job.id, staticClass: "col-lg-6 col-xl-4" },
-              [
-                _c("div", { staticClass: "card mb-5" }, [
-                  _c("div", { staticClass: "card-header" }, [
+          [
+            _vm._l(_vm.jobs, function(job) {
+              return [
+                _c("timeline", {
+                  key: job.identity,
+                  attrs: { date: job.created_at }
+                }),
+                _vm._v(" "),
+                _c("div", { key: job.id, staticClass: "col-lg-6 col-xl-4" }, [
+                  _c("div", { staticClass: "card mb-5" }, [
+                    _c("div", { staticClass: "card-header" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "justify-content-between d-flex align-items-center flex-sm-wrap"
+                        },
+                        [
+                          _c(
+                            "h5",
+                            {
+                              staticClass: "card-title m-0",
+                              attrs: { title: job.chinese_title || job.title }
+                            },
+                            [_vm._v(_vm._s(job.showTitle))]
+                          ),
+                          _vm._v(" "),
+                          job.posted_in_hours < 24
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-success btn-sm",
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#applyModal"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.getJob(job)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "点选直申\r\n                        "
+                                  ),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "bg-white d-inline-flex justify-content-center align-items-center text-success",
+                                      staticStyle: {
+                                        width: "15px",
+                                        height: "15px",
+                                        "border-radius": "50%"
+                                      }
+                                    },
+                                    [_vm._v("✔")]
+                                  )
+                                ]
+                              )
+                            : _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-secondary btn-sm",
+                                  attrs: { disabled: "" }
+                                },
+                                [
+                                  _vm._v(
+                                    "点选直申\r\n                        "
+                                  ),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "bg-white d-inline-flex justify-content-center align-items-center text-secondary",
+                                      staticStyle: {
+                                        width: "15px",
+                                        height: "15px",
+                                        "border-radius": "50%"
+                                      }
+                                    },
+                                    [_vm._v("✔")]
+                                  )
+                                ]
+                              )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "text-muted" }, [
+                        _vm._v(_vm._s(job.job_type))
+                      ])
+                    ]),
+                    _vm._v(" "),
                     _c(
                       "div",
                       {
                         staticClass:
-                          "justify-content-between d-flex align-items-center flex-sm-wrap"
+                          "card-body d-flex flex-column justify-content-between"
                       },
                       [
-                        _c(
-                          "h5",
-                          {
-                            staticClass: "card-title m-0",
-                            attrs: { title: job.chinese_title || job.title }
-                          },
-                          [_vm._v(_vm._s(job.showTitle))]
-                        ),
+                        _c("p", { staticClass: "card-text" }, [
+                          _vm._v(_vm._s(job.excerpt))
+                        ]),
                         _vm._v(" "),
-                        job.posted_in_hours < 24
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-success btn-sm",
-                                attrs: {
-                                  "data-toggle": "modal",
-                                  "data-target": "#applyModal"
+                        _c("div", [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "text-truncate",
+                              attrs: { title: job.company.name }
+                            },
+                            [_vm._v(_vm._s(job.company.name))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "p",
+                            {
+                              staticClass:
+                                "small d-flex justify-content-between"
+                            },
+                            [
+                              _c("span", [
+                                _vm._v("地点: "),
+                                _c("span", { staticClass: "text-secondary" }, [
+                                  _vm._v(_vm._s(job.company.state))
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("span", [
+                                _vm._v("规模: "),
+                                _c("span", { staticClass: "text-secondary" }, [
+                                  _vm._v(_vm._s(job.company.scale))
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("span", [
+                                _vm._v("2017 H1B: "),
+                                _c("span", { staticClass: "text-secondary" }, [
+                                  _vm._v(
+                                    _vm._s(job.company.totalSponsor) + "人"
+                                  )
+                                ])
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            _vm._l(job.tags, function(tag) {
+                              return _c(
+                                "span",
+                                {
+                                  key: tag.id,
+                                  staticClass:
+                                    "badge badge-pill badge-secondary"
                                 },
-                                on: {
-                                  click: function($event) {
-                                    _vm.getJob(job)
-                                  }
-                                }
-                              },
-                              [
-                                _vm._v("点选直申\r\n                        "),
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "bg-white d-inline-flex justify-content-center align-items-center text-success",
-                                    staticStyle: {
-                                      width: "15px",
-                                      height: "15px",
-                                      "border-radius": "50%"
-                                    }
-                                  },
-                                  [_vm._v("✔")]
-                                )
-                              ]
-                            )
-                          : _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-secondary btn-sm",
-                                attrs: { disabled: "" }
-                              },
-                              [
-                                _vm._v("点选直申\r\n                        "),
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "bg-white d-inline-flex justify-content-center align-items-center text-secondary",
-                                    staticStyle: {
-                                      width: "15px",
-                                      height: "15px",
-                                      "border-radius": "50%"
-                                    }
-                                  },
-                                  [_vm._v("✔")]
-                                )
-                              ]
-                            )
+                                [_vm._v(_vm._s(tag.name))]
+                              )
+                            })
+                          )
+                        ])
                       ]
                     ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "text-muted" }, [
-                      _vm._v(_vm._s(job.job_type))
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "card-body d-flex flex-column justify-content-between"
-                    },
-                    [
-                      _c("p", { staticClass: "card-text" }, [
-                        _vm._v(_vm._s(job.excerpt))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "text-truncate",
-                            attrs: { title: job.company.name }
-                          },
-                          [_vm._v(_vm._s(job.company.name))]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "p",
-                          {
-                            staticClass: "small d-flex justify-content-between"
-                          },
-                          [
-                            _c("span", [
-                              _vm._v("地点: "),
-                              _c("span", { staticClass: "text-secondary" }, [
-                                _vm._v(_vm._s(job.company.state))
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("span", [
-                              _vm._v("规模: "),
-                              _c("span", { staticClass: "text-secondary" }, [
-                                _vm._v(_vm._s(job.company.scale))
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("span", [
-                              _vm._v("2017 H1B: "),
-                              _c("span", { staticClass: "text-secondary" }, [
-                                _vm._v(_vm._s(job.company.totalSponsor) + "人")
-                              ])
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          _vm._l(job.tags, function(tag) {
-                            return _c(
-                              "span",
-                              {
-                                key: tag.id,
-                                staticClass: "badge badge-pill badge-secondary"
-                              },
-                              [_vm._v(_vm._s(tag.name))]
-                            )
-                          })
-                        )
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "card-footer d-flex align-items-center justify-content-between"
-                    },
-                    [
-                      _c("small", { staticClass: "text-muted" }, [
-                        _vm._v(_vm._s(job.posted_at))
-                      ]),
-                      _vm._v(" "),
-                      _c("button", {
+                    _c(
+                      "div",
+                      {
                         staticClass:
-                          "btn btn-sm p-0 btn-light border-0 icon website",
-                        attrs: { title: "公司链接", type: "submit" },
-                        on: {
-                          click: function($event) {
-                            _vm.goTo(job.url)
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", [
-                        _c(
-                          "form",
-                          {
-                            staticClass: "d-inline",
-                            class: job.is_favorited ? "filled" : "",
-                            attrs: {
-                              action: "/job/favorite/toggle/" + job.id,
-                              method: "post"
-                            },
-                            on: {
-                              submit: function($event) {
-                                $event.preventDefault()
-                                return _vm.toggleFavorite($event)
-                              }
+                          "card-footer d-flex align-items-center justify-content-between"
+                      },
+                      [
+                        _c("button", {
+                          staticClass:
+                            "btn btn-sm p-0 btn-light border-0 icon website",
+                          attrs: { title: "公司链接", type: "submit" },
+                          on: {
+                            click: function($event) {
+                              _vm.goTo(job.url)
                             }
-                          },
-                          [
-                            _c("button", {
-                              staticClass:
-                                "btn btn-sm p-0 btn-light border-0 icon heart",
-                              attrs: { type: "submit" }
-                            })
-                          ]
-                        ),
+                          }
+                        }),
                         _vm._v(" "),
-                        _c("span", { staticClass: "favorites" }, [
-                          _vm._v(_vm._s(job.favorites_count))
+                        _c("div", [
+                          _c(
+                            "form",
+                            {
+                              staticClass: "d-inline",
+                              class: job.is_favorited ? "filled" : "",
+                              attrs: {
+                                action: "/job/favorite/toggle/" + job.id,
+                                method: "post"
+                              },
+                              on: {
+                                submit: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.toggleFavorite($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("button", {
+                                staticClass:
+                                  "btn btn-sm p-0 btn-light border-0 icon heart",
+                                attrs: { type: "submit" }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "favorites" }, [
+                            _vm._v(_vm._s(job.favorites_count))
+                          ])
                         ])
-                      ])
-                    ]
-                  )
+                      ]
+                    )
+                  ])
                 ])
               ]
-            )
-          })
+            })
+          ],
+          2
         )
       : _c("div", {}, [
           _vm._v("抱歉，暂时没有找到您要求的工作，请尝试其他搜索吧。")
@@ -705,6 +733,124 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-a0ebf59c", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 264:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(265)
+/* template */
+var __vue_template__ = __webpack_require__(266)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\loops\\timeline2.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-188f3ebd", Component.options)
+  } else {
+    hotAPI.reload("data-v-188f3ebd", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 265:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['date'],
+    data: function data() {
+        return {
+            w100: false,
+            newDate: false
+        };
+    },
+    mounted: function mounted() {
+        if (window.dates.indexOf(this.date) === -1) {
+            console.log(this.date, window.dates);
+            window.dates.push(this.date);
+            this.w100 = true;
+            this.newDate = true;
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 266:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.newDate
+    ? _c(
+        "div",
+        {
+          staticClass: "mx-3 mb-5 text-center border-top border-info",
+          class: { "w-100": _vm.w100 }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "d-inline-block px-3 bg-info text-white date-shadow"
+            },
+            [_vm._v(_vm._s(_vm.date))]
+          )
+        ]
+      )
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-188f3ebd", module.exports)
   }
 }
 

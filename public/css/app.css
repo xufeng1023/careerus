@@ -10776,6 +10776,11 @@ button.loading::after {
   content: "\6D4F\89C8";
 }
 
+.date-shadow {
+  -webkit-box-shadow: 0 2px 4px 0px #3333334f !important;
+          box-shadow: 0 2px 4px 0px #3333334f !important;
+}
+
 .job-excerpt {
   line-height: 1.4;
 }

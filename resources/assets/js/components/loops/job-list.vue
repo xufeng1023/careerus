@@ -24,8 +24,10 @@
         </div>
     </div>
 
-    <div v-if="computedJobs.length" class="row">
-        <div v-for="job in computedJobs" :key="job.id" class="col-lg-6 col-xl-4">
+    <div v-if="jobs.length" class="row">
+        <template v-for="job in jobs">
+            <timeline :key="job.identity" :date="job.created_at"></timeline>
+        <div :key="job.id" class="col-lg-6 col-xl-4">
             <div class="card mb-5">
                 <div class="card-header">
                     <div class="justify-content-between d-flex align-items-center flex-sm-wrap">
@@ -60,7 +62,7 @@
                 </div>
 
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <small class="text-muted">{{ job.posted_at }}</small>
+                    <!-- <small class="text-muted">{{ job.posted_at }}</small> -->
                     <button title="公司链接" type="submit" class="btn btn-sm p-0 btn-light border-0 icon website" @click="goTo(job.url)"></button>
                     <div>
                         <form class="d-inline" :class="job.is_favorited? 'filled' : ''" :action="'/job/favorite/toggle/'+job.id" method="post" @submit.prevent="toggleFavorite">
@@ -71,13 +73,17 @@
                 </div>
             </div>
         </div>
+        </template>
     </div>
     <div v-else v-cloak>抱歉，暂时没有找到您要求的工作，请尝试其他搜索吧。</div>
 </div>
 </template>
 
 <script>
+window.dates = [];
+import timeline from './timeline2.vue';
 export default {
+    components: {timeline},
     data() {
         return {
             jobs:[],
@@ -119,6 +125,12 @@ export default {
         });
     },
     methods: {
+        newDate(date) {
+            if(!window.dates.includes(date)) {
+                window.dates.push(date);
+                return '<div class="w-100">'+date+'</div>';
+            }
+        },
         fetch(push = false) {
             if(!push) {
                 this.offset = 0;
@@ -137,8 +149,9 @@ export default {
                 success(data) {
                     this.offset += data.length;
 
-                    if(push) this.jobs = this.jobs.concat(data);
-                    else this.jobs = data;
+                    data.forEach( job => {
+                        this.jobs.push(job);
+                    });
 
                     if(data.length < 9) this.stopLoading = true;
                 }

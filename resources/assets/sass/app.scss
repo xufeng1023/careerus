@@ -120,6 +120,9 @@ button.loading::after {
 .custom-file-label:after{
   content: "浏览";
 }
+.date-shadow {
+  box-shadow: 0 2px 4px 0px #3333334f !important;
+}
 .job-excerpt {
   line-height: 1.4;
 }
