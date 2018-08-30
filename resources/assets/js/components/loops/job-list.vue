@@ -125,12 +125,6 @@ export default {
         });
     },
     methods: {
-        newDate(date) {
-            if(!window.dates.includes(date)) {
-                window.dates.push(date);
-                return '<div class="w-100">'+date+'</div>';
-            }
-        },
         fetch(push = false) {
             if(!push) {
                 this.offset = 0;

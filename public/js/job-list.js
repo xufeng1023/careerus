@@ -255,12 +255,6 @@ window.dates = [];
     },
 
     methods: {
-        newDate: function newDate(date) {
-            if (!window.dates.includes(date)) {
-                window.dates.push(date);
-                return '<div class="w-100">' + date + '</div>';
-            }
-        },
         fetch: function fetch() {
             var push = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
@@ -808,7 +802,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         if (window.dates.indexOf(this.date) === -1) {
-            console.log(this.date, window.dates);
             window.dates.push(this.date);
             this.w100 = true;
             this.newDate = true;

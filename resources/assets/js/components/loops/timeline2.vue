@@ -14,7 +14,7 @@ export default {
         }
     },
     mounted() {
-        if(window.dates.indexOf(this.date) === -1) { console.log(this.date, window.dates)
+        if(window.dates.indexOf(this.date) === -1) {
             window.dates.push(this.date);
             this.w100 = true;
             this.newDate = true;
