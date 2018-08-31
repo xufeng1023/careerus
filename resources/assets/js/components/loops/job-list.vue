@@ -141,6 +141,8 @@ export default {
                 },
                 context: this,
                 success(data) {
+                    if(!this.offset) this.jobs = [];
+
                     this.offset += data.length;
 
                     data.forEach( job => {

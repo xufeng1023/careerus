@@ -621,6 +621,8 @@ window.dates = [];
                 success: function success(data) {
                     var _this = this;
 
+                    if (!this.offset) this.jobs = [];
+
                     this.offset += data.length;
 
                     data.forEach(function (job) {
