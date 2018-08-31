@@ -1,11 +1,11 @@
 <template>
     <div v-if="newDate" class="mx-3 mb-5 d-flex justify-content-center" :class="{'w-100':w100}">
-        <div class="d-flex justify-content-center align-items-center flex-column">
+        <div class="d-flex justify-content-center align-items-center flex-column shelf-date">
             <div class="d-flex">
                 <div class="shelf-left"></div>
                 <div class="shelf-right"></div>
             </div>
-            <div class="px-3 bg-info text-white date-shadow shelf-date rotate">{{ date }}</div>
+            <div class="px-3 bg-info text-white date-shadow rotate">{{ date }}</div>
         </div>
     </div>
 </template>
@@ -36,10 +36,10 @@ export default {
     transform: skewX(-27deg) translateX(-22px);
 }
 .shelf-right {
-    height: 25px;
+    height: 29px;
     width: 3px;
     background: #17a2b8;
-    transform: skewX(57deg) translate(2px, 0px);
+    transform: skewX(57deg) translate(4px, 1px);
 }
 .shelf-date {
     transform: skewY(-5deg) translateY(-3px)
@@ -47,22 +47,14 @@ export default {
 .rotate:hover, .rotate:focus {
     cursor: pointer;
     animation-name: swing;
-    animation-duration: 500ms;
+    animation-duration: 300ms;
     animation-iteration-count: 1;
-    animation-timing-function: linear;
+    animation-timing-function: ease-out;
 }
 
 @keyframes swing {
-    0%   {transform: rotate(-10deg);}
-    5% {transform: rotate(5deg);}
-    10% {transform: rotate(initial);}
-    15% {transform: rotate(-10deg);}
-    20% {transform: rotate(initial);}
-    25% {transform: rotate(5deg);}
-    30% {transform: rotate(initial);}
-    35% {transform: rotate(-10deg);}
-    40% {transform: rotate(initial);}
-    45% {transform: rotate(5deg);}
-    100% {transform: rotate(initial);}
+    0%   {}
+    50% {transform: rotateX(180deg);}
+    100% {}
 }
 </style>
