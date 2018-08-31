@@ -1,11 +1,11 @@
 <template>
     <div v-if="newDate" class="mx-3 mb-5 d-flex justify-content-center" :class="{'w-100':w100}">
-        <div class="d-flex justify-content-center align-items-center flex-column rotate">
+        <div class="d-flex justify-content-center align-items-center flex-column">
             <div class="d-flex">
                 <div class="shelf-left"></div>
                 <div class="shelf-right"></div>
             </div>
-            <div class="px-3 bg-info text-white date-shadow shelf-date">{{ date }}</div>
+            <div class="px-3 bg-info text-white date-shadow shelf-date rotate">{{ date }}</div>
         </div>
     </div>
 </template>
@@ -47,16 +47,22 @@ export default {
 .rotate:hover, .rotate:focus {
     cursor: pointer;
     animation-name: swing;
-    animation-duration: 200ms;
-    animation-iteration-count: 2;
+    animation-duration: 500ms;
+    animation-iteration-count: 1;
     animation-timing-function: linear;
 }
 
 @keyframes swing {
-    0%   {transform: rotate(initial);}
-    25% {transform: rotate(-15deg);}
-    50% {transform: rotate(initial);}
-    75% {transform: rotate(15deg);}
+    0%   {transform: rotate(-10deg);}
+    5% {transform: rotate(5deg);}
+    10% {transform: rotate(initial);}
+    15% {transform: rotate(-10deg);}
+    20% {transform: rotate(initial);}
+    25% {transform: rotate(5deg);}
+    30% {transform: rotate(initial);}
+    35% {transform: rotate(-10deg);}
+    40% {transform: rotate(initial);}
+    45% {transform: rotate(5deg);}
     100% {transform: rotate(initial);}
 }
 </style>

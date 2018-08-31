@@ -1186,7 +1186,7 @@ var render = function() {
             "div",
             {
               staticClass:
-                "d-flex justify-content-center align-items-center flex-column rotate"
+                "d-flex justify-content-center align-items-center flex-column"
             },
             [
               _vm._m(0),
@@ -1194,7 +1194,8 @@ var render = function() {
               _c(
                 "div",
                 {
-                  staticClass: "px-3 bg-info text-white date-shadow shelf-date"
+                  staticClass:
+                    "px-3 bg-info text-white date-shadow shelf-date rotate"
                 },
                 [_vm._v(_vm._s(_vm.date))]
               )
@@ -1262,7 +1263,7 @@ exports = module.exports = __webpack_require__(156)(false);
 
 
 // module
-exports.push([module.i, "\n.shelf-left {\r\n    height: 30px;\r\n    width: 2px;\r\n    background: #17a2b8;\r\n    -webkit-transform: skewX(-27deg) translateX(-22px);\r\n            transform: skewX(-27deg) translateX(-22px);\n}\n.shelf-right {\r\n    height: 25px;\r\n    width: 3px;\r\n    background: #17a2b8;\r\n    -webkit-transform: skewX(57deg) translate(2px, 0px);\r\n            transform: skewX(57deg) translate(2px, 0px);\n}\n.shelf-date {\r\n    -webkit-transform: skewY(-5deg) translateY(-3px);\r\n            transform: skewY(-5deg) translateY(-3px)\n}\n.rotate:hover, .rotate:focus {\r\n    cursor: pointer;\r\n    -webkit-animation-name: swing;\r\n            animation-name: swing;\r\n    -webkit-animation-duration: 200ms;\r\n            animation-duration: 200ms;\r\n    -webkit-animation-iteration-count: 2;\r\n            animation-iteration-count: 2;\r\n    -webkit-animation-timing-function: linear;\r\n            animation-timing-function: linear;\n}\n@-webkit-keyframes swing {\n0%   {-webkit-transform: rotate(initial);transform: rotate(initial);\n}\n25% {-webkit-transform: rotate(-15deg);transform: rotate(-15deg);\n}\n50% {-webkit-transform: rotate(initial);transform: rotate(initial);\n}\n75% {-webkit-transform: rotate(15deg);transform: rotate(15deg);\n}\n100% {-webkit-transform: rotate(initial);transform: rotate(initial);\n}\n}\n@keyframes swing {\n0%   {-webkit-transform: rotate(initial);transform: rotate(initial);\n}\n25% {-webkit-transform: rotate(-15deg);transform: rotate(-15deg);\n}\n50% {-webkit-transform: rotate(initial);transform: rotate(initial);\n}\n75% {-webkit-transform: rotate(15deg);transform: rotate(15deg);\n}\n100% {-webkit-transform: rotate(initial);transform: rotate(initial);\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.shelf-left {\r\n    height: 30px;\r\n    width: 2px;\r\n    background: #17a2b8;\r\n    -webkit-transform: skewX(-27deg) translateX(-22px);\r\n            transform: skewX(-27deg) translateX(-22px);\n}\n.shelf-right {\r\n    height: 25px;\r\n    width: 3px;\r\n    background: #17a2b8;\r\n    -webkit-transform: skewX(57deg) translate(2px, 0px);\r\n            transform: skewX(57deg) translate(2px, 0px);\n}\n.shelf-date {\r\n    -webkit-transform: skewY(-5deg) translateY(-3px);\r\n            transform: skewY(-5deg) translateY(-3px)\n}\n.rotate:hover, .rotate:focus {\r\n    cursor: pointer;\r\n    -webkit-animation-name: swing;\r\n            animation-name: swing;\r\n    -webkit-animation-duration: 500ms;\r\n            animation-duration: 500ms;\r\n    -webkit-animation-iteration-count: 1;\r\n            animation-iteration-count: 1;\r\n    -webkit-animation-timing-function: linear;\r\n            animation-timing-function: linear;\n}\n@-webkit-keyframes swing {\n0%   {-webkit-transform: rotate(-10deg);transform: rotate(-10deg);\n}\n5% {-webkit-transform: rotate(5deg);transform: rotate(5deg);\n}\n10% {-webkit-transform: rotate(initial);transform: rotate(initial);\n}\n15% {-webkit-transform: rotate(-10deg);transform: rotate(-10deg);\n}\n20% {-webkit-transform: rotate(initial);transform: rotate(initial);\n}\n25% {-webkit-transform: rotate(5deg);transform: rotate(5deg);\n}\n30% {-webkit-transform: rotate(initial);transform: rotate(initial);\n}\n35% {-webkit-transform: rotate(-10deg);transform: rotate(-10deg);\n}\n40% {-webkit-transform: rotate(initial);transform: rotate(initial);\n}\n45% {-webkit-transform: rotate(5deg);transform: rotate(5deg);\n}\n100% {-webkit-transform: rotate(initial);transform: rotate(initial);\n}\n}\n@keyframes swing {\n0%   {-webkit-transform: rotate(-10deg);transform: rotate(-10deg);\n}\n5% {-webkit-transform: rotate(5deg);transform: rotate(5deg);\n}\n10% {-webkit-transform: rotate(initial);transform: rotate(initial);\n}\n15% {-webkit-transform: rotate(-10deg);transform: rotate(-10deg);\n}\n20% {-webkit-transform: rotate(initial);transform: rotate(initial);\n}\n25% {-webkit-transform: rotate(5deg);transform: rotate(5deg);\n}\n30% {-webkit-transform: rotate(initial);transform: rotate(initial);\n}\n35% {-webkit-transform: rotate(-10deg);transform: rotate(-10deg);\n}\n40% {-webkit-transform: rotate(initial);transform: rotate(initial);\n}\n45% {-webkit-transform: rotate(5deg);transform: rotate(5deg);\n}\n100% {-webkit-transform: rotate(initial);transform: rotate(initial);\n}\n}\r\n", ""]);
 
 // exports
 
