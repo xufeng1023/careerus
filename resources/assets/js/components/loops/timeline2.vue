@@ -42,19 +42,18 @@ export default {
     transform: skewX(57deg) translate(4px, 1px);
 }
 .shelf-date {
-    transform: skewY(-5deg) translateY(-3px)
+    transform: skewY(-5deg) translateY(-3px);
 }
-.rotate:hover, .rotate:focus {
+.rotate:hover {
     cursor: pointer;
     animation-name: swing;
-    animation-duration: 300ms;
+    animation-duration: 500ms;
     animation-iteration-count: 1;
-    animation-timing-function: ease-out;
+    animation-timing-function: linear;
 }
 
 @keyframes swing {
-    0%   {}
-    50% {transform: rotateX(180deg);}
-    100% {}
+    from {transform: rotateX(0turn);}
+    to {transform: rotateX(1turn);}
 }
 </style>
