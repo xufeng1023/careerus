@@ -128,6 +128,7 @@ export default {
         fetch(push = false) {
             if(!push) {
                 this.offset = 0;
+                window.dates = [];
                 this.stopLoading = false;
             }
             if(this.stopLoading) return;
