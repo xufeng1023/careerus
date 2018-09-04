@@ -18,6 +18,12 @@ a:hover {
 #app {
   overflow: hidden;
 }
+.timeline-date .date {
+  color: #b5b5b5;
+}
+.timeline-date:first-child {
+  margin-top: 0 !important;
+}
 input, textarea {
   outline: none;
   box-shadow:none !important;
@@ -177,7 +183,27 @@ div.throw {
   background-color: #192e58;
   border: 1px solid #192e58;
 }
+@media screen and (min-width:736px) {
+  .fixed-filter {
+    position: fixed;
+    width:15%;
+  }
+  .timeline-date::before {
+    content: ' ';
+    width: 21px;
+    height: 21px;
+    display: block;
+    background-color: white;
+    border-radius: 50%;
+    border: 5px solid #ccc;
+    margin-left: -27px;
+    margin-right: 20px;
+  }
+}
 @media screen and (max-width:736px) {
+  .timeline-date {
+    padding-left:1rem;
+  }
   #searchForm {
     margin-top:1rem;
   }

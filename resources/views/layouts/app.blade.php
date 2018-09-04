@@ -2,8 +2,8 @@
 @yield('style')
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light p-0 bg-white">
+    <div id="app" class="pt-5">
+        <nav class="navbar navbar-expand-md navbar-light p-0 bg-white fixed-top">
             <div class="container align-items-stretch">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('images/logo.png') }}" alt="careerus logo">
