@@ -12,8 +12,21 @@ class BlogTest extends TestCase
 
     public function test_user_can_see_blog()
     {
-        $blog = create('Blog');
+        $blog = create('Blog', ['title' => 'aaa']);
 
-        $this->get('/blog')->assertSee($blog->title);
+        $this->get('/blog/'.$blog->title)->assertStatus(200);
+    }
+
+    public function test_blog_title_strip_slashes()
+    {
+        $this->login(
+            create('User', ['role' => 'admin'])
+        );
+
+        $blog = raw('Blog', ['title' => 'aaa/ff']);
+
+        $this->post('/admin/blog/add', $blog);
+
+        $this->get('/blog/aaaff')->assertStatus(200);
     }
 }

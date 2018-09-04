@@ -17,9 +17,9 @@
         <div class="col-sm-4 col-md-3 col-lg-2">
             <select class="form-control mb-4" v-model="type">
                 <option value="">所有工作类型</option>
-                <option value="Part-time">Part-time</option>
-                <option value="Full-time">Full-time</option>
-                <option value="Intership">Intership</option>
+                <option value="Part-time">半职</option>
+                <option value="Full-time">全职</option>
+                <option value="Internship">实习</option>
             </select>
         </div>
     </div>
@@ -31,15 +31,14 @@
             <div class="card mb-5">
                 <div class="card-header">
                     <div class="justify-content-between d-flex align-items-center flex-sm-wrap">
-                        <h5 class="card-title m-0" :title="job.chinese_title || job.title">{{ job.showTitle }}</h5>
-                        
-                        <button v-if="job.posted_in_hours < 24" class="btn btn-success btn-sm" data-toggle="modal" data-target="#applyModal" @click="getJob(job)">点选直申
-                        <div style="width:15px;height:15px;border-radius:50%;" class="bg-white d-inline-flex justify-content-center align-items-center text-success">&#10004;</div>
-                        </button>
+                        <h5 class="card-title m-0" :title="job.chinese_title || job.title">{{ job.showTitle }}</h5>                   
 
-                        <button v-else class="btn btn-secondary btn-sm" disabled>点选直申
+                        <button v-if="job.is_applied" class="btn btn-secondary btn-sm" disabled>HR内推
                         <div style="width:15px;height:15px;border-radius:50%;" class="bg-white d-inline-flex justify-content-center align-items-center text-secondary">&#10004;</div>
                         </button>
+
+                        <button v-else class="btn btn-success btn-sm" data-toggle="modal" data-target="#applyModal" 
+                        @click="getJob(job)">HR内推</button>
                     </div>
                     
                     <div class="text-muted">{{ job.job_type }}</div>
@@ -51,9 +50,9 @@
                     <div>
                         <div class="text-truncate" :title="job.company.name">{{ job.company.name }}</div>
                         <p class="small d-flex justify-content-between">
-                            <span>地点: <span class="text-secondary">{{ job.company.state }}</span></span>
-                            <span>规模: <span class="text-secondary">{{ job.company.scale }}</span></span>
-                            <span>2017 H1B: <span class="text-secondary">{{ job.company.totalSponsor }}人</span></span>
+                            <span>地点<br><span class="text-secondary">{{ job.location || job.company.city+','+job.company.state }}</span></span>
+                            <span>规模<br><span class="text-secondary">{{ job.company.scale }}</span></span>
+                            <span>2017 H1B<br><span class="text-secondary">{{ job.company.totalSponsor }}人</span></span>
                         </p>
                         <div>
                             <span v-for="tag in job.tags" :key="tag.id" class="badge badge-pill badge-secondary">{{ tag.name }}</span>

@@ -8,6 +8,11 @@ class Blog extends Model
 {
     protected $fillable = ['title', 'content', 'user_id', 'description'];
 
+    public function getRouteKeyName()
+    {
+        return 'title';
+    }
+
     public function excerpt()
     {
         $str = html_entity_decode(strip_tags($this->content));

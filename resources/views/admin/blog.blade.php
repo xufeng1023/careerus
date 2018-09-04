@@ -36,7 +36,7 @@
                 <tbody>
                     @foreach($blogs as $blog)
                         <tr>
-                            <td><a href="?id={{ $blog->id }}">{{ str_limit(strip_tags($blog->title), 60) }}</a></td>
+                            <td><a href="?id={{ $blog->title }}">{{ str_limit(strip_tags($blog->title), 60) }}</a></td>
                         </tr>
                     @endforeach
                 </tbody>

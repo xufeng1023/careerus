@@ -33,10 +33,10 @@ class RouteServiceProvider extends ServiceProvider
             return Post::where('title', $title)->where('identity', request('i'))->first() ?? abort(404);
         });
 
-        Route::bind('blogSlug', function ($value) {
-            $title = trim(implode(' ', explode('-', $value)));
-            return Blog::where('title', $title)->first() ?? abort(404);
-        });
+        // Route::bind('blogSlug', function ($value) {
+        //     $title = trim(implode(' ', explode('-', $value)));
+        //     return Blog::where('title', $title)->first() ?? abort(404);
+        // });
 
         parent::boot();
     }

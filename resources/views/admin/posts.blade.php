@@ -127,7 +127,7 @@
             </div>
 
             <div class="form-group row">
-                <!-- <div class="col-sm-6">
+                <div class="col-sm-6">
                     <label class="col-form-label">{{ __('admin.job location') }}</label>
                     <div class="row">
                         <div class="col">
@@ -147,7 +147,7 @@
                         </div>
                     </div>
                     
-                </div> -->
+                </div>
 
                 <div class="col-sm-6">
                     <label class="col-form-label">{{ __('admin.catagory') }}</label>

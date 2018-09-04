@@ -9,7 +9,7 @@ class Post extends Model
 {
     protected $guarded = ['tags', 'state', 'city', 'email'];
 
-    protected $appends = ['posted_at', 'availibility', 'showTitle', 'excerpt', 'posted_in_hours', 'is_favorited'];
+    protected $appends = ['posted_at', 'availibility', 'showTitle', 'excerpt', 'posted_in_hours', 'is_favorited', 'is_applied'];
 
     protected $hidden = ['user_id'];
 
@@ -121,6 +121,13 @@ class Post extends Model
     public function favorites()
     {
         return $this->belongsToMany(User::class, 'favorites');
+    }
+
+    public function getIsAppliedAttribute()
+    {
+        if(!auth()->check()) return false;
+
+        return $this->applies()->where('user_id', auth()->id())->exists();
     }
 
     public function getIsFavoritedAttribute()

@@ -15,7 +15,7 @@ class BlogController extends Controller
 
     public function allAdmin()
     {
-        if(request('id')) $blogs[] = Blog::find(request('id'));
+        if(request('id')) $blogs[] = Blog::whereTitle(request('id'))->first();
         else $blogs = Blog::latest()->get();
 
         return view('admin.blog', compact('blogs'));
@@ -25,7 +25,7 @@ class BlogController extends Controller
     {
         Blog::create([
             'user_id' => auth()->id(),
-            'title' => request('title'),
+            'title' => preg_replace('/\//', '', request('title')),
             'content' => request('content'),
             'description' => request('description')
         ]);

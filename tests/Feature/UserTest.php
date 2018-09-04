@@ -538,7 +538,7 @@ class UserTest extends TestCase
         $blog1 = create('Blog');
         $blog2 = create('Blog');
 
-        $this->get('/admin/blog?id='.$blog1->id)
+        $this->get('/admin/blog?id='.$blog1->title)
             ->assertSee($blog1->title)
             ->assertDontSee($blog2->title);
     }
@@ -564,7 +564,7 @@ class UserTest extends TestCase
 
         $data = create('Blog', ['user_id' => $admin->id]);
         
-        $this->post('/admin/blog/update/'.$data->id, ['content' => $data->content.'22']);
+        $this->post('/admin/blog/update/'.$data->title, ['content' => $data->content.'22']);
 
         $this->assertDatabaseHas('blogs', ['content' => $data->content.'22']);
     }

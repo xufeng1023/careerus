@@ -10639,6 +10639,10 @@ a:hover {
           box-shadow: none !important;
 }
 
+#app {
+  overflow: hidden;
+}
+
 input,
 textarea {
   outline: none;

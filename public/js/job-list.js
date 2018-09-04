@@ -565,7 +565,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 window.dates = [];
 
@@ -822,17 +821,11 @@ var render = function() {
           [
             _c("option", { attrs: { value: "" } }, [_vm._v("所有工作类型")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Part-time" } }, [
-              _vm._v("Part-time")
-            ]),
+            _c("option", { attrs: { value: "Part-time" } }, [_vm._v("半职")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Full-time" } }, [
-              _vm._v("Full-time")
-            ]),
+            _c("option", { attrs: { value: "Full-time" } }, [_vm._v("全职")]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Intership" } }, [
-              _vm._v("Intership")
-            ])
+            _c("option", { attrs: { value: "Internship" } }, [_vm._v("实习")])
           ]
         )
       ])
@@ -869,50 +862,15 @@ var render = function() {
                             [_vm._v(_vm._s(job.showTitle))]
                           ),
                           _vm._v(" "),
-                          job.posted_in_hours < 24
+                          job.is_applied
                             ? _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-success btn-sm",
-                                  attrs: {
-                                    "data-toggle": "modal",
-                                    "data-target": "#applyModal"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.getJob(job)
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "点选直申\r\n                        "
-                                  ),
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "bg-white d-inline-flex justify-content-center align-items-center text-success",
-                                      staticStyle: {
-                                        width: "15px",
-                                        height: "15px",
-                                        "border-radius": "50%"
-                                      }
-                                    },
-                                    [_vm._v("✔")]
-                                  )
-                                ]
-                              )
-                            : _c(
                                 "button",
                                 {
                                   staticClass: "btn btn-secondary btn-sm",
                                   attrs: { disabled: "" }
                                 },
                                 [
-                                  _vm._v(
-                                    "点选直申\r\n                        "
-                                  ),
+                                  _vm._v("HR内推\r\n                        "),
                                   _c(
                                     "div",
                                     {
@@ -927,6 +885,22 @@ var render = function() {
                                     [_vm._v("✔")]
                                   )
                                 ]
+                              )
+                            : _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-success btn-sm",
+                                  attrs: {
+                                    "data-toggle": "modal",
+                                    "data-target": "#applyModal"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.getJob(job)
+                                    }
+                                  }
+                                },
+                                [_vm._v("HR内推")]
                               )
                         ]
                       ),
@@ -965,21 +939,31 @@ var render = function() {
                             },
                             [
                               _c("span", [
-                                _vm._v("地点: "),
+                                _vm._v("地点"),
+                                _c("br"),
                                 _c("span", { staticClass: "text-secondary" }, [
-                                  _vm._v(_vm._s(job.company.state))
+                                  _vm._v(
+                                    _vm._s(
+                                      job.location ||
+                                        job.company.city +
+                                          "," +
+                                          job.company.state
+                                    )
+                                  )
                                 ])
                               ]),
                               _vm._v(" "),
                               _c("span", [
-                                _vm._v("规模: "),
+                                _vm._v("规模"),
+                                _c("br"),
                                 _c("span", { staticClass: "text-secondary" }, [
                                   _vm._v(_vm._s(job.company.scale))
                                 ])
                               ]),
                               _vm._v(" "),
                               _c("span", [
-                                _vm._v("2017 H1B: "),
+                                _vm._v("2017 H1B"),
+                                _c("br"),
                                 _c("span", { staticClass: "text-secondary" }, [
                                   _vm._v(
                                     _vm._s(job.company.totalSponsor) + "人"

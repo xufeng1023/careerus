@@ -20,7 +20,7 @@ Route::get('/jobs', 'PostController@all');
 //Route::get('/job/{postSlug}', 'PostController@show');
 Route::get('/fetch/post', 'PostController@fetch');
 Route::get('/blog', 'BlogController@all');
-Route::get('/blog/{blogSlug}', 'BlogController@show');
+Route::get('/blog/{blog}', 'BlogController@show');
 Route::get('/register/verification', '\App\Http\Controllers\Auth\RegisterController@verify');
 
 Route::post('/apply', 'ApplyController@save');
