@@ -561,7 +561,7 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("div", { staticClass: "text-muted" }, [
-                            _vm._v(_vm._s(job.job_type))
+                            _vm._v(_vm._s(job.chinese_job_type))
                           ])
                         ]),
                         _vm._v(" "),

@@ -38,7 +38,7 @@
                                     @click="getJob(job)">HR内推</button>
                                 </div>
                                 
-                                <div class="text-muted">{{ job.job_type }}</div>
+                                <div class="text-muted">{{ job.chinese_job_type }}</div>
                             </div>
 
                             <div class="card-body d-flex flex-column justify-content-between">

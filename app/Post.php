@@ -9,12 +9,18 @@ class Post extends Model
 {
     protected $guarded = ['tags', 'state', 'city', 'email'];
 
-    protected $appends = ['posted_at', 'availibility', 'showTitle', 'excerpt', 'posted_in_hours', 'is_favorited', 'is_applied'];
+    protected $appends = ['posted_at', 'availibility', 'showTitle', 'excerpt', 'posted_in_hours', 'is_favorited', 'is_applied', 'chinese_job_type'];
 
     protected $hidden = ['user_id'];
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d'
+    ];
+
+    private $jobTypes = [
+        'Full-time' => '全职',
+        'Part-time' => '半职',
+        'Internship' => '实习'
     ];
     
     public function creator()
@@ -80,6 +86,11 @@ class Post extends Model
         $postTitle = ucwords(implode(' ', explode('-', $title)));
 
         return $this->where('title', $postTitle)->where('identity', $identity)->firstOrFail();
+    }
+
+    public function getChineseJobTypeAttribute()
+    {
+        return $this->jobTypes[$this->job_type];
     }
 
     public function setTitleAttribute($value)
