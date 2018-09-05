@@ -10663,16 +10663,16 @@ button.icon {
   width: 20px;
   height: 20px;
   opacity: .2;
+  color: #f14646;
+  font-size: 28px;
+  line-height: 0.1;
   background-repeat: no-repeat;
 }
 
 button.icon:hover {
   opacity: 1;
+  color: #f14646;
   background-color: transparent;
-}
-
-button.icon.heart {
-  background-image: url(/images/heart.svg);
 }
 
 button.icon.wechat {

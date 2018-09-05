@@ -701,11 +701,15 @@ var render = function() {
                                   }
                                 },
                                 [
-                                  _c("button", {
-                                    staticClass:
-                                      "btn btn-sm p-0 btn-light border-0 icon heart",
-                                    attrs: { type: "submit" }
-                                  })
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-sm p-0 btn-light border-0 icon",
+                                      attrs: { type: "submit" }
+                                    },
+                                    [_vm._v("♥")]
+                                  )
                                 ]
                               ),
                               _vm._v(" "),
