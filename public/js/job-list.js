@@ -219,7 +219,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 window.dates = [];
 
@@ -678,12 +677,6 @@ var render = function() {
                               "card-footer d-flex align-items-center justify-content-between"
                           },
                           [
-                            job.copied_from
-                              ? _c("small", { staticClass: "text-muted" }, [
-                                  _vm._v("信息来源:" + _vm._s(job.copied_from))
-                                ])
-                              : _vm._e(),
-                            _vm._v(" "),
                             _c("div", [
                               _c(
                                 "form",
@@ -713,7 +706,13 @@ var render = function() {
                               _c("span", { staticClass: "favorites" }, [
                                 _vm._v(_vm._s(job.favorites_count))
                               ])
-                            ])
+                            ]),
+                            _vm._v(" "),
+                            job.copied_from
+                              ? _c("small", { staticClass: "text-muted" }, [
+                                  _vm._v("信息来源:" + _vm._s(job.copied_from))
+                                ])
+                              : _vm._e()
                           ]
                         )
                       ])
