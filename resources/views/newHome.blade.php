@@ -111,6 +111,7 @@
         var currentPos = $(window).scrollTop();
 
         if(currentPos >= 0 && currentPos <= scrollLimit) scale = currentPos / scrollLimit;
+        else if(currentPos < 0) scale = 0;
         else scale = 1;
 
         $('#back-to-top').css('transform', 'scale('+scale+')');
