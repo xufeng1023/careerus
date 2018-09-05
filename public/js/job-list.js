@@ -234,6 +234,7 @@ window.dates = [];
             offset: 0,
             stopLoading: false,
             categories: [],
+            timeout: '',
             locations: [{ en: 'NY', zh: '纽约' }, { en: 'NJ', zh: '新泽西' }, { en: 'CHICAGO', zh: '芝加哥' }, { en: 'LOS ANGELES', zh: '洛杉矶' }, { en: 'MIAMI', zh: '迈阿密' }, { en: 'BOSTON', zh: '波士顿' }, { en: 'SAN JOSE', zh: '圣何塞' }, { en: 'WASHINGTON', zh: '华盛顿' }, { en: 'ATLANTA', zh: '亚特兰大' }, { en: 'SAN FRANCISCO', zh: '圣弗朗西斯科' }, { en: 'SAN DIEGO', zh: '圣地亚哥' }]
         };
     },
@@ -341,7 +342,12 @@ window.dates = [];
             this.fetch();
         },
         search: function search() {
-            this.fetch();
+            var _this2 = this;
+
+            clearTimeout(this.timeout);
+            this.timeout = setTimeout(function () {
+                _this2.fetch();
+            }, 800);
         },
         type: function type() {
             this.fetch();

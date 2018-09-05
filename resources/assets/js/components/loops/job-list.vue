@@ -93,6 +93,7 @@ export default {
             offset: 0,
             stopLoading: false,
             categories: [],
+            timeout: '',
             locations: [
                 { en: 'NY', zh: '纽约' },
                 { en: 'NJ', zh: '新泽西' },
@@ -208,7 +209,10 @@ export default {
             this.fetch();
         },
         search() {
-            this.fetch();
+            clearTimeout(this.timeout);
+            this.timeout = setTimeout(() =>{
+                this.fetch();
+            }, 800);
         },
         type(){
             this.fetch();
