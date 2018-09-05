@@ -116,7 +116,7 @@ class Post extends Model
     public function getShowTitleAttribute()
     {
         $title = $this->chinese_title ? $this->chinese_title : $this->title;
-        return str_limit($title, 20);
+        return str_limit($title, 30);
     }
 
     public function getPathAttribute()
