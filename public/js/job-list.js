@@ -218,6 +218,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 window.dates = [];
 
@@ -578,12 +580,25 @@ var render = function() {
                             _vm._v(" "),
                             _c("div", [
                               _c(
-                                "div",
+                                "a",
                                 {
-                                  staticClass: "text-truncate",
-                                  attrs: { title: job.company.name }
+                                  attrs: {
+                                    href: job.company.website || "javascript:;",
+                                    target: "_blank",
+                                    rel: "nofollow"
+                                  }
                                 },
-                                [_vm._v(_vm._s(job.company.name))]
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "text-truncate font-weight-bold text-info",
+                                      attrs: { title: job.company.name }
+                                    },
+                                    [_vm._v(_vm._s(job.company.name))]
+                                  )
+                                ]
                               ),
                               _vm._v(" "),
                               _c(
@@ -664,16 +679,11 @@ var render = function() {
                               "card-footer d-flex align-items-center justify-content-between"
                           },
                           [
-                            _c("button", {
-                              staticClass:
-                                "btn btn-sm p-0 btn-light border-0 icon website",
-                              attrs: { title: "公司链接", type: "submit" },
-                              on: {
-                                click: function($event) {
-                                  _vm.goTo(job.url)
-                                }
-                              }
-                            }),
+                            job.copied_from
+                              ? _c("small", { staticClass: "text-muted" }, [
+                                  _vm._v("信息来源:" + _vm._s(job.copied_from))
+                                ])
+                              : _vm._e(),
                             _vm._v(" "),
                             _c("div", [
                               _c(

@@ -256,6 +256,7 @@ class PostController extends Controller
     public function save()
     {
         $category = Catagory::findOrFail(request('catagory_id'));
+        $company = CompanyData::findOrFail(request('company_id'));
 
         $data = request()->all();
         $data['user_id'] = auth()->id();
@@ -272,11 +273,8 @@ class PostController extends Controller
             $post->tags()->attach(request('tags'));
         }
 
-        if(request('email')) {
-            $company = CompanyData::find(request('company_id'));
-
-            if($company) $company->update(['email' => $data['email']]);
-        }
+        if(request('email')) $company->update(['email' => $data['email']]);
+        if(request('website')) $company->update(['website' => $data['website']]);
 
         return back();
     }

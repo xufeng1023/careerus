@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $guarded = ['tags', 'state', 'city', 'email'];
+    protected $guarded = ['tags', 'state', 'city', 'email', 'website'];
 
     protected $appends = ['posted_at', 'availibility', 'showTitle', 'excerpt', 'posted_in_hours', 'is_favorited', 'is_applied', 'chinese_job_type'];
 

@@ -13,9 +13,7 @@ class CompanyController extends Controller
 
     public function select2Companies()
     {
-        $companies = CompanyData::selectRaw('id, name as text')->where('name', 'like', request('search').'%')->take(5)->get();
-
-        return $companies;
+        return CompanyData::where('name', 'like', request('search').'%')->take(5)->get();
     }
 
     public function all()

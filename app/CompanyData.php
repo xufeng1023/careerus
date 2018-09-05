@@ -12,11 +12,16 @@ class CompanyData extends Model
 
     public $timestamps = false;
 
-    protected $appends = ['totalSponsor', 'scale'];
+    protected $appends = ['totalSponsor', 'scale', 'fullAddress'];
 
     public function visaJobs()
     {
         return $this->hasMany(CompanySponsorData::class, 'company_id');
+    }
+
+    public function getFullAddressAttribute()
+    {
+        return $this->address.', '.$this->city.', '.$this->state.' '.$this->zip; 
     }
 
     public function getTotalSponsorAttribute()

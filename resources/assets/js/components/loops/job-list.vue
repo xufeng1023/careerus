@@ -45,7 +45,9 @@
                                 <p class="card-text">{{ job.excerpt }}</p>
                                 
                                 <div>
-                                    <div class="text-truncate" :title="job.company.name">{{ job.company.name }}</div>
+                                    <a :href="job.company.website || 'javascript:;'" target="_blank" rel="nofollow">
+                                        <div class="text-truncate font-weight-bold text-info" :title="job.company.name">{{ job.company.name }}</div>
+                                    </a>
                                     <p class="small d-flex justify-content-between">
                                         <span>地点<br><span class="text-secondary">{{ job.location || job.company.city+','+job.company.state }}</span></span>
                                         <span>规模<br><span class="text-secondary">{{ job.company.scale }}</span></span>
@@ -58,8 +60,8 @@
                             </div>
 
                             <div class="card-footer d-flex align-items-center justify-content-between">
-                                <!-- <small class="text-muted">{{ job.posted_at }}</small> -->
-                                <button title="公司链接" type="submit" class="btn btn-sm p-0 btn-light border-0 icon website" @click="goTo(job.url)"></button>
+                                <small v-if="job.copied_from" class="text-muted">信息来源:{{ job.copied_from }}</small>
+                                <!-- <button title="公司链接" type="submit" class="btn btn-sm p-0 btn-light border-0 icon website" @click="goTo(job.url)"></button> -->
                                 <div>
                                     <form class="d-inline" :class="job.is_favorited? 'filled' : ''" :action="'/job/favorite/toggle/'+job.id" method="post" @submit.prevent="toggleFavorite">
                                         <button type="submit" class="btn btn-sm p-0 btn-light border-0 icon heart"></button>

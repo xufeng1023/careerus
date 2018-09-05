@@ -10,11 +10,6 @@
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         @if(request('id'))
             <li class="nav-item">
-                <a class="nav-link" target="_blank" href="{{ $posts[0]->link() }}">
-                    {{ __('admin.view') }}
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link active" href="/admin/jobs">
                     {{ __('admin.return') }}
                 </a>
@@ -110,7 +105,7 @@
             </div>
 
             <div class="form-group row">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <label class="col-form-label">{{ __('admin.company') }}</label>
 
                     <select class="company-select" name="company_id" style="width: 100%" required>
@@ -120,9 +115,26 @@
                     </select>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <label class="col-form-label">HR邮箱</label>
                     <input type="email" class="form-control" name="email" value="{{ request('id')? $posts[0]->company->email: '' }}" id="hr-email" required>
+                </div>
+
+                <div class="col-sm-4">
+                    <label class="col-form-label">公司网站</label>
+                    <input type="url" class="form-control" name="website" value="{{ request('id')? $posts[0]->company->website: '' }}" id="website">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col">
+                    <label class="col-form-label">公司地址</label>
+                    <input type="text" class="form-control" id="full-address" value="{{ request('id')? $posts[0]->company->fullAddress : '' }}" readonly>
+                </div>
+
+                <div class="col">
+                    <label class="col-form-label">工作转自</label>
+                    <input type="text" class="form-control" name="copied_from" value="{{ request('id')? $posts[0]->copied_from : '' }}" required>
                 </div>
             </div>
 
@@ -146,7 +158,6 @@
                             
                         </div>
                     </div>
-                    
                 </div>
 
                 <div class="col-sm-6">
@@ -158,9 +169,8 @@
                     </select>
                 </div>
 
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                     <label class="col-form-label">{{ __('admin.job sponsor rate') }}</label>
-
                     <select class="form-control{{ $errors->has('sponsor_rate') ? ' is-invalid' : '' }}" name="sponsor_rate">
                         <option value="0"></option>
                         <option value="80" {{ request('id') && $posts[0]->sponsor_rate == 80 ? 'selected' : '' }}>80%</option>
@@ -169,10 +179,10 @@
                         <option value="35" {{ request('id') && $posts[0]->sponsor_rate == 35 ? 'selected' : '' }}>35%</option>
                         <option value="20" {{ request('id') && $posts[0]->sponsor_rate == 20 ? 'selected' : '' }}>20%</option>
                     </select>
-                </div>
+                </div> -->
             </div>
 
-            <div class="form-group row">
+            <!-- <div class="form-group row">
                 <div class="col-sm-12">
                     <label class="col-form-label">{{ __('admin.job url') }}</label>
 
@@ -180,7 +190,7 @@
                     class="form-control{{ $errors->has('url') ? ' is-invalid' : '' }}" 
                     value="{{ request('id')? $posts[0]->url : old('url') ?: '' }}">
                 </div>
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <div class="row">
@@ -248,6 +258,11 @@
                     }
                 },
                 processResults: function (data) {
+                    var data = $.map(data, function (obj) {
+                        obj.text = obj.text || obj.name;
+                        return obj;
+                    });
+
                     return {
                         results: data
                     };
@@ -264,6 +279,8 @@
         $('.company-select').on('select2:select', function (e) {
             var data = e.params.data;
             $('#hr-email').val(data.email);
+            $('#website').val(data.website);
+            $('#full-address').val(data.fullAddress);
         });
     });
 

@@ -20,7 +20,8 @@ class CreateCompanyDataTable extends Migration
             $table->string('city');
             $table->string('state', 20);
             $table->string('zip', 20);
-            $table->string('email');
+            $table->string('email')->nullable();
+            $table->string('website')->nullable();
         });
     }
 

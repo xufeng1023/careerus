@@ -26,6 +26,7 @@ class CreatePostTable extends Migration
             $table->string('location');
             $table->string('url')->nullable();
             $table->enum('job_type', ['Full-time', 'Part-time', 'Internship']);
+            $table->string('copied_from')->nullable();
             $table->unsignedTinyInteger('sponsor_rate')->default(0);
             $table->unsignedTinyInteger('sponsor_odds')->default(0);
             $table->boolean('recommended')->default(0);
