@@ -11,7 +11,7 @@ a {
 a:hover {
   text-decoration: none;
 }
-* {
+input,textarea {
   outline: none;
   box-shadow:none !important;
 }
@@ -88,10 +88,14 @@ header nav a.nav-link {
 #back-to-top {
   width: 50px;
   height: 50px;
-  bottom: 1rem;
-  right: 1rem;
+  bottom: 2rem;
+  right: 2rem;
   z-index: 999;
-  visibility: hidden;
+  position: fixed;
+  border-radius: 50%;
+  font-size: 25px;
+  box-shadow: 0 0 20px 0 #a0a0a0;
+  transform: scale(0);
 }
 .timeline {
   background: #92badd;

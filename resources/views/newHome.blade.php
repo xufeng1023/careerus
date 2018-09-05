@@ -48,6 +48,7 @@
             </div>
         </div>
     </div>
+    <div id="back-to-top" class="bg-white bordered d-flex justify-content-center align-items-center m-0 text-muted hand">&uarr;</div>
 @endsection
 
 @section('script')
@@ -101,6 +102,25 @@
             }
         });
         $(e.target).find('#resume').attr('disabled', false);
+    });
+
+    var lastScrollTop = 0;
+    var scrollLimit = 1000;
+    var scale = 0;
+    $(window).scroll(function(){
+        var currentPos = $(window).scrollTop();
+
+        if(currentPos >= 0 && currentPos <= scrollLimit) scale = currentPos / scrollLimit;
+        else scale = 1;
+
+        $('#back-to-top').css('transform', 'scale('+scale+')');
+    });
+
+    $('#back-to-top').click(function() {
+        $('html, body').animate({
+            scrollTop: 0
+        }, 800);
+        return false;
     });
 </script>
 @endsection
