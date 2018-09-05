@@ -110,7 +110,7 @@ class Post extends Model
 
     public function getExcerptAttribute()
     {
-        return str_limit(html_entity_decode(strip_tags($this->chinese_description? $this->chinese_description : $this->description)), 110);
+        return str_limit(html_entity_decode(strip_tags($this->chinese_description? $this->chinese_description : $this->description)), 140);
     }
 
     public function getShowTitleAttribute()
