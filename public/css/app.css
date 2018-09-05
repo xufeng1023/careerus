@@ -10683,6 +10683,10 @@ button.icon.website {
   background-image: url(/images/website.svg);
 }
 
+.font-50px {
+  font-size: 50px;
+}
+
 .page-item.active .page-link {
   background-color: #fede00;
   border-color: #fede00;
