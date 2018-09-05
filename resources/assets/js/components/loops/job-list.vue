@@ -46,7 +46,7 @@
                                 
                                 <div>
                                     <a :href="job.company.website || 'javascript:;'" target="_blank" rel="nofollow">
-                                        <div class="text-truncate font-weight-bold text-info" :title="job.company.name">{{ job.company.name }}</div>
+                                        <div class="text-truncate text-info" :title="job.company.name">{{ job.company.name }}</div>
                                     </a>
                                     <p class="small d-flex justify-content-between">
                                         <span>地点<br><span class="text-secondary">{{ job.location || job.company.city+','+job.company.state }}</span></span>

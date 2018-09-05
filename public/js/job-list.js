@@ -592,8 +592,7 @@ var render = function() {
                                   _c(
                                     "div",
                                     {
-                                      staticClass:
-                                        "text-truncate font-weight-bold text-info",
+                                      staticClass: "text-truncate text-info",
                                       attrs: { title: job.company.name }
                                     },
                                     [_vm._v(_vm._s(job.company.name))]
