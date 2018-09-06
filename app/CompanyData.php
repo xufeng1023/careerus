@@ -26,7 +26,13 @@ class CompanyData extends Model
 
     public function getTotalSponsorAttribute()
     {
-        return $this->visaJobs()->where('year', 2017)->sum('sponsor_number');
+        $sponsored = $this->visaJobs();
+        
+        $sum = $sponsored->where('year', 2017)->sum('sponsor_number');
+
+        if($sum === 0) $sum = $sponsored->where('year', 2016)->sum('sponsor_number');
+
+        return $sum;
     }
 
     public function getNameAttribute($value)
