@@ -69,7 +69,7 @@ class ApplyController extends Controller
         $applies = Apply::with(['post.company', 'user'])->where('is_applied', 0)->get();
 
         foreach($applies as $a) {
-            $emails[$a->post->company->email][$a->post->title][] = $a->user;
+            $emails[$a->post->company->email][$a->post->title ?: $a->post->chinese_title][] = $a->user;
 
             $a->is_applied = 1;
             $a->save();

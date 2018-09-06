@@ -86,7 +86,7 @@
             <div class="form-group">
                 <label class="col-form-label">英文标题</label>
 
-                <input type="text" class="form-control" name="title" value="{{ request('id')? $posts[0]->title: '' }}">
+                <input type="text" class="form-control" name="title" value="{{ request('id')? $posts[0]->title: '' }}" required>
             </div>
 
             <div class="form-group">
