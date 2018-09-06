@@ -64,11 +64,8 @@ class CompanyData extends Model
             case 500 <= $people && $people < 1000:
                 return '500-1000人';
                 break;
-            case 1000 <= $people && $people < 10000:
-                return '1000-1万人';
-                break;
-            case 10000 <= $people:
-                return '1万人以上';
+            default:
+                return '1000人以上';
                 break;
         }
     }
