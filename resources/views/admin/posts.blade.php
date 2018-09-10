@@ -269,10 +269,11 @@
                                 </a>
                                 <div class="text-secondary location">{{ request('id')? $posts[0]->company->city.','.$posts[0]->company->state: '' }}</div>
                                 <div class="tags">
-                                    @forelse($posts[0]->tags as $tag)
-                                    <span class="badge badge-pill badge-secondary">{{ $tag->name }}</span>
-                                    @empty
-                                    @endforelse
+                                    @if(request('id'))
+                                        @foreach($posts[0]->tags as $tag)
+                                            <span class="badge badge-pill badge-secondary">{{ $tag->name }}</span>
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>
