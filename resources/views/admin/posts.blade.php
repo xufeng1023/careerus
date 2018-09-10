@@ -84,7 +84,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-form-label">英文标题</label>
+                <label class="col-form-label">英文标题(必填)</label>
 
                 <input type="text" class="form-control" name="title" value="{{ request('id')? $posts[0]->title: '' }}" required>
             </div>
@@ -100,7 +100,7 @@
 
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/0.11.2/trix.css">
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/0.11.2/trix.js"></script>
-                <input id="description" type="hidden" name="description" value="{{ request('id')? $posts[0]->description: '' }}" required>
+                <input id="description" type="hidden" name="description" value="{{ request('id')? $posts[0]->description: '' }}">
                 <trix-editor input="description"></trix-editor>
             </div>
 
@@ -133,9 +133,14 @@
                 </div>
 
                 <div class="col">
-                    <label class="col-form-label">工作转自</label>
-                    <input type="text" class="form-control" name="copied_from" value="{{ request('id')? $posts[0]->copied_from : '' }}" required>
+                    <label class="col-form-label">公司简名</label>
+                    <input type="text" class="form-control" name="short_name" value="{{ request('id')? $posts[0]->company->short_name : '' }}" required>
                 </div>
+
+                <!-- <div class="col">
+                    <label class="col-form-label">工作转自</label>
+                    <input type="text" class="form-control" name="copied_from" value="{{ request('id')? $posts[0]->copied_from : '' }}">
+                </div> -->
             </div>
 
             <div class="form-group row">

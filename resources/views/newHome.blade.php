@@ -123,5 +123,9 @@
         }, 800);
         return false;
     });
+
+    $('body').on('click', '.fancy-load-more', function(e) {
+        $(this).addClass('expanded').css('max-height', 'none');
+    });
 </script>
 @endsection

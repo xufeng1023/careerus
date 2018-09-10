@@ -1,6 +1,6 @@
 <form id="loginForm" method="POST" action="{{ route('login') }}">
     @csrf
-
+    @include('_applyIllustration')
     <div class="form-group row">
         <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('front.E-Mail Address') }}</label>
 

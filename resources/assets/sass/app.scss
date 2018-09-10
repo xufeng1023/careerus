@@ -49,15 +49,29 @@ button.icon.wechat {
 button.icon.website {
   background-image: url(/images/website.svg);
 }
+.fancy-load-more.card-body {
+  max-height: 50px;
+  overflow: hidden;
+}
+.fancy-load-more.card-body:not(.expanded)::after {
+  content: "展开\2193";
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 38px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white 70%);
+  padding-top: 35px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: #28a745;
+}
 .font-50px {
   font-size: 50px;
 }
 .page-item.active .page-link {
   background-color: #fede00;
   border-color: #fede00;
-}
-.card-body {
-  min-height: 205px;
 }
 header, #filter {
   background-color: #eaedef;

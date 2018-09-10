@@ -1,5 +1,5 @@
 <template>
-    <div v-if="newDate" class="mx-3 mb-5 d-flex justify-content-center" :class="{'w-100':w100}">
+    <div v-if="newDate" class="mx-3 d-flex justify-content-center" :class="{'w-100':w100}">
         <div class="d-flex justify-content-center align-items-center flex-column shelf-date">
             <div class="d-flex">
                 <div class="shelf-left"></div>

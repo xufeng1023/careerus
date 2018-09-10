@@ -16,6 +16,7 @@ class CreateCompanyDataTable extends Migration
         Schema::create('company_data', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('short_name')->nullable();
             $table->string('address');
             $table->string('city');
             $table->string('state', 20);

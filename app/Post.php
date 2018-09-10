@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $guarded = ['tags', 'state', 'city', 'email', 'website'];
+    protected $guarded = ['tags', 'state', 'city', 'email', 'website', 'short_name'];
 
     protected $appends = ['posted_at', 'availibility', 'showTitle', 'excerpt', 'posted_in_hours', 'is_favorited', 'is_applied', 'chinese_job_type'];
 
@@ -110,13 +110,13 @@ class Post extends Model
 
     public function getExcerptAttribute()
     {
-        return str_limit(html_entity_decode(strip_tags($this->chinese_description? $this->chinese_description : $this->description)), 140);
+        return str_limit(html_entity_decode(strip_tags($this->chinese_description? $this->chinese_description : $this->description)), 125);
     }
 
     public function getShowTitleAttribute()
     {
         $title = $this->chinese_title ? $this->chinese_title : $this->title;
-        return str_limit($title, 30);
+        return str_limit($title, 25);
     }
 
     public function getPathAttribute()

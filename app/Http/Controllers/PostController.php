@@ -277,6 +277,7 @@ class PostController extends Controller
 
         if(request('email')) $company->update(['email' => $data['email']]);
         if(request('website')) $company->update(['website' => $data['website']]);
+        if(request('short_name')) $company->update(['short_name' => $data['short_name']]);
 
         return back();
     }
