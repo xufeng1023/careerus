@@ -251,11 +251,14 @@
             </div>
             <div class="col-sm-4">
                 <div class="position-fixed">
+                    <div class="form-group">
+                        <label class="form-check-label" for="radio-internship">实图</label>
+                    </div>
                     <div class="card sample" style="width:337px;">
                         <div class="card-header">
                             <div class="justify-content-between d-flex align-items-center flex-sm-wrap">
                                 <h6 class="card-title chinese_title m-0">{{ request('id')? $posts[0]->chinese_title: '' }}</h6>
-                                <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#applyModal">HR内推</button>
+                                <button class="btn btn-success btn-sm">HR内推</button>
                             </div>
                             
                             <div class="text-muted text-truncate title">{{ request('id')? $posts[0]->title: '' }}</div>
