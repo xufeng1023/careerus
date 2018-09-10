@@ -31,7 +31,7 @@
                 <div class="card my-3">
                     <div class="card-header">
                         <div class="justify-content-between d-flex align-items-center flex-sm-wrap">
-                            <h5 class="card-title m-0" :title="job.chinese_title || job.title">{{ job.showTitle }}</h5>                   
+                            <h6 class="card-title m-0" :title="job.chinese_title || job.title">{{ job.showTitle }}</h6>                   
 
                             <button v-if="job.is_applied" class="btn btn-secondary btn-sm" disabled>HR内推
                             <div style="width:15px;height:15px;border-radius:50%;" class="bg-white d-inline-flex justify-content-center align-items-center text-secondary">&#10004;</div>

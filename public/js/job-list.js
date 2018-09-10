@@ -853,7 +853,7 @@ var render = function() {
                         },
                         [
                           _c(
-                            "h5",
+                            "h6",
                             {
                               staticClass: "card-title m-0",
                               attrs: { title: job.chinese_title || job.title }

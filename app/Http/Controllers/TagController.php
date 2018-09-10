@@ -21,8 +21,11 @@ class TagController extends Controller
 
     public function save()
     {
-        $tag = Tag::create(request()->all());
-
+        try {
+            $tag = Tag::create(request()->all());
+        } catch(\Illuminate\Database\QueryException $e) {
+            return response('重复的标签', 500);
+        }
         if(request()->ajax()) {
             return ['msg' => trans('admin.updated'), 'data' => $tag];
         }
