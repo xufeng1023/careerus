@@ -924,7 +924,7 @@ var render = function() {
                       "div",
                       {
                         staticClass:
-                          "card-body d-flex flex-column justify-content-between fancy-load-more"
+                          "card-body d-flex flex-column justify-content-between fancy-load-more hand"
                       },
                       [
                         _c("p", { staticClass: "card-text" }, [

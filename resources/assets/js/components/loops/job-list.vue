@@ -44,7 +44,7 @@
                         <div class="text-muted text-truncate" :title="job.title">{{ job.title }}</div>
                     </div>
 
-                    <div class="card-body d-flex flex-column justify-content-between fancy-load-more">
+                    <div class="card-body d-flex flex-column justify-content-between fancy-load-more hand">
                         <p class="card-text">{{ job.excerpt }}</p>
                         
                         <div>
