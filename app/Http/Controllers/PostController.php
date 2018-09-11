@@ -51,7 +51,7 @@ class PostController extends Controller
 
         if(request('t')) $query->where('job_type', request('t'));
 
-        $jobs = $query->latest()->offset(request('o'))->take(9)->get();
+        $jobs = $query->latest()->offset(request('o'))->take(20)->get();
 
         return $jobs;
     }

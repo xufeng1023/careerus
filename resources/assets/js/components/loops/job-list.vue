@@ -108,7 +108,7 @@ export default {
         //this.fetchLocations();
         this.fetchCategories();
         $(window).scroll(function() {
-            if ((window.innerHeight + window.scrollY) <= (document.body.offsetHeight - 100)) {
+            if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 100)) {
                 clearTimeout(timeout);
                 timeout = setTimeout(() => {
                     self.fetch(true);
@@ -142,7 +142,7 @@ export default {
                         this.jobs.push(job);
                     });
 
-                    if(data.length < 9) this.stopLoading = true;
+                    if(data.length < 20) this.stopLoading = true;
                 }
             });
         },
