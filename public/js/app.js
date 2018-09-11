@@ -6786,6 +6786,8 @@ $(function () {
     if (ua.match(/MicroMessenger/i) == "micromessenger") {
         alert(3);
         $("#googleLogin").remove();
+    } else {
+        alert(1);
     }
 });
 
