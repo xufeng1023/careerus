@@ -166,6 +166,7 @@
                                     
                                 </div>
                             </div>
+                            <input type="hidden" name="location">
                         </div>
 
                         <div class="col-sm-6">
@@ -326,6 +327,7 @@
             $('#website').val(data.website);
             $('#full-address').val(data.fullAddress);
             $('#short_name').val(data.short_name);
+            $('[name=location]').val(data.city+','+data.state);
             sample.find('.short_name').text(data.short_name);
             sample.find('.location').text(data.city+','+data.state);
             sample.find('.sponsor_total').text('近三年H1B人数:'+data.totalSponsor);

@@ -262,7 +262,7 @@ class PostController extends Controller
 
         $data = request()->all();
         $data['user_id'] = auth()->id();
-        $data['location'] = $this->formatLocation();
+        $data['location'] = $this->formatLocation() ?: request('location');
         $data['sponsor_odds'] = ($category->rfe + 45 + request('sponsor_odds') + rand(70, 100)) * 0.25;
 
         if(app()->environment() !== 'testing') {
