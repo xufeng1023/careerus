@@ -109,13 +109,13 @@ export default {
         //this.fetchLocations();
         this.fetchCategories();
         $(window).scroll(function() {
-            if(this.shouldWaitLoading) return;
+            if(self.shouldWaitLoading) return;
+
             if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 400)) {
-                clearTimeout(timeout);
                 timeout = setTimeout(() => {
-                    self.shouldWaitLoading = true;
                     self.fetch(true);
-                }, 60);
+                }, 100);
+                self.shouldWaitLoading = true;
             }
         });
     },
