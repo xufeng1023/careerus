@@ -113,9 +113,9 @@ export default {
             if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 400)) {
                 clearTimeout(timeout);
                 timeout = setTimeout(() => {
+                    self.shouldWaitLoading = true;
                     self.fetch(true);
                 }, 60);
-                this.shouldWaitLoading = true;
             }
         });
     },

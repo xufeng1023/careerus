@@ -588,9 +588,9 @@ window.dates = [];
             if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 400) {
                 clearTimeout(timeout);
                 timeout = setTimeout(function () {
+                    self.shouldWaitLoading = true;
                     self.fetch(true);
                 }, 60);
-                this.shouldWaitLoading = true;
             }
         });
     },
