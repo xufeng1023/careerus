@@ -1115,7 +1115,7 @@ exports = module.exports = __webpack_require__(156)(false);
 
 
 // module
-exports.push([module.i, "\n.shelf-left {\r\n    height: 30px;\r\n    width: 2px;\r\n    background: #17a2b8;\r\n    -webkit-transform: skewX(-27deg) translateX(-22px);\r\n            transform: skewX(-27deg) translateX(-22px);\n}\n.shelf-right {\r\n    height: 29px;\r\n    width: 3px;\r\n    background: #17a2b8;\r\n    -webkit-transform: skewX(57deg) translate(4px, 1px);\r\n            transform: skewX(57deg) translate(4px, 1px);\n}\n.shelf-date {\r\n    -webkit-transform: skewY(-5deg) translateY(-3px);\r\n            transform: skewY(-5deg) translateY(-3px);\n}\n.rotate:hover {\r\n    cursor: pointer;\r\n    -webkit-animation-name: swing;\r\n            animation-name: swing;\r\n    -webkit-animation-duration: 500ms;\r\n            animation-duration: 500ms;\r\n    -webkit-animation-iteration-count: 1;\r\n            animation-iteration-count: 1;\r\n    -webkit-animation-timing-function: linear;\r\n            animation-timing-function: linear;\n}\n@-webkit-keyframes swing {\nfrom {-webkit-transform: rotateX(0turn);transform: rotateX(0turn);\n}\nto {-webkit-transform: rotateX(1turn);transform: rotateX(1turn);\n}\n}\n@keyframes swing {\nfrom {-webkit-transform: rotateX(0turn);transform: rotateX(0turn);\n}\nto {-webkit-transform: rotateX(1turn);transform: rotateX(1turn);\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.shelf-left {\r\n    height: 30px;\r\n    width: 2px;\r\n    background: #17a2b8;\r\n    -webkit-transform: skewX(-27deg) translateX(-22px);\r\n            transform: skewX(-27deg) translateX(-22px);\n}\n.shelf-right {\r\n    height: 29px;\r\n    width: 3px;\r\n    background: #17a2b8;\r\n    -webkit-transform: skewX(57deg) translate(4px, 1px);\r\n            transform: skewX(57deg) translate(4px, 1px);\n}\n.shelf-date {\r\n    -webkit-transform: skewY(-5deg) translateY(-3px);\r\n            transform: skewY(-5deg) translateY(-3px);\n}\n.rotate:hover,.rotate:focus {\r\n    -webkit-animation-name: swing;\r\n            animation-name: swing;\r\n    -webkit-animation-duration: 500ms;\r\n            animation-duration: 500ms;\r\n    -webkit-animation-iteration-count: 1;\r\n            animation-iteration-count: 1;\r\n    -webkit-animation-timing-function: linear;\r\n            animation-timing-function: linear;\n}\n@-webkit-keyframes swing {\nfrom {-webkit-transform: rotateX(0turn);transform: rotateX(0turn);\n}\nto {-webkit-transform: rotateX(1turn);transform: rotateX(1turn);\n}\n}\n@keyframes swing {\nfrom {-webkit-transform: rotateX(0turn);transform: rotateX(0turn);\n}\nto {-webkit-transform: rotateX(1turn);transform: rotateX(1turn);\n}\n}\r\n", ""]);
 
 // exports
 
@@ -1185,7 +1185,9 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "px-3 bg-info text-white date-shadow rotate" },
+                {
+                  staticClass: "px-3 bg-info text-white date-shadow rotate hand"
+                },
                 [_vm._v(_vm._s(_vm.date))]
               )
             ]

@@ -5,7 +5,7 @@
                 <div class="shelf-left"></div>
                 <div class="shelf-right"></div>
             </div>
-            <div class="px-3 bg-info text-white date-shadow rotate">{{ date }}</div>
+            <div class="px-3 bg-info text-white date-shadow rotate hand">{{ date }}</div>
         </div>
     </div>
 </template>
@@ -44,8 +44,7 @@ export default {
 .shelf-date {
     transform: skewY(-5deg) translateY(-3px);
 }
-.rotate:hover {
-    cursor: pointer;
+.rotate:hover,.rotate:focus {
     animation-name: swing;
     animation-duration: 500ms;
     animation-iteration-count: 1;
