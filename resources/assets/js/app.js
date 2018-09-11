@@ -15,7 +15,7 @@ $('[type=file]').change(function(e) {
 $(function() {
     var ua = navigator.userAgent.toLowerCase();  
 
-    if(ua.match(/MicroMessenger/i) == "micromessenger") {  
+    if(ua.match(/MicroMessenger/i) == "micromessenger") {  alert(3)
         $("#googleLogin").remove();
     }
 });
