@@ -84,6 +84,7 @@ export default {
             type: '',
             offset: 0,
             stopLoading: false,
+            shouldWaitLoading: false,
             categories: [],
             timeout: '',
             locations: [
@@ -108,11 +109,13 @@ export default {
         //this.fetchLocations();
         this.fetchCategories();
         $(window).scroll(function() {
-            if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 100)) {
+            if(this.shouldWaitLoading) return;
+            if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 400)) {
                 clearTimeout(timeout);
                 timeout = setTimeout(() => {
                     self.fetch(true);
-                }, 100);
+                }, 60);
+                this.shouldWaitLoading = true;
             }
         });
     },
@@ -142,6 +145,7 @@ export default {
                         this.jobs.push(job);
                     });
 
+                    this.shouldWaitLoading = false;
                     if(data.length < 20) this.stopLoading = true;
                 }
             });

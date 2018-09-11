@@ -571,6 +571,7 @@ window.dates = [];
             type: '',
             offset: 0,
             stopLoading: false,
+            shouldWaitLoading: false,
             categories: [],
             timeout: '',
             locations: [{ en: 'NY', zh: '纽约' }, { en: 'NJ', zh: '新泽西' }, { en: 'CHICAGO', zh: '芝加哥' }, { en: 'LOS ANGELES', zh: '洛杉矶' }, { en: 'MIAMI', zh: '迈阿密' }, { en: 'BOSTON', zh: '波士顿' }, { en: 'SAN JOSE', zh: '圣何塞' }, { en: 'WASHINGTON', zh: '华盛顿' }, { en: 'ATLANTA', zh: '亚特兰大' }, { en: 'SAN FRANCISCO', zh: '圣弗朗西斯科' }, { en: 'SAN DIEGO', zh: '圣地亚哥' }]
@@ -583,11 +584,13 @@ window.dates = [];
         //this.fetchLocations();
         this.fetchCategories();
         $(window).scroll(function () {
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+            if (this.shouldWaitLoading) return;
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 400) {
                 clearTimeout(timeout);
                 timeout = setTimeout(function () {
                     self.fetch(true);
-                }, 100);
+                }, 60);
+                this.shouldWaitLoading = true;
             }
         });
     },
@@ -622,6 +625,7 @@ window.dates = [];
                         _this.jobs.push(job);
                     });
 
+                    this.shouldWaitLoading = false;
                     if (data.length < 20) this.stopLoading = true;
                 }
             });
