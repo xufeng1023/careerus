@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <small class="text-muted">{{ job.chinese_job_type }}</small>
+                        <small class="text-muted" id="job-type-test">{{ job.chinese_job_type }}</small>
                         <small class="text-muted">近三年H1B人数:{{ job.company.totalSponsor }}</small>
                     </div>
                 </div>

@@ -127,5 +127,9 @@
     $('body').on('click', '.fancy-load-more', function(e) {
         $(this).addClass('expanded').css('max-height', 'none');
     });
+
+    $('body').on('click', '#job-type-test', function(e) {
+        alert(2)
+    });
 </script>
 @endsection

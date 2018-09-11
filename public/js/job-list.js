@@ -993,9 +993,14 @@ var render = function() {
                           "card-footer d-flex align-items-center justify-content-between"
                       },
                       [
-                        _c("small", { staticClass: "text-muted" }, [
-                          _vm._v(_vm._s(job.chinese_job_type))
-                        ]),
+                        _c(
+                          "small",
+                          {
+                            staticClass: "text-muted",
+                            attrs: { id: "job-type-test" }
+                          },
+                          [_vm._v(_vm._s(job.chinese_job_type))]
+                        ),
                         _vm._v(" "),
                         _c("small", { staticClass: "text-muted" }, [
                           _vm._v(
