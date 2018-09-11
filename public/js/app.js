@@ -6780,6 +6780,14 @@ $('[type=file]').change(function (e) {
     }
 });
 
+$(function () {
+    var ua = navigator.userAgent.toLowerCase();
+
+    if (ua.match(/MicroMessenger/i) == "micromessenger") {
+        $("#googleLogin").remove();
+    }
+});
+
 window.helper = {
     toggle: function toggle(form) {
         var val = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;

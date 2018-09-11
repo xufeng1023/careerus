@@ -6774,7 +6774,7 @@ module.exports = __webpack_require__(162);
 __webpack_require__(12);
 
 window.Vue = __webpack_require__(17);
-alert(navigator.userAgent.toLowerCase());
+
 Vue.component('applies-table', __webpack_require__(163));
 
 // const app = new Vue({

@@ -78,7 +78,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
+                        <div id="googleLogin" class="form-group row mb-0">
                             <div class="col-md-4 offset-md-4">
                                 <hr>
                                 @include('_googleSignin')
