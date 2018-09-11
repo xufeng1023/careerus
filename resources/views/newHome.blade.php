@@ -124,7 +124,7 @@
         return false;
     });
 
-    $('body').on('click', '.fancy-load-more', function(e) {
+    $('body').on('click', '.fancy-load-more', function(e) { alert(2);
         $(this).addClass('expanded').css('max-height', 'none');
     });
 </script>
