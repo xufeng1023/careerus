@@ -117,7 +117,7 @@
         $('#back-to-top').css('transform', 'scale('+scale+')');
     });
 
-    $('#back-to-top').click(function() {
+    $('body').on('click', '#back-to-top', function() {
         $('html, body').animate({
             scrollTop: 0
         }, 800);
