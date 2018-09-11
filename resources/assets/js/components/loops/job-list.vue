@@ -108,11 +108,11 @@ export default {
         //this.fetchLocations();
         this.fetchCategories();
         $(window).scroll(function() {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            if ((window.innerHeight + window.scrollY) <= (document.body.offsetHeight - 100)) {
                 clearTimeout(timeout);
                 timeout = setTimeout(() => {
                     self.fetch(true);
-                }, 60);
+                }, 100);
             }
         });
     },
