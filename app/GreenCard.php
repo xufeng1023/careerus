@@ -83,6 +83,11 @@ class GreenCard extends Model
             return;
         }
 
+        if(starts_with($value, 'U')) {
+            $this->attributes['action_at'] = 'U';
+            return;
+        }
+
         preg_match('/^(\d{2})([A-Z]{3})(\d{2})/', $value, $matches);
         
         $this->attributes['action_at'] = Carbon::createFromFormat('y-M-d', $matches[3].'-'.$matches[2].'-'.$matches[1])->format('Y-M-d');

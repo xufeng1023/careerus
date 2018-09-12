@@ -25,17 +25,21 @@ h3{font-size:18px !important;}
                 </td>
                 <td>
                     @php
-                        if(isset($visas[$key + 16]) && $visas[$key + 16]->action_at) echo $last = $visas[$key + 16]->action_at;
-                        else echo '无需排期';
+                        if(isset($visas[$key + 16])) {
+                            if($visas[$key + 16]->action_at != null && $visas[$key + 16]->action_at != 'U') echo $last = $visas[$key + 16]->action_at;
+                            elseif($visas[$key + 16]->action_at == null) echo '无需排期';
+                            elseif($visas[$key + 16]->action_at == 'U') echo '排期撤销';
+                        }
                     @endphp
                 </td>
                 <td>
                 @php
-                    if($visa->action_at) {
+                    if($visa->action_at != null && $visa->action_at != 'U') {
                         echo $visa->action_at;
                         if((isset($last) && $visa->action_at) && ($last != $visa->action_at)) echo '<br>'.$visa->changesInDays($last);
                     }
-                    else echo '无需排期';
+                    elseif($visa->action_at == null) echo '无需排期';
+                    elseif($visa->action_at == 'U') echo '排期撤销';
                 @endphp
                 </td>
                 <td>{{ isset($inventories[$inventory_key])? $inventories[$inventory_key]->amount : '' }}</td>
