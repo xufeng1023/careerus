@@ -36,7 +36,10 @@ h3{font-size:18px !important;}
                 @php
                     if($visa->action_at != null && $visa->action_at != 'U') {
                         echo $visa->action_at;
-                        if((isset($last) && $visa->action_at) && ($last != $visa->action_at)) echo '<br>'.$visa->changesInDays($last);
+                        if(isset($last) && ($last != $visa->action_at)) {
+                            if($last == null || $last == 'U') echo '出现排期';
+                            else echo '<br>'.$visa->changesInDays($last);
+                        }
                     }
                     elseif($visa->action_at == null) echo '无需排期';
                     elseif($visa->action_at == 'U') echo '排期撤销';
@@ -75,15 +78,20 @@ h3{font-size:18px !important;}
                 </td>
                 <td>
                     @php
-                        if(isset($visas[$key + 16]) && $visas[$key + 16]->filing_at) echo $last = $visas[$key + 16]->filing_at;
+                        if(isset($visas[$key + 16]) && $visas[$key + 16]->filing_at) echo $visas[$key + 16]->filing_at;
                         else echo '无需排期';
+                            
+                        $last = $visas[$key + 16]->filing_at;
                     @endphp
                 </td>
                 <td>
                 @php
                     if($visa->filing_at) {
                         echo $visa->filing_at;
-                        if((isset($last) && $visa->filing_at) && ($last != $visa->filing_at)) echo '<br>'.$visa->changesInDays($last, 'filing_at');
+                        if(isset($last) && ($last != $visa->filing_at)) {
+                            if(!$last || $last == 'U') echo '出现排期';
+                            else echo '<br>'.$visa->changesInDays($last, 'filing_at');
+                        }
                     }
                     else echo '无需排期';
                 @endphp
