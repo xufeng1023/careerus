@@ -63,7 +63,7 @@ class GreenCardController extends Controller
        if(!$last_record_date || ($today > $last_record_date->format('Y-m'))) {
             try {
                 return file_get_contents(
-                    'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin/'.date('Y').'/visa-bulletin-for-'.strtolower($next->format('F-Y')).'.html'
+                    'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin/2019/visa-bulletin-for-'.strtolower($next->format('F-Y')).'.html'
                 );
             } catch(\ErrorException $e) {
                 return response('数据还未更新', 404);
