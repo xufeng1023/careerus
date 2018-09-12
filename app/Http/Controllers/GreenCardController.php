@@ -75,8 +75,8 @@ class GreenCardController extends Controller
 
     public function crawlInventory()
     {
-        $month_year = Carbon::now()->format('F_Y');
-        $url = 'https://www.uscis.gov/sites/default/files/USCIS/Green%20Card/Green%20Card%20Through%20a%20Job/I-485%20Employment-Based%20Inventory%20Statistics/Employment-based_I-485_Pending_at_the_Service_Centers_as_of_'.$month_year.'.pdf';
+        $month_year = 'July_2018';//Carbon::now()->format('F_Y');
+        $url = 'https://www.uscis.gov/sites/default/files/Employment-based_I-485_Pending_at_the_Service_Centers_as_of_'.$month_year.'.pdf';
         try {
             $resource = file_get_contents($url);
         } catch(\ErrorException $e) {
@@ -91,13 +91,18 @@ class GreenCardController extends Controller
             'pdfinfo_path' => config('services.poppler.info_path')
         ]);
 
-        $page = $pdf->getHtml()->getPage(2);
+        $pages = $pdf->getHtml()->getAllPages();
 
         $dom = new \DOMDocument();
-        $dom->loadHTML($page);
+
+        foreach($pages as $page) {
+            $dom->loadHTML($page);
+        }
 
         $tags = (new \DOMXPath($dom))->query('//b');
-
+ foreach($tags as $key => $tag) {
+     echo $key.' '.$tag->nodeValue."\n";
+ }
         foreach ([53,107,161,215,269,323] as $k => $key) {
             GreenCardInventory::updateOrCreate(
                 ['country' => 'china', 'preference' => ++$k.'st'],

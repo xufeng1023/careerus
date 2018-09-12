@@ -5,9 +5,9 @@
     <h1 class="h2">{{ __('admin.green card') }}</h1>
 </div>
 
-<div>
+<!-- <div>
     <button type="button" class="btn btn-primary crawl-inventory">{{ __('admin.crawl visa inventory') }}</button>
-</div>
+</div> -->
 
 <div class="table-responsive mb-5">
     <table class="table table-striped table-sm">
@@ -151,7 +151,7 @@
                 toastr.warning(data.responseText);
             },
             success: function() {
-               location.reload();
+               //location.reload();
             },
             complete: function() {
                 $(this).attr('disabled', false).removeClass('loading');
