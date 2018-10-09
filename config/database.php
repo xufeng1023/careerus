@@ -54,6 +54,21 @@ return [
             'engine' => null,
         ],
 
+        'dreamgo' => [
+            'driver' => 'mysql',
+            'host' => 'old-dreamgo.cvwimdwzhtvd.us-east-2.rds.amazonaws.com',
+            'port' => env('DB_PORT', '3306'),
+            'database' => 'new_dreamgo',
+            'username' => 'olddreamgo',
+            'password' => 'olddreamgo1234',
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),

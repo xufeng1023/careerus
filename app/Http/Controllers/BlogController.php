@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\{Blog, CrawlBlog};
 
 class BlogController extends Controller
@@ -92,6 +93,13 @@ class BlogController extends Controller
                 }
             }
         }
+    }
+
+    public function updateCollegesInCache()
+    {
+        $colleges = DB::connection('dreamgo')
+        ->select("SELECT p.post_title FROM wp_posts p INNER JOIN wp_term_relationships tr ON p.ID = tr.object_id WHERE tr.term_taxonomy_id = 3");
+        dd($colleges);
     }
 
     public function adminPage()

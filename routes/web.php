@@ -3,6 +3,7 @@
 Auth::routes();
 
 Route::get('/crawl-wechat-blog', 'BlogController@crawlWeChatBlog');
+Route::get('/test-dreamgo-db', 'BlogController@updateCollegesInCache');
 
 Route::get('/login/google', '\App\Http\Controllers\Auth\LoginController@redirectToProvider');
 Route::get('/login/google/callback', '\App\Http\Controllers\Auth\LoginController@handleProviderCallback');
