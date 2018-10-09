@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVisajobsTable extends Migration
+class CreateBlogCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateVisajobsTable extends Migration
      */
     public function up()
     {
-        Schema::create('visa_jobs', function (Blueprint $table) {
+        Schema::create('blog_categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('company_id');
-            $table->unsignedSmallInteger('year')->nullable();
-            $table->unsignedInteger('number_of_visa')->nullable();
+            $table->string('name');
             $table->timestamps();
-
-            $table->unique(['company_id', 'year']);
         });
     }
 
@@ -31,6 +27,6 @@ class CreateVisajobsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('visa_jobs');
+        Schema::dropIfExists('blog_categories');
     }
 }

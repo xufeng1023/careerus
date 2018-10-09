@@ -65,7 +65,7 @@
 /************************************************************************/
 /******/ ({
 
-/***/ 156:
+/***/ 21:
 /***/ (function(module, exports) {
 
 /*
@@ -148,7 +148,7 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ 174:
+/***/ 22:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -167,7 +167,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(175)
+var listToStyles = __webpack_require__(23)
 
 /*
 type StyleObject = {
@@ -377,7 +377,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 175:
+/***/ 23:
 /***/ (function(module, exports) {
 
 /**
@@ -438,7 +438,7 @@ var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(252)
 /* template */
-var __vue_template__ = __webpack_require__(256)
+var __vue_template__ = __webpack_require__(258)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -483,7 +483,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__timeline2_vue__ = __webpack_require__(264);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__timeline2_vue__ = __webpack_require__(253);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__timeline2_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__timeline2_vue__);
 //
 //
@@ -704,7 +704,198 @@ window.dates = [];
 
 /***/ }),
 
+/***/ 253:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(254)
+}
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(256)
+/* template */
+var __vue_template__ = __webpack_require__(257)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\loops\\timeline2.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-188f3ebd", Component.options)
+  } else {
+    hotAPI.reload("data-v-188f3ebd", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 254:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(255);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(22)("c3c9f5cc", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-188f3ebd\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./timeline2.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-188f3ebd\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./timeline2.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 255:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(21)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.shelf-left {\r\n    height: 30px;\r\n    width: 2px;\r\n    background: #17a2b8;\r\n    -webkit-transform: skewX(-27deg) translateX(-22px);\r\n            transform: skewX(-27deg) translateX(-22px);\n}\n.shelf-right {\r\n    height: 29px;\r\n    width: 3px;\r\n    background: #17a2b8;\r\n    -webkit-transform: skewX(57deg) translate(4px, 1px);\r\n            transform: skewX(57deg) translate(4px, 1px);\n}\n.shelf-date {\r\n    -webkit-transform: skewY(-5deg) translateY(-3px);\r\n            transform: skewY(-5deg) translateY(-3px);\n}\n.rotate:hover,.rotate:focus {\r\n    -webkit-animation-name: swing;\r\n            animation-name: swing;\r\n    -webkit-animation-duration: 500ms;\r\n            animation-duration: 500ms;\r\n    -webkit-animation-iteration-count: 1;\r\n            animation-iteration-count: 1;\r\n    -webkit-animation-timing-function: linear;\r\n            animation-timing-function: linear;\n}\n@-webkit-keyframes swing {\nfrom {-webkit-transform: rotateX(0turn);transform: rotateX(0turn);\n}\nto {-webkit-transform: rotateX(1turn);transform: rotateX(1turn);\n}\n}\n@keyframes swing {\nfrom {-webkit-transform: rotateX(0turn);transform: rotateX(0turn);\n}\nto {-webkit-transform: rotateX(1turn);transform: rotateX(1turn);\n}\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ 256:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['date'],
+    data: function data() {
+        return {
+            w100: false,
+            newDate: false
+        };
+    },
+    mounted: function mounted() {
+        if (window.dates.indexOf(this.date) === -1) {
+            window.dates.push(this.date);
+            this.w100 = true;
+            this.newDate = true;
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 257:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.newDate
+    ? _c(
+        "div",
+        {
+          staticClass: "mx-3 d-flex justify-content-center",
+          class: { "w-100": _vm.w100 }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass:
+                "d-flex justify-content-center align-items-center flex-column shelf-date"
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "px-3 bg-info text-white date-shadow rotate hand"
+                },
+                [_vm._v(_vm._s(_vm.date))]
+              )
+            ]
+          )
+        ]
+      )
+    : _vm._e()
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "d-flex" }, [
+      _c("div", { staticClass: "shelf-left" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "shelf-right" })
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-188f3ebd", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 258:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -1023,197 +1214,6 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-a0ebf59c", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ 264:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(265)
-}
-var normalizeComponent = __webpack_require__(4)
-/* script */
-var __vue_script__ = __webpack_require__(267)
-/* template */
-var __vue_template__ = __webpack_require__(268)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\loops\\timeline2.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-188f3ebd", Component.options)
-  } else {
-    hotAPI.reload("data-v-188f3ebd", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 265:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(266);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(174)("c3c9f5cc", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-188f3ebd\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./timeline2.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-188f3ebd\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./timeline2.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 266:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(156)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.shelf-left {\r\n    height: 30px;\r\n    width: 2px;\r\n    background: #17a2b8;\r\n    -webkit-transform: skewX(-27deg) translateX(-22px);\r\n            transform: skewX(-27deg) translateX(-22px);\n}\n.shelf-right {\r\n    height: 29px;\r\n    width: 3px;\r\n    background: #17a2b8;\r\n    -webkit-transform: skewX(57deg) translate(4px, 1px);\r\n            transform: skewX(57deg) translate(4px, 1px);\n}\n.shelf-date {\r\n    -webkit-transform: skewY(-5deg) translateY(-3px);\r\n            transform: skewY(-5deg) translateY(-3px);\n}\n.rotate:hover,.rotate:focus {\r\n    -webkit-animation-name: swing;\r\n            animation-name: swing;\r\n    -webkit-animation-duration: 500ms;\r\n            animation-duration: 500ms;\r\n    -webkit-animation-iteration-count: 1;\r\n            animation-iteration-count: 1;\r\n    -webkit-animation-timing-function: linear;\r\n            animation-timing-function: linear;\n}\n@-webkit-keyframes swing {\nfrom {-webkit-transform: rotateX(0turn);transform: rotateX(0turn);\n}\nto {-webkit-transform: rotateX(1turn);transform: rotateX(1turn);\n}\n}\n@keyframes swing {\nfrom {-webkit-transform: rotateX(0turn);transform: rotateX(0turn);\n}\nto {-webkit-transform: rotateX(1turn);transform: rotateX(1turn);\n}\n}\r\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 267:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['date'],
-    data: function data() {
-        return {
-            w100: false,
-            newDate: false
-        };
-    },
-    mounted: function mounted() {
-        if (window.dates.indexOf(this.date) === -1) {
-            window.dates.push(this.date);
-            this.w100 = true;
-            this.newDate = true;
-        }
-    }
-});
-
-/***/ }),
-
-/***/ 268:
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm.newDate
-    ? _c(
-        "div",
-        {
-          staticClass: "mx-3 d-flex justify-content-center",
-          class: { "w-100": _vm.w100 }
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass:
-                "d-flex justify-content-center align-items-center flex-column shelf-date"
-            },
-            [
-              _vm._m(0),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "px-3 bg-info text-white date-shadow rotate hand"
-                },
-                [_vm._v(_vm._s(_vm.date))]
-              )
-            ]
-          )
-        ]
-      )
-    : _vm._e()
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-flex" }, [
-      _c("div", { staticClass: "shelf-left" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "shelf-right" })
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-188f3ebd", module.exports)
   }
 }
 

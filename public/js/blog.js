@@ -65,7 +65,25 @@
 /************************************************************************/
 /******/ ({
 
-/***/ 21:
+/***/ 234:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(235);
+
+
+/***/ }),
+
+/***/ 235:
+/***/ (function(module, exports, __webpack_require__) {
+
+var quill = __webpack_require__(24);
+
+window.Quill = new quill('#editor');
+window.Quill.enable(false);
+
+/***/ }),
+
+/***/ 24:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {/*!
@@ -11557,11 +11575,11 @@ module.exports = __webpack_require__(63);
 /***/ })
 /******/ ])["default"];
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(22).Buffer))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25).Buffer))
 
 /***/ }),
 
-/***/ 22:
+/***/ 25:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11575,9 +11593,9 @@ module.exports = __webpack_require__(63);
 
 
 
-var base64 = __webpack_require__(23)
-var ieee754 = __webpack_require__(24)
-var isArray = __webpack_require__(25)
+var base64 = __webpack_require__(26)
+var ieee754 = __webpack_require__(27)
+var isArray = __webpack_require__(28)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -13359,7 +13377,7 @@ function isnan (val) {
 
 /***/ }),
 
-/***/ 23:
+/***/ 26:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13483,25 +13501,7 @@ function fromByteArray (uint8) {
 
 /***/ }),
 
-/***/ 234:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(235);
-
-
-/***/ }),
-
-/***/ 235:
-/***/ (function(module, exports, __webpack_require__) {
-
-var quill = __webpack_require__(21);
-
-window.Quill = new quill('#editor');
-window.Quill.enable(false);
-
-/***/ }),
-
-/***/ 24:
+/***/ 27:
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -13592,7 +13592,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 /***/ }),
 
-/***/ 25:
+/***/ 28:
 /***/ (function(module, exports) {
 
 var toString = {}.toString;

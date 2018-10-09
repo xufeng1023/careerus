@@ -5,7 +5,7 @@
 @endsection
 
 @section('description')
-<meta name="description" content="{{ $blog->description ?: $blog->excerpt() }}">
+<meta name="description" content="{{ $blog->excerpt ?: $blog->excerpt() }}">
 @endsection
 
 
@@ -22,7 +22,8 @@
                 <span class="badge badge-pill badge-secondary">{{ $blog->created_at->diffforhumans() }}</span>
             </div>
             <hr>
-            <div id="editor" data-content="{{ $blog->content }}"></div>
+            <!-- <div id="editor" data-content="{{ $blog->content }}"></div> -->
+            <div>{!! $blog->description !!}</div>
         </div>
     </div>
 </div>

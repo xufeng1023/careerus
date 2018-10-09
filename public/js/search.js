@@ -60,12 +60,398 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 166);
+/******/ 	return __webpack_require__(__webpack_require__.s = 168);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 156:
+/***/ 168:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(169);
+
+
+/***/ }),
+
+/***/ 169:
+/***/ (function(module, exports, __webpack_require__) {
+
+Vue.component('location', __webpack_require__(170));
+Vue.component('job', __webpack_require__(173));
+
+new Vue({
+    el: '#searchForm',
+    data: function data() {
+        return {
+            searchJob: '',
+            searchLocation: ''
+        };
+    }
+});
+
+/***/ }),
+
+/***/ 170:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(171)
+/* template */
+var __vue_template__ = __webpack_require__(172)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\location.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3138e0e8", Component.options)
+  } else {
+    hotAPI.reload("data-v-3138e0e8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 171:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['placeholder', 'value', 'defaultLocation'],
+    data: function data() {
+        return {
+            cities: ''
+        };
+    },
+    mounted: function mounted() {
+        this.$emit('input', this.defaultLocation);
+    },
+
+    methods: {
+        search: function search(e) {
+            var _this = this;
+
+            var s = e.target.value;
+            this.$emit('input', s);
+            if (s.trim()) {
+                $.ajax('/searchLocation?s=' + s, {
+                    dataType: 'json',
+                    context: this,
+                    success: function success(data) {
+                        return _this.cities = data;
+                    }
+                });
+            } else this.cities = '';
+        },
+        onClick: function onClick(e) {
+            this.$emit('input', e.target.innerText);
+            this.cities = '';
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 172:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "position-relative" }, [
+    _c("input", {
+      staticClass: "form-control border-0",
+      attrs: { type: "text", name: "l", placeholder: _vm.placeholder },
+      domProps: { value: _vm.value },
+      on: { input: _vm.search }
+    }),
+    _vm._v(" "),
+    _vm.cities
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "list-group position-absolute list-group-flush box-shadow z9 w-100"
+          },
+          _vm._l(_vm.cities, function(city) {
+            return _c(
+              "button",
+              {
+                key: city.key,
+                staticClass: "list-group-item list-group-item-action",
+                attrs: { type: "button" },
+                on: { click: _vm.onClick }
+              },
+              [_vm._v("\n            " + _vm._s(city) + "\n        ")]
+            )
+          })
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3138e0e8", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 173:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(174)
+}
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(176)
+/* template */
+var __vue_template__ = __webpack_require__(177)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\job.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f04e2694", Component.options)
+  } else {
+    hotAPI.reload("data-v-f04e2694", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 174:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(175);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(22)("0eaa1ef1", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f04e2694\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./job.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f04e2694\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./job.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 175:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(21)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#searchForm .form-control {\r\n    border-radius: 0;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 176:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['placeholder', 'value', 'defaultJob'],
+    data: function data() {
+        return {
+            jobs: ''
+        };
+    },
+
+    filters: {
+        jobLink: function jobLink(job) {
+            return '/job/' + job.title + '?i=' + job.identity;
+        }
+    },
+    mounted: function mounted() {
+        this.$emit('input', this.defaultJob);
+    },
+
+    methods: {
+        search: function search(e) {
+            var _this = this;
+
+            var s = e.target.value;
+            this.$emit('input', s);
+            if (s.trim()) {
+                $.ajax('/searchJob?s=' + s, {
+                    dataType: 'json',
+                    context: this,
+                    success: function success(data) {
+                        return _this.jobs = data;
+                    }
+                });
+            } else this.jobs = '';
+        },
+        onClick: function onClick(e) {
+            this.$emit('input', e.target.innerText);
+            this.jobs = '';
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 177:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "position-relative" }, [
+    _c("input", {
+      staticClass: "form-control border-0 rounded-left",
+      attrs: { type: "text", name: "s", placeholder: _vm.placeholder },
+      domProps: { value: _vm.value },
+      on: { input: _vm.search }
+    }),
+    _vm._v(" "),
+    _vm.jobs
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "list-group position-absolute list-group-flush box-shadow z9 w-100"
+          },
+          _vm._l(_vm.jobs, function(job) {
+            return _c(
+              "a",
+              {
+                key: job.key,
+                staticClass: "list-group-item list-group-item-action",
+                attrs: { href: _vm._f("jobLink")(job) },
+                on: { click: _vm.onClick }
+              },
+              [
+                _vm._v(
+                  "\n            " +
+                    _vm._s(job.chinese_title || job.title) +
+                    "\n        "
+                )
+              ]
+            )
+          })
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f04e2694", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 21:
 /***/ (function(module, exports) {
 
 /*
@@ -148,278 +534,7 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ 166:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(167);
-
-
-/***/ }),
-
-/***/ 167:
-/***/ (function(module, exports, __webpack_require__) {
-
-Vue.component('location', __webpack_require__(168));
-Vue.component('job', __webpack_require__(171));
-
-new Vue({
-    el: '#searchForm',
-    data: function data() {
-        return {
-            searchJob: '',
-            searchLocation: ''
-        };
-    }
-});
-
-/***/ }),
-
-/***/ 168:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(4)
-/* script */
-var __vue_script__ = __webpack_require__(169)
-/* template */
-var __vue_template__ = __webpack_require__(170)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\location.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3138e0e8", Component.options)
-  } else {
-    hotAPI.reload("data-v-3138e0e8", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 169:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['placeholder', 'value', 'defaultLocation'],
-    data: function data() {
-        return {
-            cities: ''
-        };
-    },
-    mounted: function mounted() {
-        this.$emit('input', this.defaultLocation);
-    },
-
-    methods: {
-        search: function search(e) {
-            var _this = this;
-
-            var s = e.target.value;
-            this.$emit('input', s);
-            if (s.trim()) {
-                $.ajax('/searchLocation?s=' + s, {
-                    dataType: 'json',
-                    context: this,
-                    success: function success(data) {
-                        return _this.cities = data;
-                    }
-                });
-            } else this.cities = '';
-        },
-        onClick: function onClick(e) {
-            this.$emit('input', e.target.innerText);
-            this.cities = '';
-        }
-    }
-});
-
-/***/ }),
-
-/***/ 170:
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "position-relative" }, [
-    _c("input", {
-      staticClass: "form-control border-0",
-      attrs: { type: "text", name: "l", placeholder: _vm.placeholder },
-      domProps: { value: _vm.value },
-      on: { input: _vm.search }
-    }),
-    _vm._v(" "),
-    _vm.cities
-      ? _c(
-          "div",
-          {
-            staticClass:
-              "list-group position-absolute list-group-flush box-shadow z9 w-100"
-          },
-          _vm._l(_vm.cities, function(city) {
-            return _c(
-              "button",
-              {
-                key: city.key,
-                staticClass: "list-group-item list-group-item-action",
-                attrs: { type: "button" },
-                on: { click: _vm.onClick }
-              },
-              [_vm._v("\n            " + _vm._s(city) + "\n        ")]
-            )
-          })
-        )
-      : _vm._e()
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3138e0e8", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ 171:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(172)
-}
-var normalizeComponent = __webpack_require__(4)
-/* script */
-var __vue_script__ = __webpack_require__(176)
-/* template */
-var __vue_template__ = __webpack_require__(177)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\job.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f04e2694", Component.options)
-  } else {
-    hotAPI.reload("data-v-f04e2694", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 172:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(173);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(174)("0eaa1ef1", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f04e2694\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./job.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f04e2694\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./job.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 173:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(156)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n#searchForm .form-control {\r\n    border-radius: 0;\n}\r\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 174:
+/***/ 22:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -438,7 +553,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(175)
+var listToStyles = __webpack_require__(23)
 
 /*
 type StyleObject = {
@@ -648,7 +763,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 175:
+/***/ 23:
 /***/ (function(module, exports) {
 
 /**
@@ -679,121 +794,6 @@ module.exports = function listToStyles (parentId, list) {
   return styles
 }
 
-
-/***/ }),
-
-/***/ 176:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['placeholder', 'value', 'defaultJob'],
-    data: function data() {
-        return {
-            jobs: ''
-        };
-    },
-
-    filters: {
-        jobLink: function jobLink(job) {
-            return '/job/' + job.title + '?i=' + job.identity;
-        }
-    },
-    mounted: function mounted() {
-        this.$emit('input', this.defaultJob);
-    },
-
-    methods: {
-        search: function search(e) {
-            var _this = this;
-
-            var s = e.target.value;
-            this.$emit('input', s);
-            if (s.trim()) {
-                $.ajax('/searchJob?s=' + s, {
-                    dataType: 'json',
-                    context: this,
-                    success: function success(data) {
-                        return _this.jobs = data;
-                    }
-                });
-            } else this.jobs = '';
-        },
-        onClick: function onClick(e) {
-            this.$emit('input', e.target.innerText);
-            this.jobs = '';
-        }
-    }
-});
-
-/***/ }),
-
-/***/ 177:
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "position-relative" }, [
-    _c("input", {
-      staticClass: "form-control border-0 rounded-left",
-      attrs: { type: "text", name: "s", placeholder: _vm.placeholder },
-      domProps: { value: _vm.value },
-      on: { input: _vm.search }
-    }),
-    _vm._v(" "),
-    _vm.jobs
-      ? _c(
-          "div",
-          {
-            staticClass:
-              "list-group position-absolute list-group-flush box-shadow z9 w-100"
-          },
-          _vm._l(_vm.jobs, function(job) {
-            return _c(
-              "a",
-              {
-                key: job.key,
-                staticClass: "list-group-item list-group-item-action",
-                attrs: { href: _vm._f("jobLink")(job) },
-                on: { click: _vm.onClick }
-              },
-              [
-                _vm._v(
-                  "\n            " +
-                    _vm._s(job.chinese_title || job.title) +
-                    "\n        "
-                )
-              ]
-            )
-          })
-        )
-      : _vm._e()
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-f04e2694", module.exports)
-  }
-}
 
 /***/ }),
 

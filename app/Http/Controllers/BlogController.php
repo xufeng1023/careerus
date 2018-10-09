@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Blog;
+use App\{Blog, CrawlBlog};
 
 class BlogController extends Controller
 {
     public function all()
     {
-        $blogs = Blog::latest()->get();
+        $blogs = CrawlBlog::all();//Blog::latest()->get();
 
         return view('blogs', compact('blogs'));
     }
@@ -33,7 +33,75 @@ class BlogController extends Controller
         return '/admin/blog';
     }
 
-    public function show(Blog $blog)
+    public function crawlWeChatBlog()
+    {
+        $whatToCrawl = ['斯坦福大学'];
+
+        libxml_use_internal_errors(true);
+        $meta = '<meta http-equiv="Content-Type" content="text/html; charset=utf8"/>';
+        
+        $dom = new \DOMDocument();
+        $dom->preserveWhiteSpace = false;
+
+        foreach($whatToCrawl as $query) {
+            $page = file_get_contents('http://weixin.sogou.com/weixin?query='.urlencode($query).'&type=2');
+            $page = preg_replace("/[\n\r\t]+/", '', $page);
+            preg_match('/<ul class="news-list".*<\/ul>/', $page, $matches);
+            $page = preg_replace("/<script>[a-zA-Z0-9.()']*<\/script>/", '', $matches[0]);
+
+            $dom->loadHTML($meta.$page);
+
+            $lis = $dom->getElementsByTagName("li");
+
+            foreach ($lis as $key => $li) {
+                $title = $li->getElementsByTagName('h3')[0]->textContent;
+                preg_match_all('/[\x{4e00}-\x{9fff}]+/u', $title, $matches);
+                $title = join('', $matches[0]);
+
+                if(CrawlBlog::whereTitle($title)->exists()) continue;
+
+                $thumbnail = $li->getElementsByTagName("img")[0]->getAttribute('src');
+                $link = $li->getElementsByTagName('a')[1]->getAttribute('href');
+                $excerpt = $li->getElementsByTagName('p')[0]->textContent;
+                $author = $li->getElementsByTagName('a')[2]->textContent;
+
+                $contentPage = file_get_contents($link);
+                $contentPage = preg_replace("/[\n\r\t]+/", '', $contentPage);
+                $contentPage = preg_replace("/[\s]+/", ' ', $contentPage);
+                $contentPage = preg_replace('/data-src/', 'src', $contentPage);
+                
+                preg_match('/<div class="rich_media_content\s?" id="js_content.*<\/div>/', $contentPage, $matches);
+                
+                $contentPage = preg_replace('/<script.*<\/script>/', '', $matches[0]);
+                
+                $contentPage = strip_tags($contentPage, '<div><span><pre><p><br><hr><hgroup><h1><h2><h3><h4><h5><h6>
+                <ul><ol><li><dl><dt><dd><strong><em><b><i><u><img><abbr><address>
+                <blockquote><label><caption><table><tbody><td><tfoot><th><thead><tr>');
+
+                try {
+                    $crawlBlog = new CrawlBlog;
+                    $crawlBlog->excerpt = $excerpt;
+                    $crawlBlog->title = $title;
+                    $crawlBlog->author = $author;
+                    $crawlBlog->description = $contentPage;
+                    $crawlBlog->thumbnail = $thumbnail;
+                    $crawlBlog->save();
+                } catch (\Illuminate\Database\QueryException $e) {
+                    dd($e->getMessage());
+                    continue;
+                }
+            }
+        }
+    }
+
+    public function adminPage()
+    {
+        $crawlBlogs = CrawlBlog::all();
+        return view('admin.crawlBlog', compact('crawlBlogs'));
+    }
+
+    // public function show(Blog $blog)
+    public function show(CrawlBlog $blog)
     {
         return view('blog', compact('blog'));
     }

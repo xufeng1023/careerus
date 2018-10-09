@@ -32,17 +32,6 @@ class CreatePostTable extends Migration
             $table->boolean('recommended')->default(0);
             $table->timestamps();
             $table->date('end_at')->nullable();
-
-            $table->foreign('user_id')
-                ->references('id')->on('users');
-
-            $table->foreign('catagory_id')
-                ->references('id')->on('catagories')
-                ->onDelete('cascade');
-
-            $table->foreign('company_id')
-                ->references('id')->on('companies')
-                ->onDelete('cascade');
         });
     }
 

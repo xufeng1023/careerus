@@ -2,6 +2,8 @@
 
 Auth::routes();
 
+Route::get('/crawl-wechat-blog', 'BlogController@crawlWeChatBlog');
+
 Route::get('/login/google', '\App\Http\Controllers\Auth\LoginController@redirectToProvider');
 Route::get('/login/google/callback', '\App\Http\Controllers\Auth\LoginController@handleProviderCallback');
 
@@ -44,6 +46,7 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/crawlBlogCategories', 'BlogController@adminPage')->middleware('master');
     Route::get('/applies', 'ApplyController@all')->middleware('master');
     Route::get('/cities', 'LocationController@citiesByState');
     Route::get('/jobs', 'PostController@allAdmin');
