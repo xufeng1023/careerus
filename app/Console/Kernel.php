@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Http\Controllers\BlogController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,12 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->call(function() {
-        //     $fav = new \App\Favorite;
-        //     $fav->user_id = 999;
-        //     $fav->post_id = 999;
-        //     $fav->save();
-        // })->everyMinute();
+        $schedule->call(new BlogController)->daily();
     }
 
     /**
