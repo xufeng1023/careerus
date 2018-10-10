@@ -24,7 +24,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call('\App\Http\Controllers\BlogController@updateCollegesInCache')->everyMinute();
+        $schedule->call(function() {
+            \Log::info('dd');
+            $colleges = \DB::connection('dreamgo')->select("
+                SELECT p.post_title FROM wp_posts p INNER JOIN wp_term_relationships tr ON p.ID = tr.object_id WHERE tr.term_taxonomy_id = 3
+            ");
+
+            if(count($colleges)) \Cache::forever('dreamgo-collegs', $colleges);
+        })->everyMinute();
     }
 
     /**
