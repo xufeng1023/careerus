@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(new BlogController)->daily();
+        $schedule->call(new BlogController)->everyMinute();
     }
 
     /**
