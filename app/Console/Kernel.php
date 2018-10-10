@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function() {
+            \Log::info('d');
             \Cache::forever('dreamgo-collegs', '123');
             // $fav = new \App\Favorite;
             // $fav->user_id = 999;
