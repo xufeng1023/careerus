@@ -96,11 +96,6 @@ class BlogController extends Controller
         }
     }
 
-    public function __invoke()
-    {
-        $this->updateCollegesInCache();
-    }
-
     public function updateCollegesInCache()
     {
         $colleges = DB::connection('dreamgo')->select("
