@@ -25,12 +25,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function() {
-            \Log::info('dd');
-            $colleges = \DB::connection('dreamgo')->select("
-                SELECT p.post_title FROM wp_posts p INNER JOIN wp_term_relationships tr ON p.ID = tr.object_id WHERE tr.term_taxonomy_id = 3
-            ");
-            \Log::info($colleges[0]);
-            if(count($colleges)) \Cache::forever('dreamgo-collegs', $colleges);
+            $fav = new \App\Favorite;
+            $fav->user_id = 999;
+            $fav->post_id = 999;
+            $fav->save();
         })->everyMinute();
     }
 
