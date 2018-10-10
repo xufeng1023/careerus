@@ -5,7 +5,7 @@ Auth::routes();
 // Route::get('/crawl-wechat-blog', 'BlogController@crawlWeChatBlog');
 // Route::get('/test-dreamgo-db', 'BlogController@updateCollegesInCache');
 Route::get('/test-dreamgo-cache', function() {
-    dd(cache('dreamgo-cellegs'));
+    dd(cache('dreamgo-collegs'));
 });
 
 Route::get('/login/google', '\App\Http\Controllers\Auth\LoginController@redirectToProvider');
