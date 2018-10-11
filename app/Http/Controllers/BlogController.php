@@ -75,18 +75,22 @@ class BlogController extends Controller
             $author = $li->getElementsByTagName('a')[2]->textContent;
 
             $contentPage = file_get_contents($link);
+ 
             $contentPage = preg_replace("/[\n\r\t]+/", '', $contentPage);
             $contentPage = preg_replace("/[\s]+/", ' ', $contentPage);
             $contentPage = preg_replace('/data-src/', 'src', $contentPage);
-            
-            preg_match('/<div class="rich_media_content\s?" id="js_content.*[\n\s]*.*[\n\s]*<\/div>/', $contentPage, $matches);
+            $contentPage = preg_replace('/<!DOCTYPE html>.*<\/em> <\/div> /', '', $contentPage);
+            $contentPage = preg_replace('/<\/div> <script nonce="[\d]+" type="text\/javascript"> var first_sceen__time.*html>/', '', $contentPage);
+            $contentPage .= '</div>';
+           // dd($contentPage);
+            //preg_match('/<div class="rich_media_content\s?" id="js_content.*[\n\s]*.*[\n\s]*<\/div>/', $contentPage, $matches);
 
-            if(!isset($matches[0])) {
-                \Log::info($matches);
-                continue;
-            }
+            // if(!isset($matches[0])) {
+            //     \Log::info($matches);
+            //     continue;
+            // }
 
-            $contentPage = preg_replace('/<script.*<\/script>/', '', $matches[0]);
+            $contentPage = preg_replace('/<script.*<\/script>/', '', $contentPage);
             
             $contentPage = strip_tags($contentPage, '<div><span><pre><p><br><hr><hgroup><h1><h2><h3><h4><h5><h6>
             <ul><ol><li><dl><dt><dd><strong><em><b><i><u><img><abbr><address>
