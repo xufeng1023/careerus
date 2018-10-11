@@ -45,62 +45,63 @@ class BlogController extends Controller
         $dom = new \DOMDocument();
         $dom->preserveWhiteSpace = false;
 
-        foreach($whatToCrawl as $key => $query) {
-            if($key > 0) exit;
+        $query = array_shift($whatToCrawl);
+        $search = rtrim($query->name, '新闻');
+        
+        $page = file_get_contents('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
+        $page = preg_replace("/[\n\r\t]+/", '', $page);
+        preg_match('/<ul class="news-list".*<\/ul>/', $page, $matches);
+        $page = preg_replace("/<script>[a-zA-Z0-9.()']*<\/script>/", '', $matches[0]);
 
-            $search = rtrim($query->name, '新闻');
+        $dom->loadHTML($meta.$page);
+
+        $lis = $dom->getElementsByTagName("li");
+
+        foreach ($lis as $key => $li) {
+            $title = $li->getElementsByTagName('h3')[0]->textContent;
+            preg_match_all('/[\x{4e00}-\x{9fff}0-9]+/u', $title, $matches);
+            $title = join('', $matches[0]);
+
+            $post = DB::connection('dreamgo')->select("
+                SELECT ID FROM wp_posts WHERE post_title = '$title' AND post_status = 'publish' LIMIT 1
+            ");
+
+            if($post) continue;
             
-            $page = file_get_contents('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
-            $page = preg_replace("/[\n\r\t]+/", '', $page);
-            preg_match('/<ul class="news-list".*<\/ul>/', $page, $matches);
-            $page = preg_replace("/<script>[a-zA-Z0-9.()']*<\/script>/", '', $matches[0]);
+            $thumbnail = $li->getElementsByTagName("img")[0]->getAttribute('src');
+            $thumbnail = explode('url=', $thumbnail)[1];
+            $link = $li->getElementsByTagName('a')[1]->getAttribute('href');
+            $excerpt = $li->getElementsByTagName('p')[0]->textContent;
+            $author = $li->getElementsByTagName('a')[2]->textContent;
 
-            $dom->loadHTML($meta.$page);
+            $contentPage = file_get_contents($link);
+            $contentPage = preg_replace("/[\n\r\t]+/", '', $contentPage);
+            $contentPage = preg_replace("/[\s]+/", ' ', $contentPage);
+            $contentPage = preg_replace('/data-src/', 'src', $contentPage);
+            
+            preg_match('/<div class="rich_media_content\s?" id="js_content.*<\/div>/', $contentPage, $matches);
+            
+            $contentPage = preg_replace('/<script.*<\/script>/', '', $matches[0]);
+            
+            $contentPage = strip_tags($contentPage, '<div><span><pre><p><br><hr><hgroup><h1><h2><h3><h4><h5><h6>
+            <ul><ol><li><dl><dt><dd><strong><em><b><i><u><img><abbr><address>
+            <blockquote><label><caption><table><tbody><td><tfoot><th><thead><tr>');
 
-            $lis = $dom->getElementsByTagName("li");
+            $http = new \GuzzleHttp\Client;
 
-            foreach ($lis as $key => $li) {
-                $title = $li->getElementsByTagName('h3')[0]->textContent;
-                preg_match_all('/[\x{4e00}-\x{9fff}]+/u', $title, $matches);
-                $title = join('', $matches[0]);
-
-                $post = DB::connection('dreamgo')->select("
-                    SELECT ID FROM wp_posts WHERE post_title = '$title' LIMIT 1
-                ");
-
-                if($post) continue;
-                
-                $thumbnail = $li->getElementsByTagName("img")[0]->getAttribute('src');
-                $link = $li->getElementsByTagName('a')[1]->getAttribute('href');
-                $excerpt = $li->getElementsByTagName('p')[0]->textContent;
-                $author = $li->getElementsByTagName('a')[2]->textContent;
-
-                $contentPage = file_get_contents($link);
-                $contentPage = preg_replace("/[\n\r\t]+/", '', $contentPage);
-                $contentPage = preg_replace("/[\s]+/", ' ', $contentPage);
-                $contentPage = preg_replace('/data-src/', 'src', $contentPage);
-                
-                preg_match('/<div class="rich_media_content\s?" id="js_content.*<\/div>/', $contentPage, $matches);
-                
-                $contentPage = preg_replace('/<script.*<\/script>/', '', $matches[0]);
-                
-                $contentPage = strip_tags($contentPage, '<div><span><pre><p><br><hr><hgroup><h1><h2><h3><h4><h5><h6>
-                <ul><ol><li><dl><dt><dd><strong><em><b><i><u><img><abbr><address>
-                <blockquote><label><caption><table><tbody><td><tfoot><th><thead><tr>');
-   
-                $http = new \GuzzleHttp\Client;
-
-                $http->post('http://18.219.227.57/wp-admin/admin-ajax.php?action=dreamgo_wechat_post', [
-                    'form_params' => [
-                        'title' => $title,
-                        'excerpt' => $excerpt,
-                        'content' => $contentPage,
-                        'category' => $query->term_id,
-                        'thumbnail' => $thumbnail,
-                    ],
-                ]);
-            }
+            $http->post('http://18.219.227.57/wp-admin/admin-ajax.php?action=dreamgo_wechat_post', [
+                'form_params' => [
+                    'title' => $title,
+                    'excerpt' => $excerpt,
+                    'content' => $contentPage,
+                    'category' => $query->term_id,
+                    'thumbnail' => $thumbnail,
+                ],
+            ]);
         }
+
+        $whatToCrawl[] = $query;
+        Cache::forever('dreamgo-collegs', $whatToCrawl);
     }
 
     public function updateCollegesInCache()
