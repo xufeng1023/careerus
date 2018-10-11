@@ -85,7 +85,7 @@ class BlogController extends Controller
                 \Log::info($title);
                 continue;
             }
-            
+            \Log::info('here');
             $contentPage = preg_replace('/<script.*<\/script>/', '', $matches[0]);
             
             $contentPage = strip_tags($contentPage, '<div><span><pre><p><br><hr><hgroup><h1><h2><h3><h4><h5><h6>
