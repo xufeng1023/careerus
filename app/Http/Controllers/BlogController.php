@@ -80,6 +80,11 @@ class BlogController extends Controller
             $contentPage = preg_replace('/data-src/', 'src', $contentPage);
             
             preg_match('/<div class="rich_media_content\s?" id="js_content.*<\/div>/', $contentPage, $matches);
+
+            if(!isset($matches[0])) {
+                \Log::info($matches);
+                continue;
+            }
             
             $contentPage = preg_replace('/<script.*<\/script>/', '', $matches[0]);
             
