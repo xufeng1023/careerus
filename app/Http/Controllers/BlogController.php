@@ -56,7 +56,7 @@ class BlogController extends Controller
         $dom->loadHTML($meta.$page);
 
         $lis = $dom->getElementsByTagName("li");
-        \Log::info(count($lis));
+
         foreach ($lis as $key => $li) {
             $title = $li->getElementsByTagName('h3')[0]->textContent;
             preg_match_all('/[\x{4e00}-\x{9fff}0-9]+/u', $title, $matches);
@@ -82,7 +82,7 @@ class BlogController extends Controller
             preg_match('/<div class="rich_media_content\s?" id="js_content.*[\n\s]*.*[\n\s]*<\/div>/', $contentPage, $matches);
 
             if(!isset($matches[0])) {
-                \Log::info($title);
+                \Log::info($matches);
                 continue;
             }
 
