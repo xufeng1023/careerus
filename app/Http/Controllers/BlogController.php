@@ -51,6 +51,11 @@ class BlogController extends Controller
         $page = file_get_contents('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
         $page = preg_replace("/[\n\r\t]+/", '', $page);
         preg_match('/<ul class="news-list".*<\/ul>/', $page, $matches);
+
+        if(!isset($matches[0])) {
+            \Log::info($matches);
+        }
+
         $page = preg_replace("/<script>[a-zA-Z0-9.()']*<\/script>/", '', $matches[0]);
 
         $dom->loadHTML($meta.$page);
@@ -59,7 +64,7 @@ class BlogController extends Controller
 
         foreach ($lis as $key => $li) {
             $title = $li->getElementsByTagName('h3')[0]->textContent;
-            preg_match_all('/[\x{4e00}-\x{9fff}0-9]+/u', $title, $matches);
+            preg_match_all('/[\x{4e00}-\x{9fff}0-9a-zA-Z]+/u', $title, $matches);
             $title = join('', $matches[0]);
 
             $post = DB::connection('dreamgo')->select("
