@@ -174,7 +174,7 @@ class BlogController extends Controller
             ]
         ]);
 
-        dd($response);
+        dd((string) $response->getBody());
     }
 
     public function unlockcrawlForm()
