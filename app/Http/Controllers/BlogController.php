@@ -56,6 +56,11 @@ class BlogController extends Controller
         $query = array_shift($whatToCrawl);
         $search = rtrim($query->name, '新闻');
         
+        //////
+        $r = $this->http->get('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
+        dd((string)$r->getBody());
+        ////
+
         $page = file_get_contents('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
         dd($page);
         /* 攻克验证码 */
