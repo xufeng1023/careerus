@@ -165,10 +165,11 @@ class BlogController extends Controller
     }
 
     public function unlockcrawl()
-    { var_dump(request()->all());
+    { var_dump(urldecode(request('r')));
+
         $response = $this->http->post('https://weixin.sogou.com/antispider/thank.php', [
             'form_params' => [
-                'c' => request('c'),
+                'c' => strtoupper(request('c')),
                 'r' => request('r'),
                 'v' => 5
             ]
