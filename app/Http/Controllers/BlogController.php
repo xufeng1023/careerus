@@ -10,6 +10,12 @@ use App\{Blog, CrawlBlog};
 
 class BlogController extends Controller
 {
+    private $http;
+
+    public function __construct()
+    {
+        $this->http = new \GuzzleHttp\Client;
+    }
     public function all()
     {
         $blogs = CrawlBlog::all();//Blog::latest()->get();
@@ -41,7 +47,6 @@ class BlogController extends Controller
     { 
         if(!$whatToCrawl = cache('dreamgo-collegs')) return;
 
-        $http = new \GuzzleHttp\Client;
         libxml_use_internal_errors(true);
         $meta = '<meta http-equiv="Content-Type" content="text/html; charset=utf8"/>';
         
@@ -58,19 +63,11 @@ class BlogController extends Controller
             preg_match('/tc=([\d]*)/', $page, $time);
 
             if(isset($time[1])) {
-                preg_match('/"(%2.*)"/', $page, $url); dd($url);
-                \Mail::raw('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1]."<br>".$url[1], function ($message) {
+                preg_match('/"(%2.*)"/', $page, $url);
+                \Mail::raw('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1]."<br>careerus.com/unlockcrawl?r=".$url[1], function ($message) {
                     $message->to('xfeng@dreamgo.com')
                       ->subject('crawlWechatBlocked');
-                  });
-                // preg_match('/tc=([\d]*)/', $page, $url);
-                // $response = $http->post('https://weixin.sogou.com/antispider/thank.php', [
-                //     'form_params' => [
-                //         'c' => '34rfd3',
-                //         'r' => $url[1],
-                //         'v' => 5
-                //     ],
-                // ]);
+                });
             }
             return;
         }
@@ -129,7 +126,7 @@ class BlogController extends Controller
             <ul><ol><li><dl><dt><dd><strong><em><b><i><u><img><abbr><address>
             <blockquote><label><caption><table><tbody><td><tfoot><th><thead><tr>');
 
-            $http->post('http://18.219.227.57/wp-admin/admin-ajax.php?action=dreamgo_wechat_post', [
+            $this->http->post('http://18.219.227.57/wp-admin/admin-ajax.php?action=dreamgo_wechat_post', [
                 'form_params' => [
                     'title' => $title,
                     'excerpt' => $excerpt,
@@ -151,11 +148,8 @@ class BlogController extends Controller
         ");
 
         if(count($colleges)) {
-
-            $http = new \GuzzleHttp\Client;
-
             foreach($colleges as $college) {
-                $http->post('http://18.219.227.57/wp-admin/admin-ajax.php?action=dreamgo_update_college_news_category', [
+                $this->http->post('http://18.219.227.57/wp-admin/admin-ajax.php?action=dreamgo_update_college_news_category', [
                     'form_params' => [
                         'name' => $college->post_title.'新闻'
                     ],
@@ -172,7 +166,13 @@ class BlogController extends Controller
 
     public function unlockcrawl()
     {
-        return request()->all();
+        $this->http->post('https://weixin.sogou.com/antispider/thank.php', [
+            'form_params' => [
+                'c' => request('c'),
+                'r' => request('r'),
+                'v' => 5
+            ]
+        ]);
     }
 
     public function unlockcrawlForm()
