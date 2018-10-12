@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Cache;
 use DB;
+use thiagoalessio\TesseractOCR\TesseractOCR;
 use App\{Blog, CrawlBlog};
 
 class BlogController extends Controller
@@ -36,7 +37,11 @@ class BlogController extends Controller
     }
 
     public function crawlWeChatBlog()
-    {
+    { 
+        echo (new TesseractOCR('https://weixin.sogou.com/antispider/util/seccode.php?tc=1539356888801'))->run();
+       // $file = file_get_contents('https://weixin.sogou.com/antispider/util/seccode.php?tc=1539356888801');
+        //var_dump(base64_decode($file));
+        return;
         if(!$whatToCrawl = cache('dreamgo-collegs')) return;
 
         libxml_use_internal_errors(true);

@@ -15,6 +15,7 @@
         "laravel/tinker": "^1.0",
         "predis/predis": "^1.1",
         "steelywing/chinese": "^0.3.0",
+        "thiagoalessio/tesseract_ocr": "^2.6",
         "tonchik-tm/pdf-to-html": "~1"
     },
     "require-dev": {

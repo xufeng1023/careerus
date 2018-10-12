@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aec09133d7682554bca955fbf6907202",
+    "content-hash": "519cbfa47ad78b16e8ebad909b014f5c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3051,6 +3051,51 @@
                 "dump"
             ],
             "time": "2018-04-03T05:24:00+00:00"
+        },
+        {
+            "name": "thiagoalessio/tesseract_ocr",
+            "version": "2.6.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thiagoalessio/tesseract-ocr-for-php.git",
+                "reference": "0cd5d55656ba897d7510cfbf4ddfb7753bf0d036"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thiagoalessio/tesseract-ocr-for-php/zipball/0cd5d55656ba897d7510cfbf4ddfb7753bf0d036",
+                "reference": "0cd5d55656ba897d7510cfbf4ddfb7753bf0d036",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4 || ^7.0"
+            },
+            "require-dev": {
+                "codacy/coverage": "dev-master",
+                "phpunit/php-code-coverage": "^2.2.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "thiagoalessio\\TesseractOCR\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "thiagoalessio",
+                    "email": "thiagoalessio@me.com"
+                }
+            ],
+            "description": "A wrapper to work with Tesseract OCR inside PHP.",
+            "keywords": [
+                "OCR",
+                "Tesseract",
+                "text recognition"
+            ],
+            "time": "2018-09-21T22:23:52+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
