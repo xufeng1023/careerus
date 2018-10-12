@@ -58,8 +58,8 @@ class BlogController extends Controller
             preg_match('/tc=([\d]*)/', $page, $time);
 
             if(isset($time[1])) {
-               // \Mail::to('xfeng@dreamgo.com')->send(new crawlWechatBlocked($time[1]));
-                \Mail::raw('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1], function ($message) {
+                preg_match('/tc=([\d]*)/', $page, $url);
+                \Mail::raw('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1]."<br>".$url[1], function ($message) {
                     $message->to('xfeng@dreamgo.com')
                       ->subject('crawlWechatBlocked');
                   });
@@ -71,8 +71,6 @@ class BlogController extends Controller
                 //         'v' => 5
                 //     ],
                 // ]);
-                // var_dump($response);
-                // var_dump('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1]);
             }
             return;
         }
@@ -170,6 +168,16 @@ class BlogController extends Controller
 
             if(count($categories)) Cache::forever('dreamgo-collegs', $categories);
         }
+    }
+
+    public function unlockcrawl()
+    {
+        return request()->all();
+    }
+
+    public function unlockcrawlForm()
+    {
+        return view('unlockcrawl');
     }
 
     public function adminPage()
