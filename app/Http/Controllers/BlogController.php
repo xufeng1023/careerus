@@ -57,16 +57,17 @@ class BlogController extends Controller
             preg_match('/tc=([\d]*)/', $page, $time);
 
             if(isset($time[1])) {
-                preg_match('/tc=([\d]*)/', $page, $url);
-                $response = $http->post('https://weixin.sogou.com/antispider/thank.php', [
-                    'form_params' => [
-                        'c' => '34rfd3',
-                        'r' => $url[1],
-                        'v' => 5
-                    ],
-                ]);
-                var_dump($response);
-                var_dump('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1]);
+                \Mail::to('xfeng@dreamgo.com')->send('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1]);
+                // preg_match('/tc=([\d]*)/', $page, $url);
+                // $response = $http->post('https://weixin.sogou.com/antispider/thank.php', [
+                //     'form_params' => [
+                //         'c' => '34rfd3',
+                //         'r' => $url[1],
+                //         'v' => 5
+                //     ],
+                // ]);
+                // var_dump($response);
+                // var_dump('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1]);
             }
             return;
         }
