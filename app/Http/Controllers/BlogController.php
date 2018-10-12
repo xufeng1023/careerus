@@ -40,6 +40,7 @@ class BlogController extends Controller
     { 
         if(!$whatToCrawl = cache('dreamgo-collegs')) return;
 
+        $http = new \GuzzleHttp\Client;
         libxml_use_internal_errors(true);
         $meta = '<meta http-equiv="Content-Type" content="text/html; charset=utf8"/>';
         
@@ -52,11 +53,20 @@ class BlogController extends Controller
         $page = file_get_contents('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
 
         /* 攻克验证码 */
-        if(stripos($page, '验证码') !== false) {
+        if(stripos($page, '验证码') !== false) { dd($page);
             preg_match('/tc=([\d]*)/', $page, $matches);
-            var_dump('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$matches[1]);
 
-            //\Log::info('https://weixin.sogou.com/antispider/util/seccode.php?tc='+$matches[0]);
+            if(isset($matches[1])) {
+                $response = $http->post('https://weixin.sogou.com/antispider/thank.php', [
+                    'form_params' => [
+                        'c' => '34rfd3',
+                        'r' => $excerpt,
+                        'v' => 5
+                    ],
+                ]);
+                var_dump('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$matches[1]);
+            }
+            
             return;
         }
         /*************/
@@ -65,7 +75,7 @@ class BlogController extends Controller
         preg_match('/<ul class="news-list".*<\/ul>/', $page, $matches);
 
         if(!isset($matches[0])) {
-            var_dump($page);
+            \Log::info($title);
             return;
         }
 
@@ -113,8 +123,6 @@ class BlogController extends Controller
             $contentPage = strip_tags($contentPage, '<div><span><pre><p><br><hr><hgroup><h1><h2><h3><h4><h5><h6>
             <ul><ol><li><dl><dt><dd><strong><em><b><i><u><img><abbr><address>
             <blockquote><label><caption><table><tbody><td><tfoot><th><thead><tr>');
-
-            $http = new \GuzzleHttp\Client;
 
             $http->post('http://18.219.227.57/wp-admin/admin-ajax.php?action=dreamgo_wechat_post', [
                 'form_params' => [
