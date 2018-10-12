@@ -57,12 +57,12 @@ class BlogController extends Controller
         $search = rtrim($query->name, '新闻');
         
         $page = file_get_contents('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
-
+        dd($page);
         /* 攻克验证码 */
         if(stripos($page, '验证码') !== false) {
             preg_match('/tc=([\d]*)/', $page, $time);
 
-            if(isset($time[1])) { dd($page);
+            if(isset($time[1])) {
                 preg_match('/"(%2.*)"/', $page, $url);
                 \Mail::raw($url[1], function ($message) {
                     $message->to('xfeng@dreamgo.com')
