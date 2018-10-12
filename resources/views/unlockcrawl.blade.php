@@ -8,6 +8,7 @@
             <input type="text" class="form-control mb-3" name="c" required>
             <input type="hidden" name="r" value="{{ request('r') }}">
             <button type="submit" class="btn btn-default">submit</button>
+            {{ request('r') }}
         </form>
     </div>
 </div>
