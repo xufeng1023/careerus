@@ -57,10 +57,10 @@ class BlogController extends Controller
         $search = rtrim($query->name, '新闻');
         
         //////
-        $page = $this->http->get('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
+        $html = $this->http->get('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
        // dd((string)$r->getBody());
         ////
-
+        $page = (string) $html->getBody();
         //$page = file_get_contents('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
         
         /* 攻克验证码 */
