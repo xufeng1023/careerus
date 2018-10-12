@@ -2,10 +2,10 @@
 
 Auth::routes();
 
-Route::get('/test-crawl', 'BlogController@crawlWeChatBlog');
+// Route::get('/test-crawl', 'BlogController@crawlWeChatBlog');
 
-Route::get('/unlockcrawl', 'BlogController@unlockcrawlForm');
-Route::post('/unlockcrawl', 'BlogController@unlockcrawl');
+// Route::get('/unlockcrawl', 'BlogController@unlockcrawlForm');
+// Route::post('/unlockcrawl', 'BlogController@unlockcrawl');
 
 Route::get('/login/google', '\App\Http\Controllers\Auth\LoginController@redirectToProvider');
 Route::get('/login/google/callback', '\App\Http\Controllers\Auth\LoginController@handleProviderCallback');
