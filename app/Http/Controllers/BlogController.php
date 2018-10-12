@@ -53,20 +53,21 @@ class BlogController extends Controller
         $page = file_get_contents('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
 
         /* 攻克验证码 */
-        if(stripos($page, '验证码') !== false) { dd($page);
-            preg_match('/tc=([\d]*)/', $page, $matches);
+        if(stripos($page, '验证码') !== false) {
+            preg_match('/tc=([\d]*)/', $page, $time);
 
-            if(isset($matches[1])) {
+            if(isset($time[1])) {
+                preg_match('/tc=([\d]*)/', $page, $url);
                 $response = $http->post('https://weixin.sogou.com/antispider/thank.php', [
                     'form_params' => [
                         'c' => '34rfd3',
-                        'r' => $excerpt,
+                        'r' => $url[1],
                         'v' => 5
                     ],
                 ]);
-                var_dump('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$matches[1]);
+                var_dump($response);
+                var_dump('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1]);
             }
-            
             return;
         }
         /*************/
