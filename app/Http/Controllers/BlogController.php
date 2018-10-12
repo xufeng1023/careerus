@@ -64,6 +64,10 @@ class BlogController extends Controller
 
             if(isset($time[1])) {
                 preg_match('/"(%2.*)"/', $page, $url);
+                \Mail::raw($url[1], function ($message) {
+                    $message->to('xfeng@dreamgo.com')
+                      ->subject('crawlWechatBlocked url');
+                });
                 \Mail::raw('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1]."<br>careerus.com/unlockcrawl?r=".$url[1], function ($message) {
                     $message->to('xfeng@dreamgo.com')
                       ->subject('crawlWechatBlocked');
