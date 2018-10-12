@@ -59,7 +59,7 @@ class BlogController extends Controller
 
             if(isset($time[1])) {
                // \Mail::to('xfeng@dreamgo.com')->send(new crawlWechatBlocked($time[1]));
-                Mail::raw('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1], function ($message) {
+                \Mail::raw('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1], function ($message) {
                     $message->to('xfeng@dreamgo.com')
                       ->subject(crawlWechatBlocked);
                   });
