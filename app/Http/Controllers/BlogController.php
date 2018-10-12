@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Cache;
 use DB;
+use Cache;
+use App\Mail\crawlWechatBlocked;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 use App\{Blog, CrawlBlog};
 
@@ -57,7 +58,7 @@ class BlogController extends Controller
             preg_match('/tc=([\d]*)/', $page, $time);
 
             if(isset($time[1])) {
-                \Mail::to('xfeng@dreamgo.com')->send('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1]);
+                \Mail::to('xfeng@dreamgo.com')->send(new crawlWechatBlocked($time[1]));
                 // preg_match('/tc=([\d]*)/', $page, $url);
                 // $response = $http->post('https://weixin.sogou.com/antispider/thank.php', [
                 //     'form_params' => [
