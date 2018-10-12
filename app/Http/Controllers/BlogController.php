@@ -38,7 +38,7 @@ class BlogController extends Controller
 
     public function crawlWeChatBlog()
     { 
-        echo (new TesseractOCR('images/text.png'))
+        echo (new TesseractOCR('images/seccode.jpg'))
         ->run();
        // $file = file_get_contents('https://weixin.sogou.com/antispider/util/seccode.php?tc=1539356888801');
         //var_dump(base64_decode($file));
