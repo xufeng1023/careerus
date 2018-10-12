@@ -53,6 +53,7 @@ class BlogController extends Controller
 
         /* 攻克验证码 */
         if(stripos($page, '验证码') !== false) {
+            dd($page);
             preg_match('/\d{13}/', $page, $matches);
             var_dump($matches);
 
