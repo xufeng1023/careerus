@@ -166,13 +166,15 @@ class BlogController extends Controller
 
     public function unlockcrawl()
     {
-        $this->http->post('https://weixin.sogou.com/antispider/thank.php', [
+        $response = $this->http->post('https://weixin.sogou.com/antispider/thank.php', [
             'form_params' => [
                 'c' => request('c'),
                 'r' => request('r'),
                 'v' => 5
             ]
         ]);
+
+        dd($response);
     }
 
     public function unlockcrawlForm()
