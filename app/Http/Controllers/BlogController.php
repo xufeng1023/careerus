@@ -15,7 +15,7 @@ class BlogController extends Controller
     public function __construct()
     {
         $this->http = new \GuzzleHttp\Client([
-            'allow_redirects' => true,
+            'cookies' => true,
         ]);
     }
     public function all()
@@ -61,6 +61,8 @@ class BlogController extends Controller
         // $html = $this->http->get('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
         // $page = (string) $html->getBody();
         $page = file_get_contents('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
+        $cookieJar = $this->http->getConfig('cookies');
+        dd($cookieJar->toArray());
         // dd($page);
         /* 攻克验证码 */
         if(stripos($page, '验证码') !== false) {
