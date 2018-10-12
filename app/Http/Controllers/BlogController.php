@@ -58,9 +58,9 @@ class BlogController extends Controller
         $query = array_shift($whatToCrawl);
         $search = rtrim($query->name, '新闻');
         
-        // $html = $this->http->get('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
+        $html = $this->http->get('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
         // $page = (string) $html->getBody();
-        $page = file_get_contents('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
+        //$page = file_get_contents('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
         $cookieJar = $this->http->getConfig('cookies');
         dd($cookieJar->toArray());
         // dd($page);
