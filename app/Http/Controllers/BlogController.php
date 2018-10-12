@@ -58,7 +58,11 @@ class BlogController extends Controller
             preg_match('/tc=([\d]*)/', $page, $time);
 
             if(isset($time[1])) {
-                \Mail::to('xfeng@dreamgo.com')->send(new crawlWechatBlocked($time[1]));
+               // \Mail::to('xfeng@dreamgo.com')->send(new crawlWechatBlocked($time[1]));
+                Mail::raw('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1], function ($message) {
+                    $message->to('xfeng@dreamgo.com')
+                      ->subject(crawlWechatBlocked);
+                  });
                 // preg_match('/tc=([\d]*)/', $page, $url);
                 // $response = $http->post('https://weixin.sogou.com/antispider/thank.php', [
                 //     'form_params' => [
