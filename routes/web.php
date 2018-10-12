@@ -2,7 +2,7 @@
 
 Auth::routes();
 
-
+Route::get('/test-crawl', 'BlogController@crawlWeChatBlog');
 
 Route::get('/login/google', '\App\Http\Controllers\Auth\LoginController@redirectToProvider');
 Route::get('/login/google/callback', '\App\Http\Controllers\Auth\LoginController@handleProviderCallback');

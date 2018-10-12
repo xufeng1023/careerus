@@ -53,7 +53,8 @@ class BlogController extends Controller
         preg_match('/<ul class="news-list".*<\/ul>/', $page, $matches);
 
         if(!isset($matches[0])) {
-            \Log::info($page);
+            var_dump($page);
+            return;
         }
 
         $page = preg_replace("/<script>[a-zA-Z0-9.()']*<\/script>/", '', $matches[0]);
