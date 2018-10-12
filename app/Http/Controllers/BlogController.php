@@ -54,7 +54,7 @@ class BlogController extends Controller
         /* 攻克验证码 */
         if(stripos($page, '验证码') !== false) {
             preg_match('/tc=([\d]*)/', $page, $matches);
-            var_dump($matches);
+            var_dump('https://weixin.sogou.com/antispider/util/seccode.php?tc='+$matches[1]);
 
             //\Log::info('https://weixin.sogou.com/antispider/util/seccode.php?tc='+$matches[0]);
             return;
