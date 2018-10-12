@@ -14,7 +14,9 @@ class BlogController extends Controller
 
     public function __construct()
     {
-        $this->http = new \GuzzleHttp\Client;
+        $this->http = new \GuzzleHttp\Client([
+            'allow_redirects' => true,
+        ]);
     }
     public function all()
     {
