@@ -168,15 +168,16 @@ class BlogController extends Controller
     {
         $url = urldecode(request('r'));
         $r = explode('&', $url)[0].'&_sug_type_=&&_sug_=n&type=2&page=1&ie=utf8';
+        $c = strtoupper(request('c'));
 
         $response = $this->http->post('https://weixin.sogou.com/antispider/thank.php', [
             'form_params' => [
-                'c' => strtoupper(request('c')),
+                'c' => $c,
                 'r' => $r,
                 'v' => 5
             ]
         ]);
-                var_dump(request('c'), $r);
+                var_dump($c, $r);
         dd((string) $response->getBody());
     }
 
