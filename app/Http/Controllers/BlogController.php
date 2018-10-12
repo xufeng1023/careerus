@@ -57,12 +57,12 @@ class BlogController extends Controller
         $search = rtrim($query->name, '新闻');
         
         //////
-        $r = $this->http->get('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
-        dd((string)$r->getBody());
+        $page = $this->http->get('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
+       // dd((string)$r->getBody());
         ////
 
-        $page = file_get_contents('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
-        dd($page);
+        //$page = file_get_contents('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
+        
         /* 攻克验证码 */
         if(stripos($page, '验证码') !== false) {
             preg_match('/tc=([\d]*)/', $page, $time);
