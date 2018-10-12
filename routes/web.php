@@ -2,7 +2,7 @@
 
 Auth::routes();
 
-// Route::get('/test-crawl', 'BlogController@crawlWeChatBlog');
+Route::get('/test-crawl', 'BlogController@crawlWeChatBlog');
 
 Route::get('/unlockcrawl', 'BlogController@unlockcrawlForm');
 Route::post('/unlockcrawl', 'BlogController@unlockcrawl');

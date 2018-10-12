@@ -58,7 +58,7 @@ class BlogController extends Controller
             preg_match('/tc=([\d]*)/', $page, $time);
 
             if(isset($time[1])) {
-                preg_match('/tc=([\d]*)/', $page, $url);
+                preg_match('/tc=([\d]*)/', $page, $url); dd($url);
                 \Mail::raw('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1]."<br>".$url[1], function ($message) {
                     $message->to('xfeng@dreamgo.com')
                       ->subject('crawlWechatBlocked');
