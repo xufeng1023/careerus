@@ -38,11 +38,6 @@ class BlogController extends Controller
 
     public function crawlWeChatBlog()
     { 
-        echo (new TesseractOCR('images/seccode.jpg'))
-        ->run();
-       // $file = file_get_contents('https://weixin.sogou.com/antispider/util/seccode.php?tc=1539356888801');
-        //var_dump(base64_decode($file));
-        return;
         if(!$whatToCrawl = cache('dreamgo-collegs')) return;
 
         libxml_use_internal_errors(true);
@@ -55,6 +50,15 @@ class BlogController extends Controller
         $search = rtrim($query->name, '新闻');
         
         $page = file_get_contents('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
+
+        /* 攻克验证码 */
+        if(stripos($page, '验证码') !== false) {
+            preg_match('/\d{13}/', $page, $matches);
+            \Log::info('https://weixin.sogou.com/antispider/util/seccode.php?tc='+$matches[0]);
+            return;
+        }
+        /*************/
+
         $page = preg_replace("/[\n\r\t]+/", '', $page);
         preg_match('/<ul class="news-list".*<\/ul>/', $page, $matches);
 
