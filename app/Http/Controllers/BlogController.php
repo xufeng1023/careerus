@@ -169,7 +169,7 @@ class BlogController extends Controller
 
         $response = $this->http->post('https://weixin.sogou.com/antispider/thank.php', [
             'form_params' => [
-                'c' => $c,
+                'c' => urlencode($c),
                 'r' => $r,
                 'v' => 5
             ]
