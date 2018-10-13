@@ -61,9 +61,7 @@ class BlogController extends Controller
         $html = $this->http->get('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
         $page = (string) $html->getBody();
         //$page = file_get_contents('http://weixin.sogou.com/weixin?query='.urlencode($search).'&type=2');
-        //$cookieJar = $this->http->getConfig('cookies');
-        //dd($cookieJar->toArray());
-        // dd($page);
+
         /* 攻克验证码 */
         if(stripos($page, '验证码') !== false) {
             preg_match('/tc=([\d]*)/', $page, $time);
@@ -118,13 +116,6 @@ class BlogController extends Controller
             $contentPage = preg_replace('/<!DOCTYPE html>.*<\/em> <\/div> /', '', $contentPage);
             $contentPage = preg_replace('/<\/div> <script nonce="[\d]+" type="text\/javascript"> var first_sceen__time.*html>/', '', $contentPage);
             $contentPage .= '</div>';
-           // dd($contentPage);
-            //preg_match('/<div class="rich_media_content\s?" id="js_content.*[\n\s]*.*[\n\s]*<\/div>/', $contentPage, $matches);
-
-            // if(!isset($matches[0])) {
-            //     \Log::info($matches);
-            //     continue;
-            // }
 
             $contentPage = preg_replace('/<script.*<\/script>/', '', $contentPage);
             
