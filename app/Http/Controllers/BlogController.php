@@ -67,11 +67,11 @@ class BlogController extends Controller
             preg_match('/tc=([\d]*)/', $page, $time);
 
             if(isset($time[1])) {
-                preg_match('/"(%2.*)"/', $page, $url);
-                \Mail::raw('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1]."<br>careerus.com/unlockcrawl?r=".$url[1], function ($message) {
-                    $message->to('xfeng@dreamgo.com')
-                      ->subject('crawlWechatBlocked');
-                });
+                // preg_match('/"(%2.*)"/', $page, $url);
+                // \Mail::raw('https://weixin.sogou.com/antispider/util/seccode.php?tc='.$time[1]."<br>careerus.com/unlockcrawl?r=".$url[1], function ($message) {
+                //     $message->to('xfeng@dreamgo.com')
+                //       ->subject('crawlWechatBlocked');
+                // });
             }
             return;
         }
