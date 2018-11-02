@@ -13,7 +13,11 @@ return [
     */
    
     'supportsCredentials' => false,
-    'allowedOrigins' => ['https://greencardlegal.com'],
+    'allowedOrigins' => [
+        'https://greencardlegal.com',
+        'https://dreamgo.com',
+        'http://18.219.227.57'
+    ],
     'allowedOriginsPatterns' => [],
     'allowedHeaders' => ['*'],
     'allowedMethods' => ['*'],
