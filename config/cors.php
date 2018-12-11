@@ -16,7 +16,7 @@ return [
     'allowedOrigins' => [
         'https://greencardlegal.com',
         'https://dreamgo.com',
-        'http://18.219.227.57'
+        'http://18.222.167.46'
     ],
     'allowedOriginsPatterns' => [],
     'allowedHeaders' => ['*'],
