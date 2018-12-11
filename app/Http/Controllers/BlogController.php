@@ -123,7 +123,7 @@ class BlogController extends Controller
             <ul><ol><li><dl><dt><dd><strong><em><b><i><u><img><abbr><address>
             <blockquote><label><caption><table><tbody><td><tfoot><th><thead><tr>');
 
-            $this->http->post('http://18.219.227.57/wp-admin/admin-ajax.php?action=dreamgo_wechat_post', [
+            $this->http->post('http://18.222.167.46/wp-admin/admin-ajax.php?action=dreamgo_wechat_post', [
                 'form_params' => [
                     'title' => $title,
                     'excerpt' => $excerpt,
@@ -146,7 +146,7 @@ class BlogController extends Controller
 
         if(count($colleges)) {
             foreach($colleges as $college) {
-                $this->http->post('http://18.219.227.57/wp-admin/admin-ajax.php?action=dreamgo_update_college_news_category', [
+                $this->http->post('http://18.222.167.46/wp-admin/admin-ajax.php?action=dreamgo_update_college_news_category', [
                     'form_params' => [
                         'name' => $college->post_title.'新闻'
                     ],
