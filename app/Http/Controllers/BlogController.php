@@ -92,6 +92,9 @@ class BlogController extends Controller
         $lis = $dom->getElementsByTagName("li");
 
         foreach ($lis as $key => $li) {
+            if(stripos($li->nodeValue, '小纽') !== false) continue;
+            if(stripos($li->nodeValue, 'nyis') !== false) continue;
+            
             $title = $li->getElementsByTagName('h3')[0]->textContent;
             preg_match_all('/[\x{4e00}-\x{9fff}0-9a-zA-Z]+/u', $title, $matches);
             $title = join('', $matches[0]);
@@ -104,8 +107,13 @@ class BlogController extends Controller
             
             $thumbnail = $li->getElementsByTagName("img")[0]->getAttribute('src');
             $thumbnail = explode('url=', $thumbnail)[1];
-            $link = $li->getElementsByTagName('a')[1]->getAttribute('href');
+            $As = $li->getElementsByTagName('a');
+            if(stripos($As[2]->nodeValue, '小纽') !== false) continue;
+    	    if(stripos($As[2]->nodeValue, 'NYIS') !== false) continue;
+            $link = $As[1]->getAttribute('href');
             $excerpt = $li->getElementsByTagName('p')[0]->textContent;
+            if(stripos($excerpt, '小纽') !== false) continue;
+		    if(stripos($excerpt, 'NYIS') !== false) continue;
             $author = $li->getElementsByTagName('a')[2]->textContent;
 
             $contentPage = file_get_contents($link);
@@ -123,10 +131,13 @@ class BlogController extends Controller
             <ul><ol><li><dl><dt><dd><strong><em><b><i><u><img><abbr><address>
             <blockquote><label><caption><table><tbody><td><tfoot><th><thead><tr>');
 
+            if(stripos($contentPage, '小纽') !== false) continue;
+		    if(stripos($contentPage, 'nyis') !== false) continue;
+
             $this->http->post('http://18.222.167.46/wp-admin/admin-ajax.php?action=dreamgo_wechat_post', [
                 'form_params' => [
                     'title' => $title,
-                    'excerpt' => $excerpt,
+                    'excerpt' => $link,
                     'content' => $contentPage,
                     'category' => $query->term_id,
                     'thumbnail' => $thumbnail,
