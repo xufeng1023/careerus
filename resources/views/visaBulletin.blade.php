@@ -6,6 +6,7 @@
 
 @section('description')
 <meta name="description" content="提供及时更新的最新绿卡排期查询，让大家对绿卡日期变动有最快的了解.">
+<link rel="canonical" href="https://greencardlegal.com/%E6%9C%80%E6%96%B0%E7%BB%BF%E5%8D%A1%E6%8E%92%E6%9C%9F/">
 @endsection
 
 @section('content')
