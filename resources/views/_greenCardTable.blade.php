@@ -25,18 +25,22 @@ h3{font-size:18px !important;}
                 </td>
                 <td>
                     @php
-                        if(isset($visas[$key + 16])) {
-                            if($visas[$key + 16]->action_at != null && $visas[$key + 16]->action_at != 'U') echo $last = $visas[$key + 16]->action_at;
-                            elseif($visas[$key + 16]->action_at == null) echo '无需排期';
-                            elseif($visas[$key + 16]->action_at == 'U') echo '排期撤销';
-                        }
+                        $filtered = $visas->filter(function($item) use($visa) {
+                            return $item->check_at == $visa->check_at->subMonth(1) && $item->title == $visa->title;
+                        })->toArray();
+  
+                        $action_at = array_pop($filtered)['action_at'];
+                        $last = '';
+                        if($action_at != null && $action_at != 'U') echo $last = $action_at;
+                        elseif($action_at == null) echo '无需排期';
+                        elseif($action_at == 'U') echo '排期撤销';
                     @endphp
                 </td>
                 <td>
                 @php
                     if($visa->action_at != null && $visa->action_at != 'U') {
                         echo $visa->action_at;
-                        if(isset($last) && ($last != $visa->action_at)) {
+                        if($last != '' && ($last != $visa->action_at)) {
                             if($last == null || $last == 'U') echo '出现排期';
                             else echo '<br>'.$visa->changesInDays($last);
                         }
@@ -77,11 +81,16 @@ h3{font-size:18px !important;}
                     <h6><strong>{{ $visa->titleToEb() }}</strong><br>{{ $visa->titleToChinese() }}</h6>
                 </td>
                 <td>
-                    @php
-                        if(isset($visas[$key + 16]) && $visas[$key + 16]->filing_at) echo $visas[$key + 16]->filing_at;
-                        else echo '无需排期';
-                            
-                        $last = $visas[$key + 16]->filing_at;
+                @php
+                        $filtered = $visas->filter(function($item) use($visa) {
+                            return $item->check_at == $visa->check_at->subMonth(1) && $item->title == $visa->title;
+                        })->toArray();
+  
+                        $filing_at = array_pop($filtered)['filing_at'];
+                        $last = '';
+                        if($filing_at != null && $filing_at != 'U') echo $last = $filing_at;
+                        elseif($filing_at == null) echo '无需排期';
+                        elseif($filing_at == 'U') echo '排期撤销';
                     @endphp
                 </td>
                 <td>
