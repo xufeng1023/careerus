@@ -27,7 +27,8 @@
                     </div>
                 @endforelse
             </ul>
-            <video width="320" height="568" controls></video>
+            <div id="log"></div>
+            <video width="320" height="568"></video>
         </div>
     </div>
 </div>
@@ -39,6 +40,8 @@
     })
 .then(function(stream) {
     var video = document.querySelector('video');
+    var log = document.querySelector('#log');
+    $('#log').text(log)
   video.srcObject = stream;
   video.onloadedmetadata = function(e) {
     video.play();
