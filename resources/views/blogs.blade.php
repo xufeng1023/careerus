@@ -27,7 +27,7 @@
                     </div>
                 @endforelse
             </ul>
-            <div id="userMedia"></div>
+            <video width="320" height="568" controls></video>
         </div>
     </div>
 </div>
@@ -38,15 +38,14 @@
         video: true
     })
 .then(function(stream) {
-    // for(var prop in stream) {
-    //     document.write(prop +' : '+stream[prop])
-    // }
-    console.log(stream.getTracks())
-//     document.write(stream)
-//   $('#userMedia').text(stream)
-})
+    var video = document.querySelector('video');
+  video.srcObject = stream;
+  video.onloadedmetadata = function(e) {
+    video.play();
+  };
+
 .catch(function(err) {
-    $('#userMedia').text(err)
+    console.log(err.name + ": " + err.message);
 });
 </script>
 @endsection
