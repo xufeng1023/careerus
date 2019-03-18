@@ -27,6 +27,7 @@
                     </div>
                 @endforelse
             </ul>
+            <div id="qrresult"></div>
             <div class="row">
                 <div class="col-6">
                     <video width="100%" autoplay muted playsinline controls></video>
@@ -53,7 +54,6 @@
     var context = canvas.getContext('2d');
 
     function draw() {
-        alert(2)
         context.drawImage(video,0,0,canvas.width,canvas.height);
         var dataURL = canvas.toDataURL();
         Quagga.decodeSingle({
@@ -63,7 +63,9 @@
             locate: true, // try to locate the barcode in the image
             src: dataURL
         }, function(result){
-            alert(result)
+            for(var prop in result) {
+                $('#qrresult').append('<div>'+prop+' : '+result[prop]+'</div>')
+            }
             if(result) {
                 if(result.codeResult) {
                     alert("result", result.codeResult.code);
