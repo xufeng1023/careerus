@@ -35,7 +35,7 @@
 @section('script')
 <script>
     navigator.mediaDevices.getUserMedia({
-        vidie: true
+        video: true
     })
 .then(function(stream) {
     console.log(stream)
