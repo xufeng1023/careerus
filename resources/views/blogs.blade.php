@@ -52,7 +52,8 @@
     var context = canvas.getContext('2d');
 
     function draw() {
-        context.drawImage(video,0,0,canvas.width,canvas.height);
+        context.drawImage(video,0,0,context.width,context.height);
+        requestAnimationFrame(draw)
     }
 
     video.srcObject = stream;
@@ -62,10 +63,12 @@
     video.addEventListener('play', function(){
         canvas.width = video.clientWidth;
         canvas.height = video.clientHeight;
-        requestAnimationFrame(draw)
+        draw();
     },false);
 }).catch(function(err) {
     alert(err.name + ": " + err.message);
 });
+
+
 </script>
 @endsection
