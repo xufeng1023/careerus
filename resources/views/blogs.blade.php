@@ -53,6 +53,7 @@
     var context = canvas.getContext('2d');
 
     function draw() {
+        alert(2)
         context.drawImage(video,0,0,canvas.width,canvas.height);
         var dataURL = canvas.toDataURL();
         Quagga.decodeSingle({
@@ -83,7 +84,7 @@
         //draw();
     },false);
 
-    video.addEventListener('pouse', function(){
+    video.addEventListener('pause', function(){
         draw();
     },false);
 }).catch(function(err) {
