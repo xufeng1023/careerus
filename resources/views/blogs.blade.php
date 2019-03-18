@@ -47,6 +47,9 @@ Quagga.init({
     inputStream : {
       name : "Live",
       type : "LiveStream",
+      constraints: {
+        width: '100%',
+    },
       target: document.querySelector('#qrresult')    // Or '#yourElement' (optional)
     },
     decoder : {
@@ -59,14 +62,15 @@ Quagga.init({
       }
      // alert("Initialization finished. Ready to start");
       Quagga.start();
+      Quagga.onProcessed = function(data) {
+      alert(data)
+  }
       Quagga.onDetected = function(data) {
         alert(data.codeResult.code)
     }
   });
 
-  Quagga.onProcessed = function(data) {
-      alert(data)
-  }
+  
 
   
 </script>
