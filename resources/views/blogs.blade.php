@@ -38,10 +38,10 @@
         video: true
     })
 .then(function(stream) {
-    for(var prop in stream) {
-        document.write(prop +' : '+stream[prop])
-    }
-//     console.log(stream)
+    // for(var prop in stream) {
+    //     document.write(prop +' : '+stream[prop])
+    // }
+    console.log(stream)
 //     document.write(stream)
 //   $('#userMedia').text(stream)
 })
