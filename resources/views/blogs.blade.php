@@ -36,7 +36,9 @@
 @section('script')
 <script>
     navigator.mediaDevices.getUserMedia({
-        video: true
+        video: {
+            facingMode: 'environment'
+        }
     })
 .then(function(stream) {
     var video = document.querySelector('video');
