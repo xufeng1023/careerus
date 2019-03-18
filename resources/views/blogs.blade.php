@@ -28,10 +28,10 @@
                 @endforelse
             </ul>
             <div class="row">
-                <div class="col">
+                <div class="col-6">
                     <video width="100%" autoplay muted playsinline></video>
                 </div>
-                <div class="col">
+                <div class="col-6">
                     <canvas></canvas>
                 </div>
             </div>
