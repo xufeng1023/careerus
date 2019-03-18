@@ -51,6 +51,10 @@
     var canvas = document.querySelector('canvas');
     var context = canvas.getContext('2d');
 
+    function draw() {
+        context.drawImage(video,0,0,canvas.width,canvas.height);
+    }
+
     video.srcObject = stream;
     video.onloadedmetadata = function(e) {
         video.play();
@@ -58,7 +62,7 @@
     video.addEventListener('play', function(){
         canvas.width = video.clientWidth;
         canvas.height = video.clientHeight;
-        context.drawImage(video,0,0,canvas.width,canvas.height);
+        requestAnimationFrame(draw)
     },false);
 }).catch(function(err) {
     alert(err.name + ": " + err.message);
