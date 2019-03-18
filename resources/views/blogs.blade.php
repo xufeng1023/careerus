@@ -47,9 +47,11 @@ Quagga.init({
     inputStream : {
       name : "Live",
       type : "LiveStream",
-      inputStream: {
-        size: 200  // restrict input-size to be 800px in width (long-side)
-    },
+      constraints: {
+            width: 200,
+            height: 200,
+            facing: "environment" // or user
+        },
       target: document.querySelector('#qrresult')    // Or '#yourElement' (optional)
     },
     decoder : {
