@@ -39,6 +39,7 @@
     })
 .then(function(stream) {
     console.log(stream)
+    document.write(stream)
   $('#userMedia').text(stream)
 })
 .catch(function(err) {
