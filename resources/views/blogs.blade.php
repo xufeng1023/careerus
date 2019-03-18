@@ -28,7 +28,7 @@
                 @endforelse
             </ul>
             <div id="log"></div>
-            <video width="320" height="568"></video>
+            <video width="320" height="568" autoplay muted></video>
         </div>
     </div>
 </div>
