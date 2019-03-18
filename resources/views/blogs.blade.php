@@ -29,7 +29,7 @@
             </ul>
             <div class="row">
                 <div class="col-6">
-                    <video width="100%" autoplay muted playsinline></video>
+                    <video width="100%" autoplay muted playsinline controls></video>
                 </div>
                 <div class="col-6">
                     <canvas></canvas>
