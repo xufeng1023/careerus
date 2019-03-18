@@ -42,7 +42,7 @@
   $('#userMedia').text(stream)
 })
 .catch(function(err) {
-  /* handle the error */
+    $('#userMedia').text(err)
 });
 </script>
 @endsection
