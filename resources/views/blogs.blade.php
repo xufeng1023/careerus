@@ -27,8 +27,12 @@
                     </div>
                 @endforelse
             </ul>
-            <div id="log"></div>
-            <video width="320" height="568" autoplay muted playsinline></video>
+            <div class="row">
+                <div class="col">
+                    <video width="100%" autoplay muted playsinline></video>
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>
