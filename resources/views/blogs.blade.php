@@ -40,6 +40,7 @@
 </div>
 @endsection
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 <script>
     navigator.mediaDevices.getUserMedia({
         video: {
@@ -53,7 +54,23 @@
 
     function draw() {
         context.drawImage(video,0,0,canvas.width,canvas.height);
-        requestAnimationFrame(draw)
+        var dataURL = canvas.toDataURL();
+        Quagga.decodeSingle({
+            decoder: {
+                readers: ["code_128_reader"] // List of active readers
+            },
+            locate: true, // try to locate the barcode in the image
+            src: dataURL
+        }, function(result){
+            if(result) {
+                if(result.codeResult) {
+                    alert("result", result.codeResult.code);
+                } 
+            }else{
+                    alert("未扫描成功!");
+            } 
+        });
+       // requestAnimationFrame(draw)
     }
 
     video.srcObject = stream;
@@ -63,6 +80,10 @@
     video.addEventListener('play', function(){
         canvas.width = video.clientWidth;
         canvas.height = video.clientHeight;
+        //draw();
+    },false);
+
+    video.addEventListener('pouse', function(){
         draw();
     },false);
 }).catch(function(err) {
