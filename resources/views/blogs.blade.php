@@ -52,8 +52,7 @@
     var context = canvas.getContext('2d');
 
     function draw() {
-        alert(2)
-        context.drawImage(video,0,0,context.width,context.height);
+        context.drawImage(video,0,0,canvas.width,canvas.height);
         requestAnimationFrame(draw)
     }
 
