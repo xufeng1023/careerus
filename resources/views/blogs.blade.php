@@ -60,6 +60,10 @@ Quagga.init({
       alert("Initialization finished. Ready to start");
       Quagga.start();
   });
+
+  Quagga.onDetected = function(data) {
+      alert(data.codeResult.code)
+  }
 </script>
 <!-- <script>
     navigator.mediaDevices.getUserMedia({
