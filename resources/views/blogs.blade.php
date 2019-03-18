@@ -43,57 +43,74 @@
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 <script>
+Quagga.init({
+    inputStream : {
+      name : "Live",
+      type : "LiveStream",
+      target: document.querySelector('video')    // Or '#yourElement' (optional)
+    },
+    decoder : {
+      readers : ["code_128_reader"]
+    }
+  }, function(err) {
+      if (err) {
+          console.log(err);
+          return
+      }
+      console.log("Initialization finished. Ready to start");
+      Quagga.start();
+  });
+</script>
+<!-- <script>
     navigator.mediaDevices.getUserMedia({
         video: {
             facingMode: 'environment'
         }
     })
-.then(function(stream) {
-    var video = document.querySelector('video');
-    var canvas = document.querySelector('canvas');
-    var context = canvas.getContext('2d');
+    .then(function(stream) {
+        var video = document.querySelector('video');
+        var canvas = document.querySelector('canvas');
+        var context = canvas.getContext('2d');
 
-    function draw() {
-        context.drawImage(video,0,0,canvas.width,canvas.height);
-        var dataURL = canvas.toDataURL();
-        Quagga.decodeSingle({
-            decoder: {
-                readers: ["code_128_reader"] // List of active readers
-            },
-            locate: true, // try to locate the barcode in the image
-            src: dataURL
-        }, function(result){
-            for(var prop in result) {
-                $('#qrresult').append('<div>'+prop+' : '+result[prop]+'</div>')
-            }
-            if(result) {
-                if(result.codeResult) {
-                    alert("result", result.codeResult.code);
+        function draw() {
+            context.drawImage(video,0,0,canvas.width,canvas.height);
+            var dataURL = canvas.toDataURL();
+            Quagga.decodeSingle({
+                decoder: {
+                    readers: ["code_128_reader"] // List of active readers
+                },
+                locate: true, // try to locate the barcode in the image
+                src: dataURL
+            }, function(result){
+                for(var prop in result) {
+                    $('#qrresult').append('<div>'+prop+' : '+result[prop]+'</div>')
+                }
+                if(result) {
+                    if(result.codeResult) {
+                        alert("result", result.codeResult.code);
+                    } 
+                }else{
+                        alert("未扫描成功!");
                 } 
-            }else{
-                    alert("未扫描成功!");
-            } 
-        });
-       // requestAnimationFrame(draw)
-    }
+            });
+        // requestAnimationFrame(draw)
+        }
 
-    video.srcObject = stream;
-    video.onloadedmetadata = function(e) {
-        video.play();
-    }
-    video.addEventListener('play', function(){
-        canvas.width = video.clientWidth;
-        canvas.height = video.clientHeight;
-        //draw();
-    },false);
+        video.srcObject = stream;
+        video.onloadedmetadata = function(e) {
+            video.play();
+        }
+        video.addEventListener('play', function(){
+            canvas.width = video.clientWidth;
+            canvas.height = video.clientHeight;
+            //draw();
+        },false);
 
-    video.addEventListener('pause', function(){
-        draw();
-    },false);
-}).catch(function(err) {
-    alert(err.name + ": " + err.message);
-});
-
-
-</script>
+        video.addEventListener('pause', function(){
+            draw();
+        },false);
+    }).catch(function(err) {
+        alert(err.name + ": " + err.message);
+    });
+</script> -->
 @endsection
