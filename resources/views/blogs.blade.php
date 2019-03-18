@@ -50,14 +50,14 @@ Quagga.init({
       target: document.querySelector('#qrresult')    // Or '#yourElement' (optional)
     },
     decoder : {
-      readers : ["ean_reader"]
+      readers : ["code_128_reader"]
     }
   }, function(err) {
       if (err) {
           alert(err);
           return
       }
-      alert("Initialization finished. Ready to start");
+     // alert("Initialization finished. Ready to start");
       Quagga.start();
   });
 
