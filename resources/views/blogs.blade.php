@@ -31,8 +31,10 @@
                 <div class="col">
                     <video width="100%" autoplay muted playsinline></video>
                 </div>
+                <div class="col">
+                    <canvas></canvas>
+                </div>
             </div>
-            
         </div>
     </div>
 </div>
@@ -46,14 +48,20 @@
     })
 .then(function(stream) {
     var video = document.querySelector('video');
-    var log = document.querySelector('#log');
-    $('#log').text(log)
-  video.srcObject = stream;
-  video.onloadedmetadata = function(e) {
-    video.play();
-  }
-})
-.catch(function(err) {
+    var canvas = document.querySelector('canvas');
+    var context = canvas.getContext('2d');
+
+    canvas.width = video.clientWidth;
+    canvas.height = video.clientHeight;
+
+    video.srcObject = stream;
+    video.onloadedmetadata = function(e) {
+        video.play();
+    }
+    video.addEventListener('play', function(){
+        context.drawImage(video,0,0,canvas.width,canvas.height);
+    },false);
+}).catch(function(err) {
     alert(err.name + ": " + err.message);
 });
 </script>
