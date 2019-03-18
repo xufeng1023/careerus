@@ -48,8 +48,8 @@ Quagga.init({
       name : "Live",
       type : "LiveStream",
       constraints: {
-            width: 200,
-            height: 200,
+            width: window.innerWidth / 2,
+            height: window.innerHeight / 2,
             facing: "environment" // or user
         },
       target: document.querySelector('#qrresult')    // Or '#yourElement' (optional)
