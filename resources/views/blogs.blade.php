@@ -53,7 +53,7 @@
 
     canvas.width = video.clientWidth;
     canvas.height = video.clientHeight;
-alert(canvas.width,canvas.height)
+alert(cvideo.clientWidth,video.clientHeight)
     video.srcObject = stream;
     video.onloadedmetadata = function(e) {
         video.play();
