@@ -46,7 +46,7 @@
   video.onloadedmetadata = function(e) {
     video.play();
   }
-}
+})
 .catch(function(err) {
     alert(err.name + ": " + err.message);
 });
