@@ -27,7 +27,7 @@
                     </div>
                 @endforelse
             </ul>
-            <div id="qrresult" class="alert alert-success" style="white-space: pre-line;"></div>
+            <div id="qrresult" class="alert alert-success"></div>
             <div class="row">
                 <div class="col-6">
                     <video width="100%" autoplay muted playsinline controls></video>
@@ -47,11 +47,6 @@ Quagga.init({
     inputStream : {
       name : "Live",
       type : "LiveStream",
-      constraints: {
-            width: 320,
-            height: 568,
-            facing: "environment" // or user
-        },
       target: document.querySelector('#qrresult')    // Or '#yourElement' (optional)
     },
     decoder : {
