@@ -42,34 +42,32 @@
 </div>
 @endsection
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 <script>
-Quagga.init({
-    inputStream : {
-      name : "Live",
-      type : "LiveStream",
-      target: document.querySelector('#qrresult')    // Or '#yourElement' (optional)
-    },
-    decoder : {
-      readers : ["code_128_reader"]
-    }
-  }, function(err) {
-      if (err) {
-          alert(err);
-          return
-      }
-     // alert("Initialization finished. Ready to start");
-      Quagga.start();
-      
-      
-  });
+    Quagga.init({
+        inputStream : {
+        name : "Live",
+        type : "LiveStream",
+        target: document.querySelector('#qrresult')    // Or '#yourElement' (optional)
+        },
+        decoder : {
+        readers : ["code_128_reader"]
+        }
+    }, function(err) {
+        if (err) {
+            alert(err);
+            return
+        }
+        // alert("Initialization finished. Ready to start");
+        Quagga.start();
+        
+        
+    });
 
-  Quagga.onDetected(function(data) {
+    Quagga.onDetected(function(data) {
         alert(data.codeResult.code)
     })
-
-  
-</script>
+</script> -->
 <!-- <script>
     navigator.mediaDevices.getUserMedia({
         video: {
