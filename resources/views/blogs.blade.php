@@ -61,6 +61,10 @@ Quagga.init({
       Quagga.start();
   });
 
+  Quagga.onProcessed = function(data) {
+      alert(data)
+  }
+
   Quagga.onDetected = function(data) {
       alert(data.codeResult.code)
   }
