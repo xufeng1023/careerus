@@ -54,10 +54,10 @@ Quagga.init({
     }
   }, function(err) {
       if (err) {
-          console.log(err);
+          alert(err);
           return
       }
-      console.log("Initialization finished. Ready to start");
+      alert("Initialization finished. Ready to start");
       Quagga.start();
   });
 </script>
