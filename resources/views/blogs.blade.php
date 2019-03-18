@@ -27,7 +27,7 @@
                     </div>
                 @endforelse
             </ul>
-            <div id="qrresult" class="alert alert-success"></div>
+            <div id="qrresult" class="alert alert-success" style="white-space: pre-line;"></div>
             <div class="row">
                 <div class="col-6">
                     <video width="100%" autoplay muted playsinline controls></video>
