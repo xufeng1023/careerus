@@ -51,14 +51,13 @@
     var canvas = document.querySelector('canvas');
     var context = canvas.getContext('2d');
 
-    canvas.width = video.clientWidth;
-    canvas.height = video.clientHeight;
-alert(video.videoWidth,video.videoHeight)
     video.srcObject = stream;
     video.onloadedmetadata = function(e) {
         video.play();
     }
     video.addEventListener('play', function(){
+        canvas.width = video.clientWidth;
+        canvas.height = video.clientHeight;
         context.drawImage(video,0,0,canvas.width,canvas.height);
     },false);
 }).catch(function(err) {
