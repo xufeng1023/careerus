@@ -62,10 +62,10 @@ Quagga.init({
       }
      // alert("Initialization finished. Ready to start");
       Quagga.start();
-      Quagga.onProcessed = function(data) {
-      alert(data)
-  }
-      Quagga.onDetected = function(data) {
+      Quagga.onProcessed(data) {
+       // alert(data)
+    }
+      Quagga.onDetected(data) {
         alert(data.codeResult.code)
     }
   });
