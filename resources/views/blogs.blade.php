@@ -27,7 +27,22 @@
                     </div>
                 @endforelse
             </ul>
+            <div id="userMedia"></div>
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script>
+    navigator.mediaDevices.getUserMedia({
+        vidie: true
+    })
+.then(function(stream) {
+    console.log(stream)
+  $('#userMedia').text(stream)
+})
+.catch(function(err) {
+  /* handle the error */
+});
+</script>
 @endsection
