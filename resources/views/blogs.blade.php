@@ -41,7 +41,7 @@
     // for(var prop in stream) {
     //     document.write(prop +' : '+stream[prop])
     // }
-    console.log(stream)
+    console.log(stream.getTracks())
 //     document.write(stream)
 //   $('#userMedia').text(stream)
 })
