@@ -63,6 +63,7 @@
             locate: true, // try to locate the barcode in the image
             src: dataURL
         }, function(result){
+            alert(result)
             if(result) {
                 if(result.codeResult) {
                     alert("result", result.codeResult.code);
