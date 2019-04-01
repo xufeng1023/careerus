@@ -2,6 +2,8 @@
 
 Auth::routes();
 
+//Route::get('/call-history', 'CrmController@callHistory');
+
 Route::get('/test-crawl', 'BlogController@crawlWeChatBlog');
 
 Route::get('/unlockcrawl', 'BlogController@unlockcrawlForm');

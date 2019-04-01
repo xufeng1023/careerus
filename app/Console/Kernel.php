@@ -24,8 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call('\App\Http\Controllers\BlogController@updateCollegesInCache')->daily();
-        $schedule->call('\App\Http\Controllers\BlogController@crawlWeChatBlog')->everyFiveMinutes();
+        //$schedule->call('\App\Http\Controllers\BlogController@updateCollegesInCache')->daily();
+        //$schedule->call('\App\Http\Controllers\BlogController@crawlWeChatBlog')->everyFiveMinutes();
+        $schedule->call('\App\Http\Controllers\CrmController@callHistory')->everyFiveMinutes();
     }
 
     /**
