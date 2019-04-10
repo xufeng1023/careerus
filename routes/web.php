@@ -2,7 +2,7 @@
 
 Auth::routes();
 
-//Route::get('/call-history', 'CrmController@callHistory');
+// Route::get('/auchuang-contact', 'AuChuangController@getAllContacts');
 
 Route::get('/test-crawl', 'BlogController@crawlWeChatBlog');
 

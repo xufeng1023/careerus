@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
         //$schedule->call('\App\Http\Controllers\BlogController@updateCollegesInCache')->daily();
         //$schedule->call('\App\Http\Controllers\BlogController@crawlWeChatBlog')->everyFiveMinutes();
         $schedule->call('\App\Http\Controllers\CrmController@callHistory')->everyTenMinutes();
+        $schedule->call('\App\Http\Controllers\AuChuangController@getAllContacts')->hourly();
     }
 
     /**
