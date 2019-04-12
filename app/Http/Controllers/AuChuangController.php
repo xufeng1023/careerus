@@ -2,13 +2,38 @@
 
 namespace App\Http\Controllers;
 
-// use Carbon\Carbon;
-use App\AuChuang;
+use Carbon\Carbon;
+use App\{AuChuang, WechatChatHistory};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\{Cache, Log};
 
 class AuChuangController extends Controller
 {
+    public function updateChatOnlyRecent() {
+        $from = Carbon::now()->subday()->timestamp * 1000;
+        $to = Carbon::now()->timestamp * 1000;
+        $contacts = AuChuang::orderBy('id', 'desc')->get();
+        foreach($contacts as $c) {
+            $result = $this->curlCall(
+                'https://user.keduowei.com:9991/api/FriendMessage/searchMessage?keyword=&msgType=&accountId=&count=20&messageId=&olderData=true&wechatAccountId='.$c->wechatAccountId.'&wechatFriendId='.$c->id.'&from='.$from.'&to='.$to,
+                false,
+                [
+                    'Authorization: Bearer '.Cache::get('auchuang-bearer-token'),
+                    'Content-Type: application/json'
+                ],
+                []
+            );
+
+            if($result['code'] == 401) {
+                $this->loginFetch();
+                $this->updateChatOnlyRecent();
+            } else {
+                var_dump($result);
+            }
+
+            die;
+        } 
+    }
     public function getAllContacts() {
         $result = $this->curlCall(
             'https://user.keduowei.com:9991/api/WechatFriend/friendlistData',
@@ -33,7 +58,7 @@ class AuChuangController extends Controller
                 "wechatAccountKeyword": ""
             }'
         );
-
+        Log::info($result);
         if($result['code'] == 401) {
             $this->loginFetch();
             $this->getAllContacts();

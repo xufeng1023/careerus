@@ -2,7 +2,7 @@
 
 Auth::routes();
 
-// Route::get('/auchuang-contact', 'AuChuangController@getAllContacts');
+// Route::get('/auchuang-contact', 'AuChuangController@updateChatOnlyRecent');
 
 Route::get('/test-crawl', 'BlogController@crawlWeChatBlog');
 
