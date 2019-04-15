@@ -21,7 +21,7 @@
         </div>
     </div>
             
-    <div class="row justify-content-center my-5">
+    <!-- <div class="row justify-content-center my-5">
         <div class="col-sm-6">
             <form action="/green-card-subscriber" method="post" onsubmit="subscribe(event)">
                 <h1 class="text-center h6">第一时间收到绿卡排期更新的提醒</h1>
@@ -38,7 +38,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> -->
 </div>
 @endsection
 
