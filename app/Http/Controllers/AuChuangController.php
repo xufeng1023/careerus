@@ -91,8 +91,10 @@ class AuChuangController extends Controller
             ]
         );
 
-        if($result['code'] == 400) die;
-
+        if($result['code'] == 400) {
+            Log::info('login failed');
+            die;
+        }
         $data = json_decode($result['data']);
 
         Cache::forever('auchuang-bearer-token', $data->access_token);
