@@ -77,8 +77,8 @@ class CrmController extends Controller
                 'Content-Type:application/x-www-form-urlencoded'
             ],
             [
-                'loginUserName' => 'dreamgo',
-                'loginPassword' => 'Service121',
+                'loginUserName' => env('NEXTIVA_USERNAME'),
+                'loginPassword' => env('NEXTIVA_PASSWORD'),
                 'validateFields' => true
             ]
         );
