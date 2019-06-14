@@ -26,7 +26,7 @@ h3{font-size:18px !important;}
                 <td>
                     @php
                         $filtered = $visas->filter(function($item) use($visa) {
-                            return $item->check_at == $visa->check_at->subMonth(1) && $item->title == $visa->title;
+                            return $item->check_at->month == $visa->check_at->subMonth(1)->month && $item->title == $visa->title;
                         })->toArray();
   
                         $action_at = array_pop($filtered)['action_at'];
@@ -83,7 +83,7 @@ h3{font-size:18px !important;}
                 <td>
                 @php
                         $filtered = $visas->filter(function($item) use($visa) {
-                            return $item->check_at == $visa->check_at->subMonth(1) && $item->title == $visa->title;
+                            return $item->check_at->month == $visa->check_at->subMonth(1)->month && $item->title == $visa->title;
                         })->toArray();
   
                         $filing_at = array_pop($filtered)['filing_at'];
