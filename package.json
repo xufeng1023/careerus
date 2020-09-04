@@ -22,7 +22,7 @@
     "dependencies": {
         "chart.js": "^2.7.2",
         "feather-icons": "^4.7.0",
-        "quill": "^1.3.6",
+        "quill": "^1.3.7",
         "toastr": "^2.1.4",
         "trix": "^0.11.2"
     }
